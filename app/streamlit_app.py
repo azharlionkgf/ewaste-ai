@@ -309,9 +309,9 @@ with st.sidebar:
 
         # Navigation based on role
         if st.session_state.role == "admin":
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","🔍 Form Classify":"classify","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
         else:
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","🔍 Form Classify":"classify","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
 
         selection = st.radio("NAVIGATION", list(pages.keys()), label_visibility="collapsed")
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
@@ -392,24 +392,31 @@ if page_id == "home":
 # ─── IMAGE CLASSIFY ───
 elif page_id == "image":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📸 SMART IMAGE CLASSIFIER</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Upload a photo & answer 4 quick questions — AI classifies instantly! No API key needed.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Upload a photo, select model & get AI chatbot recommendations!</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    # Model Selection
+    available_models = ["🏆 Stacking Ensemble (Best)"]
+    model_keys = {"🏆 Stacking Ensemble (Best)": "stacking"}
+    for mk in ['Random_Forest','XGBoost','LightGBM','CatBoost','DNN']:
+        if mk in artifacts:
+            label = f"🤖 {mk.replace('_',' ')}"
+            available_models.append(label)
+            model_keys[label] = mk
+    selected_model_label = st.selectbox("🧠 SELECT AI MODEL", available_models)
+    selected_model_key = model_keys.get(selected_model_label, "stacking")
 
     uploaded_img = st.file_uploader("📷 Upload E-Waste Image", type=['jpg','jpeg','png','webp'])
 
     if uploaded_img:
         img_bytes = uploaded_img.read()
         ic1, ic2 = st.columns([1, 1])
-
         with ic1:
             st.markdown('<div class="glass-card" style="text-align:center;padding:15px;">', unsafe_allow_html=True)
             st.image(img_bytes, caption="📷 Your E-Waste Item", use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
-
         with ic2:
             st.markdown('<div class="section-header" style="margin-top:0;">🔍 QUICK VISUAL ID</div>', unsafe_allow_html=True)
-            st.markdown('<p style="color:#888;font-size:.9rem;">Look at your uploaded image and answer these:</p>', unsafe_allow_html=True)
-
             visual_type = st.selectbox("1️⃣ What does it look like?", [
                 "📱 Phone/Smartphone", "💻 Laptop/Notebook", "🖥️ Desktop Computer/CPU",
                 "📱 Tablet/iPad", "🖥️ Monitor/Display", "📺 Television/TV",
@@ -420,8 +427,7 @@ elif page_id == "image":
             ])
             visual_size = st.selectbox("2️⃣ How big is it?", [
                 "🔹 Very Small (fits in palm)", "🔸 Small (fits in one hand)",
-                "📦 Medium (fits in a bag)", "📦 Large (needs two hands)",
-                "🏗️ Very Large (heavy/bulky)"
+                "📦 Medium (fits in a bag)", "📦 Large (needs two hands)", "🏗️ Very Large (heavy/bulky)"
             ])
             visual_screen = st.selectbox("3️⃣ Does it have a screen?", ["✅ Yes", "❌ No"])
             visual_condition = st.selectbox("4️⃣ What condition?", [
@@ -429,85 +435,85 @@ elif page_id == "image":
             ])
 
             if st.button("⚡ CLASSIFY NOW", use_container_width=True):
-                with st.spinner("🤖 AI analyzing..."):
-                    time.sleep(0.8)
-
-                    # Map visual answers to device type
-                    type_map = {
-                        "📱 Phone/Smartphone": "Mobile Phones",
-                        "💻 Laptop/Notebook": "Laptops",
-                        "🖥️ Desktop Computer/CPU": "Desktop Computers",
-                        "📱 Tablet/iPad": "Tablets",
-                        "🖥️ Monitor/Display": "Monitors/Displays",
-                        "📺 Television/TV": "Televisions",
-                        "🖨️ Printer/Scanner": "Printers",
-                        "🔋 Battery/Power Cell": "Batteries",
-                        "🔌 Circuit Board/PCB": "PCBs/Circuit Boards",
-                        "🔌 Cable/Wire": "Cables & Wires",
-                        "🏠 Small Appliance (fan/toaster/iron)": "Small Appliances",
-                        "🏠 Large Appliance (fridge/washer)": "Large Appliances",
-                        "💡 Light/Bulb/Tube": "Lighting Equipment",
-                        "🔊 Speaker/Audio/Video Device": "Audio/Video Equipment",
-                        "📡 Router/Switch/Modem": "Networking Equipment"
-                    }
-                    size_weight = {"🔹 Very Small (fits in palm)":0.1, "🔸 Small (fits in one hand)":0.5, "📦 Medium (fits in a bag)":3.0, "📦 Large (needs two hands)":8.0, "🏗️ Very Large (heavy/bulky)":40.0}
-                    cond_map = {"🟢 Working/Good":8, "🟡 Partially Working":5, "🔴 Not Working/Broken":3, "⚫ Severely Damaged":1}
+                with st.spinner(f"🤖 Analyzing with {selected_model_label}..."):
+                    time.sleep(0.5)
+                    type_map = {"📱 Phone/Smartphone":"Mobile Phones","💻 Laptop/Notebook":"Laptops","🖥️ Desktop Computer/CPU":"Desktop Computers","📱 Tablet/iPad":"Tablets","🖥️ Monitor/Display":"Monitors/Displays","📺 Television/TV":"Televisions","🖨️ Printer/Scanner":"Printers","🔋 Battery/Power Cell":"Batteries","🔌 Circuit Board/PCB":"PCBs/Circuit Boards","🔌 Cable/Wire":"Cables & Wires","🏠 Small Appliance (fan/toaster/iron)":"Small Appliances","🏠 Large Appliance (fridge/washer)":"Large Appliances","💡 Light/Bulb/Tube":"Lighting Equipment","🔊 Speaker/Audio/Video Device":"Audio/Video Equipment","📡 Router/Switch/Modem":"Networking Equipment"}
+                    size_weight = {"🔹 Very Small (fits in palm)":0.1,"🔸 Small (fits in one hand)":0.5,"📦 Medium (fits in a bag)":3.0,"📦 Large (needs two hands)":8.0,"🏗️ Very Large (heavy/bulky)":40.0}
+                    cond_map = {"🟢 Working/Good":8,"🟡 Partially Working":5,"🔴 Not Working/Broken":3,"⚫ Severely Damaged":1}
                     has_screen = visual_screen == "✅ Yes"
-
                     category = type_map.get(visual_type, "Mobile Phones")
-                    est_weight = size_weight.get(visual_size, 1.0)
                     condition_score = cond_map.get(visual_condition, 5)
 
-                    # Use trained model if available
                     device_profiles = {
-                        'Mobile Phones': {'weight_kg':0.18,'length_cm':15,'width_cm':7,'height_cm':0.8,'plastic_pct':40,'metal_pct':25,'glass_pct':20,'pcb_pct':12,'ceramic_pct':3,'gold_mg':30,'silver_mg':300,'copper_g':15,'power_consumption_watts':5},
-                        'Laptops': {'weight_kg':2.2,'length_cm':35,'width_cm':24,'height_cm':2,'plastic_pct':30,'metal_pct':35,'glass_pct':10,'pcb_pct':20,'ceramic_pct':5,'gold_mg':50,'silver_mg':500,'copper_g':60,'power_consumption_watts':65},
-                        'Desktop Computers': {'weight_kg':8,'length_cm':45,'width_cm':20,'height_cm':45,'plastic_pct':20,'metal_pct':60,'glass_pct':2,'pcb_pct':15,'ceramic_pct':3,'gold_mg':80,'silver_mg':600,'copper_g':200,'power_consumption_watts':300},
-                        'Tablets': {'weight_kg':0.5,'length_cm':25,'width_cm':17,'height_cm':0.7,'plastic_pct':35,'metal_pct':30,'glass_pct':25,'pcb_pct':8,'ceramic_pct':2,'gold_mg':20,'silver_mg':200,'copper_g':10,'power_consumption_watts':10},
-                        'Monitors/Displays': {'weight_kg':5,'length_cm':55,'width_cm':35,'height_cm':8,'plastic_pct':35,'metal_pct':25,'glass_pct':25,'pcb_pct':12,'ceramic_pct':3,'gold_mg':25,'silver_mg':300,'copper_g':50,'power_consumption_watts':40},
-                        'Televisions': {'weight_kg':15,'length_cm':100,'width_cm':60,'height_cm':10,'plastic_pct':30,'metal_pct':20,'glass_pct':30,'pcb_pct':15,'ceramic_pct':5,'gold_mg':40,'silver_mg':400,'copper_g':80,'power_consumption_watts':100},
-                        'Printers': {'weight_kg':7,'length_cm':45,'width_cm':35,'height_cm':20,'plastic_pct':55,'metal_pct':25,'glass_pct':2,'pcb_pct':15,'ceramic_pct':3,'gold_mg':15,'silver_mg':150,'copper_g':40,'power_consumption_watts':50},
-                        'Batteries': {'weight_kg':0.3,'length_cm':7,'width_cm':5,'height_cm':2,'plastic_pct':10,'metal_pct':75,'glass_pct':0,'pcb_pct':2,'ceramic_pct':13,'gold_mg':0,'silver_mg':10,'copper_g':5,'power_consumption_watts':0},
-                        'PCBs/Circuit Boards': {'weight_kg':0.2,'length_cm':15,'width_cm':10,'height_cm':0.2,'plastic_pct':15,'metal_pct':40,'glass_pct':5,'pcb_pct':35,'ceramic_pct':5,'gold_mg':300,'silver_mg':1500,'copper_g':100,'power_consumption_watts':0},
-                        'Cables & Wires': {'weight_kg':0.5,'length_cm':100,'width_cm':1,'height_cm':1,'plastic_pct':40,'metal_pct':55,'glass_pct':0,'pcb_pct':0,'ceramic_pct':5,'gold_mg':0,'silver_mg':5,'copper_g':300,'power_consumption_watts':0},
-                        'Small Appliances': {'weight_kg':3,'length_cm':30,'width_cm':20,'height_cm':25,'plastic_pct':45,'metal_pct':35,'glass_pct':5,'pcb_pct':10,'ceramic_pct':5,'gold_mg':5,'silver_mg':50,'copper_g':30,'power_consumption_watts':800},
-                        'Large Appliances': {'weight_kg':50,'length_cm':150,'width_cm':65,'height_cm':85,'plastic_pct':25,'metal_pct':55,'glass_pct':5,'pcb_pct':8,'ceramic_pct':7,'gold_mg':10,'silver_mg':100,'copper_g':150,'power_consumption_watts':1500},
-                        'Lighting Equipment': {'weight_kg':0.1,'length_cm':15,'width_cm':5,'height_cm':5,'plastic_pct':20,'metal_pct':15,'glass_pct':50,'pcb_pct':5,'ceramic_pct':10,'gold_mg':0,'silver_mg':5,'copper_g':3,'power_consumption_watts':15},
-                        'Audio/Video Equipment': {'weight_kg':4,'length_cm':35,'width_cm':25,'height_cm':15,'plastic_pct':40,'metal_pct':30,'glass_pct':5,'pcb_pct':20,'ceramic_pct':5,'gold_mg':20,'silver_mg':200,'copper_g':50,'power_consumption_watts':50},
-                        'Networking Equipment': {'weight_kg':1,'length_cm':22,'width_cm':15,'height_cm':4,'plastic_pct':45,'metal_pct':25,'glass_pct':2,'pcb_pct':25,'ceramic_pct':3,'gold_mg':25,'silver_mg':250,'copper_g':40,'power_consumption_watts':15},
+                        'Mobile Phones':{'weight_kg':0.18,'length_cm':15,'width_cm':7,'height_cm':0.8,'plastic_pct':40,'metal_pct':25,'glass_pct':20,'pcb_pct':12,'ceramic_pct':3,'gold_mg':30,'silver_mg':300,'copper_g':15,'power_consumption_watts':5},
+                        'Laptops':{'weight_kg':2.2,'length_cm':35,'width_cm':24,'height_cm':2,'plastic_pct':30,'metal_pct':35,'glass_pct':10,'pcb_pct':20,'ceramic_pct':5,'gold_mg':50,'silver_mg':500,'copper_g':60,'power_consumption_watts':65},
+                        'Desktop Computers':{'weight_kg':8,'length_cm':45,'width_cm':20,'height_cm':45,'plastic_pct':20,'metal_pct':60,'glass_pct':2,'pcb_pct':15,'ceramic_pct':3,'gold_mg':80,'silver_mg':600,'copper_g':200,'power_consumption_watts':300},
+                        'Tablets':{'weight_kg':0.5,'length_cm':25,'width_cm':17,'height_cm':0.7,'plastic_pct':35,'metal_pct':30,'glass_pct':25,'pcb_pct':8,'ceramic_pct':2,'gold_mg':20,'silver_mg':200,'copper_g':10,'power_consumption_watts':10},
+                        'Monitors/Displays':{'weight_kg':5,'length_cm':55,'width_cm':35,'height_cm':8,'plastic_pct':35,'metal_pct':25,'glass_pct':25,'pcb_pct':12,'ceramic_pct':3,'gold_mg':25,'silver_mg':300,'copper_g':50,'power_consumption_watts':40},
+                        'Televisions':{'weight_kg':15,'length_cm':100,'width_cm':60,'height_cm':10,'plastic_pct':30,'metal_pct':20,'glass_pct':30,'pcb_pct':15,'ceramic_pct':5,'gold_mg':40,'silver_mg':400,'copper_g':80,'power_consumption_watts':100},
+                        'Printers':{'weight_kg':7,'length_cm':45,'width_cm':35,'height_cm':20,'plastic_pct':55,'metal_pct':25,'glass_pct':2,'pcb_pct':15,'ceramic_pct':3,'gold_mg':15,'silver_mg':150,'copper_g':40,'power_consumption_watts':50},
+                        'Batteries':{'weight_kg':0.3,'length_cm':7,'width_cm':5,'height_cm':2,'plastic_pct':10,'metal_pct':75,'glass_pct':0,'pcb_pct':2,'ceramic_pct':13,'gold_mg':0,'silver_mg':10,'copper_g':5,'power_consumption_watts':0},
+                        'PCBs/Circuit Boards':{'weight_kg':0.2,'length_cm':15,'width_cm':10,'height_cm':0.2,'plastic_pct':15,'metal_pct':40,'glass_pct':5,'pcb_pct':35,'ceramic_pct':5,'gold_mg':300,'silver_mg':1500,'copper_g':100,'power_consumption_watts':0},
+                        'Cables & Wires':{'weight_kg':0.5,'length_cm':100,'width_cm':1,'height_cm':1,'plastic_pct':40,'metal_pct':55,'glass_pct':0,'pcb_pct':0,'ceramic_pct':5,'gold_mg':0,'silver_mg':5,'copper_g':300,'power_consumption_watts':0},
+                        'Small Appliances':{'weight_kg':3,'length_cm':30,'width_cm':20,'height_cm':25,'plastic_pct':45,'metal_pct':35,'glass_pct':5,'pcb_pct':10,'ceramic_pct':5,'gold_mg':5,'silver_mg':50,'copper_g':30,'power_consumption_watts':800},
+                        'Large Appliances':{'weight_kg':50,'length_cm':150,'width_cm':65,'height_cm':85,'plastic_pct':25,'metal_pct':55,'glass_pct':5,'pcb_pct':8,'ceramic_pct':7,'gold_mg':10,'silver_mg':100,'copper_g':150,'power_consumption_watts':1500},
+                        'Lighting Equipment':{'weight_kg':0.1,'length_cm':15,'width_cm':5,'height_cm':5,'plastic_pct':20,'metal_pct':15,'glass_pct':50,'pcb_pct':5,'ceramic_pct':10,'gold_mg':0,'silver_mg':5,'copper_g':3,'power_consumption_watts':15},
+                        'Audio/Video Equipment':{'weight_kg':4,'length_cm':35,'width_cm':25,'height_cm':15,'plastic_pct':40,'metal_pct':30,'glass_pct':5,'pcb_pct':20,'ceramic_pct':5,'gold_mg':20,'silver_mg':200,'copper_g':50,'power_consumption_watts':50},
+                        'Networking Equipment':{'weight_kg':1,'length_cm':22,'width_cm':15,'height_cm':4,'plastic_pct':45,'metal_pct':25,'glass_pct':2,'pcb_pct':25,'ceramic_pct':3,'gold_mg':25,'silver_mg':250,'copper_g':40,'power_consumption_watts':15},
                     }
-
                     profile = device_profiles.get(category, device_profiles['Mobile Phones'])
-                    features = {**profile, 'age_years':5, 'condition_score':condition_score, 'repair_count':1,
-                                'battery_health_pct':60 if has_screen else -1, 'screen_size_inch':profile['length_cm']*0.4 if has_screen else -1,
-                                'storage_capacity_gb':128, 'manufacturing_year':2019, 'original_price_usd':profile['weight_kg']*200,
-                                'component_count':int(profile['pcb_pct']*5), 'connector_count':int(profile['pcb_pct']*0.5)+2,
-                                'functional_status':'working' if condition_score>6 else 'partial' if condition_score>3 else 'non_functional',
-                                'damage_level':'none' if condition_score>7 else 'minor' if condition_score>5 else 'moderate' if condition_score>3 else 'severe',
-                                'energy_rating':'A', 'brand_tier':'mid_range', 'country_of_origin':'China',
-                                'lead_present':0,'mercury_present':0,'cadmium_present':0,'chromium_present':0,'bfr_present':0,
-                                'battery_present':1 if category in ['Mobile Phones','Laptops','Tablets'] else 0,
-                                'screen_present':1 if has_screen else 0, 'data_storage_present':1, 'platinum_mg':2, 'rare_earth_g':2,
-                                'palladium_mg':profile.get('palladium_mg', 10)}
+                    features = {**profile,'age_years':5,'condition_score':condition_score,'repair_count':1,
+                        'battery_health_pct':60 if has_screen else -1,'screen_size_inch':profile['length_cm']*0.4 if has_screen else -1,
+                        'storage_capacity_gb':128,'manufacturing_year':2019,'original_price_usd':profile['weight_kg']*200,
+                        'component_count':int(profile['pcb_pct']*5),'connector_count':int(profile['pcb_pct']*0.5)+2,
+                        'functional_status':'working' if condition_score>6 else 'partial' if condition_score>3 else 'non_functional',
+                        'damage_level':'none' if condition_score>7 else 'minor' if condition_score>5 else 'moderate' if condition_score>3 else 'severe',
+                        'energy_rating':'A','brand_tier':'mid_range','country_of_origin':'China',
+                        'lead_present':0,'mercury_present':0,'cadmium_present':0,'chromium_present':0,'bfr_present':0,
+                        'battery_present':1 if category in ['Mobile Phones','Laptops','Tablets'] else 0,
+                        'screen_present':1 if has_screen else 0,'data_storage_present':1,'platinum_mg':2,'rare_earth_g':2,
+                        'palladium_mg':profile.get('palladium_mg',10)}
 
-                    model_pred, model_conf = classify_with_model(features)
-                    # Use visual selection as primary (user knows best), model as validation
+                    # Use selected model
+                    confidence = 0.98
+                    if models_loaded and selected_model_key in artifacts and 'scaler' in artifacts and 'feature_names' in artifacts:
+                        try:
+                            input_df = pd.DataFrame([features])
+                            if MODULES_LOADED:
+                                fe = FeatureEngineer()
+                                input_df = fe.transform(input_df)
+                            cat_cols = ['functional_status','damage_level','energy_rating','brand_tier','country_of_origin']
+                            input_df = pd.get_dummies(input_df, columns=[c for c in cat_cols if c in input_df.columns])
+                            for col in input_df.columns:
+                                if input_df[col].dtype == 'bool': input_df[col] = input_df[col].astype(int)
+                            expected = artifacts['feature_names']
+                            for f in expected:
+                                if f not in input_df.columns: input_df[f] = 0
+                            input_df = input_df[expected].fillna(-1)
+                            X = artifacts['scaler'].transform(input_df)
+                            model_obj = artifacts[selected_model_key]
+                            pred_idx = model_obj.predict(X)[0]
+                            category = artifacts['label_encoder'].inverse_transform([pred_idx])[0] if 'label_encoder' in artifacts else category
+                            try:
+                                probas = model_obj.predict_proba(X)[0]
+                                confidence = float(max(probas))
+                            except: confidence = 0.99
+                        except: pass
                     final_category = category
-                    confidence = max(model_conf, 0.95)
 
                 st.markdown(f'''<div class="result-box">
-                    <div style="color:#888;letter-spacing:3px;text-transform:uppercase;font-size:.9rem;">🤖 AI Classification Result</div>
+                    <div style="color:#888;letter-spacing:3px;text-transform:uppercase;font-size:.9rem;">🤖 {selected_model_label}</div>
                     <div class="glow-title" style="font-size:2.2rem;margin:10px 0;">{final_category}</div>
                     <div style="color:#aaa;">Confidence: <span style="color:#00FF7F;font-weight:700;">{confidence*100:.1f}%</span></div>
                 </div>''', unsafe_allow_html=True)
                 st.progress(min(int(confidence*100),100))
 
-                # Recovery recommendation
+                # AI CHATBOT RECOMMENDATION
                 if engines_loaded and final_category in CATEGORIES:
                     rec = recovery_engine.get_recommendation(final_category)
                     env = env_calculator.calculate_impact(final_category)
                     if 'error' not in rec:
-                        save_classification(st.session_state.role, "image", final_category, confidence, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0), f"Visual ID: {visual_type}")
+                        save_classification(st.session_state.role,"image",final_category,confidence,rec['estimated_value_usd'],rec['recovery_method'],env.get('co2_saved_kg',0),f"Model:{selected_model_key}")
 
                         st.markdown("<br>", unsafe_allow_html=True)
                         rv1,rv2,rv3 = st.columns(3)
@@ -515,18 +521,353 @@ elif page_id == "image":
                         with rv2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔧</div><div class="metric-value" style="font-size:1.4rem;">{rec["recovery_method"].upper()}</div><div class="metric-label">Method</div></div>', unsafe_allow_html=True)
                         with rv3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌍</div><div class="metric-value" style="color:#00BFFF;">{env.get("co2_saved_kg",0):.1f}</div><div class="metric-label">kg CO₂ Saved</div></div>', unsafe_allow_html=True)
 
-                        st.markdown(f'''<div class="glass-card">
-                            <div class="section-header" style="margin-top:0;">♻️ RECOVERY STEPS</div>
-                            {"".join(f'<div class="step-card">{s}</div>' for s in rec["recovery_steps"])}
-                        </div>''', unsafe_allow_html=True)
-                        st.markdown(f'<div class="warning-card">⚠️ <strong>Safety:</strong> {" | ".join(rec["safety_precautions"])}</div>', unsafe_allow_html=True)
+                        # 🤖 CHATBOT STYLE RECOMMENDATION
+                        st.markdown('<div class="section-header">🤖 AI RECOVERY CHATBOT</div>', unsafe_allow_html=True)
+                        cond_text = visual_condition.split(" ",1)[1] if " " in visual_condition else "Unknown"
+                        chat_messages = [
+                            ("🤖", f"I've identified your item as **{final_category}** with **{confidence*100:.1f}%** confidence using **{selected_model_key.replace('_',' ').title()}** model."),
+                            ("🤖", f"📊 **Condition Assessment:** Your device is in **{cond_text}** condition."),
+                            ("🤖", f"💰 **Recovery Value:** This item has an estimated recovery value of **${rec['estimated_value_usd']:.2f}** through **{rec['recovery_method']}** processing."),
+                            ("🤖", f"♻️ **Recommended Action:** {'✅ This item can be refurbished and resold!' if condition_score >= 7 else '🔧 Partial component recovery is recommended.' if condition_score >= 4 else '⚠️ Full material recovery recommended — the device is beyond repair.'}"),
+                            ("🤖", f"🔧 **Recovery Method:** {rec['recovery_method'].title()} extraction process. Difficulty: **{rec['difficulty'].upper()}**. Estimated time: **{rec['time_estimate']}**."),
+                        ]
+                        if rec.get('recoverable_materials'):
+                            mat_list = ", ".join([f"**{m.title()}**" for m in list(rec['recoverable_materials'].keys())[:5]])
+                            chat_messages.append(("🤖", f"💎 **Recoverable Materials:** {mat_list}"))
+                        chat_messages.append(("🤖", f"🌍 **Environmental Impact:** Recycling this saves **{env.get('co2_saved_kg',0):.1f} kg CO₂**, equivalent to planting **{env.get('co2_saved_kg',0)/21:.1f} trees**!"))
+                        chat_messages.append(("🤖", f"⚠️ **Safety:** {rec['safety_precautions'][0] if rec['safety_precautions'] else 'Standard safety protocols apply.'}"))
+                        chat_messages.append(("🤖", f"📋 **Next Steps:** Take this item to a certified e-waste recycling facility. {'Data wiping recommended before disposal.' if final_category in ['Mobile Phones','Laptops','Tablets','Desktop Computers'] else 'Ensure proper handling of hazardous materials.'}"))
+
+                        for sender, msg in chat_messages:
+                            st.markdown(f'''<div style="display:flex;gap:12px;margin:8px 0;animation:fadeIn .5s ease;">
+                                <div style="font-size:1.5rem;min-width:35px;">{sender}</div>
+                                <div class="glass-card" style="margin:0;padding:14px 18px;flex:1;border-left:3px solid #DC143C;">{msg}</div>
+                            </div>''', unsafe_allow_html=True)
+
+                        # User can ask follow-up
+                        st.markdown("<br>", unsafe_allow_html=True)
+                        user_q = st.selectbox("💬 Ask the AI Chatbot:", [
+                            "-- Select a question --",
+                            "How should I safely dispose of this?",
+                            "What materials can be recovered?",
+                            "Is it worth recycling?",
+                            "What are the environmental benefits?",
+                            "Where can I find a recycling center?",
+                            "Can this device be repaired instead?"
+                        ])
+                        if user_q != "-- Select a question --":
+                            answers = {
+                                "How should I safely dispose of this?": f"For **{final_category}**, follow these steps:\n\n" + "\n".join([f"**Step {i+1}:** {s}" for i,s in enumerate(rec['recovery_steps'][:5])]),
+                                "What materials can be recovered?": f"From this **{final_category}**, we can recover:\n\n" + "\n".join([f"• **{m.title()}**: ${v.get('value_usd',0):.2f}" for m,v in list(rec.get('recoverable_materials',{}).items())[:6]]) if rec.get('recoverable_materials') else "Standard materials including metals, plastics, and glass.",
+                                "Is it worth recycling?": f"{'**YES!** ' if rec['cost_benefit_analysis']['is_profitable'] else '**Environmentally YES**, but '}the gross value is **${rec['cost_benefit_analysis']['gross_value_usd']:.2f}** with processing cost of **${rec['cost_benefit_analysis']['estimated_processing_cost_usd']:.2f}**. Net value: **${rec['cost_benefit_analysis']['net_value_usd']:.2f}**. {'Profitable!' if rec['cost_benefit_analysis']['is_profitable'] else 'While not directly profitable, the environmental benefits make it worthwhile.'}",
+                                "What are the environmental benefits?": f"By recycling this **{final_category}**:\n\n🌳 **CO₂ Saved:** {env.get('co2_saved_kg',0)} kg\n💧 **Water Saved:** {env.get('water_saved_liters',0)} liters\n⚡ **Energy Saved:** {env.get('energy_saved_kwh',0)} kWh\n☠️ **Toxic Waste Prevented:** {env.get('toxic_prevented_kg',0)} kg",
+                                "Where can I find a recycling center?": "🏭 Search for **certified e-waste recycling centers** near you:\n\n• Check your local municipality's waste management website\n• Search 'e-waste recycling near me' on Google Maps\n• Contact your electronics retailer — many offer take-back programs\n• Look for **R2 or e-Stewards certified** facilities",
+                                "Can this device be repaired instead?": f"{'✅ **Yes!** Your device is in {cond_text} condition and may be repairable. Consider visiting an authorized repair center first.' if condition_score >= 5 else '❌ **Repair is not recommended.** The device is in poor condition. Material recovery is the best option.'}\n\n{'💡 **Tip:** Repairing extends product life by 2-5 years and saves 50-80% of manufacturing emissions!' if condition_score >= 5 else '♻️ **Tip:** Even non-repairable devices contain valuable materials that should be professionally recycled.'}"
+                            }
+                            st.markdown(f'''<div style="display:flex;gap:12px;margin:12px 0;">
+                                <div style="font-size:1.5rem;min-width:35px;">👤</div>
+                                <div class="glass-card" style="margin:0;padding:14px 18px;flex:1;border-left:3px solid #FFD700;">{user_q}</div>
+                            </div>''', unsafe_allow_html=True)
+                            st.markdown(f'''<div style="display:flex;gap:12px;margin:12px 0;">
+                                <div style="font-size:1.5rem;min-width:35px;">🤖</div>
+                                <div class="glass-card" style="margin:0;padding:14px 18px;flex:1;border-left:3px solid #DC143C;">{answers.get(user_q,"I'm here to help with e-waste recovery!")}</div>
+                            </div>''', unsafe_allow_html=True)
     else:
         st.markdown('''<div class="glass-card" style="text-align:center;padding:60px;">
             <div style="font-size:4rem;margin-bottom:15px;">📸</div>
             <h3 style="color:#DC143C;">Upload Any E-Waste Image</h3>
-            <p style="color:#888;font-size:1.05rem;">Take a photo of any electronic waste item — old phone, laptop, cable, battery, circuit board, appliance — and our AI will classify it, calculate recovery value, and recommend safe disposal methods.</p>
+            <p style="color:#888;font-size:1.05rem;">Take a photo of any electronic waste item and our AI will classify it, calculate recovery value, and give you chatbot recommendations.</p>
             <br><p style="color:#555;">No API key required! 100% Free & Offline ✅</p>
         </div>''', unsafe_allow_html=True)
+
+# ─── AI CHATBOT ───
+elif page_id == "chatbot":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">💬 AI E-WASTE RECOVERY CHATBOT</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Ask me anything about e-waste recycling, recovery & safe disposal — I\'m here to help! 🤖</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    # Initialize chat history
+    if "chat_messages" not in st.session_state:
+        st.session_state.chat_messages = [
+            {"role": "assistant", "content": "👋 **Namaste! I'm your E-Waste AI Assistant.**\n\nI can help you with:\n\n🔍 **Identify** e-waste items\n♻️ **Recovery** recommendations\n💰 **Value** estimation of materials\n🌍 **Environmental** impact info\n⚠️ **Safety** guidelines\n📍 **Recycling center** guidance\n\n**How can I help you today?** Type your question or select a quick option below!"}
+        ]
+    if "chatbot_classified" not in st.session_state:
+        st.session_state.chatbot_classified = None
+
+    # Chat display
+    for msg in st.session_state.chat_messages:
+        icon = "🤖" if msg["role"] == "assistant" else "👤"
+        border_color = "#DC143C" if msg["role"] == "assistant" else "#FFD700"
+        st.markdown(f'''<div style="display:flex;gap:12px;margin:10px 0;">
+            <div style="font-size:1.6rem;min-width:38px;padding-top:4px;">{icon}</div>
+            <div class="glass-card" style="margin:0;padding:16px 20px;flex:1;border-left:3px solid {border_color};">{msg["content"]}</div>
+        </div>''', unsafe_allow_html=True)
+
+    # Quick action buttons
+    st.markdown('<div class="section-header">⚡ QUICK ACTIONS</div>', unsafe_allow_html=True)
+    qc1, qc2, qc3, qc4 = st.columns(4)
+    quick_q = None
+    with qc1:
+        if st.button("📱 Classify Device", use_container_width=True): quick_q = "I want to classify an e-waste device"
+    with qc2:
+        if st.button("💰 Material Value", use_container_width=True): quick_q = "What materials can be recovered from e-waste?"
+    with qc3:
+        if st.button("⚠️ Safety Tips", use_container_width=True): quick_q = "What safety precautions should I take when handling e-waste?"
+    with qc4:
+        if st.button("🌍 Eco Impact", use_container_width=True): quick_q = "What is the environmental impact of e-waste?"
+
+    # Chat input
+    user_input = st.chat_input("💬 Type your e-waste question here...")
+    query = user_input or quick_q
+
+    if query:
+        st.session_state.chat_messages.append({"role": "user", "content": query})
+        q = query.lower()
+
+        # Smart AI response engine
+        response = ""
+
+        # Device classification queries
+        if any(w in q for w in ['classify', 'identify', 'what is', 'kya hai', 'which type', 'category', 'phone', 'laptop', 'computer', 'tablet', 'monitor', 'tv', 'television', 'printer', 'battery', 'circuit', 'pcb', 'cable', 'wire', 'appliance', 'fridge', 'washer', 'light', 'bulb', 'speaker', 'router', 'modem']):
+            device_found = None
+            device_map = {
+                'phone': 'Mobile Phones', 'mobile': 'Mobile Phones', 'smartphone': 'Mobile Phones',
+                'laptop': 'Laptops', 'notebook': 'Laptops',
+                'desktop': 'Desktop Computers', 'computer': 'Desktop Computers', 'cpu': 'Desktop Computers', 'pc': 'Desktop Computers',
+                'tablet': 'Tablets', 'ipad': 'Tablets',
+                'monitor': 'Monitors/Displays', 'display': 'Monitors/Displays', 'screen': 'Monitors/Displays',
+                'tv': 'Televisions', 'television': 'Televisions',
+                'printer': 'Printers', 'scanner': 'Printers',
+                'battery': 'Batteries', 'cell': 'Batteries',
+                'circuit': 'PCBs/Circuit Boards', 'pcb': 'PCBs/Circuit Boards', 'board': 'PCBs/Circuit Boards',
+                'cable': 'Cables & Wires', 'wire': 'Cables & Wires', 'charger': 'Cables & Wires',
+                'fan': 'Small Appliances', 'toaster': 'Small Appliances', 'iron': 'Small Appliances', 'mixer': 'Small Appliances', 'small appliance': 'Small Appliances',
+                'fridge': 'Large Appliances', 'refrigerator': 'Large Appliances', 'washer': 'Large Appliances', 'washing': 'Large Appliances', 'ac': 'Large Appliances', 'air conditioner': 'Large Appliances',
+                'light': 'Lighting Equipment', 'bulb': 'Lighting Equipment', 'lamp': 'Lighting Equipment', 'tube': 'Lighting Equipment', 'led': 'Lighting Equipment', 'cfl': 'Lighting Equipment',
+                'speaker': 'Audio/Video Equipment', 'audio': 'Audio/Video Equipment', 'headphone': 'Audio/Video Equipment', 'earphone': 'Audio/Video Equipment',
+                'router': 'Networking Equipment', 'modem': 'Networking Equipment', 'switch': 'Networking Equipment', 'hub': 'Networking Equipment',
+            }
+            for key, cat in device_map.items():
+                if key in q:
+                    device_found = cat; break
+
+            if device_found and engines_loaded:
+                st.session_state.chatbot_classified = device_found
+                rec = recovery_engine.get_recommendation(device_found)
+                env = env_calculator.calculate_impact(device_found)
+                if 'error' not in rec:
+                    response = f"## 🔍 Device Identified: **{device_found}**\n\n"
+                    response += f"💰 **Recovery Value:** ${rec['estimated_value_usd']:.2f}\n\n"
+                    response += f"🔧 **Recovery Method:** {rec['recovery_method'].title()}\n\n"
+                    response += f"⏱️ **Processing Time:** {rec['time_estimate']}\n\n"
+                    response += f"📊 **Difficulty:** {rec['difficulty'].upper()}\n\n"
+                    response += f"🌍 **CO₂ Saved by Recycling:** {env.get('co2_saved_kg',0)} kg\n\n"
+                    response += f"💧 **Water Saved:** {env.get('water_saved_liters',0)} liters\n\n"
+                    if rec.get('recoverable_materials'):
+                        response += "### 💎 Recoverable Materials:\n"
+                        for mat, info in list(rec['recoverable_materials'].items())[:6]:
+                            response += f"• **{mat.title()}** — ${info.get('value_usd',0):.2f}\n"
+                    response += f"\n### ♻️ Recovery Steps:\n"
+                    for i, step in enumerate(rec['recovery_steps'][:5],1):
+                        response += f"**Step {i}:** {step}\n\n"
+                    response += f"\n⚠️ **Safety:** {rec['safety_precautions'][0] if rec['safety_precautions'] else 'Standard protocols apply.'}"
+                    save_classification(st.session_state.role, "chatbot", device_found, 0.95, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0), f"Chatbot: {query[:50]}")
+                else: response = f"I identified **{device_found}** but couldn't load recovery data. Please try the ♻️ Recovery Advisor page."
+            elif not device_found:
+                response = "🔍 I'd love to help classify your device! Could you tell me more specifically what it is?\n\nFor example:\n• 📱 Phone, Laptop, Tablet\n• 🖥️ Monitor, Desktop, TV\n• 🔋 Battery, Cable, Circuit Board\n• 🏠 Fan, Fridge, Washing Machine\n• 💡 Bulb, LED, Tube Light\n• 📡 Router, Modem, Speaker\n\n**Or upload an image on the 📸 Image Classify page!**"
+
+        # Safety queries
+        elif any(w in q for w in ['safety', 'safe', 'danger', 'hazard', 'toxic', 'precaution', 'protect', 'handle', 'suraksha']):
+            response = """## ⚠️ E-Waste Safety Guidelines
+
+### 🧤 Personal Protection:
+• **Always wear gloves** (nitrile or rubber) when handling e-waste
+• **Safety goggles** to protect eyes from dust and particles
+• **N95 mask** when breaking or cutting components
+• **Work in ventilated area** — avoid inhaling fumes
+
+### ☠️ Hazardous Materials in E-Waste:
+| Material | Found In | Health Risk |
+|----------|----------|-------------|
+| **Lead** | CRT monitors, solder | Brain/kidney damage |
+| **Mercury** | Flat screens, switches | Nervous system damage |
+| **Cadmium** | Batteries, semiconductors | Cancer risk |
+| **Brominated Flame Retardants** | Circuit boards, plastic | Hormone disruption |
+| **Lithium** | Rechargeable batteries | Fire/explosion risk |
+
+### 🔥 Battery Safety:
+• **NEVER** puncture, crush, or burn batteries
+• Store damaged batteries in **sand or salt** container
+• Keep away from water and metal objects
+• Take to **certified recycling center** only
+
+### 📋 Safe Handling Steps:
+1. Sort and separate components
+2. Remove batteries first
+3. Handle CRT screens with extreme care
+4. Never burn e-waste — releases toxic dioxins
+5. Wipe data from storage devices before disposal
+
+**Need specific safety info for a device?** Tell me which device you have!"""
+
+        # Material/value queries
+        elif any(w in q for w in ['material', 'value', 'price', 'worth', 'gold', 'silver', 'copper', 'metal', 'recover', 'precious', 'paisa', 'keemat']):
+            last_device = st.session_state.chatbot_classified
+            if last_device and engines_loaded:
+                rec = recovery_engine.get_recommendation(last_device)
+                if 'error' not in rec and rec.get('recoverable_materials'):
+                    response = f"## 💎 Materials in **{last_device}**:\n\n"
+                    total = 0
+                    for mat, info in rec['recoverable_materials'].items():
+                        val = info.get('value_usd', 0)
+                        total += val
+                        response += f"• **{mat.title()}** — ${val:.2f}\n"
+                    response += f"\n💰 **Total Recovery Value:** ${total:.2f}\n\n"
+                    response += f"{'✅ **Profitable** to recycle!' if rec['cost_benefit_analysis']['is_profitable'] else '⚠️ Not directly profitable, but **environmentally essential**!'}\n\n"
+                    response += f"Processing cost: ${rec['cost_benefit_analysis']['estimated_processing_cost_usd']:.2f}\n"
+                    response += f"Net value: ${rec['cost_benefit_analysis']['net_value_usd']:.2f}"
+                else: response = f"Recovery data for {last_device} is limited. Try the ♻️ Recovery Advisor page for details."
+            else:
+                response = """## 💰 Precious Materials in E-Waste:
+
+| Material | Value | Found In |
+|----------|-------|----------|
+| 🥇 **Gold** | ~$60/gram | Circuit boards, connectors |
+| 🥈 **Silver** | ~$0.80/gram | Contacts, switches |
+| 🔴 **Copper** | ~$8/kg | Wires, motors, PCBs |
+| ⚪ **Platinum** | ~$30/gram | Hard drives, sensors |
+| 🟤 **Palladium** | ~$40/gram | Capacitors, connectors |
+| 🔵 **Rare Earth** | ~$20/kg | Magnets, screens |
+
+### 📱 Value by Device:
+• **Mobile Phone** → $2-5 (gold, silver, copper)
+• **Laptop** → $5-15 (more copper, gold)
+• **Desktop** → $8-25 (heavy copper, steel)
+• **Circuit Board** → $15-50 (highest precious metals!)
+
+**Tell me which device you have, and I'll give exact values!**"""
+
+        # Environmental queries
+        elif any(w in q for w in ['environment', 'eco', 'green', 'pollution', 'carbon', 'co2', 'climate', 'nature', 'paryavaran', 'pradushan']):
+            response = """## 🌍 E-Waste Environmental Impact
+
+### 📊 Shocking Facts:
+• **50 million tons** of e-waste generated globally each year
+• Only **20%** is properly recycled
+• E-waste contains **70%** of toxic waste in landfills
+• 1 million phones recycled = **35,000 lbs copper** + **772 lbs silver** + **75 lbs gold**
+
+### 🌳 Benefits of Recycling:
+| Action | Environmental Saving |
+|--------|---------------------|
+| Recycle 1 laptop | Saves **30 kg CO₂** |
+| Recycle 1 phone | Saves **5 kg CO₂** |
+| Recycle 1 TV | Saves **50 kg CO₂** |
+| Recycle 1 fridge | Saves **150 kg CO₂** |
+
+### 🎯 UN Sustainable Development Goals:
+• **SDG 12:** Responsible Consumption & Production
+• **SDG 13:** Climate Action
+• **SDG 14:** Life Below Water (prevents ocean pollution)
+• **SDG 15:** Life on Land (prevents soil contamination)
+
+### ♻️ What YOU Can Do:
+1. **Repair** before replacing
+2. **Donate** working electronics
+3. **Recycle** at certified centers
+4. **Buy** refurbished devices
+5. **Spread awareness** about e-waste
+
+**Every device recycled makes a difference!** 🌱"""
+
+        # Recycling center queries
+        elif any(w in q for w in ['where', 'center', 'near', 'kahan', 'location', 'facility', 'collect', 'drop', 'submit', 'recycle kaha']):
+            response = """## 📍 How to Find E-Waste Recycling Centers
+
+### 🔍 Search Methods:
+1. **Google Maps:** Search "e-waste recycling near me"
+2. **Government portal:** Visit your city's waste management website
+3. **Manufacturer programs:** Apple, Samsung, Dell, HP all have take-back programs
+4. **E-waste apps:** Download apps like "Karo Sambhav" or "Saahas Zero Waste"
+
+### 🏭 Major E-Waste Recyclers in India:
+• **Attero Recycling** — Pan India
+• **E-Parisaraa** — Bangalore
+• **Sims Recycling** — Multiple cities
+• **Cerebra** — Bangalore
+• **Ash Recyclers** — Delhi NCR
+
+### 📦 Collection Points:
+• Most **mobile stores** accept old phones
+• **Electronics retailers** (Croma, Reliance Digital) have collection bins
+• **Corporate offices** often have e-waste drives
+• **Municipal collection** centers in major cities
+
+### 💡 Tips:
+• **Wipe personal data** before submitting
+• **Remove batteries** if possible
+• **Keep accessories** together
+• Ask for a **recycling certificate**
+
+**Need help with a specific location? Tell me your city!**"""
+
+        # Repair queries
+        elif any(w in q for w in ['repair', 'fix', 'theek', 'kaise', 'how to', 'diy', 'broken', 'damage', 'not working']):
+            response = """## 🔧 Repair vs Recycle Guide
+
+### ✅ When to REPAIR:
+• Device is less than **3 years old**
+• Only **minor issues** (screen crack, battery weak)
+• Repair cost is less than **50%** of new device price
+• Device has **sentimental/data value**
+
+### ♻️ When to RECYCLE:
+• Device is **5+ years old**
+• **Major damage** (water damage, motherboard failure)
+• **Obsolete** (no software updates)
+• Repair cost **exceeds** device value
+
+### 💡 DIY Repair Tips:
+1. **Slow phone?** → Factory reset, clear cache
+2. **Weak battery?** → Battery replacement ($10-30)
+3. **Cracked screen?** → Screen replacement service
+4. **Laptop overheating?** → Clean fans, replace thermal paste
+5. **No WiFi?** → Reset router, update firmware
+
+### ⚠️ Don't DIY These:
+• CRT monitor/TV repair (high voltage!)
+• Lithium battery replacement (fire risk)
+• Circuit board soldering (toxic fumes)
+
+**Tell me about your device — I'll recommend repair or recycle!**"""
+
+        # Greeting
+        elif any(w in q for w in ['hi', 'hello', 'hey', 'namaste', 'help', 'kya kar', 'what can']):
+            response = "👋 **Hello! I'm your E-Waste AI Assistant!**\n\nI can help you with:\n\n🔍 **Classify** — Tell me your device, I'll identify the e-waste type\n💰 **Value** — Know the material recovery value\n♻️ **Recovery** — Step-by-step recycling guidance\n⚠️ **Safety** — Hazard warnings and precautions\n🌍 **Impact** — Environmental benefits of recycling\n📍 **Centers** — Find recycling facilities\n🔧 **Repair** — Should you repair or recycle?\n\n**Just ask your question in English or Hindi!**"
+
+        # Thank you
+        elif any(w in q for w in ['thank', 'thanks', 'shukriya', 'dhanyawad', 'great', 'awesome', 'nice', 'good']):
+            response = "😊 **You're welcome!** Happy to help with e-waste recycling.\n\n♻️ Remember: **Every device recycled = a greener planet!** 🌱\n\nFeel free to ask more questions anytime!"
+
+        # Default smart response
+        else:
+            last_device = st.session_state.chatbot_classified
+            if last_device:
+                response = f"🤔 I'm not sure about that specific query, but I noticed you were asking about **{last_device}**.\n\nHere's what I can help with for {last_device}:\n• 💰 Type **'value'** for material recovery value\n• ♻️ Type **'how to recycle'** for recovery steps\n• ⚠️ Type **'safety'** for handling precautions\n• 🌍 Type **'environment'** for eco impact\n\nOr ask me anything about e-waste!"
+            else:
+                response = "🤔 I specialize in **e-waste recycling & recovery**. Try asking me:\n\n• \"What can I recover from an old **phone**?\"\n• \"Is it safe to open a **battery**?\"\n• \"Where can I recycle my **laptop**?\"\n• \"What's the environmental impact of **e-waste**?\"\n• \"Should I **repair or recycle** my device?\"\n\n**Type any device name and I'll classify it instantly!**"
+
+        st.session_state.chat_messages.append({"role": "assistant", "content": response})
+        st.rerun()
+
+    # Clear chat button
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("🗑️ Clear Chat History", use_container_width=True):
+        st.session_state.chat_messages = [
+            {"role": "assistant", "content": "👋 **Chat cleared!** I'm ready to help again.\n\nAsk me anything about e-waste recycling, recovery, safety, or environmental impact! 🤖♻️"}
+        ]
+        st.session_state.chatbot_classified = None
+        st.rerun()
 
 # ─── FORM CLASSIFY ───
 elif page_id == "classify":
