@@ -1570,7 +1570,9 @@ elif page_id == "analyzer":
             st.markdown('<div class="section-header">📥 COMPLETE REPORT</div>', unsafe_allow_html=True)
             dev_col = 'device_type' if has_device else '_ai_category' if '_ai_category' in analyze_df.columns else None
             report = f"# 📋 E-WASTE ANALYSIS REPORT\n**Generated:** {datetime.now().strftime('%d %B %Y, %I:%M %p')}\n**System:** E-Waste AI v5.8 | **By:** Azhar Fareed Mulla (2SA25MC002)\n\n---\n## 📊 Summary\n| Metric | Value |\n|--------|-------|\n| Rows | **{len(analyze_df):,}** |\n| Columns | **{len(analyze_df.columns)}** |\n| Quality | **{quality_score}%** |\n| Classification | **{'Direct' if has_device else 'AI Auto'}** |\n"
-            if num_cols: report += "\n## 📊 Statistics\n" + analyze_df[num_cols[:8]].describe().round(2).to_markdown() + "\n"
+            if num_cols:
+                try: report += "\n## 📊 Statistics\n" + analyze_df[num_cols[:8]].describe().round(2).to_markdown() + "\n"
+                except: report += "\n## 📊 Statistics\n```\n" + analyze_df[num_cols[:8]].describe().round(2).to_string() + "\n```\n"
             if dev_col:
                 vc = analyze_df[dev_col].value_counts()
                 report += "\n## 🏷️ Categories\n| Device | Count | % |\n|--------|-------|---|\n"
