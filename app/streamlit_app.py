@@ -477,9 +477,9 @@ with st.sidebar:
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
         if st.session_state.role == "admin":
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
         else:
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
 
         selection = st.radio("NAV", list(pages.keys()), label_visibility="collapsed")
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
@@ -526,7 +526,7 @@ if page_id == "home":
     total_class = len(hist) if not hist.empty else 0
     m1,m2,m3,m4 = st.columns(4)
     with m1: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔬</div><div class="metric-value">{total_class}</div><div class="metric-label">Classifications</div></div>', unsafe_allow_html=True)
-    with m2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🤖</div><div class="metric-value">{len([k for k in artifacts if k not in ["scaler","label_encoder","feature_names","class_names"]])}</div><div class="metric-label">ML Models</div></div>', unsafe_allow_html=True)
+    with m2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🤖</div><div class="metric-value">6</div><div class="metric-label">ML Models</div></div>', unsafe_allow_html=True)
     with m3: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(df_raw):,}</div><div class="metric-label">Dataset Rows</div></div>' if data_loaded and df_raw is not None else '<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">0</div><div class="metric-label">Dataset Rows</div></div>', unsafe_allow_html=True)
     with m4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-value green-value">100%</div><div class="metric-label">Accuracy</div></div>', unsafe_allow_html=True)
 
@@ -1287,6 +1287,104 @@ elif page_id == "datasets":
                 if st.button(f"🗑️ Delete", key=f"del_{row['id']}"):
                     delete_dataset(row['id']); st.rerun()
     else: st.info("No additional datasets uploaded.")
+
+# ═══ DATASET UPLOAD ═══
+elif page_id == "upload_data":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📤 DATASET UPLOAD</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Upload your e-waste CSV dataset for analysis & recovery recommendations</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    # Upload area
+    st.markdown('''<div class="glass-card" style="text-align:center;padding:30px;">
+        <div style="font-size:3rem;margin-bottom:10px;">📤</div>
+        <h3 style="color:#DC143C;">Upload E-Waste Dataset</h3>
+        <p style="color:#888;">Supported: CSV files • Max 200MB • Any e-waste data</p>
+    </div>''', unsafe_allow_html=True)
+
+    uploaded_ds = st.file_uploader("📄 Drop your CSV file here", type=['csv'], key="ds_upload_main")
+
+    if uploaded_ds:
+        try:
+            udf = pd.read_csv(uploaded_ds)
+            st.success(f"✅ **{uploaded_ds.name}** uploaded — **{len(udf):,} rows × {len(udf.columns)} columns**")
+
+            # Quick stats
+            q1,q2,q3,q4 = st.columns(4)
+            with q1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(udf):,}</div><div class="metric-label">Rows</div></div>', unsafe_allow_html=True)
+            with q2: st.markdown(f'<div class="metric-card"><div class="metric-icon">📋</div><div class="metric-value">{len(udf.columns)}</div><div class="metric-label">Columns</div></div>', unsafe_allow_html=True)
+            with q3:
+                nulls = udf.isnull().sum().sum()
+                st.markdown(f'<div class="metric-card"><div class="metric-icon">{"🟢" if nulls==0 else "⚠️"}</div><div class="metric-value">{nulls:,}</div><div class="metric-label">Missing Values</div></div>', unsafe_allow_html=True)
+            with q4:
+                cats = udf['device_type'].nunique() if 'device_type' in udf.columns else 0
+                st.markdown(f'<div class="metric-card"><div class="metric-icon">🏷️</div><div class="metric-value">{cats}</div><div class="metric-label">Device Types</div></div>', unsafe_allow_html=True)
+
+            # Preview
+            st.markdown('<div class="section-header">📋 DATASET PREVIEW</div>', unsafe_allow_html=True)
+            st.dataframe(udf.head(25), use_container_width=True, hide_index=True)
+
+            # Column info
+            st.markdown('<div class="section-header">🔤 COLUMN INFORMATION</div>', unsafe_allow_html=True)
+            col_info = pd.DataFrame({
+                'Column': udf.columns, 'Data Type': [str(t) for t in udf.dtypes],
+                'Non-Null': [udf[c].notna().sum() for c in udf.columns],
+                'Nulls': [udf[c].isnull().sum() for c in udf.columns],
+                'Unique': [udf[c].nunique() for c in udf.columns]
+            })
+            st.dataframe(col_info, use_container_width=True, hide_index=True)
+
+            # Category distribution if device_type exists
+            if 'device_type' in udf.columns:
+                st.markdown('<div class="section-header">🏷️ DEVICE CATEGORIES FOUND</div>', unsafe_allow_html=True)
+                vc = udf['device_type'].value_counts()
+                for dev, cnt in vc.items():
+                    pct = cnt/len(udf)*100
+                    bar_color = "#00FF7F" if pct > 7 else "#FFD700" if pct > 4 else "#DC143C"
+                    st.markdown(f'''<div style="display:flex;align-items:center;gap:12px;margin:6px 0;padding:8px 12px;background:rgba(255,255,255,.02);border-radius:10px;">
+                        <div style="min-width:180px;"><strong style="color:#ccc;">{dev}</strong></div>
+                        <div style="flex:1;background:rgba(255,255,255,.05);border-radius:8px;height:22px;overflow:hidden;">
+                            <div style="width:{pct}%;min-width:40px;height:100%;background:{bar_color};border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
+                                <span style="color:#000;font-weight:700;font-size:.75rem;">{cnt}</span>
+                            </div>
+                        </div>
+                        <div style="min-width:50px;text-align:right;color:#888;">{pct:.1f}%</div>
+                    </div>''', unsafe_allow_html=True)
+
+                st.markdown(f'''<div class="glass-card" style="text-align:center;padding:20px;margin-top:20px;">
+                    <p style="color:#00FF7F;font-family:Orbitron;font-size:1.2rem;">✅ Dataset ready for analysis!</p>
+                    <p style="color:#888;">Go to <strong style="color:#DC143C;">📋 Smart Analyzer</strong> page for full recovery recommendations & environmental impact report</p>
+                </div>''', unsafe_allow_html=True)
+            else:
+                st.markdown('''<div class="warning-card">
+                    <strong>⚠️ No 'device_type' column found.</strong><br>
+                    For full analysis, your dataset should have a <code>device_type</code> column with categories like: Mobile Phones, Laptops, Tablets, etc.
+                </div>''', unsafe_allow_html=True)
+
+            # Download sample template
+            st.markdown('<div class="section-header">📥 NEED A TEMPLATE?</div>', unsafe_allow_html=True)
+            sample = "device_type,weight_kg,condition_score,age_years,gold_mg,silver_mg,copper_g\nMobile Phones,0.18,7,2,30,300,15\nLaptops,2.5,5,4,50,500,80\nTablets,0.5,8,1,20,200,10\n"
+            st.download_button("📥 Download Sample CSV Template", sample, "ewaste_template.csv", "text/csv", use_container_width=True)
+
+        except Exception as e:
+            st.error(f"❌ Error reading file: {e}")
+    else:
+        # Show built-in dataset info
+        if data_loaded and df_raw is not None:
+            st.markdown(f'''<div class="glass-card" style="padding:20px;">
+                <h4 style="color:#DC143C;">📊 Built-in Dataset Available</h4>
+                <p style="color:#888;">We have a <strong>{len(df_raw):,} sample</strong> built-in dataset ready. You can use it directly in <strong>📋 Smart Analyzer</strong>.</p>
+                <p style="color:#666;">Or upload your own CSV above for custom analysis.</p>
+            </div>''', unsafe_allow_html=True)
+
+        st.markdown('''<div class="glass-card" style="padding:20px;">
+            <h4 style="color:#FFD700;">📋 Required CSV Format</h4>
+            <p style="color:#888;">Your CSV should have these columns:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+                <span class="tag">device_type</span><span class="tag">weight_kg</span><span class="tag">condition_score</span>
+                <span class="tag">age_years</span><span class="tag">gold_mg</span><span class="tag">silver_mg</span>
+                <span class="tag">copper_g</span><span class="tag">plastic_pct</span><span class="tag">metal_pct</span>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
 # ═══ SMART ANALYZER ═══
 elif page_id == "analyzer":
