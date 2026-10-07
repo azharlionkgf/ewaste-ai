@@ -12,3 +12,4 @@ joblib
 scipy
 Pillow
 tabulate
+google-generativeai

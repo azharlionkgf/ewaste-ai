@@ -730,228 +730,157 @@ elif page_id == "image":
 # ═══ AI CHATBOT ═══
 elif page_id == "chatbot":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">💬 AI E-WASTE CHATBOT</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Chat with AI • Upload Photos & Videos • Get Recovery Recommendations 🤖</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Powered by Google Gemini AI • Upload Photos & Videos • Real AI Responses 🤖</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    # ── MODEL SELECTOR WITH ACCURACY ──
-    MODEL_ACCURACY = {
-        "🏆 Stacking Ensemble (Best)": {"key":"stacking","acc":100.00,"type":"Meta-Learner","desc":"Combines all models for maximum accuracy"},
-        "🌲 Random Forest": {"key":"Random_Forest","acc":100.00,"type":"Bagging","desc":"300 decision trees with bootstrap aggregation"},
-        "⚡ XGBoost": {"key":"XGBoost","acc":99.95,"type":"Boosting","desc":"Gradient boosted trees with regularization"},
-        "🚀 LightGBM": {"key":"LightGBM","acc":100.00,"type":"Boosting","desc":"Light gradient boosting — fastest training"},
-        "🐱 CatBoost": {"key":"CatBoost","acc":100.00,"type":"Boosting","desc":"Handles categorical features natively"},
-        "🧠 Deep Neural Network": {"key":"DNN","acc":100.00,"type":"Neural Net","desc":"Multi-layer perceptron with hidden layers"},
-    }
-    mc1, mc2 = st.columns([2,3])
-    with mc1:
-        selected_model = st.selectbox("🧠 SELECT AI MODEL", list(MODEL_ACCURACY.keys()))
-        sel_info = MODEL_ACCURACY[selected_model]
-        chatbot_model_key = sel_info["key"]
-    with mc2:
-        st.markdown(f'''<div class="glass-card" style="padding:15px;margin:0;">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div><strong style="color:#DC143C;font-family:Orbitron;font-size:1rem;">{selected_model}</strong><br>
-                <span style="color:#888;font-size:.85rem;">{sel_info["desc"]}</span></div>
-                <div style="text-align:right;"><span class="green-value" style="font-size:1.8rem;">{sel_info["acc"]:.2f}%</span><br>
-                <span style="color:#888;font-size:.75rem;">ACCURACY • {sel_info["type"]}</span></div>
-            </div>
+    # ── MODEL SELECTOR ──
+    model_key, model_name = model_selector()
+
+    # ── GEMINI AI SETUP ──
+    gemini_ready = False
+    if 'gemini_key' not in st.session_state: st.session_state.gemini_key = ""
+    with st.expander("🔑 AI Settings — Connect Google Gemini (FREE)", expanded=not bool(st.session_state.gemini_key)):
+        st.markdown('''<div class="step-card">
+            <strong>How to get FREE API Key:</strong><br>
+            1. Go to <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#DC143C;">aistudio.google.com/apikey</a><br>
+            2. Click <strong>"Create API Key"</strong><br>
+            3. Copy and paste below ✅ <strong>100% FREE!</strong>
         </div>''', unsafe_allow_html=True)
+        key_input = st.text_input("🔑 Gemini API Key", value=st.session_state.gemini_key, type="password", key="gem_key_input")
+        if key_input: st.session_state.gemini_key = key_input
+    if st.session_state.gemini_key:
+        try:
+            import google.generativeai as genai
+            genai.configure(api_key=st.session_state.gemini_key)
+            gemini_model = genai.GenerativeModel("gemini-1.5-flash", system_instruction="You are an expert E-Waste AI assistant. You help with: e-waste classification, recycling, recovery of precious metals, safety, environmental impact, repair vs recycle decisions, Indian e-waste laws, and more. Give detailed, helpful answers with emojis. Always be friendly and informative. If user uploads an image, identify the electronic device and provide recycling info.")
+            gemini_ready = True
+            st.success("✅ Gemini AI Connected! Real AI responses enabled 🧠")
+        except: st.warning("⚠️ Invalid API key. Using smart offline AI.")
 
-    # All 6 models accuracy table
-    with st.expander("📊 VIEW ALL 6 MODELS ACCURACY", expanded=False):
-        for name, info in MODEL_ACCURACY.items():
-            bar_width = info["acc"]
-            bar_color = "#00FF7F" if info["acc"] >= 100 else "#FFD700" if info["acc"] >= 99.9 else "#FF6347"
-            st.markdown(f'''<div style="display:flex;align-items:center;gap:12px;margin:8px 0;padding:10px;background:rgba(255,255,255,.02);border-radius:10px;">
-                <div style="min-width:220px;"><strong style="color:#ccc;">{name}</strong></div>
-                <div style="flex:1;background:rgba(255,255,255,.05);border-radius:8px;height:24px;overflow:hidden;">
-                    <div style="width:{bar_width}%;height:100%;background:{bar_color};border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
-                        <span style="color:#000;font-weight:700;font-size:.8rem;">{info["acc"]:.2f}%</span>
-                    </div>
-                </div>
-                <div style="min-width:80px;text-align:right;"><span class="tag">{info["type"]}</span></div>
-            </div>''', unsafe_allow_html=True)
-    for msg in st.session_state.chat_messages:
-        icon = "🤖" if msg["role"] == "assistant" else "👤"
-        bc = "#DC143C" if msg["role"] == "assistant" else "#FFD700"
-        content_html = msg["content"]
-        # Show image if attached
-        if msg.get("image"):
-            content_html = f'<div style="margin-bottom:12px;"><img src="data:image/jpeg;base64,{msg["image"]}" style="max-width:300px;border-radius:12px;border:2px solid rgba(220,20,60,.3);"/></div>' + content_html
-        # Show video if attached
-        if msg.get("video_name"):
-            content_html = f'<div style="margin-bottom:12px;padding:15px;background:rgba(220,20,60,.1);border-radius:12px;border:1px solid rgba(220,20,60,.2);"><span style="font-size:1.5rem;">🎬</span> <strong>{msg["video_name"]}</strong> <span style="color:#888;">({msg.get("video_size","")}) uploaded</span></div>' + content_html
-        st.markdown(f'<div class="chat-bot"><div class="chat-icon">{icon}</div><div class="glass-card chat-msg" style="border-left:3px solid {bc};">{content_html}</div></div>', unsafe_allow_html=True)
+    if not gemini_ready:
+        st.info("💡 No API key? No problem! Smart offline AI is active with 20+ topics.")
 
-    # Upload section — ChatGPT style
-    st.markdown('<div class="section-header">📎 UPLOAD & ASK</div>', unsafe_allow_html=True)
-    up1, up2 = st.columns([1,1])
-    with up1:
-        uploaded_img = st.file_uploader("📷 Upload Photo", type=['jpg','jpeg','png','webp'], key="chat_img", label_visibility="collapsed", help="Upload e-waste photo for AI analysis")
-        st.markdown('<p style="text-align:center;color:#666;font-size:.8rem;">📷 Photos: JPG, PNG, WebP</p>', unsafe_allow_html=True)
-    with up2:
-        uploaded_vid = st.file_uploader("🎬 Upload Video", type=['mp4','avi','mov','webm'], key="chat_vid", label_visibility="collapsed", help="Upload e-waste video for AI analysis")
-        st.markdown('<p style="text-align:center;color:#666;font-size:.8rem;">🎬 Videos: MP4, AVI, MOV</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    # Process uploaded image
-    if uploaded_img is not None and f"processed_img_{uploaded_img.name}" not in st.session_state:
-        img_bytes = uploaded_img.read()
+    # ── CHAT DISPLAY ──
+    chat_container = st.container()
+    with chat_container:
+        for msg in st.session_state.chat_messages:
+            if msg['role'] == 'user':
+                st.markdown(f'''<div class="chat-bot" style="justify-content:flex-end;">
+                    <div class="chat-msg" style="background:rgba(220,20,60,.15);border:1px solid rgba(220,20,60,.3);border-radius:18px 18px 4px 18px;max-width:80%;">{msg["content"]}</div>
+                    <div class="chat-icon">👤</div>
+                </div>''', unsafe_allow_html=True)
+                if msg.get('image'):
+                    st.image(msg['image'], width=250)
+                if msg.get('video_name'):
+                    st.markdown(f'<span class="tag">🎥 {msg["video_name"]}</span>', unsafe_allow_html=True)
+            else:
+                st.markdown(f'''<div class="chat-bot">
+                    <div class="chat-icon">🤖</div>
+                    <div class="chat-msg" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px 18px 18px 4px;max-width:80%;">{msg["content"]}</div>
+                </div>''', unsafe_allow_html=True)
+
+    # ── WHATSAPP-STYLE INPUT BAR ──
+    st.markdown('''<div style="background:rgba(255,255,255,.03);border:1px solid rgba(220,20,60,.2);border-radius:16px;padding:12px;margin-top:10px;">
+        <div style="color:#DC143C;font-family:Orbitron;font-size:.65rem;letter-spacing:2px;margin-bottom:8px;">💬 MESSAGE BAR</div>
+    </div>''', unsafe_allow_html=True)
+
+    # Attachment buttons row
+    att1, att2, att3 = st.columns([1,1,3])
+    with att1:
+        chat_img = st.file_uploader("📷", type=['jpg','jpeg','png','webp'], key="wa_img", label_visibility="collapsed")
+    with att2:
+        chat_vid = st.file_uploader("🎥", type=['mp4','avi','mov'], key="wa_vid", label_visibility="collapsed")
+    with att3:
+        st.markdown('<p style="color:#555;font-size:.75rem;margin-top:8px;">📷 Photo | 🎥 Video | ⌨️ Type below</p>', unsafe_allow_html=True)
+
+    # Process image upload
+    if chat_img:
         import base64
-        img_b64 = base64.b64encode(img_bytes).decode()
-        st.session_state[f"processed_img_{uploaded_img.name}"] = True
+        img_bytes = chat_img.read()
+        b64 = base64.b64encode(img_bytes).decode()
+        img_html = f'<img src="data:image/{chat_img.type.split("/")[-1]};base64,{b64}" style="max-width:250px;border-radius:12px;">'
 
-        # Show image preview
-        st.markdown('<div class="glass-card" style="text-align:center;padding:15px;">', unsafe_allow_html=True)
-        st.image(img_bytes, caption=f"📷 {uploaded_img.name}", use_container_width=False, width=350)
-        st.markdown('</div>', unsafe_allow_html=True)
+        user_msg = {"role":"user","content":f"📷 *Uploaded: {chat_img.name}*","image":img_html}
+        st.session_state.chat_messages.append(user_msg)
 
-        # Visual ID for the image
-        st.markdown('<div class="section-header">🔍 WHAT IS THIS DEVICE?</div>', unsafe_allow_html=True)
-        TYPE_OPTS = {"📱 Phone/Smartphone":"Mobile Phones","💻 Laptop/Notebook":"Laptops","🖥️ Desktop/CPU":"Desktop Computers","📱 Tablet/iPad":"Tablets","🖥️ Monitor/Display":"Monitors/Displays","📺 Television/TV":"Televisions","🖨️ Printer/Scanner":"Printers","🔋 Battery":"Batteries","🔌 Circuit Board/PCB":"PCBs/Circuit Boards","🔌 Cable/Wire":"Cables & Wires","🏠 Small Appliance":"Small Appliances","🏠 Large Appliance":"Large Appliances","💡 Light/Bulb":"Lighting Equipment","🔊 Audio/Video Device":"Audio/Video Equipment","📡 Router/Modem":"Networking Equipment"}
-        COND_OPTS = {"🟢 Working/Good":8,"🟡 Partially Working":5,"🔴 Not Working/Broken":3,"⚫ Severely Damaged":1}
+        # AI analyze image
+        if gemini_ready:
+            try:
+                from PIL import Image
+                import io
+                img = Image.open(io.BytesIO(img_bytes))
+                response = gemini_model.generate_content(["Identify this electronic device/e-waste in the image. Tell what it is, its recyclable materials, recovery value, and recycling steps. Be detailed and use emojis.", img])
+                bot_reply = response.text
+            except Exception as e:
+                bot_reply = chatbot_respond(chat_img.name)
+        else:
+            # Try to identify from filename
+            bot_reply = f"📸 **Image received: {chat_img.name}**\n\n" + chatbot_respond(chat_img.name.split('.')[0])
 
-        id1, id2 = st.columns(2)
-        with id1: vtype = st.selectbox("Device Type", list(TYPE_OPTS.keys()), key="chat_vtype")
-        with id2: vcond = st.selectbox("Condition", list(COND_OPTS.keys()), key="chat_vcond")
-
-        if st.button("🤖 ANALYZE THIS IMAGE", use_container_width=True, key="analyze_img"):
-            category = TYPE_OPTS[vtype]
-            cond_score = COND_OPTS[vcond]
-            has_screen = category in ['Mobile Phones','Laptops','Tablets','Monitors/Displays','Televisions']
-
-            # Add user message with image
-            st.session_state.chat_messages.append({"role":"user","content":f"Analyze this **{category}** in **{vcond.split(' ',1)[1]}** condition.","image":img_b64})
-
-            # Classify
-            features = build_features(category, cond_score, has_screen)
-            final_cat, conf = classify_with_model(features, chatbot_model_key)
-            rec, env = get_recovery_info(final_cat)
-
-            # Build rich response
-            resp = f"## 📸 Image Analysis Complete!\n\n"
-            resp += f"🧠 **Model Used:** {selected_model} ({sel_info['acc']:.2f}% accuracy)\n"
-            resp += f"🔍 **Device:** {final_cat}\n"
-            resp += f"🎯 **Confidence:** {conf*100:.1f}%\n"
-            resp += f"📊 **Condition:** {vcond.split(' ',1)[1]}\n\n"
-
-            if rec:
-                resp += f"---\n\n### 💰 Recovery Analysis\n\n"
-                resp += f"💵 **Value:** ${rec['estimated_value_usd']:.2f}\n"
-                resp += f"🔧 **Method:** {rec['recovery_method'].title()}\n"
-                resp += f"⏱️ **Time:** {rec['time_estimate']}\n"
-                resp += f"📊 **Difficulty:** {rec['difficulty'].upper()}\n\n"
-
-                if env:
-                    resp += f"### 🌍 Environmental Impact\n\n"
-                    resp += f"🌳 CO₂ Saved: **{env.get('co2_saved_kg',0)} kg**\n"
-                    resp += f"💧 Water Saved: **{env.get('water_saved_liters',0)} liters**\n"
-                    resp += f"⚡ Energy Saved: **{env.get('energy_saved_kwh',0)} kWh**\n\n"
-
-                resp += f"### ♻️ What To Do\n\n"
-                if cond_score >= 7:
-                    resp += "✅ **Refurbish & Resell!** Device is in good condition.\n"
-                elif cond_score >= 4:
-                    resp += "🔧 **Partial Recovery** recommended. Some components are salvageable.\n"
-                else:
-                    resp += "⚠️ **Full Material Recovery** needed. Extract precious metals & recycle.\n"
-
-                if rec.get('recovery_steps'):
-                    resp += "\n### 📋 Recovery Steps\n\n"
-                    for i, s in enumerate(rec['recovery_steps'][:4], 1):
-                        resp += f"**{i}.** {s}\n"
-
-                if rec.get('safety_precautions'):
-                    resp += f"\n⚠️ **Safety:** {rec['safety_precautions'][0]}"
-
-                save_classification(st.session_state.role, "chatbot-image", final_cat, conf, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0) if env else 0, f"Image: {uploaded_img.name}")
-
-            st.session_state.chat_messages.append({"role":"assistant","content":resp})
-            st.session_state.chatbot_device = final_cat
-            st.rerun()
-
-    # Process uploaded video
-    if uploaded_vid is not None and f"processed_vid_{uploaded_vid.name}" not in st.session_state:
-        st.session_state[f"processed_vid_{uploaded_vid.name}"] = True
-        vid_size = f"{uploaded_vid.size/1024/1024:.1f} MB"
-
-        # Show video preview
-        st.markdown('<div class="glass-card" style="text-align:center;padding:15px;">', unsafe_allow_html=True)
-        st.video(uploaded_vid)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        # Visual ID for video
-        st.markdown('<div class="section-header">🎬 WHAT DEVICE IS IN THE VIDEO?</div>', unsafe_allow_html=True)
-        VID_TYPE_OPTS = {"📱 Phone/Smartphone":"Mobile Phones","💻 Laptop/Notebook":"Laptops","🖥️ Desktop/CPU":"Desktop Computers","📱 Tablet/iPad":"Tablets","🖥️ Monitor/Display":"Monitors/Displays","📺 Television/TV":"Televisions","🖨️ Printer/Scanner":"Printers","🔋 Battery":"Batteries","🔌 Circuit Board/PCB":"PCBs/Circuit Boards","🔌 Cable/Wire":"Cables & Wires","🏠 Small Appliance":"Small Appliances","🏠 Large Appliance":"Large Appliances","💡 Light/Bulb":"Lighting Equipment","🔊 Audio/Video Device":"Audio/Video Equipment","📡 Router/Modem":"Networking Equipment"}
-        VID_COND_OPTS = {"🟢 Working/Good":8,"🟡 Partially Working":5,"🔴 Not Working/Broken":3,"⚫ Severely Damaged":1}
-
-        vd1, vd2 = st.columns(2)
-        with vd1: vid_type = st.selectbox("Device Type", list(VID_TYPE_OPTS.keys()), key="vid_vtype")
-        with vd2: vid_cond = st.selectbox("Condition", list(VID_COND_OPTS.keys()), key="vid_vcond")
-
-        if st.button("🎬 ANALYZE VIDEO", use_container_width=True, key="analyze_vid"):
-            category = VID_TYPE_OPTS[vid_type]
-            cond_score = VID_COND_OPTS[vid_cond]
-            has_screen = category in ['Mobile Phones','Laptops','Tablets','Monitors/Displays','Televisions']
-
-            st.session_state.chat_messages.append({"role":"user","content":f"Analyze this **{category}** from video in **{vid_cond.split(' ',1)[1]}** condition.","video_name":uploaded_vid.name,"video_size":vid_size})
-
-            features = build_features(category, cond_score, has_screen)
-            final_cat, conf = classify_with_model(features, chatbot_model_key)
-            rec, env = get_recovery_info(final_cat)
-
-            resp = f"## 🎬 Video Analysis Complete!\n\n"
-            resp += f"🧠 **Model Used:** {selected_model} ({sel_info['acc']:.2f}% accuracy)\n"
-            resp += f"🔍 **Device:** {final_cat}\n"
-            resp += f"🎯 **Confidence:** {conf*100:.1f}%\n\n"
-
-            if rec:
-                resp += f"💰 **Recovery Value:** ${rec['estimated_value_usd']:.2f}\n"
-                resp += f"🔧 **Method:** {rec['recovery_method'].title()}\n"
-                resp += f"⏱️ **Time:** {rec['time_estimate']}\n\n"
-                if env:
-                    resp += f"🌍 Recycling saves **{env.get('co2_saved_kg',0)} kg CO₂** = 🌳 **{env.get('co2_saved_kg',0)/21:.1f} trees**!\n\n"
-                if cond_score >= 7: resp += "✅ **Recommendation:** Refurbish & resell this device!\n"
-                elif cond_score >= 4: resp += "🔧 **Recommendation:** Partial component recovery advised.\n"
-                else: resp += "⚠️ **Recommendation:** Full material extraction needed.\n"
-                if rec.get('recovery_steps'):
-                    resp += "\n### ♻️ Steps:\n"
-                    for i, s in enumerate(rec['recovery_steps'][:4], 1): resp += f"**{i}.** {s}\n"
-                if rec.get('safety_precautions'): resp += f"\n⚠️ {rec['safety_precautions'][0]}"
-                save_classification(st.session_state.role, "chatbot-video", final_cat, conf, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0) if env else 0, f"Video: {uploaded_vid.name}")
-
-            st.session_state.chat_messages.append({"role":"assistant","content":resp})
-            st.session_state.chatbot_device = final_cat
-            st.rerun()
-
-    # Quick action buttons
-    st.markdown('<div class="section-header">⚡ QUICK ACTIONS</div>', unsafe_allow_html=True)
-    qc1,qc2,qc3,qc4 = st.columns(4)
-    qq = None
-    with qc1:
-        if st.button("📱 Classify", use_container_width=True): qq = "I want to classify a device"
-    with qc2:
-        if st.button("💰 Values", use_container_width=True): qq = "What materials can be recovered?"
-    with qc3:
-        if st.button("⚠️ Safety", use_container_width=True): qq = "safety precautions for e-waste"
-    with qc4:
-        if st.button("🌍 Impact", use_container_width=True): qq = "environmental impact of e-waste"
-
-    # Text chat input
-    user_input = st.chat_input("💬 Type your question here...")
-    query = user_input or qq
-    if query:
-        st.session_state.chat_messages.append({"role":"user","content":query})
-        resp = chatbot_respond(query)
-        st.session_state.chat_messages.append({"role":"assistant","content":resp})
+        st.session_state.chat_messages.append({"role":"bot","content":bot_reply})
         st.rerun()
 
-    # Clear chat
-    st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("🗑️ Clear Chat History", use_container_width=True):
-        st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Chat cleared!** Upload images/videos or ask me anything! 🤖📸🎬"}]
-        st.session_state.chatbot_device = None; st.rerun()
+    # Process video upload
+    if chat_vid:
+        user_msg = {"role":"user","content":f"🎥 *Uploaded: {chat_vid.name}*","video_name":chat_vid.name}
+        st.session_state.chat_messages.append(user_msg)
 
-# ═══ FORM CLASSIFY ═══
+        bot_reply = f"🎥 **Video received: {chat_vid.name}**\n\n" + chatbot_respond(chat_vid.name.split('.')[0])
+        st.session_state.chat_messages.append({"role":"bot","content":bot_reply})
+        st.rerun()
+
+    # Text input
+    user_text = st.chat_input("✍️ Type your message... (ask anything about e-waste!)")
+    if user_text:
+        st.session_state.chat_messages.append({"role":"user","content":user_text})
+
+        if gemini_ready:
+            try:
+                response = gemini_model.generate_content(user_text)
+                bot_reply = response.text
+            except:
+                bot_reply = chatbot_respond(user_text)
+        else:
+            bot_reply = chatbot_respond(user_text)
+
+        st.session_state.chat_messages.append({"role":"bot","content":bot_reply})
+        st.rerun()
+
+    # Quick action buttons
+    st.markdown('<div class="section-header">⚡ QUICK TOPICS</div>', unsafe_allow_html=True)
+    q1,q2,q3,q4 = st.columns(4)
+    with q1:
+        if st.button("📱 Phone", use_container_width=True, key="qp"):
+            st.session_state.chat_messages.append({"role":"user","content":"Tell me about phone recycling"})
+            r = gemini_model.generate_content("Tell me about mobile phone e-waste recycling, materials, value and steps") if gemini_ready else None
+            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("phone")})
+            st.rerun()
+    with q2:
+        if st.button("💻 Laptop", use_container_width=True, key="ql"):
+            st.session_state.chat_messages.append({"role":"user","content":"Tell me about laptop recycling"})
+            r = gemini_model.generate_content("Tell me about laptop e-waste recycling, materials, value and steps") if gemini_ready else None
+            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("laptop")})
+            st.rerun()
+    with q3:
+        if st.button("⚠️ Safety", use_container_width=True, key="qs"):
+            st.session_state.chat_messages.append({"role":"user","content":"E-waste safety tips"})
+            r = gemini_model.generate_content("Give detailed e-waste safety tips, hazardous materials and precautions") if gemini_ready else None
+            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("safety")})
+            st.rerun()
+    with q4:
+        if st.button("🌍 Impact", use_container_width=True, key="qi"):
+            st.session_state.chat_messages.append({"role":"user","content":"Environmental impact of e-waste"})
+            r = gemini_model.generate_content("Tell me about environmental impact of e-waste, stats, CO2 savings from recycling") if gemini_ready else None
+            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("environment")})
+            st.rerun()
+
+    # Clear chat
+    if st.button("🗑️ Clear Chat", use_container_width=True):
+        st.session_state.chat_messages = []; st.rerun()
+
+
 elif page_id == "classify":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🔍 FORM CLASSIFICATION</h1>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
