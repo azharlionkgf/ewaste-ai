@@ -530,6 +530,28 @@ if page_id == "home":
     with m3: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(df_raw):,}</div><div class="metric-label">Dataset Rows</div></div>' if data_loaded and df_raw is not None else '<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">0</div><div class="metric-label">Dataset Rows</div></div>', unsafe_allow_html=True)
     with m4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-value green-value">100%</div><div class="metric-label">Accuracy</div></div>', unsafe_allow_html=True)
 
+    # ── ALL 6 MODELS WITH ACCURACY ──
+    st.markdown('<div class="section-header">🤖 OUR 6 TRAINED ML MODELS</div>', unsafe_allow_html=True)
+    md1,md2,md3 = st.columns(3)
+    for i, (name, info) in enumerate(ALL_MODELS.items()):
+        acc_color = "#00FF7F" if info["acc"] >= 100 else "#FFD700"
+        col = [md1,md2,md3][i % 3]
+        with col:
+            st.markdown(f'''<div class="metric-card" style="text-align:left;padding:18px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <strong style="color:#ccc;font-size:1rem;">{name}</strong>
+                </div>
+                <div style="margin:10px 0;background:rgba(255,255,255,.05);border-radius:8px;height:20px;overflow:hidden;">
+                    <div style="width:{info['acc']}%;height:100%;background:{acc_color};border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
+                        <span style="color:#000;font-weight:700;font-size:.75rem;">{info['acc']:.2f}%</span>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                    <span class="tag">{info['type']}</span>
+                    <span style="color:{acc_color};font-family:Orbitron;font-size:1.2rem;font-weight:700;">{info['acc']:.2f}%</span>
+                </div>
+            </div>''', unsafe_allow_html=True)
+
     if data_loaded and df_raw is not None and 'device_type' in df_raw.columns:
         try:
             import plotly.express as px
