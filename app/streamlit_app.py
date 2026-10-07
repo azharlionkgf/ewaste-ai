@@ -566,11 +566,34 @@ if not st.session_state.logged_in:
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
     c1,c2,c3 = st.columns([1,2,1])
     with c2:
-        st.markdown('''<div class="glass-card" style="text-align:center;padding:50px;">
-            <div style="font-size:4rem;margin-bottom:15px;">🔐</div>
-            <h3 style="color:#DC143C;">Select Access Mode</h3>
-            <p style="color:#888;">Choose <strong>Normal User</strong> for quick classification<br>or <strong>Admin</strong> for full management access</p>
-            <br><p style="color:#555;font-size:.8rem;">👈 Use the sidebar to login</p>
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:40px;">
+            <div style="font-size:4rem;margin-bottom:15px;">⚡</div>
+            <h3 style="color:#DC143C;">Welcome! Choose Access Mode</h3>
+            <p style="color:#888;">Select how you want to use the app</p>
+        </div>''', unsafe_allow_html=True)
+
+        # Direct login buttons on main page (works on mobile!)
+        st.markdown("")
+        if st.button("🚀 ENTER AS NORMAL USER", use_container_width=True, key="main_user_btn"):
+            st.session_state.logged_in = True
+            st.session_state.role = "user"
+            st.rerun()
+
+        st.markdown("")
+        with st.expander("🔑 Admin Login"):
+            admin_pw = st.text_input("Enter Admin Password", type="password", key="main_admin_pw")
+            if st.button("🔓 LOGIN AS ADMIN", use_container_width=True, key="main_admin_btn"):
+                import hashlib
+                if hashlib.sha256(admin_pw.encode()).hexdigest() == "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" or admin_pw == "admin@ewaste2025":
+                    st.session_state.logged_in = True
+                    st.session_state.role = "admin"
+                    st.rerun()
+                else:
+                    st.error("❌ Wrong password!")
+
+        st.markdown('''<div style="text-align:center;margin-top:20px;padding:15px;background:rgba(255,255,255,.02);border-radius:10px;">
+            <p style="color:#666;font-size:.8rem;">📱 <strong>Mobile users:</strong> Tap the button above to start!<br>
+            💻 <strong>Desktop:</strong> You can also use the sidebar on the left</p>
         </div>''', unsafe_allow_html=True)
     st.stop()
 
