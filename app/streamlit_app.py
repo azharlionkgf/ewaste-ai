@@ -738,7 +738,9 @@ elif page_id == "chatbot":
 
     # ── GEMINI AI SETUP ──
     gemini_ready = False
-    if 'gemini_key' not in st.session_state: st.session_state.gemini_key = ""
+    if 'gemini_key' not in st.session_state:
+        try: st.session_state.gemini_key = st.secrets.get("GEMINI_API_KEY", "")
+        except: st.session_state.gemini_key = ""
     with st.expander("🔑 AI Settings — Connect Google Gemini (FREE)", expanded=not bool(st.session_state.gemini_key)):
         st.markdown('''<div class="step-card">
             <strong>How to get FREE API Key:</strong><br>
