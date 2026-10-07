@@ -477,9 +477,9 @@ with st.sidebar:
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
         if st.session_state.role == "admin":
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
         else:
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
 
         selection = st.radio("NAV", list(pages.keys()), label_visibility="collapsed")
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
@@ -1287,6 +1287,222 @@ elif page_id == "datasets":
                 if st.button(f"🗑️ Delete", key=f"del_{row['id']}"):
                     delete_dataset(row['id']); st.rerun()
     else: st.info("No additional datasets uploaded.")
+
+# ═══ SMART ANALYZER ═══
+elif page_id == "analyzer":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📋 SMART DATASET ANALYZER</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Upload any e-waste dataset → Auto Analysis → Recovery Recommendations → Full Report</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    # Data source selection
+    data_src = st.radio("📂 Choose Data Source", ["📊 Use Built-in Dataset (10K samples)","📤 Upload Your Own CSV"], horizontal=True)
+
+    analyze_df = None
+    if data_src == "📊 Use Built-in Dataset (10K samples)":
+        if data_loaded and df_raw is not None:
+            analyze_df = df_raw.copy()
+            st.success(f"✅ Built-in dataset loaded: **{len(analyze_df):,} rows × {len(analyze_df.columns)} columns**")
+        else:
+            st.warning("Built-in dataset not found.")
+    else:
+        up_csv = st.file_uploader("📤 Upload CSV File", type=['csv'], key="analyzer_csv")
+        if up_csv:
+            try:
+                analyze_df = pd.read_csv(up_csv)
+                st.success(f"✅ Uploaded: **{up_csv.name}** — {len(analyze_df):,} rows × {len(analyze_df.columns)} columns")
+            except Exception as e:
+                st.error(f"Error reading file: {e}")
+
+    if analyze_df is not None:
+        tab1,tab2,tab3,tab4 = st.tabs(["📊 Dataset Overview","♻️ Recovery Analysis","🌍 Impact Report","📥 Download Report"])
+
+        with tab1:
+            st.markdown('<div class="section-header">📊 DATASET PREVIEW</div>', unsafe_allow_html=True)
+            st.dataframe(analyze_df.head(20), use_container_width=True, hide_index=True)
+
+            # Stats cards
+            num_cols = analyze_df.select_dtypes(include=[np.number]).columns
+            s1,s2,s3,s4 = st.columns(4)
+            with s1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(analyze_df):,}</div><div class="metric-label">Rows</div></div>', unsafe_allow_html=True)
+            with s2: st.markdown(f'<div class="metric-card"><div class="metric-icon">📋</div><div class="metric-value">{len(analyze_df.columns)}</div><div class="metric-label">Features</div></div>', unsafe_allow_html=True)
+            with s3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔢</div><div class="metric-value">{len(num_cols)}</div><div class="metric-label">Numeric</div></div>', unsafe_allow_html=True)
+            with s4:
+                nulls = analyze_df.isnull().sum().sum()
+                st.markdown(f'<div class="metric-card"><div class="metric-icon">{"🟢" if nulls==0 else "⚠️"}</div><div class="metric-value">{nulls:,}</div><div class="metric-label">Missing</div></div>', unsafe_allow_html=True)
+
+            # Charts
+            if 'device_type' in analyze_df.columns:
+                try:
+                    import plotly.express as px
+                    st.markdown('<div class="section-header">📈 CATEGORY DISTRIBUTION</div>', unsafe_allow_html=True)
+                    vc = analyze_df['device_type'].value_counts()
+                    fc1,fc2 = st.columns(2)
+                    with fc1:
+                        fig = px.bar(x=vc.index, y=vc.values, labels={'x':'Category','y':'Count'}, title='Devices per Category')
+                        fig.update_layout(**dark_layout(height=380, xaxis_tickangle=-45))
+                        fig.update_traces(marker_color=COLORS[:len(vc)])
+                        st.plotly_chart(fig, use_container_width=True)
+                    with fc2:
+                        fig = px.pie(names=vc.index, values=vc.values, title='Category Share')
+                        fig.update_layout(**dark_layout(height=380))
+                        st.plotly_chart(fig, use_container_width=True)
+                except: pass
+
+            # Key statistics
+            st.markdown('<div class="section-header">🔍 KEY STATISTICS</div>', unsafe_allow_html=True)
+            st.dataframe(analyze_df.describe().round(2), use_container_width=True)
+
+        with tab2:
+            st.markdown('<div class="section-header">♻️ RECOVERY RECOMMENDATIONS BY DEVICE</div>', unsafe_allow_html=True)
+
+            if 'device_type' in analyze_df.columns:
+                device_counts = analyze_df['device_type'].value_counts()
+                total_value = 0.0
+                total_co2 = 0.0
+                recovery_data = []
+
+                for device, count in device_counts.items():
+                    rec, env = get_recovery_info(device)
+                    if rec:
+                        dev_value = rec['estimated_value_usd'] * count
+                        dev_co2 = env.get('co2_saved_kg', 0) * count if env else 0
+                        total_value += dev_value
+                        total_co2 += dev_co2
+                        recovery_data.append({'Device':device,'Count':count,'Unit Value ($)':f"${rec['estimated_value_usd']:.2f}",
+                            'Total Value ($)':f"${dev_value:.2f}",'Method':rec['recovery_method'].title(),
+                            'Difficulty':rec['difficulty'].upper(),'CO₂ Saved (kg)':f"{dev_co2:.1f}"})
+
+                        st.markdown(f'''<div class="glass-card">
+                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                                <div>
+                                    <h4 style="color:#DC143C;margin:0;">♻️ {device}</h4>
+                                    <span style="color:#888;">{count} devices found</span>
+                                </div>
+                                <div style="text-align:right;">
+                                    <span class="green-value" style="font-size:1.5rem;">${dev_value:.2f}</span><br>
+                                    <span style="color:#888;font-size:.8rem;">Total Recovery Value</span>
+                                </div>
+                            </div>
+                            <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;">
+                                <span class="tag">🔧 {rec['recovery_method'].title()}</span>
+                                <span class="tag">⏱️ {rec['time_estimate']}</span>
+                                <span class="tag">📊 {rec['difficulty'].upper()}</span>
+                                <span class="tag">🌍 {dev_co2:.1f} kg CO₂</span>
+                            </div>
+                        </div>''', unsafe_allow_html=True)
+
+                        if rec.get('recovery_steps'):
+                            with st.expander(f"📋 Recovery Steps for {device}"):
+                                for i, s in enumerate(rec['recovery_steps'][:5], 1):
+                                    st.markdown(f'<div class="step-card"><strong>Step {i}:</strong> {s}</div>', unsafe_allow_html=True)
+                                if rec.get('safety_precautions'):
+                                    st.markdown(f'<div class="warning-card">⚠️ <strong>Safety:</strong> {" • ".join(rec["safety_precautions"][:3])}</div>', unsafe_allow_html=True)
+
+                # Total summary
+                st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-header">💰 TOTAL RECOVERY SUMMARY</div>', unsafe_allow_html=True)
+                t1,t2,t3,t4 = st.columns(4)
+                with t1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📦</div><div class="metric-value">{len(analyze_df):,}</div><div class="metric-label">Total Devices</div></div>', unsafe_allow_html=True)
+                with t2: st.markdown(f'<div class="metric-card"><div class="metric-icon">💰</div><div class="metric-value green-value">${total_value:,.2f}</div><div class="metric-label">Total Value</div></div>', unsafe_allow_html=True)
+                with t3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌍</div><div class="metric-value" style="color:#00BFFF;">{total_co2:,.1f}</div><div class="metric-label">kg CO₂ Saved</div></div>', unsafe_allow_html=True)
+                with t4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌳</div><div class="metric-value" style="color:#00FF7F;">{total_co2/21:,.0f}</div><div class="metric-label">Trees Equivalent</div></div>', unsafe_allow_html=True)
+
+                # Summary table
+                if recovery_data:
+                    st.markdown('<div class="section-header">📊 RECOVERY DATA TABLE</div>', unsafe_allow_html=True)
+                    st.dataframe(pd.DataFrame(recovery_data), use_container_width=True, hide_index=True)
+            else:
+                st.info("Dataset needs a `device_type` column for recovery analysis. Upload a dataset with e-waste categories.")
+
+        with tab3:
+            st.markdown('<div class="section-header">🌍 ENVIRONMENTAL IMPACT REPORT</div>', unsafe_allow_html=True)
+            if 'device_type' in analyze_df.columns:
+                env_data = []
+                for device, count in analyze_df['device_type'].value_counts().items():
+                    _, env = get_recovery_info(device)
+                    if env:
+                        env_data.append({'Device':device,'Count':count,
+                            'CO₂ Saved (kg)':round(env.get('co2_saved_kg',0)*count,1),
+                            'Water Saved (L)':round(env.get('water_saved_liters',0)*count,0),
+                            'Energy Saved (kWh)':round(env.get('energy_saved_kwh',0)*count,1),
+                            'Toxic Prevented (kg)':round(env.get('toxic_prevented_kg',0)*count,2)})
+
+                if env_data:
+                    env_df = pd.DataFrame(env_data)
+                    e1,e2,e3,e4 = st.columns(4)
+                    with e1: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌳</div><div class="metric-value green-value">{env_df["CO₂ Saved (kg)"].sum():,.1f}</div><div class="metric-label">Total CO₂ Saved (kg)</div></div>', unsafe_allow_html=True)
+                    with e2: st.markdown(f'<div class="metric-card"><div class="metric-icon">💧</div><div class="metric-value" style="color:#00BFFF;">{env_df["Water Saved (L)"].sum():,.0f}</div><div class="metric-label">Total Water Saved (L)</div></div>', unsafe_allow_html=True)
+                    with e3: st.markdown(f'<div class="metric-card"><div class="metric-icon">⚡</div><div class="metric-value" style="color:#FFD700;">{env_df["Energy Saved (kWh)"].sum():,.1f}</div><div class="metric-label">Total Energy Saved</div></div>', unsafe_allow_html=True)
+                    with e4: st.markdown(f'<div class="metric-card"><div class="metric-icon">☠️</div><div class="metric-value" style="color:#FF4500;">{env_df["Toxic Prevented (kg)"].sum():,.2f}</div><div class="metric-label">Toxic Prevented (kg)</div></div>', unsafe_allow_html=True)
+
+                    st.dataframe(env_df, use_container_width=True, hide_index=True)
+                    try:
+                        import plotly.express as px
+                        fig = px.bar(env_df, x='Device', y='CO₂ Saved (kg)', color='Device', title='CO₂ Saved by Device Type')
+                        fig.update_layout(**dark_layout(height=400, xaxis_tickangle=-45, showlegend=False))
+                        st.plotly_chart(fig, use_container_width=True)
+                    except: pass
+
+                    st.markdown(f'''<div class="glass-card" style="text-align:center;">
+                        <h3 style="color:#00FF7F;">🌳 Recycling this dataset = Planting {env_df["CO₂ Saved (kg)"].sum()/21:,.0f} trees!</h3>
+                        <p style="color:#888;">Every device recycled makes our planet greener 🌱</p>
+                    </div>''', unsafe_allow_html=True)
+            else:
+                st.info("Need `device_type` column for environmental analysis.")
+
+        with tab4:
+            st.markdown('<div class="section-header">📥 DOWNLOAD ANALYSIS REPORT</div>', unsafe_allow_html=True)
+            if 'device_type' in analyze_df.columns:
+                vc = analyze_df['device_type'].value_counts()
+                report = f"""# 📋 E-WASTE SMART ANALYSIS REPORT
+**Generated:** {datetime.now().strftime('%d %B %Y, %I:%M %p')}
+**Analyzer:** E-Waste AI System v5.5
+**Project:** Azhar Fareed Mulla (2SA25MC002)
+
+---
+
+## 📊 Dataset Summary
+- **Rows:** {len(analyze_df):,}
+- **Columns:** {len(analyze_df.columns)}
+- **Device Categories:** {analyze_df['device_type'].nunique()}
+- **Missing Values:** {analyze_df.isnull().sum().sum():,}
+
+## 🏷️ Category Breakdown
+| Device | Count | % |
+|--------|-------|---|
+"""
+                for dev, cnt in vc.items():
+                    report += f"| {dev} | {cnt} | {cnt/len(analyze_df)*100:.1f}% |\n"
+
+                report += "\n## ♻️ Recovery Recommendations\n| Device | Count | Value/Unit | Total Value | Method | CO₂ Saved |\n|--------|-------|-----------|-------------|--------|----------|\n"
+                grand_val = 0; grand_co2 = 0
+                for dev, cnt in vc.items():
+                    rec, env = get_recovery_info(dev)
+                    if rec:
+                        tv = rec['estimated_value_usd']*cnt; tc = env.get('co2_saved_kg',0)*cnt if env else 0
+                        grand_val += tv; grand_co2 += tc
+                        report += f"| {dev} | {cnt} | ${rec['estimated_value_usd']:.2f} | ${tv:.2f} | {rec['recovery_method'].title()} | {tc:.1f} kg |\n"
+
+                report += f"""
+## 💰 Total Recovery Potential
+- **Total Value:** ${grand_val:,.2f}
+- **Total CO₂ Saved:** {grand_co2:,.1f} kg
+- **Trees Equivalent:** {grand_co2/21:,.0f} trees 🌳
+
+---
+*Generated by E-Waste Intelligence System v5.5 • Azhar Fareed Mulla • 2SA25MC002*
+"""
+                st.markdown(report)
+                st.download_button("📥 DOWNLOAD FULL REPORT", report, "smart_analysis_report.md", "text/markdown", use_container_width=True)
+            else:
+                st.info("Need `device_type` column for report generation.")
+    else:
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:50px;">
+            <div style="font-size:4rem;margin-bottom:15px;">📋</div>
+            <h3 style="color:#DC143C;">Smart Dataset Analyzer</h3>
+            <p style="color:#888;">Upload any e-waste CSV dataset or use our built-in 10K sample dataset</p>
+            <p style="color:#666;">Get instant analysis + recovery recommendations + environmental impact!</p>
+        </div>''', unsafe_allow_html=True)
 
 # ═══ ABOUT ═══
 elif page_id == "about":
