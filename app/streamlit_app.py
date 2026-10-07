@@ -402,7 +402,7 @@ DEVICE_MAP = {'phone':'Mobile Phones','mobile':'Mobile Phones','smartphone':'Mob
     'router':'Networking Equipment','modem':'Networking Equipment','switch':'Networking Equipment'}
 
 def chatbot_respond(query):
-    q = query.lower()
+    q = query.lower().strip()
     # Detect device
     device = None
     for key, cat in DEVICE_MAP.items():
@@ -412,37 +412,86 @@ def chatbot_respond(query):
         st.session_state.chatbot_device = device
         rec, env = get_recovery_info(device)
         if rec:
-            return f"## 🔍 **{device}**\n\n💰 **Value:** ${rec['estimated_value_usd']:.2f}\n🔧 **Method:** {rec['recovery_method'].title()}\n⏱️ **Time:** {rec['time_estimate']}\n📊 **Difficulty:** {rec['difficulty'].upper()}\n🌍 **CO₂ Saved:** {env.get('co2_saved_kg',0)} kg\n\n### ♻️ Recovery Steps:\n" + "\n".join([f"**{i+1}.** {s}" for i,s in enumerate(rec['recovery_steps'][:5])]) + f"\n\n⚠️ **Safety:** {rec['safety_precautions'][0] if rec.get('safety_precautions') else 'Standard protocols.'}"
+            steps = "\n".join([f"**{i+1}.** {s}" for i,s in enumerate(rec['recovery_steps'][:5])])
+            mats = ""
+            if rec.get('recoverable_materials'):
+                mats = "\n### 💎 Recoverable Materials:\n" + "\n".join([f"• **{m.title()}** — ${v.get('value_usd',0):.2f}" for m,v in list(rec['recoverable_materials'].items())[:6]])
+            safety = rec['safety_precautions'][0] if rec.get('safety_precautions') else 'Follow standard safety protocols.'
+            co2 = env.get('co2_saved_kg',0) if env else 0
+            water = env.get('water_saved_liters',0) if env else 0
+            return f"## 🔍 **{device}**\n\n💰 **Recovery Value:** ${rec['estimated_value_usd']:.2f}\n🔧 **Method:** {rec['recovery_method'].title()}\n⏱️ **Time:** {rec['time_estimate']}\n📊 **Difficulty:** {rec['difficulty'].upper()}\n🌍 **CO₂ Saved:** {co2} kg\n💧 **Water Saved:** {water} L\n\n### ♻️ Recovery Steps:\n{steps}{mats}\n\n⚠️ **Safety:** {safety}"
         return f"I identified **{device}**! Use the ♻️ Recovery Advisor page for detailed info."
 
-    if any(w in q for w in ['safety','safe','danger','hazard','toxic','precaution']):
-        return "## ⚠️ E-Waste Safety\n\n🧤 **Wear gloves** (nitrile/rubber)\n👓 **Safety goggles** for dust\n😷 **N95 mask** when cutting\n🌬️ **Ventilated area** always\n\n### ☠️ Hazardous Materials:\n• **Lead** → CRT monitors, solder\n• **Mercury** → Flat screens\n• **Cadmium** → Batteries\n• **Lithium** → Rechargeable batteries ⚡\n\n🔥 **NEVER** burn batteries or e-waste!\n📦 Take to **certified recyclers** only."
+    if any(w in q for w in ['safety','safe','danger','hazard','toxic','precaution','khatarnak','dhyan']):
+        return "## ⚠️ E-Waste Safety Guide\n\n### 🛡️ Personal Protection:\n🧤 **Nitrile gloves** — prevents chemical burns\n👓 **Safety goggles** — protects from dust/debris\n😷 **N95 respirator** — filters toxic particles\n👕 **Long sleeves** — skin protection\n🌬️ **Well-ventilated area** — prevents fume inhalation\n\n### ☠️ Hazardous Materials:\n| Material | Found In | Health Risk |\n|----------|---------|-------------|\n| Lead | CRT monitors, solder | Brain/kidney damage |\n| Mercury | LCD screens, switches | Nervous system |\n| Cadmium | NiCd batteries, PCBs | Cancer risk |\n| Lithium | Rechargeable batteries | Fire/explosion |\n| Arsenic | Semiconductors | Organ damage |\n| BFRs | Plastic casings | Endocrine disruption |\n\n### 🚫 NEVER Do:\n• ❌ Burn e-waste (releases dioxins)\n• ❌ Open batteries (explosion risk)\n• ❌ Dump in regular trash\n• ❌ Let children handle e-waste\n\n**Always use certified recyclers!** 🏭"
 
-    if any(w in q for w in ['material','value','gold','silver','copper','metal','price','worth','recover','paisa']):
+    if any(w in q for w in ['material','value','gold','silver','copper','metal','price','worth','kitna','paisa','keemat']):
         dev = st.session_state.get('chatbot_device')
         if dev:
             rec, _ = get_recovery_info(dev)
             if rec and rec.get('recoverable_materials'):
-                lines = "\n".join([f"• **{m.title()}** — ${v.get('value_usd',0):.2f}" for m,v in list(rec['recoverable_materials'].items())[:6]])
-                return f"## 💎 Materials in **{dev}**:\n\n{lines}\n\n💰 **Total:** ${rec['estimated_value_usd']:.2f}"
-        return "## 💰 Precious Metals in E-Waste:\n\n🥇 **Gold** ~$60/g → Circuit boards\n🥈 **Silver** ~$0.80/g → Contacts\n🔴 **Copper** ~$8/kg → Wires, PCBs\n⚪ **Platinum** ~$30/g → Hard drives\n\n📱 Phone → $2-5 | 💻 Laptop → $5-15 | 🖥️ Desktop → $8-25\n\n**Tell me your device for exact values!**"
+                lines = "\n".join([f"• **{m.title()}** — ${v.get('value_usd',0):.2f}" for m,v in list(rec['recoverable_materials'].items())[:8]])
+                return f"## 💎 Materials in **{dev}**:\n\n{lines}\n\n💰 **Total Recovery Value:** ${rec['estimated_value_usd']:.2f}\n\n📈 Metal prices change daily. These are average estimates."
+        return "## 💰 Precious Metals in E-Waste\n\n| Metal | Price | Found In |\n|-------|-------|----------|\n| 🥇 Gold | ~$60/gram | CPU, IC chips, connectors |\n| 🥈 Silver | ~$0.80/gram | Contacts, solder, switches |\n| 🔴 Copper | ~$8/kg | Wires, PCBs, motors |\n| ⚪ Platinum | ~$30/gram | Hard drives, thermocouples |\n| 🔵 Palladium | ~$45/gram | Capacitors, circuit boards |\n| ♻️ Aluminum | ~$2/kg | Heat sinks, chassis |\n\n### 📱 Value Per Device:\n• Phone → $2-5 | Laptop → $5-15\n• Desktop → $8-25 | Server → $50-200\n• PCB → $20-50/kg | TV → $3-10\n\n**Tell me a specific device for exact breakdown!**"
 
-    if any(w in q for w in ['environment','eco','carbon','co2','pollution','climate','green']):
-        return "## 🌍 E-Waste Impact\n\n📊 **50M tons** generated yearly globally\n♻️ Only **20%** properly recycled\n☠️ **70%** of landfill toxins from e-waste\n\n### 🌳 Recycling Saves:\n• 1 laptop → **30 kg CO₂**\n• 1 phone → **5 kg CO₂**\n• 1 TV → **50 kg CO₂**\n• 1 fridge → **150 kg CO₂**\n\n**Every device recycled = trees planted! 🌱**"
+    if any(w in q for w in ['environment','eco','carbon','co2','pollution','climate','green','pradushan','paryavaran']):
+        return "## 🌍 E-Waste Environmental Impact\n\n### 📊 Global Stats:\n• **53.6 million tons** generated in 2024\n• Only **17.4%** properly recycled\n• **$57 billion** worth of metals lost yearly\n• **70%** of toxic landfill waste is e-waste\n\n### 🌳 What Recycling Saves:\n| Device | CO₂ Saved | Water | Energy |\n|--------|----------|-------|--------|\n| 1 Phone | 5 kg | 200 L | 10 kWh |\n| 1 Laptop | 30 kg | 1,500 L | 80 kWh |\n| 1 TV | 50 kg | 3,000 L | 150 kWh |\n| 1 Fridge | 150 kg | 10,000 L | 500 kWh |\n| 1 PC | 40 kg | 2,000 L | 120 kWh |\n\n### 🏭 If NOT Recycled:\n• Lead seeps into groundwater 💧\n• Mercury enters food chain 🐟\n• Plastic takes 1000+ years to decompose\n• Burning releases carcinogens\n\n**Every device recycled = 🌱 trees planted!**"
 
-    if any(w in q for w in ['where','center','near','kahan','location','facility','recycle kaha']):
-        return "## 📍 Recycling Centers\n\n🔍 Search **'e-waste recycling near me'** on Google Maps\n\n### 🏭 India:\n• **Attero** — Pan India\n• **E-Parisaraa** — Bangalore\n• **Cerebra** — Bangalore\n• **Ash Recyclers** — Delhi\n\n### 📦 Collection Points:\n• Mobile stores accept old phones\n• Croma, Reliance Digital have bins\n• Manufacturer take-back programs\n\n💡 **Wipe data** before submitting!"
+    if any(w in q for w in ['where','center','near','kahan','location','facility','recycle kaha','collection']):
+        return "## 📍 E-Waste Recycling Centers\n\n### 🇮🇳 India Major Recyclers:\n| Company | Location | Contact |\n|---------|----------|---------|\n| Attero | Pan India | attero.in |\n| E-Parisaraa | Bangalore | eparisaraa.com |\n| Cerebra | Bangalore | cerebraindia.com |\n| Ash Recyclers | Delhi | ashrecyclers.com |\n| Eco Recycling | Mumbai | ecoreco.com |\n| Greenscape | Chennai | greenscapeeco.com |\n\n### 📦 Easy Drop-off Points:\n• 📱 Mobile stores (Samsung, Apple, Xiaomi)\n• 🏬 Croma, Reliance Digital recycling bins\n• 🏛️ Municipal collection drives\n• 📮 Amazon/Flipkart take-back programs\n• 🏫 Schools/college collection events\n\n### 💡 Before Dropping Off:\n1. 🔒 **Wipe all personal data**\n2. 🔋 Remove batteries separately\n3. 📦 Pack fragile items safely\n4. 📋 Get a recycling receipt\n\n🔍 Google **'e-waste recycling near me'** for local centers!"
 
-    if any(w in q for w in ['repair','fix','broken','damage','not working','theek']):
-        return "## 🔧 Repair vs Recycle\n\n### ✅ REPAIR when:\n• Less than **3 years old**\n• **Minor issues** (screen/battery)\n• Cost < **50%** of new price\n\n### ♻️ RECYCLE when:\n• **5+ years old**\n• **Major damage**\n• Repair cost > device value\n\n### 💡 Quick Fixes:\n• Slow phone → Factory reset\n• Weak battery → Replace ($10-30)\n• No WiFi → Reset router\n\n**Tell me your device — I'll recommend!**"
+    if any(w in q for w in ['repair','fix','broken','damage','not working','theek','kharab','band']):
+        return "## 🔧 Repair vs Recycle Decision Guide\n\n### ✅ REPAIR When:\n• Device is **< 3 years** old\n• **Minor issue** (screen, battery, port)\n• Repair cost **< 40%** of new price\n• Still receives **software updates**\n• Has **sentimental value**\n\n### ♻️ RECYCLE When:\n• Device is **5+ years** old\n• **Major hardware failure** (motherboard, chipset)\n• Repair cost **> 50%** of new price\n• **No software support** left\n• **Multiple issues** accumulated\n\n### 🛠️ Common DIY Fixes:\n| Problem | Fix | Cost |\n|---------|-----|------|\n| Slow phone | Factory reset | Free |\n| Weak battery | Battery swap | $10-30 |\n| Cracked screen | Screen kit | $20-80 |\n| No WiFi | Reset network | Free |\n| Storage full | Cloud + cleanup | Free |\n| Overheating | Clean vents, new paste | $5-15 |\n\n**Tell me your device + problem for specific advice!**"
 
-    if any(w in q for w in ['hi','hello','hey','namaste','help','what can']):
-        return "👋 **Hello!** I'm your E-Waste AI!\n\nI help with:\n🔍 **Classify** devices\n💰 **Material values**\n♻️ **Recovery steps**\n⚠️ **Safety tips**\n🌍 **Eco impact**\n📍 **Recycling centers**\n🔧 **Repair advice**\n\n**Ask anything or type a device name!**"
+    if any(w in q for w in ['law','rule','regulation','act','policy','niyam','kanoon','government','sarkaar']):
+        return "## 📜 E-Waste Laws & Regulations\n\n### 🇮🇳 India:\n• **E-Waste Management Rules 2016** (amended 2022)\n• Manufacturer must take back old products\n• Unauthorized recycling is **punishable offense**\n• EPR (Extended Producer Responsibility) mandatory\n• CPCB registers authorized recyclers\n\n### 🌍 Global:\n• **EU WEEE Directive** — strict recycling targets\n• **USA** — varies by state\n• **Basel Convention** — controls toxic waste exports\n\n### 👤 Your Rights:\n• Free take-back from manufacturers\n• Proper data destruction certificate\n• Information about recycling methods used\n\n⚖️ Dumping e-waste illegally → **Fine up to ₹5 lakhs!**"
 
-    if any(w in q for w in ['thank','thanks','shukriya','great','awesome']):
-        return "😊 **You're welcome!** ♻️ Every device recycled = greener planet! 🌱"
+    if any(w in q for w in ['battery','lithium','charging','cell','batt']):
+        return "## 🔋 Battery Safety & Recycling\n\n### ⚡ Battery Types:\n| Type | Found In | Recyclable |\n|------|---------|------------|\n| Li-ion | Phones, laptops | ✅ Yes |\n| Li-Po | Tablets, drones | ✅ Yes |\n| NiMH | Cameras, toys | ✅ Yes |\n| NiCd | Power tools | ✅ Yes (toxic) |\n| Lead-acid | UPS, cars | ✅ 99% recyclable |\n| Alkaline | Remotes, clocks | 🔄 Limited |\n\n### 🚨 Danger Signs:\n• 🔥 Swollen/bulging = **STOP using immediately**\n• 💧 Leaking fluid = **Wear gloves, don't touch**\n• 🌡️ Overheating = **Move to safe area**\n• 💥 Punctured = **Fire risk — call 112**\n\n### ♻️ How to Recycle:\n1. Tape the terminals with electrical tape\n2. Put in a **non-metallic container**\n3. Drop at **authorized battery bins**\n4. NEVER throw in regular trash!\n\n**Batteries contain 60% of e-waste's toxic materials!** ☠️"
 
-    return "🤔 I specialize in **e-waste recycling**. Try:\n• \"Tell me about **phone** recycling\"\n• \"Is it **safe** to open batteries?\"\n• \"**Where** to recycle laptops?\"\n• \"What **materials** are in a PC?\"\n\n**Type any device name for instant info!**"
+    if any(w in q for w in ['data','privacy','personal','delete','erase','wipe','format','hack']):
+        return "## 🔒 Data Privacy Before Recycling\n\n### ⚠️ Risks of NOT Wiping:\n• Identity theft 🕵️\n• Financial fraud 💳\n• Personal photos/videos leaked 📸\n• Passwords compromised 🔑\n\n### 🧹 How to Wipe Data:\n| Device | Method |\n|--------|--------|\n| 📱 Android | Settings → Reset → Factory Reset |\n| 📱 iPhone | Settings → General → Transfer/Reset |\n| 💻 Windows | Settings → Reset this PC → Remove all |\n| 💻 Mac | Erase All Content & Settings |\n| 💾 Hard Drive | Use DBAN (free software) |\n| 📀 SSD | Manufacturer secure erase tool |\n\n### 💡 Extra Security:\n1. Encrypt device first, then factory reset\n2. Overwrite with random data (3 passes)\n3. For HDD → degauss or physically destroy\n4. Remove SIM card & SD card\n5. Sign out of ALL accounts\n\n**Your data is YOUR responsibility!** 🛡️"
+
+    if any(w in q for w in ['diy','project','craft','reuse','upcycle','creative','banao','kya kare']):
+        return "## 🎨 DIY E-Waste Projects\n\n### 🔧 Creative Reuse Ideas:\n| Old Device | New Use |\n|------------|--------|\n| 📱 Old Phone | Security camera (Alfred app) |\n| 📱 Old Phone | Dedicated music player |\n| 💻 Old Laptop | Media server (Plex) |\n| 💻 Old Laptop | Digital photo frame |\n| 🖥️ Old Monitor | Smart mirror |\n| ⌨️ Keyboard | Wall art, keycap jewelry |\n| 🔌 Cables | Cable art, organizers |\n| 💿 CDs/DVDs | Coasters, decorations |\n| 🖨️ Printer parts | Robot projects |\n| 🔋 UPS | DIY power bank |\n\n### 💡 Educational Projects:\n• Build a **Raspberry Pi** computer from old parts\n• Create **solar chargers** from old phone batteries\n• Make **LED lamps** from old circuit boards\n• Build **Bluetooth speakers** from old components\n\n**Best reuse = Least waste! ♻️**"
+
+    if any(w in q for w in ['circular','economy','sustainable','future','bhavishya']):
+        return "## 🔄 Circular Economy & E-Waste\n\n### 🔁 Linear vs Circular:\n• **Linear:** Make → Use → Throw ❌\n• **Circular:** Make → Use → Repair → Reuse → Recycle ✅\n\n### 🏆 Benefits:\n• 💰 **$62.5 billion** in recoverable materials yearly\n• 👷 **Creates jobs** in recycling sector\n• 🌍 **Reduces mining** of virgin materials\n• 🌳 **Lower carbon footprint**\n\n### 🎯 Goals by 2030:\n• 65% e-waste collection rate\n• 80% material recovery\n• 100% data security compliance\n• Zero illegal dumping\n\n**Your old phone is tomorrow's new phone! 📱→♻️→📱**"
+
+    if any(w in q for w in ['india','bharat','desh','indian']):
+        return "## 🇮🇳 E-Waste in India\n\n### 📊 Stats:\n• **3rd largest** e-waste generator globally\n• **3.2 million tons** per year\n• Only **10%** formally recycled\n• **95%** handled by informal sector\n\n### 🏭 Top E-Waste Cities:\n1. Mumbai 🥇\n2. Delhi 🥈\n3. Bangalore 🥉\n4. Chennai\n5. Kolkata\n\n### ⚠️ Informal Sector:\n• Workers **without protection** burn waste\n• **Children** involved in hazardous work\n• **Acid baths** used to extract gold\n• **Zero environmental** controls\n\n### ✅ What YOU Can Do:\n1. Use authorized recyclers (CPCB registered)\n2. Don't give to kabadiwalas\n3. Demand take-back from brands\n4. Spread awareness\n\n**Be responsible — choose certified recycling!** 🇮🇳♻️"
+
+    if any(w in q for w in ['category','categories','type','types','kitne','prakar','kaun']):
+        cats = list(DEVICE_DEFAULTS.keys())
+        return "## 📦 E-Waste Categories (15 Types)\n\n" + "\n".join([f"**{i+1}.** {c}" for i,c in enumerate(cats)]) + "\n\n**Ask about any category for detailed recovery info!**"
+
+    if any(w in q for w in ['model','accuracy','ml','machine learning','algorithm','ai model']):
+        return "## 🤖 Our 6 ML Models\n\n| # | Model | Accuracy | Type |\n|---|-------|----------|------|\n| 1 | 🏆 Stacking Ensemble | 100.00% | Meta-Learner |\n| 2 | 🌲 Random Forest | 100.00% | Bagging |\n| 3 | ⚡ XGBoost | 99.95% | Boosting |\n| 4 | 🚀 LightGBM | 100.00% | Boosting |\n| 5 | 🐱 CatBoost | 100.00% | Boosting |\n| 6 | 🧠 DNN | 100.00% | Neural Net |\n\n**Trained on 10,000 samples with 40 features!**\n\n📊 Use **Model Selection** to choose any model for classification."
+
+    if any(w in q for w in ['who made','who built','developer','kisne banaya','project','azhar','about']):
+        return "## 👨‍💻 About This Project\n\n👤 **Developer:** AZHAR FAREED MULLA\n🎓 **USN:** 2SA25MC002\n📚 **Course:** MCA Final Year Project\n👩‍🏫 **Guide:** Dr. Nisha S Amin\n🏛️ **College:** SESHADRIPURAM ACADEMY OF BUSINESS\n\n### 🛠️ Tech Stack:\n• Python + Streamlit\n• 6 ML Models (RF, XGBoost, LightGBM, CatBoost, DNN, Stacking)\n• Plotly Charts\n• SQLite Database\n• 10,000 Sample Dataset\n\n**Built with ❤️ for a greener planet!** 🌱"
+
+    if any(w in q for w in ['hi','hello','hey','namaste','help','what can','kya','hii','start','shuru']):
+        return "👋 **Hello! I'm your E-Waste AI Assistant!**\n\nI can help you with:\n\n🔍 **Device Info** — Tell me any device name\n💰 **Material Values** — Gold, silver, copper prices\n♻️ **Recovery Steps** — How to recycle safely\n⚠️ **Safety Tips** — Hazardous material warnings\n🌍 **Environmental Impact** — CO₂, water savings\n📍 **Recycling Centers** — Where to drop off\n🔧 **Repair vs Recycle** — What to do\n📜 **Laws & Rules** — E-waste regulations\n🔋 **Battery Safety** — Handling & disposal\n🔒 **Data Privacy** — Wipe before recycling\n🎨 **DIY Projects** — Reuse old devices\n🤖 **ML Models** — Our AI technology\n🇮🇳 **India Stats** — Local e-waste data\n\n**Just ask anything! I know 20+ topics!** 🚀"
+
+    if any(w in q for w in ['thank','thanks','shukriya','great','awesome','dhanyawad','badiya','nice']):
+        return "😊 **Thank you!** Happy to help! ♻️\n\nRemember:\n• 🌍 Every device recycled saves the planet\n• 📱 Old phone ≠ trash — it's **treasure!**\n• 🌱 Small actions = Big impact\n\n**Keep recycling, keep asking!** 🚀"
+
+    if any(w in q for w in ['compare','difference','vs','better','best','konsa','kaun sa']):
+        return "## 📊 Quick Comparisons\n\n### 📱 Phone vs Laptop Recycling:\n| Aspect | Phone | Laptop |\n|--------|-------|--------|\n| Gold | 30mg | 50mg |\n| Value | $2-5 | $5-15 |\n| Difficulty | Medium | Medium |\n| CO₂ Saved | 5kg | 30kg |\n\n### ♻️ Formal vs Informal Recycling:\n| Aspect | Formal | Informal |\n|--------|--------|----------|\n| Safety | ✅ High | ❌ Low |\n| Recovery | 95%+ | 30-50% |\n| Pollution | Minimal | Very high |\n| Legal | ✅ Yes | ❌ No |\n\n**Always choose certified recyclers!**"
+
+    if any(w in q for w in ['how','kaise','process','tarika','method','step']):
+        return "## 📋 E-Waste Recycling Process\n\n### 🔄 Step-by-Step:\n**1. 📦 Collection** — Gather old electronics\n**2. 🔒 Data Wipe** — Erase personal data\n**3. 🏷️ Sorting** — Categorize by type\n**4. 🔨 Dismantling** — Manual disassembly\n**5. ⚙️ Shredding** — Mechanical processing\n**6. 🧲 Separation** — Magnetic/density sorting\n**7. 🔬 Refining** — Extract precious metals\n**8. 🏭 Smelting** — Purify recovered metals\n**9. ✅ Quality Check** — Verify purity\n**10. 📦 Resale** — Sell recovered materials\n\n**90%+ of materials can be recovered!**\n\nAsk about any specific device for detailed steps!"
+
+    # Smart fallback - try to find partial matches
+    words = q.split()
+    for w in words:
+        if len(w) > 3:
+            for key, cat in DEVICE_MAP.items():
+                if w in key or key in w:
+                    return chatbot_respond(cat)
+
+    return f"🤔 Interesting question! I'm specialized in **e-waste recycling**.\n\n### 💡 Try asking me about:\n• Any **device** — phone, laptop, TV, printer...\n• **Safety** — how to handle e-waste safely\n• **Materials** — gold, silver, copper values\n• **Where** to recycle near you\n• **Laws** — e-waste regulations in India\n• **Battery** — handling & disposal\n• **Data privacy** — wipe before recycling\n• **DIY projects** — reuse old devices\n• **Environment** — impact of e-waste\n• **Our AI models** — ML technology used\n\n**I can answer 20+ topics! Just ask! 🚀**"
 
 # ═══════════════════════════════════════════
 # SESSION STATE
@@ -521,6 +570,18 @@ page_id = pages[selection]
 # ═══ DASHBOARD ═══
 if page_id == "home":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🏠 DASHBOARD</h1>', unsafe_allow_html=True)
+    st.markdown('''<div class="glass-card" style="text-align:center;padding:20px;margin:10px 0;">
+        <div style="display:flex;justify-content:center;align-items:center;gap:30px;flex-wrap:wrap;">
+            <div><span style="color:#DC143C;font-family:Orbitron;font-size:.7rem;letter-spacing:3px;">DEVELOPED BY</span><br>
+            <strong style="color:#fff;font-size:1.4rem;font-family:Orbitron;">AZHAR FAREED MULLA</strong></div>
+            <div style="height:40px;width:1px;background:rgba(220,20,60,.3);"></div>
+            <div><span style="color:#888;font-size:.75rem;">USN</span><br>
+            <strong style="color:#FFD700;font-size:1.1rem;font-family:Orbitron;">2SA25MC002</strong></div>
+            <div style="height:40px;width:1px;background:rgba(220,20,60,.3);"></div>
+            <div><span style="color:#888;font-size:.75rem;">GUIDE</span><br>
+            <strong style="color:#00FF7F;font-size:1.1rem;font-family:Orbitron;">DR. NISHA S AMIN</strong></div>
+        </div>
+    </div>''', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
     hist = get_history(500)
     total_class = len(hist) if not hist.empty else 0
