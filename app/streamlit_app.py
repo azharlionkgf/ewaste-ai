@@ -1389,218 +1389,209 @@ elif page_id == "upload_data":
 # ═══ SMART ANALYZER ═══
 elif page_id == "analyzer":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📋 SMART DATASET ANALYZER</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Upload any e-waste dataset → Auto Analysis → Recovery Recommendations → Full Report</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Works with ANY CSV • Auto-Detection • Recovery Recommendations • Full Report</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    # Data source selection
-    data_src = st.radio("📂 Choose Data Source", ["📊 Use Built-in Dataset (10K samples)","📤 Upload Your Own CSV"], horizontal=True)
-
+    data_src = st.radio("📂 Data Source", ["📊 Built-in Dataset (10K)","📤 Upload CSV"], horizontal=True)
     analyze_df = None
-    if data_src == "📊 Use Built-in Dataset (10K samples)":
+    if data_src == "📊 Built-in Dataset (10K)":
         if data_loaded and df_raw is not None:
             analyze_df = df_raw.copy()
-            st.success(f"✅ Built-in dataset loaded: **{len(analyze_df):,} rows × {len(analyze_df.columns)} columns**")
-        else:
-            st.warning("Built-in dataset not found.")
+            st.success(f"✅ Built-in: **{len(analyze_df):,} rows × {len(analyze_df.columns)} cols**")
+        else: st.warning("Built-in dataset not available.")
     else:
-        up_csv = st.file_uploader("📤 Upload CSV File", type=['csv'], key="analyzer_csv")
-        if up_csv:
-            try:
-                analyze_df = pd.read_csv(up_csv)
-                st.success(f"✅ Uploaded: **{up_csv.name}** — {len(analyze_df):,} rows × {len(analyze_df.columns)} columns")
-            except Exception as e:
-                st.error(f"Error reading file: {e}")
+        up = st.file_uploader("📤 Upload CSV", type=['csv'], key="sa_csv")
+        if up:
+            try: analyze_df = pd.read_csv(up); st.success(f"✅ **{up.name}** — {len(analyze_df):,} rows × {len(analyze_df.columns)} cols")
+            except Exception as e: st.error(f"Error: {e}")
 
     if analyze_df is not None:
-        tab1,tab2,tab3,tab4 = st.tabs(["📊 Dataset Overview","♻️ Recovery Analysis","🌍 Impact Report","📥 Download Report"])
+        import plotly.express as px
+        import plotly.graph_objects as go
+        num_cols = list(analyze_df.select_dtypes(include=[np.number]).columns)
+        cat_cols = list(analyze_df.select_dtypes(include=['object','bool']).columns)
+        has_device = 'device_type' in analyze_df.columns
+        nulls = analyze_df.isnull().sum().sum()
+        total_cells = len(analyze_df) * len(analyze_df.columns)
+        quality_score = round((1 - nulls/total_cells)*100, 1) if total_cells > 0 else 0
+
+        tab1,tab2,tab3,tab4,tab5 = st.tabs(["📊 Overview & Quality","🔬 Deep Analysis","♻️ Recovery & Classify","🌍 Impact","📥 Report"])
 
         with tab1:
-            st.markdown('<div class="section-header">📊 DATASET PREVIEW</div>', unsafe_allow_html=True)
+            s1,s2,s3,s4,s5 = st.columns(5)
+            with s1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(analyze_df):,}</div><div class="metric-label">Rows</div></div>', unsafe_allow_html=True)
+            with s2: st.markdown(f'<div class="metric-card"><div class="metric-icon">📋</div><div class="metric-value">{len(analyze_df.columns)}</div><div class="metric-label">Columns</div></div>', unsafe_allow_html=True)
+            with s3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔢</div><div class="metric-value">{len(num_cols)}</div><div class="metric-label">Numeric</div></div>', unsafe_allow_html=True)
+            with s4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🏷️</div><div class="metric-value">{len(cat_cols)}</div><div class="metric-label">Categorical</div></div>', unsafe_allow_html=True)
+            with s5:
+                qc = "#00FF7F" if quality_score >= 90 else "#FFD700" if quality_score >= 70 else "#FF4500"
+                st.markdown(f'<div class="metric-card"><div class="metric-icon">✅</div><div class="metric-value" style="color:{qc};">{quality_score}%</div><div class="metric-label">Data Quality</div></div>', unsafe_allow_html=True)
+
+            st.markdown('<div class="section-header">📋 DATA PREVIEW</div>', unsafe_allow_html=True)
             st.dataframe(analyze_df.head(20), use_container_width=True, hide_index=True)
 
-            # Stats cards
-            num_cols = analyze_df.select_dtypes(include=[np.number]).columns
-            s1,s2,s3,s4 = st.columns(4)
-            with s1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(analyze_df):,}</div><div class="metric-label">Rows</div></div>', unsafe_allow_html=True)
-            with s2: st.markdown(f'<div class="metric-card"><div class="metric-icon">📋</div><div class="metric-value">{len(analyze_df.columns)}</div><div class="metric-label">Features</div></div>', unsafe_allow_html=True)
-            with s3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔢</div><div class="metric-value">{len(num_cols)}</div><div class="metric-label">Numeric</div></div>', unsafe_allow_html=True)
-            with s4:
-                nulls = analyze_df.isnull().sum().sum()
-                st.markdown(f'<div class="metric-card"><div class="metric-icon">{"🟢" if nulls==0 else "⚠️"}</div><div class="metric-value">{nulls:,}</div><div class="metric-label">Missing</div></div>', unsafe_allow_html=True)
-
-            # Charts
-            if 'device_type' in analyze_df.columns:
-                try:
-                    import plotly.express as px
-                    st.markdown('<div class="section-header">📈 CATEGORY DISTRIBUTION</div>', unsafe_allow_html=True)
-                    vc = analyze_df['device_type'].value_counts()
-                    fc1,fc2 = st.columns(2)
-                    with fc1:
-                        fig = px.bar(x=vc.index, y=vc.values, labels={'x':'Category','y':'Count'}, title='Devices per Category')
-                        fig.update_layout(**dark_layout(height=380, xaxis_tickangle=-45))
-                        fig.update_traces(marker_color=COLORS[:len(vc)])
-                        st.plotly_chart(fig, use_container_width=True)
-                    with fc2:
-                        fig = px.pie(names=vc.index, values=vc.values, title='Category Share')
-                        fig.update_layout(**dark_layout(height=380))
-                        st.plotly_chart(fig, use_container_width=True)
-                except: pass
-
-            # Key statistics
-            st.markdown('<div class="section-header">🔍 KEY STATISTICS</div>', unsafe_allow_html=True)
-            st.dataframe(analyze_df.describe().round(2), use_container_width=True)
+            st.markdown('<div class="section-header">🏥 COLUMN HEALTH CHECK</div>', unsafe_allow_html=True)
+            for c in analyze_df.columns:
+                cn = analyze_df[c].isnull().sum(); pct = (1-cn/len(analyze_df))*100
+                bc = "#00FF7F" if pct >= 95 else "#FFD700" if pct >= 70 else "#FF4500"
+                st.markdown(f'''<div style="display:flex;align-items:center;gap:10px;margin:4px 0;padding:6px 10px;background:rgba(255,255,255,.02);border-radius:8px;">
+                    <div style="min-width:160px;"><strong style="color:#ccc;font-size:.85rem;">{c}</strong></div>
+                    <div style="flex:1;background:rgba(255,255,255,.05);border-radius:6px;height:16px;overflow:hidden;">
+                        <div style="width:{pct}%;height:100%;background:{bc};border-radius:6px;"></div>
+                    </div>
+                    <div style="min-width:80px;text-align:right;"><span style="color:{bc};font-size:.8rem;">{pct:.0f}% filled</span></div>
+                    <span class="tag" style="font-size:.7rem;">{str(analyze_df[c].dtype)}</span>
+                </div>''', unsafe_allow_html=True)
 
         with tab2:
-            st.markdown('<div class="section-header">♻️ RECOVERY RECOMMENDATIONS BY DEVICE</div>', unsafe_allow_html=True)
-
-            if 'device_type' in analyze_df.columns:
-                device_counts = analyze_df['device_type'].value_counts()
-                total_value = 0.0
-                total_co2 = 0.0
-                recovery_data = []
-
-                for device, count in device_counts.items():
-                    rec, env = get_recovery_info(device)
-                    if rec:
-                        dev_value = rec['estimated_value_usd'] * count
-                        dev_co2 = env.get('co2_saved_kg', 0) * count if env else 0
-                        total_value += dev_value
-                        total_co2 += dev_co2
-                        recovery_data.append({'Device':device,'Count':count,'Unit Value ($)':f"${rec['estimated_value_usd']:.2f}",
-                            'Total Value ($)':f"${dev_value:.2f}",'Method':rec['recovery_method'].title(),
-                            'Difficulty':rec['difficulty'].upper(),'CO₂ Saved (kg)':f"{dev_co2:.1f}"})
-
-                        st.markdown(f'''<div class="glass-card">
-                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-                                <div>
-                                    <h4 style="color:#DC143C;margin:0;">♻️ {device}</h4>
-                                    <span style="color:#888;">{count} devices found</span>
-                                </div>
-                                <div style="text-align:right;">
-                                    <span class="green-value" style="font-size:1.5rem;">${dev_value:.2f}</span><br>
-                                    <span style="color:#888;font-size:.8rem;">Total Recovery Value</span>
-                                </div>
-                            </div>
-                            <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;">
-                                <span class="tag">🔧 {rec['recovery_method'].title()}</span>
-                                <span class="tag">⏱️ {rec['time_estimate']}</span>
-                                <span class="tag">📊 {rec['difficulty'].upper()}</span>
-                                <span class="tag">🌍 {dev_co2:.1f} kg CO₂</span>
-                            </div>
-                        </div>''', unsafe_allow_html=True)
-
-                        if rec.get('recovery_steps'):
-                            with st.expander(f"📋 Recovery Steps for {device}"):
-                                for i, s in enumerate(rec['recovery_steps'][:5], 1):
-                                    st.markdown(f'<div class="step-card"><strong>Step {i}:</strong> {s}</div>', unsafe_allow_html=True)
-                                if rec.get('safety_precautions'):
-                                    st.markdown(f'<div class="warning-card">⚠️ <strong>Safety:</strong> {" • ".join(rec["safety_precautions"][:3])}</div>', unsafe_allow_html=True)
-
-                # Total summary
-                st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-                st.markdown('<div class="section-header">💰 TOTAL RECOVERY SUMMARY</div>', unsafe_allow_html=True)
-                t1,t2,t3,t4 = st.columns(4)
-                with t1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📦</div><div class="metric-value">{len(analyze_df):,}</div><div class="metric-label">Total Devices</div></div>', unsafe_allow_html=True)
-                with t2: st.markdown(f'<div class="metric-card"><div class="metric-icon">💰</div><div class="metric-value green-value">${total_value:,.2f}</div><div class="metric-label">Total Value</div></div>', unsafe_allow_html=True)
-                with t3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌍</div><div class="metric-value" style="color:#00BFFF;">{total_co2:,.1f}</div><div class="metric-label">kg CO₂ Saved</div></div>', unsafe_allow_html=True)
-                with t4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌳</div><div class="metric-value" style="color:#00FF7F;">{total_co2/21:,.0f}</div><div class="metric-label">Trees Equivalent</div></div>', unsafe_allow_html=True)
-
-                # Summary table
-                if recovery_data:
-                    st.markdown('<div class="section-header">📊 RECOVERY DATA TABLE</div>', unsafe_allow_html=True)
-                    st.dataframe(pd.DataFrame(recovery_data), use_container_width=True, hide_index=True)
-            else:
-                st.info("Dataset needs a `device_type` column for recovery analysis. Upload a dataset with e-waste categories.")
+            st.markdown('<div class="section-header">📊 STATISTICAL SUMMARY</div>', unsafe_allow_html=True)
+            if num_cols:
+                st.dataframe(analyze_df[num_cols].describe().round(2), use_container_width=True)
+                st.markdown('<div class="section-header">📈 AUTO DISTRIBUTIONS</div>', unsafe_allow_html=True)
+                sel = st.multiselect("Select features:", num_cols, default=num_cols[:min(4,len(num_cols))])
+                for col in sel:
+                    fig = px.histogram(analyze_df, x=col, nbins=40, color_discrete_sequence=['#DC143C'], marginal='box', title=f'{col}')
+                    fig.update_layout(**dark_layout(height=300))
+                    st.plotly_chart(fig, use_container_width=True)
+                if len(num_cols) >= 2:
+                    st.markdown('<div class="section-header">🔗 CORRELATION MATRIX</div>', unsafe_allow_html=True)
+                    corr = analyze_df[num_cols[:min(12,len(num_cols))]].corr().round(2)
+                    fig = px.imshow(corr, text_auto=True, color_continuous_scale='RdBu_r', title='Feature Correlations')
+                    fig.update_layout(**dark_layout(height=500))
+                    st.plotly_chart(fig, use_container_width=True)
+                    st.markdown('<div class="section-header">🔝 STRONGEST RELATIONSHIPS</div>', unsafe_allow_html=True)
+                    pairs = []
+                    for i in range(len(corr)):
+                        for j in range(i+1,len(corr)):
+                            pairs.append({'Feature A':corr.index[i],'Feature B':corr.columns[j],'Correlation':corr.iloc[i,j]})
+                    cp = pd.DataFrame(pairs).sort_values('Correlation', key=abs, ascending=False).head(8)
+                    for _, r in cp.iterrows():
+                        cv = abs(r['Correlation']); cc = "#00FF7F" if cv > 0.7 else "#FFD700" if cv > 0.4 else "#888"
+                        rel = "🔥 Strong" if cv > 0.7 else "📊 Moderate" if cv > 0.4 else "📉 Weak"
+                        st.markdown(f'<div class="step-card"><strong style="color:{cc};">{r["Feature A"]}</strong> ↔ <strong style="color:{cc};">{r["Feature B"]}</strong> = <span style="color:{cc};font-family:Orbitron;">{r["Correlation"]:.2f}</span> <span class="tag">{rel}</span></div>', unsafe_allow_html=True)
+            if cat_cols:
+                st.markdown('<div class="section-header">🏷️ CATEGORICAL ANALYSIS</div>', unsafe_allow_html=True)
+                for cc in cat_cols[:5]:
+                    vc = analyze_df[cc].value_counts().head(10)
+                    fig = px.bar(x=vc.index.astype(str), y=vc.values, title=f'{cc}', labels={'x':cc,'y':'Count'})
+                    fig.update_layout(**dark_layout(height=280))
+                    fig.update_traces(marker_color=COLORS[:len(vc)])
+                    st.plotly_chart(fig, use_container_width=True)
 
         with tab3:
-            st.markdown('<div class="section-header">🌍 ENVIRONMENTAL IMPACT REPORT</div>', unsafe_allow_html=True)
-            if 'device_type' in analyze_df.columns:
-                env_data = []
-                for device, count in analyze_df['device_type'].value_counts().items():
-                    _, env = get_recovery_info(device)
-                    if env:
-                        env_data.append({'Device':device,'Count':count,
-                            'CO₂ Saved (kg)':round(env.get('co2_saved_kg',0)*count,1),
-                            'Water Saved (L)':round(env.get('water_saved_liters',0)*count,0),
-                            'Energy Saved (kWh)':round(env.get('energy_saved_kwh',0)*count,1),
-                            'Toxic Prevented (kg)':round(env.get('toxic_prevented_kg',0)*count,2)})
-
-                if env_data:
-                    env_df = pd.DataFrame(env_data)
-                    e1,e2,e3,e4 = st.columns(4)
-                    with e1: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌳</div><div class="metric-value green-value">{env_df["CO₂ Saved (kg)"].sum():,.1f}</div><div class="metric-label">Total CO₂ Saved (kg)</div></div>', unsafe_allow_html=True)
-                    with e2: st.markdown(f'<div class="metric-card"><div class="metric-icon">💧</div><div class="metric-value" style="color:#00BFFF;">{env_df["Water Saved (L)"].sum():,.0f}</div><div class="metric-label">Total Water Saved (L)</div></div>', unsafe_allow_html=True)
-                    with e3: st.markdown(f'<div class="metric-card"><div class="metric-icon">⚡</div><div class="metric-value" style="color:#FFD700;">{env_df["Energy Saved (kWh)"].sum():,.1f}</div><div class="metric-label">Total Energy Saved</div></div>', unsafe_allow_html=True)
-                    with e4: st.markdown(f'<div class="metric-card"><div class="metric-icon">☠️</div><div class="metric-value" style="color:#FF4500;">{env_df["Toxic Prevented (kg)"].sum():,.2f}</div><div class="metric-label">Toxic Prevented (kg)</div></div>', unsafe_allow_html=True)
-
-                    st.dataframe(env_df, use_container_width=True, hide_index=True)
-                    try:
-                        import plotly.express as px
-                        fig = px.bar(env_df, x='Device', y='CO₂ Saved (kg)', color='Device', title='CO₂ Saved by Device Type')
-                        fig.update_layout(**dark_layout(height=400, xaxis_tickangle=-45, showlegend=False))
-                        st.plotly_chart(fig, use_container_width=True)
-                    except: pass
-
-                    st.markdown(f'''<div class="glass-card" style="text-align:center;">
-                        <h3 style="color:#00FF7F;">🌳 Recycling this dataset = Planting {env_df["CO₂ Saved (kg)"].sum()/21:,.0f} trees!</h3>
-                        <p style="color:#888;">Every device recycled makes our planet greener 🌱</p>
-                    </div>''', unsafe_allow_html=True)
+            st.markdown('<div class="section-header">♻️ AI RECOVERY RECOMMENDATIONS</div>', unsafe_allow_html=True)
+            if has_device:
+                st.success("✅ `device_type` detected — direct classification!")
+                device_counts = analyze_df['device_type'].value_counts()
             else:
-                st.info("Need `device_type` column for environmental analysis.")
+                st.info("🧠 No `device_type` — **AI Auto-Classification** from available features!")
+                classified = []
+                weight_col = next((c for c in analyze_df.columns if 'weight' in c.lower()), None)
+                power_col = next((c for c in analyze_df.columns if 'power' in c.lower() or 'watt' in c.lower()), None)
+                for _, row in analyze_df.iterrows():
+                    try: w = float(row.get(weight_col, 5)) if weight_col else 5
+                    except: w = 5
+                    try: p = float(row.get(power_col, 50)) if power_col else 50
+                    except: p = 50
+                    if w < 0.3: cat = "Mobile Phones"
+                    elif w < 0.7: cat = "Tablets"
+                    elif w < 2: cat = "Networking Equipment"
+                    elif w < 4: cat = "Laptops"
+                    elif w < 8: cat = "Desktop Computers"
+                    elif w < 12: cat = "Printers"
+                    elif w < 20: cat = "Televisions"
+                    elif p > 500: cat = "Large Appliances"
+                    elif p < 5: cat = "Batteries"
+                    else: cat = "Small Appliances"
+                    classified.append(cat)
+                analyze_df['_ai_category'] = classified
+                device_counts = pd.Series(classified).value_counts()
+                st.success(f"✅ AI classified **{len(analyze_df):,} items** into **{device_counts.nunique()} categories**")
+
+            total_value = 0.0; total_co2 = 0.0; recovery_data = []
+            for device, count in device_counts.items():
+                rec, env = get_recovery_info(device)
+                if rec:
+                    dv = rec['estimated_value_usd'] * count
+                    dc = env.get('co2_saved_kg',0) * count if env else 0
+                    total_value += dv; total_co2 += dc
+                    recovery_data.append({'Device':device,'Count':count,'Unit ($)':f"${rec['estimated_value_usd']:.2f}",
+                        'Total ($)':f"${dv:.2f}",'Method':rec['recovery_method'].title(),'Difficulty':rec['difficulty'].upper(),'CO₂ (kg)':f"{dc:.1f}"})
+                    st.markdown(f'''<div class="glass-card">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                            <div><h4 style="color:#DC143C;margin:0;">♻️ {device}</h4><span style="color:#888;">{count} devices</span></div>
+                            <div style="text-align:right;"><span class="green-value" style="font-size:1.5rem;">${dv:.2f}</span><br><span style="color:#888;font-size:.75rem;">Recovery Value</span></div>
+                        </div>
+                        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                            <span class="tag">🔧 {rec['recovery_method'].title()}</span><span class="tag">⏱️ {rec['time_estimate']}</span>
+                            <span class="tag">📊 {rec['difficulty'].upper()}</span><span class="tag">🌍 {dc:.1f} kg CO₂</span>
+                        </div>
+                    </div>''', unsafe_allow_html=True)
+                    with st.expander(f"📋 Steps — {device}"):
+                        for i,s in enumerate(rec.get('recovery_steps',['Disassemble','Sort materials','Extract metals','Recycle'])[:5],1):
+                            st.markdown(f'<div class="step-card"><strong>Step {i}:</strong> {s}</div>', unsafe_allow_html=True)
+                        if rec.get('safety_precautions'):
+                            st.markdown(f'<div class="warning-card">⚠️ {" • ".join(rec["safety_precautions"][:3])}</div>', unsafe_allow_html=True)
+            st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+            t1,t2,t3,t4 = st.columns(4)
+            with t1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📦</div><div class="metric-value">{len(analyze_df):,}</div><div class="metric-label">Devices</div></div>', unsafe_allow_html=True)
+            with t2: st.markdown(f'<div class="metric-card"><div class="metric-icon">💰</div><div class="metric-value green-value">${total_value:,.2f}</div><div class="metric-label">Total Value</div></div>', unsafe_allow_html=True)
+            with t3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌍</div><div class="metric-value" style="color:#00BFFF;">{total_co2:,.1f}</div><div class="metric-label">kg CO₂ Saved</div></div>', unsafe_allow_html=True)
+            with t4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌳</div><div class="metric-value" style="color:#00FF7F;">{total_co2/21:,.0f}</div><div class="metric-label">Trees Saved</div></div>', unsafe_allow_html=True)
+            if recovery_data:
+                st.dataframe(pd.DataFrame(recovery_data), use_container_width=True, hide_index=True)
 
         with tab4:
-            st.markdown('<div class="section-header">📥 DOWNLOAD ANALYSIS REPORT</div>', unsafe_allow_html=True)
-            if 'device_type' in analyze_df.columns:
-                vc = analyze_df['device_type'].value_counts()
-                report = f"""# 📋 E-WASTE SMART ANALYSIS REPORT
-**Generated:** {datetime.now().strftime('%d %B %Y, %I:%M %p')}
-**Analyzer:** E-Waste AI System v5.5
-**Project:** Azhar Fareed Mulla (2SA25MC002)
+            st.markdown('<div class="section-header">🌍 ENVIRONMENTAL IMPACT</div>', unsafe_allow_html=True)
+            dev_col = 'device_type' if has_device else '_ai_category' if '_ai_category' in analyze_df.columns else None
+            if dev_col:
+                env_data = []
+                for device, count in analyze_df[dev_col].value_counts().items():
+                    _, env = get_recovery_info(device)
+                    if env:
+                        env_data.append({'Device':device,'Count':count,'CO₂ (kg)':round(env.get('co2_saved_kg',0)*count,1),
+                            'Water (L)':round(env.get('water_saved_liters',0)*count,0),'Energy (kWh)':round(env.get('energy_saved_kwh',0)*count,1),
+                            'Toxic (kg)':round(env.get('toxic_prevented_kg',0)*count,2)})
+                if env_data:
+                    edf = pd.DataFrame(env_data)
+                    e1,e2,e3,e4 = st.columns(4)
+                    with e1: st.markdown(f'<div class="metric-card"><div class="metric-icon">🌳</div><div class="metric-value green-value">{edf["CO₂ (kg)"].sum():,.1f}</div><div class="metric-label">CO₂ Saved</div></div>', unsafe_allow_html=True)
+                    with e2: st.markdown(f'<div class="metric-card"><div class="metric-icon">💧</div><div class="metric-value" style="color:#00BFFF;">{edf["Water (L)"].sum():,.0f}</div><div class="metric-label">Water Saved</div></div>', unsafe_allow_html=True)
+                    with e3: st.markdown(f'<div class="metric-card"><div class="metric-icon">⚡</div><div class="metric-value" style="color:#FFD700;">{edf["Energy (kWh)"].sum():,.1f}</div><div class="metric-label">Energy Saved</div></div>', unsafe_allow_html=True)
+                    with e4: st.markdown(f'<div class="metric-card"><div class="metric-icon">☠️</div><div class="metric-value" style="color:#FF4500;">{edf["Toxic (kg)"].sum():,.2f}</div><div class="metric-label">Toxic Prevented</div></div>', unsafe_allow_html=True)
+                    st.dataframe(edf, use_container_width=True, hide_index=True)
+                    fig = px.bar(edf, x='Device', y='CO₂ (kg)', color='Device', title='CO₂ Saved by Category')
+                    fig.update_layout(**dark_layout(height=400, xaxis_tickangle=-45, showlegend=False))
+                    st.plotly_chart(fig, use_container_width=True)
+                    st.markdown(f'<div class="glass-card" style="text-align:center;"><h3 style="color:#00FF7F;">🌳 = {edf["CO₂ (kg)"].sum()/21:,.0f} Trees Planted!</h3></div>', unsafe_allow_html=True)
+            else: st.info("Upload data for impact analysis.")
 
----
-
-## 📊 Dataset Summary
-- **Rows:** {len(analyze_df):,}
-- **Columns:** {len(analyze_df.columns)}
-- **Device Categories:** {analyze_df['device_type'].nunique()}
-- **Missing Values:** {analyze_df.isnull().sum().sum():,}
-
-## 🏷️ Category Breakdown
-| Device | Count | % |
-|--------|-------|---|
-"""
-                for dev, cnt in vc.items():
-                    report += f"| {dev} | {cnt} | {cnt/len(analyze_df)*100:.1f}% |\n"
-
-                report += "\n## ♻️ Recovery Recommendations\n| Device | Count | Value/Unit | Total Value | Method | CO₂ Saved |\n|--------|-------|-----------|-------------|--------|----------|\n"
-                grand_val = 0; grand_co2 = 0
-                for dev, cnt in vc.items():
-                    rec, env = get_recovery_info(dev)
-                    if rec:
-                        tv = rec['estimated_value_usd']*cnt; tc = env.get('co2_saved_kg',0)*cnt if env else 0
-                        grand_val += tv; grand_co2 += tc
-                        report += f"| {dev} | {cnt} | ${rec['estimated_value_usd']:.2f} | ${tv:.2f} | {rec['recovery_method'].title()} | {tc:.1f} kg |\n"
-
-                report += f"""
-## 💰 Total Recovery Potential
-- **Total Value:** ${grand_val:,.2f}
-- **Total CO₂ Saved:** {grand_co2:,.1f} kg
-- **Trees Equivalent:** {grand_co2/21:,.0f} trees 🌳
-
----
-*Generated by E-Waste Intelligence System v5.5 • Azhar Fareed Mulla • 2SA25MC002*
-"""
-                st.markdown(report)
-                st.download_button("📥 DOWNLOAD FULL REPORT", report, "smart_analysis_report.md", "text/markdown", use_container_width=True)
-            else:
-                st.info("Need `device_type` column for report generation.")
+        with tab5:
+            st.markdown('<div class="section-header">📥 COMPLETE REPORT</div>', unsafe_allow_html=True)
+            dev_col = 'device_type' if has_device else '_ai_category' if '_ai_category' in analyze_df.columns else None
+            report = f"# 📋 E-WASTE ANALYSIS REPORT\n**Generated:** {datetime.now().strftime('%d %B %Y, %I:%M %p')}\n**System:** E-Waste AI v5.8 | **By:** Azhar Fareed Mulla (2SA25MC002)\n\n---\n## 📊 Summary\n| Metric | Value |\n|--------|-------|\n| Rows | **{len(analyze_df):,}** |\n| Columns | **{len(analyze_df.columns)}** |\n| Quality | **{quality_score}%** |\n| Classification | **{'Direct' if has_device else 'AI Auto'}** |\n"
+            if num_cols: report += "\n## 📊 Statistics\n" + analyze_df[num_cols[:8]].describe().round(2).to_markdown() + "\n"
+            if dev_col:
+                vc = analyze_df[dev_col].value_counts()
+                report += "\n## 🏷️ Categories\n| Device | Count | % |\n|--------|-------|---|\n"
+                for d,c in vc.items(): report += f"| {d} | {c} | {c/len(analyze_df)*100:.1f}% |\n"
+                report += "\n## ♻️ Recovery\n| Device | Count | Value | Method | CO₂ |\n|--------|-------|-------|--------|-----|\n"
+                gv=0;gc=0
+                for d,c in vc.items():
+                    r,e = get_recovery_info(d)
+                    if r: tv=r['estimated_value_usd']*c; tc=e.get('co2_saved_kg',0)*c if e else 0; gv+=tv; gc+=tc; report += f"| {d} | {c} | ${tv:.2f} | {r['recovery_method'].title()} | {tc:.1f} kg |\n"
+                report += f"\n## 💰 Totals\n- **Value:** ${gv:,.2f}\n- **CO₂:** {gc:,.1f} kg\n- **Trees:** {gc/21:,.0f} 🌳\n"
+            report += "\n---\n*E-Waste AI v5.8 • Azhar Fareed Mulla*\n"
+            st.markdown(report)
+            st.download_button("📥 DOWNLOAD REPORT", report, "smart_analysis_report.md", "text/markdown", use_container_width=True)
     else:
         st.markdown('''<div class="glass-card" style="text-align:center;padding:50px;">
-            <div style="font-size:4rem;margin-bottom:15px;">📋</div>
+            <div style="font-size:4rem;margin-bottom:15px;">🧠</div>
             <h3 style="color:#DC143C;">Smart Dataset Analyzer</h3>
-            <p style="color:#888;">Upload any e-waste CSV dataset or use our built-in 10K sample dataset</p>
-            <p style="color:#666;">Get instant analysis + recovery recommendations + environmental impact!</p>
+            <p style="color:#888;">Upload <strong>ANY</strong> CSV — no specific format needed!</p>
+            <p style="color:#666;">✅ Auto-detects • 🤖 AI classifies • ♻️ Recovery • 🌍 Impact</p>
         </div>''', unsafe_allow_html=True)
+
 
 # ═══ ABOUT ═══
 elif page_id == "about":
