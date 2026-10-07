@@ -399,7 +399,16 @@ DEVICE_MAP = {'phone':'Mobile Phones','mobile':'Mobile Phones','smartphone':'Mob
     'fridge':'Large Appliances','refrigerator':'Large Appliances','washer':'Large Appliances','washing':'Large Appliances','ac':'Large Appliances',
     'light':'Lighting Equipment','bulb':'Lighting Equipment','lamp':'Lighting Equipment','led':'Lighting Equipment',
     'speaker':'Audio/Video Equipment','audio':'Audio/Video Equipment','headphone':'Audio/Video Equipment',
-    'router':'Networking Equipment','modem':'Networking Equipment','switch':'Networking Equipment'}
+    'router':'Networking Equipment','modem':'Networking Equipment','switch':'Networking Equipment',
+    'mobile':'Mobile Phones','smartphone':'Mobile Phones','iphone':'Mobile Phones','samsung':'Mobile Phones','xiaomi':'Mobile Phones','redmi':'Mobile Phones','oneplus':'Mobile Phones','vivo':'Mobile Phones','oppo':'Mobile Phones','realme':'Mobile Phones',
+    'macbook':'Laptops','dell':'Laptops','hp laptop':'Laptops','lenovo':'Laptops','asus':'Laptops','acer':'Laptops',
+    'ipad':'Tablets','kindle':'Tablets','surface':'Tablets',
+    'tv':'Televisions','television':'Televisions','smart tv':'Televisions','lcd':'Televisions','led tv':'Televisions','oled':'Televisions',
+    'fridge':'Large Appliances','refrigerator':'Large Appliances','washing machine':'Large Appliances','ac':'Large Appliances','air conditioner':'Large Appliances','microwave':'Small Appliances','toaster':'Small Appliances','mixer':'Small Appliances','iron':'Small Appliances','fan':'Small Appliances','heater':'Small Appliances',
+    'bulb':'Lighting Equipment','tube':'Lighting Equipment','cfl':'Lighting Equipment',
+    'speaker':'Audio/Video Equipment','headphone':'Audio/Video Equipment','earphone':'Audio/Video Equipment','camera':'Audio/Video Equipment','webcam':'Audio/Video Equipment',
+    'usb':'Cables & Wires','charger':'Cables & Wires','adapter':'Cables & Wires',
+    'pcb':'PCBs/Circuit Boards','motherboard':'PCBs/Circuit Boards','circuit':'PCBs/Circuit Boards','ram':'PCBs/Circuit Boards','gpu':'PCBs/Circuit Boards','cpu':'PCBs/Circuit Boards','processor':'PCBs/Circuit Boards','chip':'PCBs/Circuit Boards'}
 
 def chatbot_respond(query):
     q = query.lower().strip()
@@ -570,16 +579,16 @@ page_id = pages[selection]
 # ═══ DASHBOARD ═══
 if page_id == "home":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🏠 DASHBOARD</h1>', unsafe_allow_html=True)
-    st.markdown('''<div class="glass-card" style="text-align:center;padding:20px;margin:10px 0;">
-        <div style="display:flex;justify-content:center;align-items:center;gap:30px;flex-wrap:wrap;">
-            <div><span style="color:#DC143C;font-family:Orbitron;font-size:.7rem;letter-spacing:3px;">DEVELOPED BY</span><br>
-            <strong style="color:#fff;font-size:1.4rem;font-family:Orbitron;">AZHAR FAREED MULLA</strong></div>
-            <div style="height:40px;width:1px;background:rgba(220,20,60,.3);"></div>
-            <div><span style="color:#888;font-size:.75rem;">USN</span><br>
-            <strong style="color:#FFD700;font-size:1.1rem;font-family:Orbitron;">2SA25MC002</strong></div>
-            <div style="height:40px;width:1px;background:rgba(220,20,60,.3);"></div>
-            <div><span style="color:#888;font-size:.75rem;">GUIDE</span><br>
-            <strong style="color:#00FF7F;font-size:1.1rem;font-family:Orbitron;">DR. NISHA S AMIN</strong></div>
+    st.markdown('''<div style="background:linear-gradient(135deg,rgba(10,10,10,.9),rgba(30,10,15,.8));border:1px solid rgba(220,180,50,.3);border-radius:16px;padding:28px;margin:15px 0;text-align:center;box-shadow:0 0 30px rgba(220,180,50,.08);">
+        <div style="font-size:.65rem;letter-spacing:6px;color:rgba(220,180,50,.6);margin-bottom:12px;">— MCA FINAL YEAR PROJECT —</div>
+        <div style="font-size:2rem;font-weight:700;color:#FFD700;font-family:'Georgia','Times New Roman',serif;letter-spacing:2px;text-shadow:0 0 15px rgba(220,180,50,.3);">AZHAR FAREED MULLA</div>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(220,180,50,.4),transparent);margin:12px auto;width:60%;"></div>
+        <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:10px;">
+            <div><span style="font-size:.6rem;letter-spacing:4px;color:#888;">USN</span><br>
+            <span style="font-size:1.1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">2SA25MC002</span></div>
+            <div style="width:1px;background:rgba(220,180,50,.2);"></div>
+            <div><span style="font-size:.6rem;letter-spacing:4px;color:#888;">PROJECT GUIDE</span><br>
+            <span style="font-size:1.1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">Dr. Nisha S Amin</span></div>
         </div>
     </div>''', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
