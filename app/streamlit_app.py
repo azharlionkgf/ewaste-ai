@@ -363,7 +363,7 @@ def chatbot_respond(query):
 for k, v in {'logged_in':False, 'role':None, 'chat_messages':[], 'chatbot_device':None}.items():
     if k not in st.session_state: st.session_state[k] = v
 if not st.session_state.chat_messages:
-    st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Namaste! I'm your E-Waste AI Assistant.**\n\n🔍 Identify devices | 💰 Material values | ♻️ Recovery steps\n⚠️ Safety tips | 🌍 Eco impact | 📍 Find recyclers\n\n**How can I help you today?**"}]
+    st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Namaste! I'm your E-Waste AI Assistant.**\n\n📸 **Upload Photos** or 🎬 **Videos** of e-waste items!\n🔍 Identify devices | 💰 Material values | ♻️ Recovery steps\n⚠️ Safety tips | 🌍 Eco impact | 📍 Find recyclers\n\n**Upload a file or type your question below!**"}]
 
 # ═══════════════════════════════════════════
 # SIDEBAR
@@ -528,14 +528,162 @@ elif page_id == "image":
 # ═══ AI CHATBOT ═══
 elif page_id == "chatbot":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">💬 AI E-WASTE CHATBOT</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Ask anything about e-waste recycling, recovery & disposal! 🤖</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Chat with AI • Upload Photos & Videos • Get Recovery Recommendations 🤖</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
+    # Chat display with image/video support
     for msg in st.session_state.chat_messages:
         icon = "🤖" if msg["role"] == "assistant" else "👤"
         bc = "#DC143C" if msg["role"] == "assistant" else "#FFD700"
-        st.markdown(f'<div class="chat-bot"><div class="chat-icon">{icon}</div><div class="glass-card chat-msg" style="border-left:3px solid {bc};">{msg["content"]}</div></div>', unsafe_allow_html=True)
+        content_html = msg["content"]
+        # Show image if attached
+        if msg.get("image"):
+            content_html = f'<div style="margin-bottom:12px;"><img src="data:image/jpeg;base64,{msg["image"]}" style="max-width:300px;border-radius:12px;border:2px solid rgba(220,20,60,.3);"/></div>' + content_html
+        # Show video if attached
+        if msg.get("video_name"):
+            content_html = f'<div style="margin-bottom:12px;padding:15px;background:rgba(220,20,60,.1);border-radius:12px;border:1px solid rgba(220,20,60,.2);"><span style="font-size:1.5rem;">🎬</span> <strong>{msg["video_name"]}</strong> <span style="color:#888;">({msg.get("video_size","")}) uploaded</span></div>' + content_html
+        st.markdown(f'<div class="chat-bot"><div class="chat-icon">{icon}</div><div class="glass-card chat-msg" style="border-left:3px solid {bc};">{content_html}</div></div>', unsafe_allow_html=True)
 
+    # Upload section — ChatGPT style
+    st.markdown('<div class="section-header">📎 UPLOAD & ASK</div>', unsafe_allow_html=True)
+    up1, up2 = st.columns([1,1])
+    with up1:
+        uploaded_img = st.file_uploader("📷 Upload Photo", type=['jpg','jpeg','png','webp'], key="chat_img", label_visibility="collapsed", help="Upload e-waste photo for AI analysis")
+        st.markdown('<p style="text-align:center;color:#666;font-size:.8rem;">📷 Photos: JPG, PNG, WebP</p>', unsafe_allow_html=True)
+    with up2:
+        uploaded_vid = st.file_uploader("🎬 Upload Video", type=['mp4','avi','mov','webm'], key="chat_vid", label_visibility="collapsed", help="Upload e-waste video for AI analysis")
+        st.markdown('<p style="text-align:center;color:#666;font-size:.8rem;">🎬 Videos: MP4, AVI, MOV</p>', unsafe_allow_html=True)
+
+    # Process uploaded image
+    if uploaded_img is not None and f"processed_img_{uploaded_img.name}" not in st.session_state:
+        img_bytes = uploaded_img.read()
+        import base64
+        img_b64 = base64.b64encode(img_bytes).decode()
+        st.session_state[f"processed_img_{uploaded_img.name}"] = True
+
+        # Show image preview
+        st.markdown('<div class="glass-card" style="text-align:center;padding:15px;">', unsafe_allow_html=True)
+        st.image(img_bytes, caption=f"📷 {uploaded_img.name}", use_container_width=False, width=350)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Visual ID for the image
+        st.markdown('<div class="section-header">🔍 WHAT IS THIS DEVICE?</div>', unsafe_allow_html=True)
+        TYPE_OPTS = {"📱 Phone/Smartphone":"Mobile Phones","💻 Laptop/Notebook":"Laptops","🖥️ Desktop/CPU":"Desktop Computers","📱 Tablet/iPad":"Tablets","🖥️ Monitor/Display":"Monitors/Displays","📺 Television/TV":"Televisions","🖨️ Printer/Scanner":"Printers","🔋 Battery":"Batteries","🔌 Circuit Board/PCB":"PCBs/Circuit Boards","🔌 Cable/Wire":"Cables & Wires","🏠 Small Appliance":"Small Appliances","🏠 Large Appliance":"Large Appliances","💡 Light/Bulb":"Lighting Equipment","🔊 Audio/Video Device":"Audio/Video Equipment","📡 Router/Modem":"Networking Equipment"}
+        COND_OPTS = {"🟢 Working/Good":8,"🟡 Partially Working":5,"🔴 Not Working/Broken":3,"⚫ Severely Damaged":1}
+
+        id1, id2 = st.columns(2)
+        with id1: vtype = st.selectbox("Device Type", list(TYPE_OPTS.keys()), key="chat_vtype")
+        with id2: vcond = st.selectbox("Condition", list(COND_OPTS.keys()), key="chat_vcond")
+
+        if st.button("🤖 ANALYZE THIS IMAGE", use_container_width=True, key="analyze_img"):
+            category = TYPE_OPTS[vtype]
+            cond_score = COND_OPTS[vcond]
+            has_screen = category in ['Mobile Phones','Laptops','Tablets','Monitors/Displays','Televisions']
+
+            # Add user message with image
+            st.session_state.chat_messages.append({"role":"user","content":f"Analyze this **{category}** in **{vcond.split(' ',1)[1]}** condition.","image":img_b64})
+
+            # Classify
+            features = build_features(category, cond_score, has_screen)
+            final_cat, conf = classify_with_model(features)
+            rec, env = get_recovery_info(final_cat)
+
+            # Build rich response
+            resp = f"## 📸 Image Analysis Complete!\n\n"
+            resp += f"🔍 **Device:** {final_cat}\n"
+            resp += f"🎯 **Confidence:** {conf*100:.1f}%\n"
+            resp += f"📊 **Condition:** {vcond.split(' ',1)[1]}\n\n"
+
+            if rec:
+                resp += f"---\n\n### 💰 Recovery Analysis\n\n"
+                resp += f"💵 **Value:** ${rec['estimated_value_usd']:.2f}\n"
+                resp += f"🔧 **Method:** {rec['recovery_method'].title()}\n"
+                resp += f"⏱️ **Time:** {rec['time_estimate']}\n"
+                resp += f"📊 **Difficulty:** {rec['difficulty'].upper()}\n\n"
+
+                if env:
+                    resp += f"### 🌍 Environmental Impact\n\n"
+                    resp += f"🌳 CO₂ Saved: **{env.get('co2_saved_kg',0)} kg**\n"
+                    resp += f"💧 Water Saved: **{env.get('water_saved_liters',0)} liters**\n"
+                    resp += f"⚡ Energy Saved: **{env.get('energy_saved_kwh',0)} kWh**\n\n"
+
+                resp += f"### ♻️ What To Do\n\n"
+                if cond_score >= 7:
+                    resp += "✅ **Refurbish & Resell!** Device is in good condition.\n"
+                elif cond_score >= 4:
+                    resp += "🔧 **Partial Recovery** recommended. Some components are salvageable.\n"
+                else:
+                    resp += "⚠️ **Full Material Recovery** needed. Extract precious metals & recycle.\n"
+
+                if rec.get('recovery_steps'):
+                    resp += "\n### 📋 Recovery Steps\n\n"
+                    for i, s in enumerate(rec['recovery_steps'][:4], 1):
+                        resp += f"**{i}.** {s}\n"
+
+                if rec.get('safety_precautions'):
+                    resp += f"\n⚠️ **Safety:** {rec['safety_precautions'][0]}"
+
+                save_classification(st.session_state.role, "chatbot-image", final_cat, conf, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0) if env else 0, f"Image: {uploaded_img.name}")
+
+            st.session_state.chat_messages.append({"role":"assistant","content":resp})
+            st.session_state.chatbot_device = final_cat
+            st.rerun()
+
+    # Process uploaded video
+    if uploaded_vid is not None and f"processed_vid_{uploaded_vid.name}" not in st.session_state:
+        st.session_state[f"processed_vid_{uploaded_vid.name}"] = True
+        vid_size = f"{uploaded_vid.size/1024/1024:.1f} MB"
+
+        # Show video preview
+        st.markdown('<div class="glass-card" style="text-align:center;padding:15px;">', unsafe_allow_html=True)
+        st.video(uploaded_vid)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Visual ID for video
+        st.markdown('<div class="section-header">🎬 WHAT DEVICE IS IN THE VIDEO?</div>', unsafe_allow_html=True)
+        VID_TYPE_OPTS = {"📱 Phone/Smartphone":"Mobile Phones","💻 Laptop/Notebook":"Laptops","🖥️ Desktop/CPU":"Desktop Computers","📱 Tablet/iPad":"Tablets","🖥️ Monitor/Display":"Monitors/Displays","📺 Television/TV":"Televisions","🖨️ Printer/Scanner":"Printers","🔋 Battery":"Batteries","🔌 Circuit Board/PCB":"PCBs/Circuit Boards","🔌 Cable/Wire":"Cables & Wires","🏠 Small Appliance":"Small Appliances","🏠 Large Appliance":"Large Appliances","💡 Light/Bulb":"Lighting Equipment","🔊 Audio/Video Device":"Audio/Video Equipment","📡 Router/Modem":"Networking Equipment"}
+        VID_COND_OPTS = {"🟢 Working/Good":8,"🟡 Partially Working":5,"🔴 Not Working/Broken":3,"⚫ Severely Damaged":1}
+
+        vd1, vd2 = st.columns(2)
+        with vd1: vid_type = st.selectbox("Device Type", list(VID_TYPE_OPTS.keys()), key="vid_vtype")
+        with vd2: vid_cond = st.selectbox("Condition", list(VID_COND_OPTS.keys()), key="vid_vcond")
+
+        if st.button("🎬 ANALYZE VIDEO", use_container_width=True, key="analyze_vid"):
+            category = VID_TYPE_OPTS[vid_type]
+            cond_score = VID_COND_OPTS[vid_cond]
+            has_screen = category in ['Mobile Phones','Laptops','Tablets','Monitors/Displays','Televisions']
+
+            st.session_state.chat_messages.append({"role":"user","content":f"Analyze this **{category}** from video in **{vid_cond.split(' ',1)[1]}** condition.","video_name":uploaded_vid.name,"video_size":vid_size})
+
+            features = build_features(category, cond_score, has_screen)
+            final_cat, conf = classify_with_model(features)
+            rec, env = get_recovery_info(final_cat)
+
+            resp = f"## 🎬 Video Analysis Complete!\n\n"
+            resp += f"🔍 **Device:** {final_cat}\n"
+            resp += f"🎯 **Confidence:** {conf*100:.1f}%\n\n"
+
+            if rec:
+                resp += f"💰 **Recovery Value:** ${rec['estimated_value_usd']:.2f}\n"
+                resp += f"🔧 **Method:** {rec['recovery_method'].title()}\n"
+                resp += f"⏱️ **Time:** {rec['time_estimate']}\n\n"
+                if env:
+                    resp += f"🌍 Recycling saves **{env.get('co2_saved_kg',0)} kg CO₂** = 🌳 **{env.get('co2_saved_kg',0)/21:.1f} trees**!\n\n"
+                if cond_score >= 7: resp += "✅ **Recommendation:** Refurbish & resell this device!\n"
+                elif cond_score >= 4: resp += "🔧 **Recommendation:** Partial component recovery advised.\n"
+                else: resp += "⚠️ **Recommendation:** Full material extraction needed.\n"
+                if rec.get('recovery_steps'):
+                    resp += "\n### ♻️ Steps:\n"
+                    for i, s in enumerate(rec['recovery_steps'][:4], 1): resp += f"**{i}.** {s}\n"
+                if rec.get('safety_precautions'): resp += f"\n⚠️ {rec['safety_precautions'][0]}"
+                save_classification(st.session_state.role, "chatbot-video", final_cat, conf, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0) if env else 0, f"Video: {uploaded_vid.name}")
+
+            st.session_state.chat_messages.append({"role":"assistant","content":resp})
+            st.session_state.chatbot_device = final_cat
+            st.rerun()
+
+    # Quick action buttons
+    st.markdown('<div class="section-header">⚡ QUICK ACTIONS</div>', unsafe_allow_html=True)
     qc1,qc2,qc3,qc4 = st.columns(4)
     qq = None
     with qc1:
@@ -547,7 +695,8 @@ elif page_id == "chatbot":
     with qc4:
         if st.button("🌍 Impact", use_container_width=True): qq = "environmental impact of e-waste"
 
-    user_input = st.chat_input("💬 Ask about e-waste...")
+    # Text chat input
+    user_input = st.chat_input("💬 Type your question here...")
     query = user_input or qq
     if query:
         st.session_state.chat_messages.append({"role":"user","content":query})
@@ -555,8 +704,10 @@ elif page_id == "chatbot":
         st.session_state.chat_messages.append({"role":"assistant","content":resp})
         st.rerun()
 
-    if st.button("🗑️ Clear Chat", use_container_width=True):
-        st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Chat cleared!** Ask me anything! 🤖♻️"}]
+    # Clear chat
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("🗑️ Clear Chat History", use_container_width=True):
+        st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Chat cleared!** Upload images/videos or ask me anything! 🤖📸🎬"}]
         st.session_state.chatbot_device = None; st.rerun()
 
 # ═══ FORM CLASSIFY ═══
