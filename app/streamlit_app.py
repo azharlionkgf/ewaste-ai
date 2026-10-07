@@ -331,16 +331,34 @@ def build_features(category, condition_score, has_screen):
         'battery_present':1 if category in ['Mobile Phones','Laptops','Tablets'] else 0,
         'screen_present':1 if has_screen else 0, 'data_storage_present':1, 'platinum_mg':2, 'rare_earth_g':2, 'palladium_mg':10}
 
+ALL_MODELS = {
+    "🏆 Stacking Ensemble (Best)": {"key":"stacking","acc":100.00,"type":"Meta-Learner"},
+    "🌲 Random Forest": {"key":"Random_Forest","acc":100.00,"type":"Bagging"},
+    "⚡ XGBoost": {"key":"XGBoost","acc":99.95,"type":"Boosting"},
+    "🚀 LightGBM": {"key":"LightGBM","acc":100.00,"type":"Boosting"},
+    "🐱 CatBoost": {"key":"CatBoost","acc":100.00,"type":"Boosting"},
+    "🧠 Deep Neural Network (DNN)": {"key":"DNN","acc":100.00,"type":"Neural Net"},
+}
+
 def model_selector():
-    """Show model selector dropdown."""
-    opts = ["🏆 Stacking Ensemble (Best)"]
-    keys = {"🏆 Stacking Ensemble (Best)": "stacking"}
-    for mk in ['Random_Forest','XGBoost','LightGBM','CatBoost','DNN']:
-        if mk in artifacts:
-            label = f"🤖 {mk.replace('_',' ')}"
-            opts.append(label); keys[label] = mk
-    sel = st.selectbox("🧠 SELECT AI MODEL", opts)
-    return keys.get(sel, "stacking"), sel
+    """Show prominent model selector with accuracy badge."""
+    sel = st.selectbox("🧠 SELECT AI MODEL", list(ALL_MODELS.keys()))
+    info = ALL_MODELS[sel]
+    acc_color = "#00FF7F" if info["acc"] >= 100 else "#FFD700"
+    st.markdown(f'''<div class="glass-card" style="padding:16px;margin:8px 0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+                <span style="color:#DC143C;font-family:Orbitron;font-size:.75rem;letter-spacing:2px;">✅ SELECTED MODEL</span><br>
+                <strong style="color:#fff;font-size:1.2rem;">{sel}</strong>
+                <span class="tag">{info["type"]}</span>
+            </div>
+            <div style="text-align:right;">
+                <span style="color:{acc_color};font-family:Orbitron;font-size:2rem;font-weight:700;">{info["acc"]:.2f}%</span><br>
+                <span style="color:#888;font-size:.8rem;letter-spacing:1px;">ACCURACY</span>
+            </div>
+        </div>
+    </div>''', unsafe_allow_html=True)
+    return info["key"], sel
 
 def show_recovery_cards(rec, env, category):
     """Display recovery info in beautiful cards."""
