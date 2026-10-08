@@ -805,15 +805,25 @@ RULES:
                     <div class="chat-msg" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px 18px 18px 4px;max-width:80%;">{msg["content"]}</div>
                 </div>''', unsafe_allow_html=True)
 
-    # ── WHATSAPP-STYLE INPUT ──
-    st.markdown('''<div style="background:rgba(255,255,255,.03);border-radius:25px;padding:8px 16px;border:1px solid rgba(220,20,60,.15);margin-top:8px;">
-        <span style="color:#888;font-size:.75rem;">📎 Attach files below  •  ⌨️ Type message at bottom</span>
-    </div>''', unsafe_allow_html=True)
-    att1, att2 = st.columns(2)
-    with att1:
-        chat_img = st.file_uploader("📷 Photo", type=['jpg','jpeg','png','webp'], key="wa_img", label_visibility="collapsed")
-    with att2:
-        chat_vid = st.file_uploader("🎥 Video", type=['mp4','avi','mov'], key="wa_vid", label_visibility="collapsed")
+    # ── WHATSAPP INPUT BAR ──
+    st.markdown('''<style>
+    .wa-input-bar{display:flex;align-items:center;gap:8px;background:#1E1E1E;border-radius:25px;padding:6px 12px;margin:8px 0;border:1px solid rgba(255,255,255,.08);}
+    .wa-icon{font-size:1.3rem;cursor:pointer;opacity:.6;transition:opacity .2s;}
+    .wa-icon:hover{opacity:1;}
+    .wa-send{background:#25D366;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-left:4px;flex-shrink:0;}
+    </style>
+    <div class="wa-input-bar">
+        <span class="wa-icon">😊</span>
+        <span style="flex:1;color:#888;font-size:.9rem;">Message...</span>
+        <span class="wa-icon">📎</span>
+        <span class="wa-icon">📷</span>
+    </div>
+    <div class="wa-send" style="position:relative;float:right;margin-top:-46px;margin-right:-4px;">🎤</div>
+    ''', unsafe_allow_html=True)
+    with st.expander("📎 Attach Photo / Video", expanded=False):
+        ac1, ac2 = st.columns(2)
+        with ac1: chat_img = st.file_uploader("📷 Photo", type=['jpg','jpeg','png','webp'], key="wa_img")
+        with ac2: chat_vid = st.file_uploader("🎥 Video", type=['mp4','avi','mov'], key="wa_vid")
 
     # Process image upload
     if chat_img:
