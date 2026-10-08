@@ -133,36 +133,34 @@ h4,h5,h6{font-family:'Rajdhani',sans-serif!important;color:#ddd!important;}
 iframe{max-width:100%!important;}
 .stPlotlyChart{width:100%!important;}
 
-/* ═══ MOBILE (≤768px) ═══ */
+/* MOBILE */
 @media(max-width:768px){
-    .block-container{padding:.5rem .8rem!important;}
+    .block-container{padding:.3rem .5rem!important;max-width:100vw!important;}
     [data-testid="stSidebar"]{min-width:220px!important;max-width:260px!important;}
-    [data-testid="stSidebar"] [data-testid="stMarkdown"]{font-size:.85rem!important;}
-    .glow-title{font-size:1.4rem!important;letter-spacing:1px!important;}
-    .subtitle{font-size:.9rem!important;letter-spacing:2px!important;}
-    .metric-card{padding:14px 8px!important;border-radius:12px!important;}
-    .metric-icon{font-size:1.6rem!important;}
-    .metric-value{font-size:1.3rem!important;}
-    .metric-label{font-size:.7rem!important;letter-spacing:1px!important;}
-    .glass-card{padding:16px 12px!important;border-radius:14px!important;margin:8px 0!important;}
+    .glow-title{font-size:1.2rem!important;letter-spacing:1px!important;}
+    .subtitle{font-size:.8rem!important;letter-spacing:1px!important;}
+    .metric-card{padding:10px 6px!important;border-radius:10px!important;}
+    .metric-icon{font-size:1.2rem!important;}
+    .metric-value{font-size:1rem!important;}
+    .metric-label{font-size:.6rem!important;letter-spacing:1px!important;}
+    .glass-card{padding:12px 10px!important;border-radius:12px!important;margin:6px 0!important;}
     .glass-card:hover{transform:none!important;}
-    .section-header{font-size:1rem!important;letter-spacing:1px!important;margin:18px 0 12px 0!important;}
-    .result-box{padding:18px 12px!important;border-radius:14px!important;}
-    .step-card{padding:10px 12px!important;}
+    .section-header{font-size:.85rem!important;margin:12px 0 8px 0!important;}
+    .result-box{padding:12px 10px!important;}
+    .step-card{padding:8px 10px!important;}
     .step-card:hover{transform:none!important;}
-    .chat-bot{gap:8px!important;}
-    .chat-icon{font-size:1.2rem!important;min-width:28px!important;}
-    .chat-msg{padding:10px 12px!important;}
-    .stButton>button{font-size:.9rem!important;padding:8px 14px!important;border-radius:10px!important;}
-    h1{font-size:1.4rem!important;}
-    h2{font-size:1.2rem!important;}
-    h3{font-size:1.05rem!important;}
-    h4,h5,h6{font-size:.95rem!important;}
-    .animated-line{margin:10px 0!important;}
-    .tag{padding:3px 10px!important;font-size:.75rem!important;}
-    .warning-card{padding:10px 12px!important;}
-    [data-testid="column"]{min-width:0!important;}
+    .chat-bot{gap:6px!important;}
+    .chat-icon{font-size:1rem!important;min-width:24px!important;}
+    .chat-msg{padding:8px 10px!important;font-size:.85rem!important;max-width:90%!important;}
+    .stButton>button{font-size:.8rem!important;padding:5px 8px!important;border-radius:8px!important;min-height:32px!important;}
+    h1{font-size:1.2rem!important;} h2{font-size:1rem!important;} h3{font-size:.9rem!important;}
+    .animated-line{margin:6px 0!important;}
+    .tag{padding:2px 7px!important;font-size:.65rem!important;}
+    [data-testid="column"]{min-width:0!important;padding:0 1px!important;}
+    [data-testid="stFileUploader"] label{font-size:.75rem!important;}
+    [data-testid="stExpander"] summary{font-size:.85rem!important;}
 }
+
 
 /* ═══ TABLET (769-1024px) ═══ */
 @media(min-width:769px) and (max-width:1024px){
@@ -599,46 +597,11 @@ if not st.session_state.logged_in:
 
 page_id = pages[selection]
 
-# ── MOBILE TOP NAVIGATION ──
+# ── MOBILE NAVIGATION ──
 if 'mobile_nav' not in st.session_state: st.session_state.mobile_nav = None
-st.markdown('''<style>
-.mobile-nav{display:flex;overflow-x:auto;gap:6px;padding:8px 4px;scrollbar-width:none;-ms-overflow-style:none;}
-.mobile-nav::-webkit-scrollbar{display:none;}
-@media(min-width:769px){.mobile-nav-wrap{display:none !important;}}
-</style>''', unsafe_allow_html=True)
-st.markdown('<div class="mobile-nav-wrap">', unsafe_allow_html=True)
-mob_cols = st.columns([1]*5)
-mob_pages_user = [("🏠","home"),("📸","image"),("💬","chatbot"),("♻️","recovery"),("ℹ️","about")]
-mob_pages_admin = [("🏠","home"),("📸","image"),("💬","chatbot"),("📊","eda"),("ℹ️","about")]
-mob_p = mob_pages_admin if st.session_state.role == "admin" else mob_pages_user
-for i,(icon,pid) in enumerate(mob_p):
-    with mob_cols[i]:
-        sel_style = "background:#DC143C !important;color:white !important;" if page_id == pid else ""
-        if st.button(icon, key=f"mob_{pid}", use_container_width=True):
-            # Find matching page name from pages dict
-            for pname, pval in pages.items():
-                if pval == pid:
-                    st.session_state.mobile_nav = pname
-                    st.rerun()
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Handle mobile nav selection
 if st.session_state.mobile_nav and st.session_state.mobile_nav in pages:
     page_id = pages[st.session_state.mobile_nav]
     st.session_state.mobile_nav = None
-
-# Full mobile nav row
-st.markdown('''<div class="mobile-nav-wrap" style="margin-bottom:10px;">''', unsafe_allow_html=True)
-mob2 = st.columns([1]*5)
-mob_p2 = [("🔍","classify"),("📤","upload_data"),("📋","analyzer"),("🌍","impact"),("📋","history")]
-for i,(icon,pid) in enumerate(mob_p2):
-    with mob2[i]:
-        if st.button(icon, key=f"mob2_{pid}", use_container_width=True):
-            for pname, pval in pages.items():
-                if pval == pid:
-                    st.session_state.mobile_nav = pname
-                    st.rerun()
-st.markdown('</div>', unsafe_allow_html=True)
 
 # ═══ DASHBOARD ═══
 if page_id == "home":
@@ -777,31 +740,49 @@ elif page_id == "chatbot":
     # ── MODEL SELECTOR ──
     model_key, model_name = model_selector()
 
-    # ── GEMINI AI SETUP ──
-    gemini_ready = False
+    # ── GEMINI AI SETUP (AUTO) ──
+    gemini_ready = False; gemini_model = None
     if 'gemini_key' not in st.session_state:
         try: st.session_state.gemini_key = st.secrets.get("GEMINI_API_KEY", "")
         except: st.session_state.gemini_key = ""
-    with st.expander("🔑 AI Settings — Connect Google Gemini (FREE)", expanded=not bool(st.session_state.gemini_key)):
-        st.markdown('''<div class="step-card">
-            <strong>How to get FREE API Key:</strong><br>
-            1. Go to <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#DC143C;">aistudio.google.com/apikey</a><br>
-            2. Click <strong>"Create API Key"</strong><br>
-            3. Copy and paste below ✅ <strong>100% FREE!</strong>
-        </div>''', unsafe_allow_html=True)
-        key_input = st.text_input("🔑 Gemini API Key", value=st.session_state.gemini_key, type="password", key="gem_key_input")
-        if key_input: st.session_state.gemini_key = key_input
     if st.session_state.gemini_key:
         try:
             import google.generativeai as genai
             genai.configure(api_key=st.session_state.gemini_key)
-            gemini_model = genai.GenerativeModel("gemini-1.5-flash", system_instruction="You are an expert E-Waste AI assistant. You help with: e-waste classification, recycling, recovery of precious metals, safety, environmental impact, repair vs recycle decisions, Indian e-waste laws, and more. Give detailed, helpful answers with emojis. Always be friendly and informative. If user uploads an image, identify the electronic device and provide recycling info.")
-            gemini_ready = True
-            st.success("✅ Gemini AI Connected! Real AI responses enabled 🧠")
-        except: st.warning("⚠️ Invalid API key. Using smart offline AI.")
+            gemini_model = genai.GenerativeModel("gemini-1.5-flash", system_instruction="""You are E-Waste AI, an expert assistant built by Azhar Fareed Mulla (USN: 2SA25MC002, Guide: Dr. Nisha S Amin) for MCA Final Year Project.
+You are the BEST e-waste expert in the world. You know EVERYTHING about:
+- Electronic waste classification (15 categories: Mobile Phones, Laptops, Tablets, Desktop Computers, Printers, Televisions, Large/Small Appliances, Batteries, Cables, PCBs, Lighting, Audio/Video, Gaming, Networking, Medical Devices)
+- Precious metal recovery (gold, silver, copper, platinum, palladium from circuit boards)
+- Step-by-step recovery processes for every device type
+- Safety precautions for handling hazardous materials (lead, mercury, cadmium, lithium, arsenic, BFRs)
+- Environmental impact (CO2 savings, water savings, energy savings, toxic waste prevention)
+- Indian e-waste laws (E-Waste Management Rules 2016, CPCB, EPR)
+- Repair vs recycle decisions
+- Material values and market prices
+- Recycling centers in India (Attero, E-Parisaraa, Cerebra, Ash Recyclers)
+- Circular economy concepts
+- Data privacy before recycling
+- DIY upcycling projects
+- Battery safety and disposal
 
+RULES:
+1. Always give DETAILED, HELPFUL answers with relevant emojis
+2. Use markdown formatting (headers, bold, tables, lists)
+3. Be friendly, informative, and professional
+4. If user uploads an image, identify the device and provide complete recycling info
+5. Support Hindi/Hinglish queries
+6. For any general question, try to relate it to e-waste/recycling/sustainability
+7. Include specific numbers, values, and actionable steps
+8. End responses with a helpful follow-up suggestion""")
+            gemini_ready = True
+            st.markdown('<div style="text-align:center;padding:4px;"><span style="color:#00FF7F;font-size:.75rem;">🟢 Gemini AI Active</span></div>', unsafe_allow_html=True)
+        except: pass
     if not gemini_ready:
-        st.info("💡 No API key? No problem! Smart offline AI is active with 20+ topics.")
+        with st.expander("🔑 Connect AI (Optional)"):
+            key_input = st.text_input("Gemini API Key", type="password", key="gem_key_input")
+            if key_input: st.session_state.gemini_key = key_input; st.rerun()
+            st.markdown('<a href="https://aistudio.google.com/apikey" target="_blank" style="color:#DC143C;font-size:.8rem;">Get FREE key →</a>', unsafe_allow_html=True)
+        st.markdown('<div style="text-align:center;"><span style="color:#888;font-size:.7rem;">💡 Offline AI active (20+ topics)</span></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
@@ -824,19 +805,15 @@ elif page_id == "chatbot":
                     <div class="chat-msg" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px 18px 18px 4px;max-width:80%;">{msg["content"]}</div>
                 </div>''', unsafe_allow_html=True)
 
-    # ── WHATSAPP-STYLE INPUT BAR ──
-    st.markdown('''<div style="background:rgba(255,255,255,.03);border:1px solid rgba(220,20,60,.2);border-radius:16px;padding:12px;margin-top:10px;">
-        <div style="color:#DC143C;font-family:Orbitron;font-size:.65rem;letter-spacing:2px;margin-bottom:8px;">💬 MESSAGE BAR</div>
+    # ── WHATSAPP-STYLE INPUT ──
+    st.markdown('''<div style="background:rgba(255,255,255,.03);border-radius:25px;padding:8px 16px;border:1px solid rgba(220,20,60,.15);margin-top:8px;">
+        <span style="color:#888;font-size:.75rem;">📎 Attach files below  •  ⌨️ Type message at bottom</span>
     </div>''', unsafe_allow_html=True)
-
-    # Attachment buttons row
-    att1, att2, att3 = st.columns([1,1,3])
+    att1, att2 = st.columns(2)
     with att1:
-        chat_img = st.file_uploader("📷", type=['jpg','jpeg','png','webp'], key="wa_img", label_visibility="collapsed")
+        chat_img = st.file_uploader("📷 Photo", type=['jpg','jpeg','png','webp'], key="wa_img", label_visibility="collapsed")
     with att2:
-        chat_vid = st.file_uploader("🎥", type=['mp4','avi','mov'], key="wa_vid", label_visibility="collapsed")
-    with att3:
-        st.markdown('<p style="color:#555;font-size:.75rem;margin-top:8px;">📷 Photo | 🎥 Video | ⌨️ Type below</p>', unsafe_allow_html=True)
+        chat_vid = st.file_uploader("🎥 Video", type=['mp4','avi','mov'], key="wa_vid", label_visibility="collapsed")
 
     # Process image upload
     if chat_img:
