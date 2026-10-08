@@ -599,6 +599,47 @@ if not st.session_state.logged_in:
 
 page_id = pages[selection]
 
+# ── MOBILE TOP NAVIGATION ──
+if 'mobile_nav' not in st.session_state: st.session_state.mobile_nav = None
+st.markdown('''<style>
+.mobile-nav{display:flex;overflow-x:auto;gap:6px;padding:8px 4px;scrollbar-width:none;-ms-overflow-style:none;}
+.mobile-nav::-webkit-scrollbar{display:none;}
+@media(min-width:769px){.mobile-nav-wrap{display:none !important;}}
+</style>''', unsafe_allow_html=True)
+st.markdown('<div class="mobile-nav-wrap">', unsafe_allow_html=True)
+mob_cols = st.columns([1]*5)
+mob_pages_user = [("🏠","home"),("📸","image"),("💬","chatbot"),("♻️","recovery"),("ℹ️","about")]
+mob_pages_admin = [("🏠","home"),("📸","image"),("💬","chatbot"),("📊","eda"),("ℹ️","about")]
+mob_p = mob_pages_admin if st.session_state.role == "admin" else mob_pages_user
+for i,(icon,pid) in enumerate(mob_p):
+    with mob_cols[i]:
+        sel_style = "background:#DC143C !important;color:white !important;" if page_id == pid else ""
+        if st.button(icon, key=f"mob_{pid}", use_container_width=True):
+            # Find matching page name from pages dict
+            for pname, pval in pages.items():
+                if pval == pid:
+                    st.session_state.mobile_nav = pname
+                    st.rerun()
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Handle mobile nav selection
+if st.session_state.mobile_nav and st.session_state.mobile_nav in pages:
+    page_id = pages[st.session_state.mobile_nav]
+    st.session_state.mobile_nav = None
+
+# Full mobile nav row
+st.markdown('''<div class="mobile-nav-wrap" style="margin-bottom:10px;">''', unsafe_allow_html=True)
+mob2 = st.columns([1]*5)
+mob_p2 = [("🔍","classify"),("📤","upload_data"),("📋","analyzer"),("🌍","impact"),("📋","history")]
+for i,(icon,pid) in enumerate(mob_p2):
+    with mob2[i]:
+        if st.button(icon, key=f"mob2_{pid}", use_container_width=True):
+            for pname, pval in pages.items():
+                if pval == pid:
+                    st.session_state.mobile_nav = pname
+                    st.rerun()
+st.markdown('</div>', unsafe_allow_html=True)
+
 # ═══ DASHBOARD ═══
 if page_id == "home":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🏠 DASHBOARD</h1>', unsafe_allow_html=True)
