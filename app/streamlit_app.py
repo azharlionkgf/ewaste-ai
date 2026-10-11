@@ -778,34 +778,70 @@ Support Hindi/Hinglish. Be friendly and professional. Built by Azhar Fareed Mull
             with st.chat_message("assistant", avatar="🤖"):
                 st.markdown(msg["content"])
 
-    # ── FILE UPLOAD (WhatsApp-style: small row before input) ──
+    # ── WHATSAPP BOTTOM ATTACHMENT BAR (Clean, no top boxes) ──
     st.markdown('''<style>
-    [data-testid="stFileUploader"]{margin:0!important;padding:0!important;}
-    [data-testid="stFileUploader"] label{display:none!important;}
-    [data-testid="stFileUploader"] section{border:none!important;padding:2px!important;}
-    [data-testid="stFileUploader"] button{font-size:.7rem!important;padding:4px 8px!important;border-radius:15px!important;background:rgba(220,20,60,.1)!important;border:1px solid rgba(220,20,60,.2)!important;}
-    </style>''', unsafe_allow_html=True)
+    .wa-toolbar-wrapper {
+        background: #111b21;
+        border: 1px solid #202c33;
+        border-radius: 20px 20px 0 0;
+        padding: 6px 12px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .wa-toolbar-title {
+        color: #8696a0;
+        font-size: 0.8rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    [data-testid="stFileUploader"] {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    [data-testid="stFileUploader"] section {
+        padding: 2px !important;
+        border: 1px dashed rgba(255,255,255,0.15) !important;
+        border-radius: 12px !important;
+        background: rgba(255,255,255,0.02) !important;
+    }
+    [data-testid="stFileUploader"] button {
+        font-size: 0.75rem !important;
+        padding: 2px 8px !important;
+        border-radius: 8px !important;
+        background: #202c33 !important;
+        color: #00a884 !important;
+        border: none !important;
+    }
+    </style>
+    <div class="wa-toolbar-wrapper">
+        <span style="font-size:1.1rem;">📎</span>
+        <span class="wa-toolbar-title">Attach Photos, Videos or Files (WhatsApp style):</span>
+    </div>
+    ''', unsafe_allow_html=True)
 
-    fc1, fc2, fc3 = st.columns([1,1,4])
-    with fc1:
-        chat_img = st.file_uploader("img", type=['jpg','jpeg','png','webp'], key="wa_img2", label_visibility="collapsed")
-    with fc2:
-        chat_vid = st.file_uploader("vid", type=['mp4','avi','mov','pdf','csv','txt','doc'], key="wa_vid2", label_visibility="collapsed")
-    with fc3:
-        if st.button("🗑️ Clear", key="clr_chat"):
-            st.session_state.chat_messages = [{"role":"assistant","content":"👋 Hi! I'm your AI assistant. Ask me anything! 📸 Upload photos using buttons on left."}]
+    col_att1, col_att2, col_att3 = st.columns([2, 2, 1])
+    with col_att1:
+        chat_img = st.file_uploader("📷 Photo / Image", type=['jpg','jpeg','png','webp'], key="wa_img_direct", label_visibility="collapsed")
+    with col_att2:
+        chat_vid = st.file_uploader("🎥 Video / Audio / Document", type=['mp4','avi','mov','mp3','wav','pdf','csv','txt'], key="wa_file_direct", label_visibility="collapsed")
+    with col_att3:
+        if st.button("🗑️ Clear", key="clr_chat_wa", use_container_width=True):
+            st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Hello!** I'm your AI Assistant. Ask me anything or attach an image/file below!"}]
             st.rerun()
 
     # ── PROCESS IMAGE UPLOAD ──
     if chat_img:
-        import base64
         img_bytes = chat_img.read()
-        st.session_state.chat_messages.append({"role":"user","content":f"📷 {chat_img.name}","has_image":True,"image_data":img_bytes})
+        st.session_state.chat_messages.append({"role":"user","content":f"📷 **Uploaded Image:** {chat_img.name}","has_image":True,"image_data":img_bytes})
         if gemini_ready:
             try:
                 from PIL import Image; import io
                 img = Image.open(io.BytesIO(img_bytes))
-                response = gemini_model.generate_content(["Identify this device/item. Give detailed info, materials, recycling steps, value, safety. Use emojis and markdown.", img])
+                response = gemini_model.generate_content([
+                    "You are an intelligent AI. Analyze this image thoroughly. If it is an electronic device or e-waste, identify the exact model/category, valuable materials (gold, silver, copper), recycling procedure, and safety precautions. Give a detailed and friendly answer.",
+                    img
+                ])
                 bot_reply = response.text
             except Exception as e:
                 bot_reply = chatbot_respond(chat_img.name)
@@ -814,23 +850,23 @@ Support Hindi/Hinglish. Be friendly and professional. Built by Azhar Fareed Mull
         st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
 
-    # ── PROCESS VIDEO/FILE UPLOAD ──
+    # ── PROCESS VIDEO / AUDIO / DOCUMENT UPLOAD ──
     if chat_vid:
-        st.session_state.chat_messages.append({"role":"user","content":f"📎 Uploaded: {chat_vid.name}"})
+        st.session_state.chat_messages.append({"role":"user","content":f"📎 **Attached File:** {chat_vid.name}"})
         if gemini_ready:
             try:
-                content = chat_vid.read().decode('utf-8', errors='ignore')[:2000]
-                response = gemini_model.generate_content(f"User uploaded file: {chat_vid.name}\nContent preview:\n{content}\n\nAnalyze this file and provide insights.")
+                content = chat_vid.read().decode('utf-8', errors='ignore')[:3000]
+                response = gemini_model.generate_content(f"Analyze this attached file ({chat_vid.name}). Content preview:\n{content}\n\nProvide relevant findings and full response.")
                 bot_reply = response.text
             except:
-                bot_reply = f"📎 Received **{chat_vid.name}**. Ask me what you'd like to know about it!"
+                bot_reply = f"📎 Received **{chat_vid.name}**! Ask me any question about this item."
         else:
             bot_reply = f"📎 Received **{chat_vid.name}**"
         st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
 
-    # ── CHAT INPUT (WhatsApp-style at bottom) ──
-    user_text = st.chat_input("💬 Message...")
+    # ── CHAT INPUT (WhatsApp message bar at very bottom) ──
+    user_text = st.chat_input("Message (Ask Gemini anything...)")
     if user_text:
         st.session_state.chat_messages.append({"role":"user","content":user_text})
         if gemini_ready:
@@ -1595,11 +1631,127 @@ elif page_id == "lab3d":
     lab_tab1, lab_tab2, lab_tab3, lab_tab4 = st.tabs(["🔬 3D Explorer", "📸 AI Identify", "📚 Knowledge Base", "📊 Analytics"])
 
     with lab_tab1:
-        st.markdown('<div class="section-header">🎯 SELECT DEVICE CATEGORY</div>', unsafe_allow_html=True)
-        device_cats = list(DEVICE_KNOWLEDGE.keys())
-        selected_device = st.selectbox("Device Category", device_cats, key="lab3d_device")
+        st.markdown('<div class="section-header">🎯 DEVICE SELECTION & UPLOAD</div>', unsafe_allow_html=True)
+        
+        # 3 Upload/Selection options via Dropdown
+        input_choice = st.selectbox(
+            "📥 Choose How to Load Device for 3D Model:",
+            ["📋 Select from Category Database", "📸 Upload Image / Photo", "📊 Upload Dataset (CSV)", "📄 Upload Document / Manual (PDF/TXT)"],
+            key="lab3d_input_choice"
+        )
+        
+        device_data = None
+        selected_device = None
 
-        device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+        if input_choice == "📋 Select from Category Database":
+            device_cats = list(DEVICE_KNOWLEDGE.keys())
+            selected_device = st.selectbox("Select Device Category", device_cats, key="lab3d_device_select")
+            device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+
+        elif input_choice == "📸 Upload Image / Photo":
+            st.markdown("##### 📸 Upload Electronic Device Image / Photo")
+            img_file = st.file_uploader("Upload Image (JPG, PNG, WEBP)", type=['jpg','jpeg','png','webp'], key="lab3d_img_upload")
+            if img_file:
+                c_img1, c_img2 = st.columns([1, 2])
+                with c_img1:
+                    st.image(img_file, caption=f"Uploaded: {img_file.name}", use_container_width=True)
+                with c_img2:
+                    st.success("⚡ Image Received! AI Analyzing Device...")
+                    # Predict device from image using Gemini or filename heuristics
+                    detected_device = None
+                    try:
+                        import google.generativeai as genai
+                        api_key = st.secrets.get("GEMINI_API_KEY", "") if hasattr(st, "secrets") else ""
+                        if not api_key: api_key = st.session_state.get("gemini_key", "")
+                        if api_key:
+                            genai.configure(api_key=api_key)
+                            model = genai.GenerativeModel("gemini-1.5-flash")
+                            from PIL import Image
+                            import io
+                            img_obj = Image.open(io.BytesIO(img_file.getvalue()))
+                            resp = model.generate_content([
+                                "Identify the electronic device category in this image. Answer strictly with ONE of these category names: Mobile Phones, Laptops, Tablets, Desktop Computers, Televisions, Batteries, PCBs/Circuit Boards, Printers, Large Appliances, Small Appliances. If none match, give closest.",
+                                img_obj
+                            ])
+                            resp_text = resp.text.strip()
+                            for cat in DEVICE_KNOWLEDGE.keys():
+                                if cat.lower() in resp_text.lower():
+                                    detected_device = cat
+                                    break
+                    except Exception as e:
+                        pass
+                    
+                    if not detected_device:
+                        # Fallback heuristic
+                        fname = img_file.name.lower()
+                        for k, v in DEVICE_MAP.items():
+                            if k in fname:
+                                detected_device = v
+                                break
+                    if not detected_device:
+                        detected_device = "Mobile Phones"  # Default fallback
+                    
+                    st.info(f"🔍 AI Identified Category: **{detected_device}**")
+                    selected_device = detected_device
+                    device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+
+        elif input_choice == "📊 Upload Dataset (CSV)":
+            st.markdown("##### 📊 Upload Dataset File (CSV)")
+            csv_file = st.file_uploader("Upload CSV Dataset", type=['csv'], key="lab3d_csv_upload")
+            if csv_file:
+                import pandas as pd
+                try:
+                    df_up = pd.read_csv(csv_file)
+                    st.success(f"✅ Dataset Loaded: {len(df_up)} rows, {len(df_up.columns)} columns")
+                    st.dataframe(df_up.head(5), use_container_width=True)
+                    # Check if device_type or Category column exists
+                    col_found = None
+                    for c in df_up.columns:
+                        if any(term in c.lower() for term in ['device', 'category', 'type', 'item']):
+                            col_found = c
+                            break
+                    if col_found:
+                        detected_device = str(df_up[col_found].iloc[0])
+                        matched_cat = None
+                        for cat in DEVICE_KNOWLEDGE.keys():
+                            if cat.lower() in detected_device.lower():
+                                matched_cat = cat
+                                break
+                        selected_device = matched_cat if matched_cat else "Desktop Computers"
+                    else:
+                        selected_device = "PCBs/Circuit Boards"
+                    st.info(f"📊 Auto-selected 3D Template from Dataset: **{selected_device}**")
+                    device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+                except Exception as ex:
+                    st.error(f"Error parsing CSV: {ex}")
+                    selected_device = "Desktop Computers"
+                    device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+
+        elif input_choice == "📄 Upload Document / Manual (PDF/TXT)":
+            st.markdown("##### 📄 Upload Specification Manual or Document")
+            doc_up = st.file_uploader("Upload PDF or TXT Document", type=['pdf','txt'], key="lab3d_doc_upload_tab1")
+            if doc_up:
+                st.success(f"✅ Document Received: {doc_up.name}")
+                # Analyze text for category
+                txt_content = ""
+                try:
+                    txt_content = doc_up.getvalue().decode('utf-8', errors='ignore')[:3000].lower()
+                except:
+                    txt_content = doc_up.name.lower()
+                detected = None
+                for cat in DEVICE_KNOWLEDGE.keys():
+                    if cat.lower() in txt_content or cat.lower() in doc_up.name.lower():
+                        detected = cat
+                        break
+                selected_device = detected if detected else "Laptops"
+                st.info(f"📄 Extracted Device Category: **{selected_device}**")
+                device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+
+        # Fallback if no device chosen yet
+        if not device_data:
+            selected_device = "Mobile Phones"
+            device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+
         if device_data:
             # Device header
             st.markdown(f'''<div class="glass-card" style="text-align:center;padding:20px;">
