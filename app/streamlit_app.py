@@ -25,6 +25,20 @@ try:
     MODULES_LOADED = True
 except: pass
 
+# ═══ Knowledge Engine & 3D Viewer ═══
+try:
+    from app.knowledge_engine import DEVICE_KNOWLEDGE, get_device_info, init_knowledge_db, save_device_knowledge, get_device_knowledge, search_knowledge, get_knowledge_stats
+    from app.three_d_viewer import generate_3d_viewer
+    KNOWLEDGE_LOADED = True
+except:
+    try:
+        from knowledge_engine import DEVICE_KNOWLEDGE, get_device_info, init_knowledge_db, save_device_knowledge, get_device_knowledge, search_knowledge, get_knowledge_stats
+        from three_d_viewer import generate_3d_viewer
+        KNOWLEDGE_LOADED = True
+    except:
+        KNOWLEDGE_LOADED = False
+        DEVICE_KNOWLEDGE = {}
+
 ADMIN_PASS_HASH = hashlib.sha256("admin@ewaste2025".encode()).hexdigest()
 CATEGORIES = ['Mobile Phones','Laptops','Desktop Computers','Tablets','Monitors/Displays','Televisions','Printers','Batteries','PCBs/Circuit Boards','Cables & Wires','Small Appliances','Large Appliances','Lighting Equipment','Audio/Video Equipment','Networking Equipment']
 
@@ -533,9 +547,9 @@ with st.sidebar:
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
         if st.session_state.role == "admin":
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔬 3D E-Waste Lab":"lab3d","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
         else:
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
+            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔬 3D E-Waste Lab":"lab3d","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
 
         selection = st.radio("NAV", list(pages.keys()), label_visibility="collapsed")
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
@@ -1645,6 +1659,236 @@ elif page_id == "analyzer":
             <p style="color:#888;">Upload <strong>ANY</strong> CSV — no specific format needed!</p>
             <p style="color:#666;">✅ Auto-detects • 🤖 AI classifies • ♻️ Recovery • 🌍 Impact</p>
         </div>''', unsafe_allow_html=True)
+
+
+# ═══ 3D E-WASTE LAB ═══
+elif page_id == "lab3d":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🔬 3D E-WASTE INTELLIGENCE LAB</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">AI Knowledge Engine • Interactive 3D Explorer • Device Identification • Recovery Analysis</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    if not KNOWLEDGE_LOADED:
+        st.error("❌ Knowledge Engine not loaded. Please check installation.")
+        st.stop()
+
+    # Tab layout
+    lab_tab1, lab_tab2, lab_tab3, lab_tab4 = st.tabs(["🔬 3D Explorer", "📸 AI Identify", "📚 Knowledge Base", "📊 Analytics"])
+
+    with lab_tab1:
+        st.markdown('<div class="section-header">🎯 SELECT DEVICE CATEGORY</div>', unsafe_allow_html=True)
+        device_cats = list(DEVICE_KNOWLEDGE.keys())
+        selected_device = st.selectbox("Device Category", device_cats, key="lab3d_device")
+
+        device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+        if device_data:
+            # Device header
+            st.markdown(f'''<div class="glass-card" style="text-align:center;padding:20px;">
+                <span style="font-size:3rem;">{device_data.get("icon","📦")}</span>
+                <h2 style="color:#DC143C;margin:10px 0;">{selected_device}</h2>
+                <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+                    <span class="tag">⚖️ {device_data.get("avg_weight_kg",0)} kg avg</span>
+                    <span class="tag">⏱️ {device_data.get("avg_lifespan_years",0)} yr lifespan</span>
+                    <span class="tag">💰 ${device_data.get("recovery_value_usd",0):.2f} recovery</span>
+                    <span class="tag">🔧 {device_data.get("repair_difficulty","N/A")}</span>
+                    <span class="tag">📊 Repairability: {device_data.get("repairability_score",0)}/10</span>
+                </div>
+            </div>''', unsafe_allow_html=True)
+
+            # 3D VIEWER
+            st.markdown('<div class="section-header">🎨 INTERACTIVE 3D COMPONENT VIEW</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#888;font-size:.8rem;text-align:center;">🖱️ Drag to rotate • Scroll to zoom • Click components • Use controls below</p>', unsafe_allow_html=True)
+            try:
+                viewer_html = generate_3d_viewer(device_data, height=500)
+                import streamlit.components.v1 as stc
+                stc.html(viewer_html, height=520, scrolling=False)
+            except Exception as e:
+                st.warning(f"3D viewer loading... ({e})")
+
+            # COMPONENTS TABLE
+            st.markdown('<div class="section-header">📦 COMPONENT BREAKDOWN</div>', unsafe_allow_html=True)
+            components = device_data.get("components", [])
+            for comp in components:
+                haz = "🔴 HAZARDOUS" if comp["hazardous"] else "🟢 Safe"
+                rec = "♻️" if comp["recyclable"] else "❌"
+                st.markdown(f'''<div class="step-card" style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:14px;height:14px;border-radius:50%;background:{comp["color"]};flex-shrink:0;"></div>
+                    <div style="flex:1;">
+                        <strong>{comp["name"]}</strong><br>
+                        <span style="color:#888;font-size:.8rem;">{comp["material"]}</span>
+                    </div>
+                    <div style="text-align:right;font-size:.8rem;">
+                        <div>⚖️ {comp["weight_pct"]}%</div>
+                        <div>💰 ${comp["value_usd"]:.2f}</div>
+                        <div>{haz} {rec}</div>
+                    </div>
+                </div>''', unsafe_allow_html=True)
+
+            # PRECIOUS METALS
+            st.markdown('<div class="section-header">💎 PRECIOUS METALS</div>', unsafe_allow_html=True)
+            metals = device_data.get("precious_metals", {})
+            mc = st.columns(min(len(metals), 5))
+            for i, (metal, amount) in enumerate(metals.items()):
+                with mc[i % len(mc)]:
+                    st.markdown(f'''<div class="metric-card">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-value">{amount}</div>
+                        <div class="metric-label">{metal}</div>
+                    </div>''', unsafe_allow_html=True)
+
+            # RECYCLING STEPS
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown('<div class="section-header">♻️ RECYCLING STEPS</div>', unsafe_allow_html=True)
+                for step in device_data.get("recycling_steps", []):
+                    st.markdown(f'<div class="step-card">{step}</div>', unsafe_allow_html=True)
+            with c2:
+                st.markdown('<div class="section-header">⚠️ SAFETY WARNINGS</div>', unsafe_allow_html=True)
+                for warn in device_data.get("safety_warnings", []):
+                    st.markdown(f'<div class="warning-card">{warn}</div>', unsafe_allow_html=True)
+
+                st.markdown('<div class="section-header">🌍 ENVIRONMENTAL IMPACT</div>', unsafe_allow_html=True)
+                env = device_data.get("environmental_impact", {})
+                st.markdown(f'''<div class="glass-card">
+                    <div>🌱 CO₂ Saved: <strong>{env.get("co2_saved_kg",0)} kg</strong></div>
+                    <div>💧 Water Saved: <strong>{env.get("water_saved_liters",0)} L</strong></div>
+                    <div>⚡ Energy Saved: <strong>{env.get("energy_saved_kwh",0)} kWh</strong></div>
+                    <div>☠️ Toxic Prevented: <strong>{env.get("toxic_prevented_kg",0)} kg</strong></div>
+                </div>''', unsafe_allow_html=True)
+
+            # BRANDS
+            brands = device_data.get("brands", [])
+            if brands:
+                st.markdown('<div class="section-header">🏭 KNOWN BRANDS</div>', unsafe_allow_html=True)
+                st.markdown('<div style="display:flex;flex-wrap:wrap;gap:6px;">' + ''.join([f'<span class="tag">{b}</span>' for b in brands]) + '</div>', unsafe_allow_html=True)
+
+    with lab_tab2:
+        st.markdown('<div class="section-header">📸 AI DEVICE IDENTIFICATION</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#888;">Upload an image of any electronic device — AI will identify it and show complete recycling info</p>', unsafe_allow_html=True)
+
+        uploaded = st.file_uploader("Upload device image", type=['jpg','jpeg','png','webp'], key="lab3d_upload")
+        if uploaded:
+            st.image(uploaded, width=300)
+            # Try Gemini AI identification
+            try:
+                import google.generativeai as genai
+                api_key = ""
+                try: api_key = st.secrets.get("GEMINI_API_KEY", "")
+                except: pass
+                if api_key:
+                    genai.configure(api_key=api_key)
+                    model = genai.GenerativeModel("gemini-1.5-flash")
+                    from PIL import Image
+                    import io
+                    img = Image.open(io.BytesIO(uploaded.read()))
+                    response = model.generate_content([
+                        """Identify this electronic device. Return a JSON with:
+                        {"device_name": "exact model name", "category": "one of: Mobile Phones, Laptops, Tablets, Desktop Computers, Televisions, Batteries, PCBs/Circuit Boards, Printers, Large Appliances, Small Appliances",
+                        "brand": "manufacturer", "components": ["list of visible components"],
+                        "materials": ["metals and materials"], "recycling_advice": "detailed recycling steps",
+                        "hazards": ["safety warnings"], "estimated_value_usd": number, "confidence": "high/medium/low"}
+                        If you can't identify exactly, give your best estimate and mark confidence as low.""", img])
+                    st.markdown("### 🤖 AI Identification Result:")
+                    st.markdown(response.text)
+
+                    # Try to match to knowledge base
+                    text = response.text.lower()
+                    matched = None
+                    for cat in DEVICE_KNOWLEDGE:
+                        if cat.lower() in text:
+                            matched = cat; break
+                    if matched:
+                        st.success(f"✅ Matched to knowledge base: **{matched}**")
+                        st.markdown("### 🔬 Full Knowledge Profile:")
+                        dev = DEVICE_KNOWLEDGE[matched]
+                        try:
+                            viewer_html = generate_3d_viewer(dev, height=400)
+                            import streamlit.components.v1 as stc
+                            stc.html(viewer_html, height=420, scrolling=False)
+                        except: pass
+                else:
+                    st.info("Add Gemini API key in Streamlit secrets for AI identification")
+            except Exception as e:
+                st.warning(f"AI identification needs Gemini API key. Error: {e}")
+
+        # Document upload
+        st.markdown('<div class="section-header">📄 DOCUMENT ANALYSIS</div>', unsafe_allow_html=True)
+        doc_file = st.file_uploader("Upload PDF/CSV for device info extraction", type=['pdf','csv','txt'], key="lab3d_doc")
+        if doc_file:
+            if doc_file.name.endswith('.csv'):
+                import pandas as pd
+                df = pd.read_csv(doc_file)
+                st.dataframe(df.head(20))
+                st.info(f"📊 {len(df)} rows, {len(df.columns)} columns found")
+            else:
+                content = doc_file.read().decode('utf-8', errors='ignore')
+                st.text_area("Document Content", content[:3000], height=200)
+
+    with lab_tab3:
+        st.markdown('<div class="section-header">📚 E-WASTE KNOWLEDGE DATABASE</div>', unsafe_allow_html=True)
+
+        # Search
+        search_q = st.text_input("🔍 Search devices, materials, components...", key="lab3d_search")
+
+        # Knowledge cards
+        cols = st.columns(3)
+        filtered = DEVICE_KNOWLEDGE
+        if search_q:
+            filtered = {k:v for k,v in DEVICE_KNOWLEDGE.items() if search_q.lower() in k.lower() or any(search_q.lower() in c["name"].lower() or search_q.lower() in c["material"].lower() for c in v.get("components",[]))}
+
+        for i, (cat, data) in enumerate(filtered.items()):
+            with cols[i % 3]:
+                n_comp = len(data.get("components", []))
+                n_haz = sum(1 for c in data.get("components",[]) if c["hazardous"])
+                st.markdown(f'''<div class="glass-card" style="text-align:center;">
+                    <div style="font-size:2rem;">{data.get("icon","📦")}</div>
+                    <h4 style="color:#DC143C;margin:5px 0;">{cat}</h4>
+                    <div style="font-size:.8rem;color:#888;">
+                        📦 {n_comp} components<br>
+                        ⚠️ {n_haz} hazardous<br>
+                        💰 ${data.get("recovery_value_usd",0):.2f} value<br>
+                        🔧 {data.get("repair_difficulty","N/A")}<br>
+                        🏭 {len(data.get("brands",[]))} brands
+                    </div>
+                </div>''', unsafe_allow_html=True)
+
+        # Stats
+        st.markdown('<div class="section-header">📊 DATABASE STATS</div>', unsafe_allow_html=True)
+        total_comp = sum(len(v.get("components",[])) for v in DEVICE_KNOWLEDGE.values())
+        total_metals = sum(len(v.get("precious_metals",{})) for v in DEVICE_KNOWLEDGE.values())
+        total_brands = sum(len(v.get("brands",[])) for v in DEVICE_KNOWLEDGE.values())
+        sc1,sc2,sc3,sc4 = st.columns(4)
+        with sc1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📦</div><div class="metric-value">{len(DEVICE_KNOWLEDGE)}</div><div class="metric-label">CATEGORIES</div></div>', unsafe_allow_html=True)
+        with sc2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔧</div><div class="metric-value">{total_comp}</div><div class="metric-label">COMPONENTS</div></div>', unsafe_allow_html=True)
+        with sc3: st.markdown(f'<div class="metric-card"><div class="metric-icon">💎</div><div class="metric-value">{total_metals}</div><div class="metric-label">METAL TYPES</div></div>', unsafe_allow_html=True)
+        with sc4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🏭</div><div class="metric-value">{total_brands}</div><div class="metric-label">BRANDS</div></div>', unsafe_allow_html=True)
+
+    with lab_tab4:
+        st.markdown('<div class="section-header">📊 COMPARATIVE ANALYTICS</div>', unsafe_allow_html=True)
+
+        # Recovery value comparison
+        try:
+            import plotly.graph_objects as go
+            cats = list(DEVICE_KNOWLEDGE.keys())
+            values = [v.get("recovery_value_usd",0) for v in DEVICE_KNOWLEDGE.values()]
+            icons = [v.get("icon","") for v in DEVICE_KNOWLEDGE.values()]
+
+            fig = go.Figure(go.Bar(x=[f"{ic} {c}" for ic,c in zip(icons,cats)], y=values, marker_color='#DC143C', text=[f"${v:.0f}" for v in values], textposition='auto'))
+            fig.update_layout(title="💰 Recovery Value by Device ($)", template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350, margin=dict(t=40,b=80))
+            st.plotly_chart(fig, use_container_width=True)
+
+            # Environmental impact
+            co2 = [v.get("environmental_impact",{}).get("co2_saved_kg",0) for v in DEVICE_KNOWLEDGE.values()]
+            fig2 = go.Figure(go.Bar(x=[f"{ic} {c}" for ic,c in zip(icons,cats)], y=co2, marker_color='#00FF7F', text=[f"{c}kg" for c in co2], textposition='auto'))
+            fig2.update_layout(title="🌱 CO₂ Saved by Recycling (kg)", template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350, margin=dict(t=40,b=80))
+            st.plotly_chart(fig2, use_container_width=True)
+
+            # Repairability
+            repair = [v.get("repairability_score",0) for v in DEVICE_KNOWLEDGE.values()]
+            fig3 = go.Figure(go.Bar(x=[f"{ic} {c}" for ic,c in zip(icons,cats)], y=repair, marker_color='#FFD700', text=[f"{r}/10" for r in repair], textposition='auto'))
+            fig3.update_layout(title="🔧 Repairability Score (/10)", template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350, margin=dict(t=40,b=80))
+            st.plotly_chart(fig3, use_container_width=True)
+        except Exception as e:
+            st.warning(f"Charts loading... ({e})")
 
 
 # ═══ ABOUT ═══
