@@ -10,3 +10,4 @@ catboost_info/
 cloudflared.exe
 models/saved/*.pkl
 data/ewaste_history.db
+.streamlit/secrets.toml
