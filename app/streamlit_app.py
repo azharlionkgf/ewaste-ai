@@ -747,14 +747,9 @@ elif page_id == "image":
 
 # ═══ AI CHATBOT ═══
 elif page_id == "chatbot":
-    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">💬 AI E-WASTE CHATBOT</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Powered by Google Gemini AI • Upload Photos & Videos • Real AI Responses 🤖</p>', unsafe_allow_html=True)
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+    st.markdown('<h1 class="glow-title" style="font-size:2rem;">💬 AI CHATBOT</h1>', unsafe_allow_html=True)
 
-    # ── MODEL SELECTOR ──
-    model_key, model_name = model_selector()
-
-    # ── GEMINI AI SETUP (AUTO) ──
+    # ── GEMINI AUTO-CONNECT ──
     gemini_ready = False; gemini_model = None
     if 'gemini_key' not in st.session_state:
         try: st.session_state.gemini_key = st.secrets.get("GEMINI_API_KEY", "")
@@ -763,123 +758,81 @@ elif page_id == "chatbot":
         try:
             import google.generativeai as genai
             genai.configure(api_key=st.session_state.gemini_key)
-            gemini_model = genai.GenerativeModel("gemini-1.5-flash", system_instruction="""You are E-Waste AI, an expert assistant built by Azhar Fareed Mulla (USN: 2SA25MC002, Guide: Dr. Nisha S Amin) for MCA Final Year Project.
-You are the BEST e-waste expert in the world. You know EVERYTHING about:
-- Electronic waste classification (15 categories: Mobile Phones, Laptops, Tablets, Desktop Computers, Printers, Televisions, Large/Small Appliances, Batteries, Cables, PCBs, Lighting, Audio/Video, Gaming, Networking, Medical Devices)
-- Precious metal recovery (gold, silver, copper, platinum, palladium from circuit boards)
-- Step-by-step recovery processes for every device type
-- Safety precautions for handling hazardous materials (lead, mercury, cadmium, lithium, arsenic, BFRs)
-- Environmental impact (CO2 savings, water savings, energy savings, toxic waste prevention)
-- Indian e-waste laws (E-Waste Management Rules 2016, CPCB, EPR)
-- Repair vs recycle decisions
-- Material values and market prices
-- Recycling centers in India (Attero, E-Parisaraa, Cerebra, Ash Recyclers)
-- Circular economy concepts
-- Data privacy before recycling
-- DIY upcycling projects
-- Battery safety and disposal
-
-RULES:
-1. Always give DETAILED, HELPFUL answers with relevant emojis
-2. Use markdown formatting (headers, bold, tables, lists)
-3. Be friendly, informative, and professional
-4. If user uploads an image, identify the device and provide complete recycling info
-5. Support Hindi/Hinglish queries
-6. For any general question, try to relate it to e-waste/recycling/sustainability
-7. Include specific numbers, values, and actionable steps
-8. End responses with a helpful follow-up suggestion""")
+            gemini_model = genai.GenerativeModel("gemini-2.0-flash", system_instruction="""You are E-Waste AI, the world's best assistant. Answer ANY question the user asks - e-waste, technology, science, general knowledge, coding, math, history, anything. 
+Be detailed, use emojis, markdown formatting. For e-waste topics, include recycling steps, materials, safety warnings, and environmental impact. 
+For image uploads, identify the device and give complete recycling info.
+Support Hindi/Hinglish. Be friendly and professional. Built by Azhar Fareed Mulla (USN: 2SA25MC002).""")
             gemini_ready = True
-            st.markdown('<div style="text-align:center;padding:4px;"><span style="color:#00FF7F;font-size:.75rem;">🟢 Gemini AI Active</span></div>', unsafe_allow_html=True)
         except: pass
     if not gemini_ready:
-        with st.expander("🔑 Connect AI (Optional)"):
-            key_input = st.text_input("Gemini API Key", type="password", key="gem_key_input")
-            if key_input: st.session_state.gemini_key = key_input; st.rerun()
-            st.markdown('<a href="https://aistudio.google.com/apikey" target="_blank" style="color:#DC143C;font-size:.8rem;">Get FREE key →</a>', unsafe_allow_html=True)
-        st.markdown('<div style="text-align:center;"><span style="color:#888;font-size:.7rem;">💡 Offline AI active (20+ topics)</span></div>', unsafe_allow_html=True)
+        st.info("🔑 Add Gemini API key in Settings > Secrets for AI responses")
 
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+    # ── CHAT MESSAGES DISPLAY ──
+    for msg in st.session_state.chat_messages:
+        if msg['role'] == 'user':
+            with st.chat_message("user"):
+                st.markdown(msg["content"])
+                if msg.get('has_image'):
+                    st.image(msg.get('image_data'), width=200)
+        else:
+            with st.chat_message("assistant", avatar="🤖"):
+                st.markdown(msg["content"])
 
-    # ── CHAT DISPLAY ──
-    chat_container = st.container()
-    with chat_container:
-        for msg in st.session_state.chat_messages:
-            if msg['role'] == 'user':
-                st.markdown(f'''<div class="chat-bot" style="justify-content:flex-end;">
-                    <div class="chat-msg" style="background:rgba(220,20,60,.15);border:1px solid rgba(220,20,60,.3);border-radius:18px 18px 4px 18px;max-width:80%;">{msg["content"]}</div>
-                    <div class="chat-icon">👤</div>
-                </div>''', unsafe_allow_html=True)
-                if msg.get('image'):
-                    st.image(msg['image'], width=250)
-                if msg.get('video_name'):
-                    st.markdown(f'<span class="tag">🎥 {msg["video_name"]}</span>', unsafe_allow_html=True)
-            else:
-                st.markdown(f'''<div class="chat-bot">
-                    <div class="chat-icon">🤖</div>
-                    <div class="chat-msg" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px 18px 18px 4px;max-width:80%;">{msg["content"]}</div>
-                </div>''', unsafe_allow_html=True)
-
-    # ── WHATSAPP INPUT BAR ──
+    # ── FILE UPLOAD (WhatsApp-style: small row before input) ──
     st.markdown('''<style>
-    .wa-input-bar{display:flex;align-items:center;gap:8px;background:#1E1E1E;border-radius:25px;padding:6px 12px;margin:8px 0;border:1px solid rgba(255,255,255,.08);}
-    .wa-icon{font-size:1.3rem;cursor:pointer;opacity:.6;transition:opacity .2s;}
-    .wa-icon:hover{opacity:1;}
-    .wa-send{background:#25D366;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-left:4px;flex-shrink:0;}
-    </style>
-    <div class="wa-input-bar">
-        <span class="wa-icon">😊</span>
-        <span style="flex:1;color:#888;font-size:.9rem;">Message...</span>
-        <span class="wa-icon">📎</span>
-        <span class="wa-icon">📷</span>
-    </div>
-    <div class="wa-send" style="position:relative;float:right;margin-top:-46px;margin-right:-4px;">🎤</div>
-    ''', unsafe_allow_html=True)
-    with st.expander("📎 Attach Photo / Video", expanded=False):
-        ac1, ac2 = st.columns(2)
-        with ac1: chat_img = st.file_uploader("📷 Photo", type=['jpg','jpeg','png','webp'], key="wa_img")
-        with ac2: chat_vid = st.file_uploader("🎥 Video", type=['mp4','avi','mov'], key="wa_vid")
+    [data-testid="stFileUploader"]{margin:0!important;padding:0!important;}
+    [data-testid="stFileUploader"] label{display:none!important;}
+    [data-testid="stFileUploader"] section{border:none!important;padding:2px!important;}
+    [data-testid="stFileUploader"] button{font-size:.7rem!important;padding:4px 8px!important;border-radius:15px!important;background:rgba(220,20,60,.1)!important;border:1px solid rgba(220,20,60,.2)!important;}
+    </style>''', unsafe_allow_html=True)
 
-    # Process image upload
+    fc1, fc2, fc3 = st.columns([1,1,4])
+    with fc1:
+        chat_img = st.file_uploader("img", type=['jpg','jpeg','png','webp'], key="wa_img2", label_visibility="collapsed")
+    with fc2:
+        chat_vid = st.file_uploader("vid", type=['mp4','avi','mov','pdf','csv','txt','doc'], key="wa_vid2", label_visibility="collapsed")
+    with fc3:
+        if st.button("🗑️ Clear", key="clr_chat"):
+            st.session_state.chat_messages = [{"role":"assistant","content":"👋 Hi! I'm your AI assistant. Ask me anything! 📸 Upload photos using buttons on left."}]
+            st.rerun()
+
+    # ── PROCESS IMAGE UPLOAD ──
     if chat_img:
         import base64
         img_bytes = chat_img.read()
-        b64 = base64.b64encode(img_bytes).decode()
-        img_html = f'<img src="data:image/{chat_img.type.split("/")[-1]};base64,{b64}" style="max-width:250px;border-radius:12px;">'
-
-        user_msg = {"role":"user","content":f"📷 *Uploaded: {chat_img.name}*","image":img_html}
-        st.session_state.chat_messages.append(user_msg)
-
-        # AI analyze image
+        st.session_state.chat_messages.append({"role":"user","content":f"📷 {chat_img.name}","has_image":True,"image_data":img_bytes})
         if gemini_ready:
             try:
-                from PIL import Image
-                import io
+                from PIL import Image; import io
                 img = Image.open(io.BytesIO(img_bytes))
-                response = gemini_model.generate_content(["Identify this electronic device/e-waste in the image. Tell what it is, its recyclable materials, recovery value, and recycling steps. Be detailed and use emojis.", img])
+                response = gemini_model.generate_content(["Identify this device/item. Give detailed info, materials, recycling steps, value, safety. Use emojis and markdown.", img])
                 bot_reply = response.text
             except Exception as e:
                 bot_reply = chatbot_respond(chat_img.name)
         else:
-            # Try to identify from filename
-            bot_reply = f"📸 **Image received: {chat_img.name}**\n\n" + chatbot_respond(chat_img.name.split('.')[0])
-
-        st.session_state.chat_messages.append({"role":"bot","content":bot_reply})
+            bot_reply = chatbot_respond(chat_img.name.split('.')[0])
+        st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
 
-    # Process video upload
+    # ── PROCESS VIDEO/FILE UPLOAD ──
     if chat_vid:
-        user_msg = {"role":"user","content":f"🎥 *Uploaded: {chat_vid.name}*","video_name":chat_vid.name}
-        st.session_state.chat_messages.append(user_msg)
-
-        bot_reply = f"🎥 **Video received: {chat_vid.name}**\n\n" + chatbot_respond(chat_vid.name.split('.')[0])
-        st.session_state.chat_messages.append({"role":"bot","content":bot_reply})
+        st.session_state.chat_messages.append({"role":"user","content":f"📎 Uploaded: {chat_vid.name}"})
+        if gemini_ready:
+            try:
+                content = chat_vid.read().decode('utf-8', errors='ignore')[:2000]
+                response = gemini_model.generate_content(f"User uploaded file: {chat_vid.name}\nContent preview:\n{content}\n\nAnalyze this file and provide insights.")
+                bot_reply = response.text
+            except:
+                bot_reply = f"📎 Received **{chat_vid.name}**. Ask me what you'd like to know about it!"
+        else:
+            bot_reply = f"📎 Received **{chat_vid.name}**"
+        st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
 
-    # Text input
-    user_text = st.chat_input("✍️ Type your message... (ask anything about e-waste!)")
+    # ── CHAT INPUT (WhatsApp-style at bottom) ──
+    user_text = st.chat_input("💬 Message...")
     if user_text:
         st.session_state.chat_messages.append({"role":"user","content":user_text})
-
         if gemini_ready:
             try:
                 response = gemini_model.generate_content(user_text)
@@ -888,41 +841,8 @@ RULES:
                 bot_reply = chatbot_respond(user_text)
         else:
             bot_reply = chatbot_respond(user_text)
-
-        st.session_state.chat_messages.append({"role":"bot","content":bot_reply})
+        st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
-
-    # Quick action buttons
-    st.markdown('<div class="section-header">⚡ QUICK TOPICS</div>', unsafe_allow_html=True)
-    q1,q2,q3,q4 = st.columns(4)
-    with q1:
-        if st.button("📱 Phone", use_container_width=True, key="qp"):
-            st.session_state.chat_messages.append({"role":"user","content":"Tell me about phone recycling"})
-            r = gemini_model.generate_content("Tell me about mobile phone e-waste recycling, materials, value and steps") if gemini_ready else None
-            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("phone")})
-            st.rerun()
-    with q2:
-        if st.button("💻 Laptop", use_container_width=True, key="ql"):
-            st.session_state.chat_messages.append({"role":"user","content":"Tell me about laptop recycling"})
-            r = gemini_model.generate_content("Tell me about laptop e-waste recycling, materials, value and steps") if gemini_ready else None
-            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("laptop")})
-            st.rerun()
-    with q3:
-        if st.button("⚠️ Safety", use_container_width=True, key="qs"):
-            st.session_state.chat_messages.append({"role":"user","content":"E-waste safety tips"})
-            r = gemini_model.generate_content("Give detailed e-waste safety tips, hazardous materials and precautions") if gemini_ready else None
-            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("safety")})
-            st.rerun()
-    with q4:
-        if st.button("🌍 Impact", use_container_width=True, key="qi"):
-            st.session_state.chat_messages.append({"role":"user","content":"Environmental impact of e-waste"})
-            r = gemini_model.generate_content("Tell me about environmental impact of e-waste, stats, CO2 savings from recycling") if gemini_ready else None
-            st.session_state.chat_messages.append({"role":"bot","content":r.text if r else chatbot_respond("environment")})
-            st.rerun()
-
-    # Clear chat
-    if st.button("🗑️ Clear Chat", use_container_width=True):
-        st.session_state.chat_messages = []; st.rerun()
 
 
 elif page_id == "classify":
