@@ -683,6 +683,39 @@ if page_id == "home":
     with m3: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(df_raw):,}</div><div class="metric-label">Dataset Rows</div></div>' if data_loaded and df_raw is not None else '<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">0</div><div class="metric-label">Dataset Rows</div></div>', unsafe_allow_html=True)
     with m4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-value green-value">100%</div><div class="metric-label">Accuracy</div></div>', unsafe_allow_html=True)
 
+    # ── QUICK START FOR ANY USER ──
+    st.markdown('<div class="section-header">⚡ QUICK START — WHAT WOULD YOU LIKE TO DO?</div>', unsafe_allow_html=True)
+    qc1, qc2, qc3 = st.columns(3)
+    with qc1:
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:20px;height:100%;">
+            <div style="font-size:2.5rem;">📸</div>
+            <h4 style="color:#DC143C;">Identify an Item</h4>
+            <p style="color:#888;font-size:0.85rem;">Take or upload a photo of your electronic device to see what it is and what it is worth.</p>
+        </div>''', unsafe_allow_html=True)
+        if st.button("📸 Classify Image", use_container_width=True, key="dash_btn_img"):
+            st.session_state.current_page = "📸 Image Classify"
+            st.rerun()
+
+    with qc2:
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:20px;height:100%;">
+            <div style="font-size:2.5rem;">🔬</div>
+            <h4 style="color:#DC143C;">Interactive 3D Lab</h4>
+            <p style="color:#888;font-size:0.85rem;">Inspect 3D exploded views of electronics, components, gold/copper content and safety.</p>
+        </div>''', unsafe_allow_html=True)
+        if st.button("🔬 Open 3D Lab", use_container_width=True, key="dash_btn_3d"):
+            st.session_state.current_page = "🔬 3D E-Waste Lab"
+            st.rerun()
+
+    with qc3:
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:20px;height:100%;">
+            <div style="font-size:2.5rem;">💬</div>
+            <h4 style="color:#DC143C;">Ask AI Chatbot</h4>
+            <p style="color:#888;font-size:0.85rem;">Directly chat in WhatsApp style with Gemini AI for instant recycling and repair answers.</p>
+        </div>''', unsafe_allow_html=True)
+        if st.button("💬 Chat with AI", use_container_width=True, key="dash_btn_chat"):
+            st.session_state.current_page = "💬 AI Chatbot"
+            st.rerun()
+
     # ── ALL 6 MODELS WITH ACCURACY ──
     st.markdown('<div class="section-header">🤖 OUR 6 TRAINED ML MODELS</div>', unsafe_allow_html=True)
     md1,md2,md3 = st.columns(3)
