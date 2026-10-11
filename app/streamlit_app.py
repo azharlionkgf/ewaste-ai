@@ -222,6 +222,41 @@ iframe{max-width:100%!important;}
 /* ═══ SCROLLABLE TABLES ═══ */
 [data-testid="stDataFrame"] div[data-testid="stDataFrameResizable"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;}
 .stDataFrame table{min-width:100%!important;font-size:.85rem!important;}
+
+/* ═══ WHATSAPP TOOLBAR ═══ */
+.wa-toolbar-wrapper {
+    background: #111b21;
+    border: 1px solid #202c33;
+    border-radius: 16px 16px 0 0;
+    padding: 6px 12px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.wa-toolbar-title {
+    color: #8696a0;
+    font-size: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.wa-attach-box [data-testid="stFileUploader"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.wa-attach-box [data-testid="stFileUploader"] section {
+    padding: 2px !important;
+    border: 1px dashed rgba(255,255,255,0.15) !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.02) !important;
+}
+.wa-attach-box [data-testid="stFileUploader"] button {
+    font-size: 0.75rem !important;
+    padding: 2px 8px !important;
+    border-radius: 8px !important;
+    background: #202c33 !important;
+    color: #00a884 !important;
+    border: none !important;
+}
 </style>""", unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════
@@ -862,41 +897,7 @@ elif page_id == "chatbot":
                 st.markdown(msg["content"])
 
     # ── WHATSAPP BOTTOM ATTACHMENT BAR (Clean, no top boxes) ──
-    st.markdown('''<style>
-    .wa-toolbar-wrapper {
-        background: #111b21;
-        border: 1px solid #202c33;
-        border-radius: 20px 20px 0 0;
-        padding: 6px 12px;
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .wa-toolbar-title {
-        color: #8696a0;
-        font-size: 0.8rem;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    [data-testid="stFileUploader"] {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    [data-testid="stFileUploader"] section {
-        padding: 2px !important;
-        border: 1px dashed rgba(255,255,255,0.15) !important;
-        border-radius: 12px !important;
-        background: rgba(255,255,255,0.02) !important;
-    }
-    [data-testid="stFileUploader"] button {
-        font-size: 0.75rem !important;
-        padding: 2px 8px !important;
-        border-radius: 8px !important;
-        background: #202c33 !important;
-        color: #00a884 !important;
-        border: none !important;
-    }
-    </style>
+    st.markdown('''
     <div class="wa-toolbar-wrapper">
         <span style="font-size:1.1rem;">📎</span>
         <span class="wa-toolbar-title">Attach Photos, Videos or Files (WhatsApp style):</span>
