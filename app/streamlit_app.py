@@ -118,7 +118,10 @@ init_db()
 # ═══════════════════════════════════════════
 st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
-#MainMenu,footer,header,.stDeployButton{visibility:hidden;display:none;}
+#MainMenu,footer,.stDeployButton{visibility:hidden;display:none;}
+header{background:transparent!important;}
+[data-testid="stSidebarCollapseButton"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;}
+[data-testid="collapsedControl"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;background:rgba(20,20,20,0.85)!important;border:1px solid rgba(220,20,60,0.4)!important;border-radius:8px!important;}
 .stApp{background:#0a0a0a;color:#e0e0e0;font-family:'Rajdhani',sans-serif;}
 .stApp::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,20,60,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,69,0,.05) 0%,transparent 50%);pointer-events:none;z-index:0;animation:bgP 8s ease-in-out infinite alternate;}
 @keyframes bgP{0%{opacity:.6}100%{opacity:1}}
@@ -647,11 +650,33 @@ if not st.session_state.logged_in:
 
 page_id = pages[selection]
 
-# ── MOBILE NAVIGATION ──
-if 'mobile_nav' not in st.session_state: st.session_state.mobile_nav = None
-if st.session_state.mobile_nav and st.session_state.mobile_nav in pages:
-    page_id = pages[st.session_state.mobile_nav]
-    st.session_state.mobile_nav = None
+# ── TOP QUICK NAVIGATION & SIDEBAR RE-OPEN HELPER ──
+# Works equally for both Admin and Normal User
+with st.container():
+    t_c1, t_c2, t_c3 = st.columns([2, 5, 2])
+    with t_c1:
+        st.markdown('''<div style="padding:4px 0;">
+            <span style="color:#DC143C;font-family:Orbitron;font-size:0.75rem;letter-spacing:1px;">⚡ E-WASTE AI</span>
+        </div>''', unsafe_allow_html=True)
+    with t_c2:
+        # Fast Jump dropdown if sidebar is closed
+        quick_names = list(pages.keys())
+        current_idx = list(pages.values()).index(page_id) if page_id in pages.values() else 0
+        quick_select = st.selectbox(
+            "Quick Page Jump", 
+            quick_names, 
+            index=current_idx,
+            key="top_quick_nav_jump",
+            label_visibility="collapsed"
+        )
+        if pages[quick_select] != page_id:
+            page_id = pages[quick_select]
+            st.rerun()
+    with t_c3:
+        # Prompt to re-open sidebar if collapsed
+        st.markdown('''<div style="text-align:right;padding-top:6px;">
+            <span style="font-size:0.75rem;color:#888;">👈 Use <b>&gt;</b> Arrow top-left to toggle Menu</span>
+        </div>''', unsafe_allow_html=True)
 
 # ═══ DASHBOARD ═══
 if page_id == "home":
