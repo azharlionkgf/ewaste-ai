@@ -599,9 +599,43 @@ with st.sidebar:
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
         if st.session_state.role == "admin":
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔬 3D E-Waste Lab":"lab3d","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","📊 EDA Explorer":"eda","🤖 Model Performance":"model_perf","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📦 Batch Processing":"batch","📋 History":"history","📂 Dataset Manager":"datasets","ℹ️ About":"about"}
+            pages = {
+                "🏠 Dashboard": "home",
+                "📸 Image Classify": "image",
+                "💬 AI Chatbot": "chatbot",
+                "🔬 3D E-Waste Lab": "lab3d",
+                "📍 Recycling Centers": "centers",
+                "⚠️ Safety & Hazards": "safety",
+                "📜 Green Certificate": "certificate",
+                "🔍 Form Classify": "classify",
+                "📤 Dataset Upload": "upload_data",
+                "📋 Smart Analyzer": "analyzer",
+                "📊 EDA Explorer": "eda",
+                "🤖 Model Performance": "model_perf",
+                "♻️ Recovery Advisor": "recovery",
+                "🌍 Environmental Impact": "impact",
+                "📦 Batch Processing": "batch",
+                "📋 History": "history",
+                "📂 Dataset Manager": "datasets",
+                "ℹ️ About": "about"
+            }
         else:
-            pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔬 3D E-Waste Lab":"lab3d","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
+            pages = {
+                "🏠 Dashboard": "home",
+                "📸 Image Classify": "image",
+                "💬 AI Chatbot": "chatbot",
+                "🔬 3D E-Waste Lab": "lab3d",
+                "📍 Recycling Centers": "centers",
+                "⚠️ Safety & Hazards": "safety",
+                "📜 Green Certificate": "certificate",
+                "🔍 Form Classify": "classify",
+                "📤 Dataset Upload": "upload_data",
+                "📋 Smart Analyzer": "analyzer",
+                "♻️ Recovery Advisor": "recovery",
+                "🌍 Environmental Impact": "impact",
+                "📋 My History": "history",
+                "ℹ️ About": "about"
+            }
 
         page_keys = list(pages.keys())
         if 'current_page' not in st.session_state or st.session_state.current_page not in page_keys:
@@ -2109,6 +2143,119 @@ elif page_id == "lab3d":
             st.plotly_chart(fig3, use_container_width=True)
         except Exception as e:
             st.warning(f"Charts loading... ({e})")
+
+
+# ═══ RECYCLING CENTERS DIRECTORY ═══
+elif page_id == "centers":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📍 AUTHORIZED RECYCLING CENTERS</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Certified E-Waste Collection Hubs • Producer Take-Back Centers • Nationwide Directories</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    city_filter = st.selectbox("🏙️ Filter by City / Region:", ["All India", "Bengaluru", "Mumbai", "Delhi NCR", "Hyderabad", "Chennai", "Kolkata", "Pune"])
+    
+    centers_data = [
+        {"name": "Attero Recycling Pvt Ltd", "city": "All India", "type": "CPCB Certified R2 Facility", "contact": "1800-103-6328", "address": "Integrated Industrial Estate, Haridwar / Hubs across 28 states", "accepts": "All Electronics, Li-ion Batteries, PCBs"},
+        {"name": "E-Parisaraa Pvt Ltd", "city": "Bengaluru", "type": "India's 1st Scientific Recycler", "contact": "080-2836-3323", "address": "Dobaspet Industrial Area, Bengaluru, Karnataka", "accepts": "Computers, Telecom, High-Grade PCBs"},
+        {"name": "Cerebra Integrated Technologies", "city": "Bengaluru", "type": "Automated Dismantling Hub", "contact": "080-2211-3444", "address": "Narasapura Industrial Area, Kolar / Bengaluru", "accepts": "Servers, Laptops, Mobile Devices"},
+        {"name": "Eco Recycling Ltd (Ecoreco)", "city": "Mumbai", "type": "BSE Listed Official Recycler", "contact": "022-4005-2951", "address": "The Summit Business Bay, Andheri East, Mumbai", "accepts": "Corporate IT, Home Appliances"},
+        {"name": "Greenscape Eco Management", "city": "Delhi NCR", "type": "Authorized Multi-stream Recycler", "contact": "011-4100-5020", "address": "Alwar & Okhla Phase II, New Delhi", "accepts": "Batteries, Large Appliances, Displays"},
+        {"name": "Re Sustainability (Ramky E-Waste)", "city": "Hyderabad", "type": "Integrated Environmental Park", "contact": "040-2301-5000", "address": "Dundigal Waste Management Facility, Hyderabad", "accepts": "Industrial Electronics, Solar Inverters"},
+        {"name": "TES-AMM India Pvt Ltd", "city": "Chennai", "type": "Global ITAD & Precious Metals Refiner", "contact": "044-4286-5500", "address": "SIPCOT Industrial Complex, Sriperumbudur, Tamil Nadu", "accepts": "High-Grade Server Boards, Mobile Phones"},
+        {"name": "Hulladek Recycling", "city": "Kolkata", "type": "Eastern India Authorized Partner", "contact": "1800-212-4632", "address": "Park Street & Howrah Processing Zone, Kolkata", "accepts": "Consumer E-Waste, Small Appliances"}
+    ]
+    
+    for c in centers_data:
+        if city_filter == "All India" or c["city"] == city_filter or c["city"] == "All India":
+            st.markdown(f'''<div class="glass-card" style="margin:12px 0;padding:20px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                    <h3 style="color:#DC143C;margin:0;">🏢 {c["name"]}</h3>
+                    <span class="tag">{c["type"]}</span>
+                </div>
+                <p style="margin:8px 0;color:#ccc;">📍 <strong>Location:</strong> {c["address"]} ({c["city"]})</p>
+                <p style="margin:4px 0;color:#aaa;">📞 <strong>Helpline / Contact:</strong> <span style="color:#00FF7F;">{c["contact"]}</span></p>
+                <p style="margin:4px 0;color:#888;font-size:0.85rem;">📦 <strong>Accepted Categories:</strong> {c["accepts"]}</p>
+            </div>''', unsafe_allow_html=True)
+
+
+# ═══ SAFETY & HAZARDS STOP-WORK HUB ═══
+elif page_id == "safety":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">⚠️ SAFETY & CRITICAL STOP-WORK HUB</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Critical Safety Instructions • Poisoning & Implosion Precaution • Emergency Actions</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    st.markdown("### 🚨 Critical Hazards Requiring Immediate Stop-Work:")
+    for h_key, h_data in HAZARD_PROTOCOLS.items():
+        st.markdown(f'''<div class="glass-card" style="border-left:4px solid #FF5252;padding:20px;margin:15px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="color:#FF5252;margin:0;">🚨 {h_data["hazard"]}</h3>
+                <span class="tag" style="background:rgba(255,82,82,0.2);color:#FF5252;">{h_data["severity"]}</span>
+            </div>
+            <p style="color:#FFD700;font-weight:700;margin:10px 0;">Mandatory Protocol: {h_data["action"]}</p>
+            <ul style="color:#ccc;font-size:0.9rem;line-height:1.6;">''' + "".join([f"<li>{step}</li>" for step in h_data["instructions"]]) + '''</ul>
+        </div>''', unsafe_allow_html=True)
+
+    st.markdown('<div class="section-header">📜 STATUTORY JURISDICTION REGULATIONS</div>', unsafe_allow_html=True)
+    juris_choice = st.selectbox("Select Jurisdiction Law:", list(GLOBAL_REGULATIONS.keys()))
+    reg = GLOBAL_REGULATIONS[juris_choice]
+    st.markdown(f'''<div class="glass-card">
+        <h3 style="color:#DC143C;">🏛️ {reg["agency"]}</h3>
+        <p><strong>Official Statute:</strong> <code>{reg["statute"]}</code> ({reg["compliance_tier"]})</p>
+        <p><strong>Effective Baseline:</strong> {reg["effective_date"]}</p>
+        <h4 style="color:#FFD700;margin-top:15px;">Mandatory Legal Compliance Directives:</h4>
+        <ul style="color:#bbb;line-height:1.6;">''' + "".join([f"<li>{r}</li>" for r in reg["key_requirements"]]) + '''</ul>
+    </div>''', unsafe_allow_html=True)
+
+
+# ═══ GREEN RECYCLING CERTIFICATE GENERATOR ═══
+elif page_id == "certificate":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📜 GREEN DISPOSAL CERTIFICATE</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Generate Official Verified Proof of Responsible E-Waste Recycling & Environmental Savings</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    with st.form("cert_form"):
+        st.markdown("##### 📝 Participant & Recycling Details:")
+        c_user = st.text_input("Name of Individual / Organization:", "Azhar Fareed Mulla")
+        c_device = st.selectbox("Recycled Device Category:", list(DEVICE_KNOWLEDGE.keys()))
+        c_qty = st.number_input("Quantity of Units Handed Over:", min_value=1, max_value=500, value=1)
+        c_facility = st.selectbox("Partner Recycling Facility:", ["Attero Central Recycling", "E-Parisaraa Scientific Unit", "Cerebra Automated Plant", "Eco Recycling Facility"])
+        gen_btn = st.form_submit_button("🎖️ GENERATE OFFICIAL GREEN CERTIFICATE", use_container_width=True)
+
+    if gen_btn:
+        dev_info = DEVICE_KNOWLEDGE.get(c_device, {})
+        env = dev_info.get("environmental_impact", {})
+        co2_total = env.get("co2_saved_kg", 5.0) * c_qty
+        water_total = env.get("water_saved_liters", 200) * c_qty
+        energy_total = env.get("energy_saved_kwh", 15) * c_qty
+        trees_equiv = co2_total / 21.0
+
+        st.markdown(f'''<div style="background:radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%);border:3px solid #FFD700;border-radius:24px;padding:40px;margin:25px 0;text-align:center;box-shadow:0 0 50px rgba(255,215,0,0.2);">
+            <div style="font-size:3rem;margin-bottom:10px;">🎖️</div>
+            <div style="font-family:'Orbitron',sans-serif;color:#FFD700;letter-spacing:4px;font-size:1.6rem;text-transform:uppercase;">Certificate of Responsible E-Waste Disposal</div>
+            <p style="color:#888;letter-spacing:2px;font-size:0.8rem;margin-top:5px;">AWARDED UNDER ENVIRONMENTAL SUSTAINABILITY PROTOCOLS</p>
+            <div class="animated-line" style="margin:20px auto;max-width:400px;"></div>
+            <p style="color:#ccc;font-size:1.1rem;margin:15px 0;">This certifies that</p>
+            <h2 style="font-family:'Georgia',serif;color:#FFFFFF;font-size:2.2rem;letter-spacing:1px;margin:10px 0;">{c_user}</h2>
+            <p style="color:#aaa;max-width:650px;margin:15px auto;line-height:1.6;">has responsibly diverted <strong>{c_qty} unit(s) of {c_device}</strong> from municipal landfills by transferring them to <strong>{c_facility}</strong> for scientific disassembly, precious metals extraction, and non-toxic recovery.</p>
+            <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:30px 0;">
+                <div style="background:rgba(0,255,127,0.1);border:1px solid #00FF7F;border-radius:12px;padding:15px 25px;">
+                    <div style="color:#00FF7F;font-family:Orbitron;font-size:1.5rem;font-weight:700;">{co2_total:,.1f} kg</div>
+                    <div style="color:#888;font-size:0.75rem;">CO₂ EMISSIONS PREVENTED</div>
+                </div>
+                <div style="background:rgba(30,144,255,0.1);border:1px solid #1E90FF;border-radius:12px;padding:15px 25px;">
+                    <div style="color:#1E90FF;font-family:Orbitron;font-size:1.5rem;font-weight:700;">{water_total:,.0f} L</div>
+                    <div style="color:#888;font-size:0.75rem;">WATER CONSERVED</div>
+                </div>
+                <div style="background:rgba(255,215,0,0.1);border:1px solid #FFD700;border-radius:12px;padding:15px 25px;">
+                    <div style="color:#FFD700;font-family:Orbitron;font-size:1.5rem;font-weight:700;">{trees_equiv:,.1f} 🌲</div>
+                    <div style="color:#888;font-size:0.75rem;">TREE PLANTING EQUIVALENT</div>
+                </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.8rem;color:#777;">
+                <div>Certificate ID: <code>EW-{abs(hash(c_user + c_device)) % 10000000:07d}</code></div>
+                <div>Issued on: <strong>October 2026</strong></div>
+                <div>Authorized by: <strong>E-Waste Intelligence System</strong></div>
+            </div>
+        </div>''', unsafe_allow_html=True)
 
 
 # ═══ ABOUT ═══
