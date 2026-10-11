@@ -568,7 +568,16 @@ with st.sidebar:
         else:
             pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔬 3D E-Waste Lab":"lab3d","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
 
-        selection = st.radio("NAV", list(pages.keys()), label_visibility="collapsed")
+        page_keys = list(pages.keys())
+        if 'current_page' not in st.session_state or st.session_state.current_page not in page_keys:
+            st.session_state.current_page = page_keys[0]
+
+        curr_index = page_keys.index(st.session_state.current_page)
+        selection = st.radio("NAV", page_keys, index=curr_index, key="nav_radio_selection", label_visibility="collapsed")
+        if selection != st.session_state.current_page:
+            st.session_state.current_page = selection
+            st.rerun()
+
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
         
         # ── GLOBAL LOCALIZATION SETTINGS ──
@@ -648,35 +657,7 @@ if not st.session_state.logged_in:
         </div>''', unsafe_allow_html=True)
     st.stop()
 
-page_id = pages[selection]
-
-# ── TOP QUICK NAVIGATION & SIDEBAR RE-OPEN HELPER ──
-# Works equally for both Admin and Normal User
-with st.container():
-    t_c1, t_c2, t_c3 = st.columns([2, 5, 2])
-    with t_c1:
-        st.markdown('''<div style="padding:4px 0;">
-            <span style="color:#DC143C;font-family:Orbitron;font-size:0.75rem;letter-spacing:1px;">⚡ E-WASTE AI</span>
-        </div>''', unsafe_allow_html=True)
-    with t_c2:
-        # Fast Jump dropdown if sidebar is closed
-        quick_names = list(pages.keys())
-        current_idx = list(pages.values()).index(page_id) if page_id in pages.values() else 0
-        quick_select = st.selectbox(
-            "Quick Page Jump", 
-            quick_names, 
-            index=current_idx,
-            key="top_quick_nav_jump",
-            label_visibility="collapsed"
-        )
-        if pages[quick_select] != page_id:
-            page_id = pages[quick_select]
-            st.rerun()
-    with t_c3:
-        # Prompt to re-open sidebar if collapsed
-        st.markdown('''<div style="text-align:right;padding-top:6px;">
-            <span style="font-size:0.75rem;color:#888;">👈 Use <b>&gt;</b> Arrow top-left to toggle Menu</span>
-        </div>''', unsafe_allow_html=True)
+page_id = pages[st.session_state.current_page]
 
 # ═══ DASHBOARD ═══
 if page_id == "home":
@@ -2067,3 +2048,31 @@ elif page_id == "about":
         <p>🌍 <strong>Environmental Impact</strong> calculator with SDG alignment</p>
         <p>💬 <strong>AI Chatbot</strong> for user guidance</p>
     </div>''', unsafe_allow_html=True)
+
+# ═══════════════════════════════════════════
+# 🔄 UNIVERSAL BOTTOM NAVIGATION (NEXT / PREVIOUS)
+# ═══════════════════════════════════════════
+st.markdown('<div class="animated-line" style="margin-top:40px;"></div>', unsafe_allow_html=True)
+all_pages = list(pages.keys())
+curr_idx = all_pages.index(st.session_state.current_page) if st.session_state.current_page in all_pages else 0
+
+prev_page = all_pages[curr_idx - 1] if curr_idx > 0 else None
+next_page = all_pages[curr_idx + 1] if curr_idx < len(all_pages) - 1 else None
+
+col_prev, col_mid, col_next = st.columns([2, 1, 2])
+
+with col_prev:
+    if prev_page:
+        if st.button(f"⬅️ Previous: {prev_page}", use_container_width=True, key="bottom_prev_btn"):
+            st.session_state.current_page = prev_page
+            st.rerun()
+
+with col_mid:
+    st.markdown(f'<div style="text-align:center;padding-top:10px;color:#888;font-size:0.85rem;font-weight:600;">Page {curr_idx + 1} of {len(all_pages)}</div>', unsafe_allow_html=True)
+
+with col_next:
+    if next_page:
+        if st.button(f"Next: {next_page} ➡️", use_container_width=True, key="bottom_next_btn"):
+            st.session_state.current_page = next_page
+            st.rerun()
+
