@@ -42,6 +42,20 @@ except:
 ADMIN_PASS_HASH = hashlib.sha256("admin@ewaste2025".encode()).hexdigest()
 CATEGORIES = ['Mobile Phones','Laptops','Desktop Computers','Tablets','Monitors/Displays','Televisions','Printers','Batteries','PCBs/Circuit Boards','Cables & Wires','Small Appliances','Large Appliances','Lighting Equipment','Audio/Video Equipment','Networking Equipment']
 
+# ═══ Internationalization & Safety Compliance ═══
+try:
+    from src.i18n import get_text, convert_currency, format_recovery_range, SUPPORTED_LANGUAGES, CURRENCY_RATES, EXCHANGE_RATE_METADATA
+    from src.safety_compliance import get_hazard_protocol, get_regulatory_framework, HAZARD_PROTOCOLS, GLOBAL_REGULATIONS
+    I18N_LOADED = True
+except:
+    I18N_LOADED = False
+    SUPPORTED_LANGUAGES = {'en': 'English'}
+    CURRENCY_RATES = {'USD': {'symbol': '$', 'rate': 1.0}}
+    def get_text(k, l='en'): return k
+    def convert_currency(amt, c='USD'): return amt, '$', f"${amt:,.2f} USD"
+    def format_recovery_range(amt, c='USD', u=20.0): return f"${amt:,.2f}"
+
+
 # ═══════════════════════════════════════════
 # DATABASE
 # ═══════════════════════════════════════════
@@ -552,6 +566,28 @@ with st.sidebar:
             pages = {"🏠 Dashboard":"home","📸 Image Classify":"image","💬 AI Chatbot":"chatbot","🔬 3D E-Waste Lab":"lab3d","🔍 Form Classify":"classify","📤 Dataset Upload":"upload_data","📋 Smart Analyzer":"analyzer","♻️ Recovery Advisor":"recovery","🌍 Environmental Impact":"impact","📋 My History":"history","ℹ️ About":"about"}
 
         selection = st.radio("NAV", list(pages.keys()), label_visibility="collapsed")
+        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+        
+        # ── GLOBAL LOCALIZATION SETTINGS ──
+        st.markdown("#### 🌐 REGIONAL SETTINGS")
+        if 'app_lang' not in st.session_state: st.session_state.app_lang = 'en'
+        if 'app_curr' not in st.session_state: st.session_state.app_curr = 'USD'
+        if 'app_jurisdiction' not in st.session_state: st.session_state.app_jurisdiction = 'India'
+
+        c_lang, c_curr = st.columns(2)
+        with c_lang:
+            lang_opts = list(SUPPORTED_LANGUAGES.keys())
+            sel_lang = st.selectbox("Language", lang_opts, format_func=lambda x: SUPPORTED_LANGUAGES[x], index=lang_opts.index(st.session_state.app_lang), key="sidebar_lang_select")
+            if sel_lang != st.session_state.app_lang:
+                st.session_state.app_lang = sel_lang
+                st.rerun()
+        with c_curr:
+            curr_opts = list(CURRENCY_RATES.keys())
+            sel_curr = st.selectbox("Currency", curr_opts, index=curr_opts.index(st.session_state.app_curr), key="sidebar_curr_select")
+            if sel_curr != st.session_state.app_curr:
+                st.session_state.app_curr = sel_curr
+                st.rerun()
+
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
         st.markdown("#### ⚙️ STATUS")
         s1,s2 = st.columns(2)
@@ -1753,14 +1789,18 @@ elif page_id == "lab3d":
             device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
 
         if device_data:
-            # Device header
+            # Device header with dynamic currency & uncertainty
+            rec_val_usd = device_data.get("recovery_value_usd", 0.0)
+            curr_code = st.session_state.get('app_curr', 'USD')
+            formatted_val = format_recovery_range(rec_val_usd, curr_code, uncertainty_pct=20.0)
+
             st.markdown(f'''<div class="glass-card" style="text-align:center;padding:20px;">
                 <span style="font-size:3rem;">{device_data.get("icon","📦")}</span>
                 <h2 style="color:#DC143C;margin:10px 0;">{selected_device}</h2>
-                <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+                <div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap;">
                     <span class="tag">⚖️ {device_data.get("avg_weight_kg",0)} kg avg</span>
                     <span class="tag">⏱️ {device_data.get("avg_lifespan_years",0)} yr lifespan</span>
-                    <span class="tag">💰 ${device_data.get("recovery_value_usd",0):.2f} recovery</span>
+                    <span class="tag" style="border-color:#FFD700;color:#FFD700;">💰 {formatted_val}</span>
                     <span class="tag">🔧 {device_data.get("repair_difficulty","N/A")}</span>
                     <span class="tag">📊 Repairability: {device_data.get("repairability_score",0)}/10</span>
                 </div>
@@ -1814,9 +1854,16 @@ elif page_id == "lab3d":
                 for step in device_data.get("recycling_steps", []):
                     st.markdown(f'<div class="step-card">{step}</div>', unsafe_allow_html=True)
             with c2:
-                st.markdown('<div class="section-header">⚠️ SAFETY WARNINGS</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-header">⚠️ SAFETY WARNINGS & STOP-WORK</div>', unsafe_allow_html=True)
                 for warn in device_data.get("safety_warnings", []):
                     st.markdown(f'<div class="warning-card">{warn}</div>', unsafe_allow_html=True)
+
+                # Regional Compliance & Statutory Notice
+                reg_info = get_regulatory_framework(st.session_state.get('app_jurisdiction', 'India'))
+                with st.expander(f"📜 Regulatory Compliance: {reg_info['agency']}"):
+                    st.markdown(f"**Statute:** `{reg_info['statute']}` ({reg_info['compliance_tier']})")
+                    for req in reg_info['key_requirements']:
+                        st.markdown(f"• {req}")
 
                 st.markdown('<div class="section-header">🌍 ENVIRONMENTAL IMPACT</div>', unsafe_allow_html=True)
                 env = device_data.get("environmental_impact", {})

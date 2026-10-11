@@ -251,6 +251,115 @@ DEVICE_KNOWLEDGE = {
         "environmental_impact": {"co2_saved_kg": 8, "water_saved_liters": 300, "energy_saved_kwh": 20, "toxic_prevented_kg": 0.03},
         "repairability_score": 8, "repair_difficulty": "Easy",
         "3d_shape": "small_appliance"
+    },
+    "Servers & Data Centers": {
+        "category": "Servers & Data Centers", "icon": "🗄️",
+        "brands": ["Dell PowerEdge", "HPE ProLiant", "Cisco UCS", "Lenovo ThinkSystem", "Supermicro", "IBM"],
+        "avg_weight_kg": 22.0, "avg_lifespan_years": 4,
+        "components": [
+            {"name": "Server Motherboard", "material": "High-grade Multi-layer FR4, Gold, Silver, Palladium", "weight_pct": 12, "hazardous": True, "recyclable": True, "value_usd": 18.00, "color": "#66BB6A"},
+            {"name": "Redundant PSUs (2x)", "material": "Copper transformers, Heavy capacitors, Steel", "weight_pct": 18, "hazardous": True, "recyclable": True, "value_usd": 8.00, "color": "#FFA726"},
+            {"name": "Xeon / EPYC CPUs", "material": "High-purity Gold pin bonds, Silicon, Copper IHS", "weight_pct": 2, "hazardous": False, "recyclable": True, "value_usd": 15.00, "color": "#AB47BC"},
+            {"name": "ECC Registered RAM", "material": "Gold contacts, DRAM chips", "weight_pct": 3, "hazardous": False, "recyclable": True, "value_usd": 12.00, "color": "#26C6DA"},
+            {"name": "SAS / NVMe Drive Array", "material": "Aluminum, Rare Earth magnets, PCB", "weight_pct": 15, "hazardous": False, "recyclable": True, "value_usd": 10.00, "color": "#78909C"},
+            {"name": "High-RPM Blower Fans", "material": "Copper motors, Plastic housings", "weight_pct": 5, "hazardous": False, "recyclable": True, "value_usd": 2.00, "color": "#69F0AE"},
+            {"name": "Rackmount Steel Chassis", "material": "Galvanized cold-rolled steel", "weight_pct": 42, "hazardous": False, "recyclable": True, "value_usd": 6.00, "color": "#90A4AE"},
+            {"name": "RAID / HBA Controller", "material": "Battery-backed cache, Gold contacts, PCB", "weight_pct": 3, "hazardous": True, "recyclable": True, "value_usd": 4.00, "color": "#FFEE58"}
+        ],
+        "precious_metals": {"Gold (mg)": 250, "Silver (mg)": 1500, "Copper (g)": 450, "Palladium (mg)": 80, "Platinum (mg)": 20},
+        "hazardous_materials": ["RAID cache Li-ion battery", "High-capacity electrolytic capacitors", "Lead solder on legacy boards"],
+        "recycling_steps": ["1. Department of Defense / NIST 800-88 sanitization on all storage arrays", "2. Extract RAID backup batteries", "3. Pull hot-swap PSUs and discharge", "4. Remove CPU heatsinks and extract gold-rich CPUs", "5. Separate server-grade motherboards for high-yield precious metal refining"],
+        "safety_warnings": ["⚠️ Cryptographic data sanitization required prior to physical handling", "⚠️ Heavy rack units (20-30kg) - lift with dual operators", "⚠️ Redundant PSUs hold large residual charges"],
+        "recovery_value_usd": 75.00,
+        "environmental_impact": {"co2_saved_kg": 180, "water_saved_liters": 4500, "energy_saved_kwh": 350, "toxic_prevented_kg": 0.80},
+        "repairability_score": 9, "repair_difficulty": "Modular / Professional",
+        "3d_shape": "desktop"
+    },
+    "Solar Inverters & Renewables": {
+        "category": "Solar Inverters & Renewables", "icon": "☀️",
+        "brands": ["SMA Solar", "Fronius", "Enphase", "Huawei Solar", "Sungrow", "SolarEdge", "Luminous"],
+        "avg_weight_kg": 18.0, "avg_lifespan_years": 12,
+        "components": [
+            {"name": "High-Power IGBT Modules", "material": "Silicon, Copper baseplate, Aluminum wire bonds", "weight_pct": 8, "hazardous": False, "recyclable": True, "value_usd": 10.00, "color": "#AB47BC"},
+            {"name": "Toroidal Inductors & Transformers", "material": "Pure Copper windings, Ferrite cores", "weight_pct": 30, "hazardous": False, "recyclable": True, "value_usd": 14.00, "color": "#FFA726"},
+            {"name": "DC Bus Film Capacitors", "material": "Polypropylene film, Aluminum, Plastic can", "weight_pct": 12, "hazardous": True, "recyclable": True, "value_usd": 4.00, "color": "#26C6DA"},
+            {"name": "Aluminum Heat Sink", "material": "Extruded structural aluminum", "weight_pct": 28, "hazardous": False, "recyclable": True, "value_usd": 8.00, "color": "#78909C"},
+            {"name": "Control & DSP Board", "material": "Multi-layer PCB, Gold plating, ICs", "weight_pct": 4, "hazardous": True, "recyclable": True, "value_usd": 5.00, "color": "#66BB6A"},
+            {"name": "Weatherproof Enclosure", "material": "Powder-coated die-cast aluminum / NEMA steel", "weight_pct": 18, "hazardous": False, "recyclable": True, "value_usd": 5.00, "color": "#90A4AE"}
+        ],
+        "precious_metals": {"Copper (g)": 1200, "Aluminum (kg)": 5.5, "Gold (mg)": 25, "Silver (mg)": 150},
+        "hazardous_materials": ["High-voltage DC bus (up to 1000V DC)", "Potting resins / Polyurethane sealant"],
+        "recycling_steps": ["1. Ensure DC isolator & AC breaker are locked out", "2. Wait 45 minutes for internal bleed resistors to discharge DC bus below 10V", "3. Open enclosure and test with multimeter", "4. Dismantle high-purity copper inductors", "5. Detach aluminum heat sink for scrap smelting"],
+        "safety_warnings": ["⚠️ LETHAL DC VOLTAGES up to 1000V from PV string input", "⚠️ Heavy inductive kickback risk if opened live", "⚠️ Hot surfaces on heat sinks post-operation"],
+        "recovery_value_usd": 46.00,
+        "environmental_impact": {"co2_saved_kg": 95, "water_saved_liters": 2800, "energy_saved_kwh": 220, "toxic_prevented_kg": 0.40},
+        "repairability_score": 7, "repair_difficulty": "Certified Electrician Only",
+        "3d_shape": "appliance"
+    },
+    "Industrial PLCs & Automation": {
+        "category": "Industrial PLCs & Automation", "icon": "🏭",
+        "brands": ["Siemens SIMATIC", "Rockwell Allen-Bradley", "Schneider Electric", "Mitsubishi Electric", "Omron", "ABB"],
+        "avg_weight_kg": 2.5, "avg_lifespan_years": 15,
+        "components": [
+            {"name": "Processor Module (CPU)", "material": "Industrial PCB, High-rel ICs, Gold contacts", "weight_pct": 20, "hazardous": True, "recyclable": True, "value_usd": 8.00, "color": "#66BB6A"},
+            {"name": "I/O Relay Terminal Block", "material": "Silver-alloy contacts, Copper bus, PBT plastic", "weight_pct": 25, "hazardous": False, "recyclable": True, "value_usd": 6.00, "color": "#FFA726"},
+            {"name": "Optocoupler Isolation Subsystem", "material": "Silicon, Gallium arsenide diodes, PCB", "weight_pct": 8, "hazardous": True, "recyclable": True, "value_usd": 2.00, "color": "#AB47BC"},
+            {"name": "DIN-Rail Metal Backplate", "material": "Zinc-plated cold rolled steel / Aluminum", "weight_pct": 25, "hazardous": False, "recyclable": True, "value_usd": 1.50, "color": "#78909C"},
+            {"name": "Flame-Retardant Casing", "material": "UL94-V0 Polycarbonate/ABS blend", "weight_pct": 18, "hazardous": True, "recyclable": False, "value_usd": 0.20, "color": "#8D6E63"},
+            {"name": "Lithium RTC Backup Battery", "material": "Lithium thionyl chloride (Li-SOCl2)", "weight_pct": 4, "hazardous": True, "recyclable": True, "value_usd": 1.00, "color": "#FF5252"}
+        ],
+        "precious_metals": {"Gold (mg)": 60, "Silver (mg)": 400, "Copper (g)": 80, "Palladium (mg)": 15},
+        "hazardous_materials": ["Li-SOCl2 battery (highly toxic, water-reactive)", "Brominated flame retardants (UL94-V0)", "Trace Gallium/Arsenic in optocouplers"],
+        "recycling_steps": ["1. Unclip from industrial DIN rail", "2. Immediately remove internal Li-SOCl2 coin cell", "3. Separate relay terminal blocks (valuable silver contacts)", "4. Desolder optocoupler and processor boards", "5. Refine precious metal connectors"],
+        "safety_warnings": ["⚠️ Li-SOCl2 backup batteries emit toxic SO2 gas if breached", "⚠️ Relay banks may switch 240V/415V - verify isolation", "⚠️ Harsh industrial chemical residues may coat chassis"],
+        "recovery_value_usd": 18.50,
+        "environmental_impact": {"co2_saved_kg": 25, "water_saved_liters": 900, "energy_saved_kwh": 65, "toxic_prevented_kg": 0.15},
+        "repairability_score": 8, "repair_difficulty": "Specialized Industrial",
+        "3d_shape": "desktop"
+    },
+    "Gaming Consoles & Controllers": {
+        "category": "Gaming Consoles & Controllers", "icon": "🎮",
+        "brands": ["Sony PlayStation", "Microsoft Xbox", "Nintendo Switch", "Valve Steam Deck"],
+        "avg_weight_kg": 3.8, "avg_lifespan_years": 7,
+        "components": [
+            {"name": "High-Performance APU", "material": "Silicon die, Gold interconnects, Copper IHS", "weight_pct": 3, "hazardous": False, "recyclable": True, "value_usd": 6.00, "color": "#AB47BC"},
+            {"name": "Vapor Chamber Heat Sink", "material": "Deoxidized high-purity Copper, Sintered wick", "weight_pct": 18, "hazardous": False, "recyclable": True, "value_usd": 5.00, "color": "#FFA726"},
+            {"name": "Custom Motherboard", "material": "FR4 multi-layer, GDDR6 memory, Gold plating", "weight_pct": 12, "hazardous": True, "recyclable": True, "value_usd": 7.00, "color": "#66BB6A"},
+            {"name": "High-Efficiency Internal PSU", "material": "Copper transformer, Capacitors, Steel shielding", "weight_pct": 14, "hazardous": True, "recyclable": True, "value_usd": 2.50, "color": "#FFEE58"},
+            {"name": "Centrifugal Blower Fan", "material": "PBT plastic, Copper winding, Fluid bearings", "weight_pct": 6, "hazardous": False, "recyclable": True, "value_usd": 1.00, "color": "#69F0AE"},
+            {"name": "Blu-ray / Optical Drive", "material": "Laser pickup (gallium nitride), Aluminum frame, PCB", "weight_pct": 10, "hazardous": False, "recyclable": True, "value_usd": 2.00, "color": "#26C6DA"},
+            {"name": "Outer Plastic Casing", "material": "Textured ABS/Polycarbonate", "weight_pct": 30, "hazardous": False, "recyclable": True, "value_usd": 0.50, "color": "#8D6E63"},
+            {"name": "Liquid Metal / Thermal Phase Material", "material": "Gallium-Indium-Tin alloy (on newer PS5s)", "weight_pct": 1, "hazardous": True, "recyclable": False, "value_usd": 0.50, "color": "#78909C"}
+        ],
+        "precious_metals": {"Gold (mg)": 55, "Silver (mg)": 350, "Copper (g)": 280, "Palladium (mg)": 15},
+        "hazardous_materials": ["Liquid metal thermal interface (corrosive to aluminum, conductive)", "Capacitor electrolyte", "Laser optical diode"],
+        "recycling_steps": ["1. Securely wipe user profile and stored credentials", "2. Pop exterior clip-on plates", "3. Disassemble optical drive & internal PSU", "4. CAUTION: Isolate liquid metal thermal compound on APU without spilling onto contacts", "5. Recover copper vapor chamber"],
+        "safety_warnings": ["⚠️ Liquid metal conducts electricity instantly - do NOT smear onto motherboard traces", "⚠️ Laser diodes in optical drive: do not power while disassembled", "⚠️ Internal PSU capacitors hold high DC charge"],
+        "recovery_value_usd": 24.50,
+        "environmental_impact": {"co2_saved_kg": 35, "water_saved_liters": 1400, "energy_saved_kwh": 90, "toxic_prevented_kg": 0.20},
+        "repairability_score": 6, "repair_difficulty": "Medium",
+        "3d_shape": "desktop"
+    },
+    "Medical & Diagnostic Electronics": {
+        "category": "Medical & Diagnostic Electronics", "icon": "🏥",
+        "brands": ["GE Healthcare", "Philips Medical", "Siemens Healthineers", "Mindray", "Omron Healthcare", "Medtronic"],
+        "avg_weight_kg": 6.5, "avg_lifespan_years": 8,
+        "components": [
+            {"name": "Certified Isolation Power Supply", "material": "Double-insulated Copper transformers, Shielding", "weight_pct": 20, "hazardous": True, "recyclable": True, "value_usd": 6.00, "color": "#FFA726"},
+            {"name": "Low-Noise Analog Frontend PCB", "material": "Gold contacts, High-precision Op-Amps, Multi-layer FR4", "weight_pct": 15, "hazardous": True, "recyclable": True, "value_usd": 12.00, "color": "#66BB6A"},
+            {"name": "Display / Diagnostic Screen", "material": "Medical-grade LCD, Indium, Tempered glass", "weight_pct": 18, "hazardous": False, "recyclable": True, "value_usd": 4.00, "color": "#4FC3F7"},
+            {"name": "Piezoelectric Transducer / Sensor Unit", "material": "Lead Zirconate Titanate (PZT), Gold electrodes", "weight_pct": 7, "hazardous": True, "recyclable": True, "value_usd": 5.00, "color": "#AB47BC"},
+            {"name": "Aluminum Shielding Chassis", "material": "Cast aluminum alloy, RFI gaskets", "weight_pct": 25, "hazardous": False, "recyclable": True, "value_usd": 4.50, "color": "#78909C"},
+            {"name": "Antimicrobial Housing", "material": "Silicone, Treated polymers", "weight_pct": 15, "hazardous": False, "recyclable": False, "value_usd": 0.10, "color": "#8D6E63"}
+        ],
+        "precious_metals": {"Gold (mg)": 90, "Silver (mg)": 600, "Copper (g)": 180, "Platinum (mg)": 25},
+        "hazardous_materials": ["Biohazard potential (clinical exposure)", "Lead Zirconate Titanate in ultrasound probes", "Lithium battery backups", "Beryllium copper RF springs"],
+        "recycling_steps": ["1. MANDATORY: Verify certified bio-decontamination certificate before intake", "2. Check for radioactive tracer / sealed sources (if imaging device - do NOT accept if present)", "3. Remove backup batteries and hospital isolation transformers", "4. Recover gold-heavy analog measurement boards"],
+        "safety_warnings": ["⛔ CRITICAL STOP-WORK: Never dismantle radioactive or bio-contaminated hardware", "⚠️ Piezoelectric crystals contain Lead Zirconate Titanate", "⚠️ Authorized medical refurbishment facility required for resale"],
+        "recovery_value_usd": 32.00,
+        "environmental_impact": {"co2_saved_kg": 45, "water_saved_liters": 1800, "energy_saved_kwh": 110, "toxic_prevented_kg": 0.35},
+        "repairability_score": 4, "repair_difficulty": "Certified Biomedical Engineer Only",
+        "3d_shape": "desktop"
     }
 }
 

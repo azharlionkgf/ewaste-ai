@@ -203,8 +203,15 @@ class RecoveryRecommendationEngine:
             recoverable_materials_val[mat] = {'amount_g': amount_grams, 'value_usd': round(value, 4)}
             total_value += value
             
-        cost_of_processing = method_info['estimated_time_hours'] * 15.0 # Assuming $15/hr operational cost
+        cost_of_processing = method_info['estimated_time_hours'] * 15.0 # Assuming $15/hr operational benchmark
         net_value = total_value - cost_of_processing
+        
+        # Scientific uncertainty bounds (±20% market & grade variability)
+        uncertainty_factor = 0.20
+        gross_lower = total_value * (1.0 - uncertainty_factor)
+        gross_upper = total_value * (1.0 + uncertainty_factor)
+        net_lower = gross_lower - (cost_of_processing * 1.15)
+        net_upper = gross_upper - (cost_of_processing * 0.85)
         
         return {
             'device_type': device_type,
@@ -220,9 +227,13 @@ class RecoveryRecommendationEngine:
             'facility_type': 'Specialized E-Waste Refinery' if method_info['difficulty_level'] == 'expert' else 'Standard Recycling Plant',
             'cost_benefit_analysis': {
                 'gross_value_usd': round(total_value, 2),
+                'gross_value_range_usd': [round(gross_lower, 2), round(gross_upper, 2)],
                 'estimated_processing_cost_usd': round(cost_of_processing, 2),
                 'net_value_usd': round(net_value, 2),
-                'is_profitable': net_value > 0
+                'net_value_range_usd': [round(net_lower, 2), round(net_upper, 2)],
+                'is_profitable': net_value > 0,
+                'uncertainty_confidence': '±20% (Assumes standard hydrometallurgical/mechanical recovery yield)',
+                'price_benchmark_date': 'October 2026 Reference Data'
             }
         }
     
