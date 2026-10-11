@@ -110,5 +110,25 @@ class TestKnowledgeEngine(unittest.TestCase):
         self.assertEqual(info['category'], 'Solar Inverters & Renewables')
         self.assertTrue(len(info['components']) >= 5)
 
+class TestDeviceSpecsEngine(unittest.TestCase):
+    def test_deep_specs_extraction(self):
+        from src.device_specs_engine import get_deep_device_specs
+        specs = get_deep_device_specs(filename="realme_11_pro.jpg")
+        self.assertEqual(specs["brand"], "Realme")
+        self.assertIn("11 Pro", specs["model"])
+        self.assertIn("256 GB", specs["storage"])
+        self.assertEqual(len(specs["components"]), 7)
+        self.assertTrue(specs["scrap_value_usd"] > 10.0)
+
+    def test_3d_viewer_html_generation(self):
+        from app.three_d_viewer import generate_3d_viewer
+        from src.device_specs_engine import get_deep_device_specs
+        specs = get_deep_device_specs(filename="realme_11_pro.jpg")
+        html = generate_3d_viewer(specs, height=600)
+        self.assertIn("three.min.js", html)
+        self.assertIn("MANUAL_STEPS", html)
+        self.assertIn("Realme", html)
+
 if __name__ == '__main__':
     unittest.main()
+
