@@ -2231,7 +2231,9 @@ elif page_id == "lab3d":
         # Fallback if no device chosen yet
         if not device_data:
             selected_device = "Mobile Phones"
-            device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+            device_data = get_deep_device_specs(filename="realme_11_pro_sunrise_beige.jpg")
+        elif selected_device == "Mobile Phones" and "brand" not in device_data:
+            device_data = get_deep_device_specs(filename="realme_11_pro_sunrise_beige.jpg")
 
         if device_data:
             # Device header with dynamic currency & uncertainty

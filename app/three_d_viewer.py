@@ -123,7 +123,18 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 620) -> str:
     manual_steps_json = json.dumps(manual_steps)
 
     # Components list based on category
-    components = device_info.get("components", [])
+    if shape_type == "phone":
+        components = [
+            {"name": "1. Vegan Leather Back Cover & Halo Ring", "material": "Lychee Vegan Leather + Gold Stitched Seam", "specs": "Sunrise Beige PBR Cover with Halo Camera Island", "weight_pct": 12, "hazardous": False, "recyclable": True, "value_usd": 2.50, "color": "#D4AF37", "layer": 1},
+            {"name": "2. NFC Coil & Graphite Heat Spreader", "material": "High-Conductivity Graphite + Copper NFC", "specs": "Thermal Dissipation Layer & Wireless Coil", "weight_pct": 6, "hazardous": False, "recyclable": True, "value_usd": 1.20, "color": "#2C3E50", "layer": 2},
+            {"name": "3. Magnesium Shield & 16 Assembly Screws", "material": "Die-Cast Magnesium Alloy + Steel Screws", "specs": "Structural Frame Shield (Phillips #00)", "weight_pct": 15, "hazardous": False, "recyclable": True, "value_usd": 1.80, "color": "#7F8C8D", "layer": 3},
+            {"name": "4. 10-Layer Logic Board & Dimensity SoC", "material": "High-Tg Multi-layer FR4 + 18k Gold Plating", "specs": "Dimensity 7050 5G SoC + RF Cans", "weight_pct": 18, "hazardous": True, "recyclable": True, "value_usd": 14.50, "color": "#1B4332", "layer": 4},
+            {"name": "5. 5000mAh High-Density Battery Cell", "material": "Lithium Cobalt Oxide + BMU Circuit", "specs": "Dual Stretch-Release Adhesive Tabs A&B", "weight_pct": 24, "hazardous": True, "recyclable": True, "value_usd": 4.80, "color": "#C0392B", "layer": 5},
+            {"name": "6. Aerospace CNC Gold Aluminum Midframe", "material": "Anodized 6000-series Aluminum Alloy", "specs": "Unibody Frame + Volume/Power Rails", "weight_pct": 15, "hazardous": False, "recyclable": True, "value_usd": 3.20, "color": "#F39C12", "layer": 6},
+            {"name": "7. 120Hz Curved AMOLED & Gorilla Glass", "material": "Flexible OLED Substrate + Corning Glass", "specs": "1080x2412 Curved 120Hz AMOLED Panel", "weight_pct": 10, "hazardous": False, "recyclable": True, "value_usd": 8.00, "color": "#2980B9", "layer": 7}
+        ]
+    else:
+        components = device_info.get("components", [])
     if not components:
         # Fallback category components
         cat_components = {
