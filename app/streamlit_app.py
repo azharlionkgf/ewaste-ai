@@ -181,7 +181,24 @@ init_db()
 # ═══════════════════════════════════════════
 st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
-#MainMenu,footer,.stDeployButton{visibility:hidden;display:none;}
+#MainMenu, footer, .stDeployButton,
+[data-testid="manage-app-button"],
+[data-testid="stStatusWidget"],
+.viewerBadge_container__1QSob,
+div[class*="viewerBadge"],
+div[class*="manageApp"],
+div[class*="ManageApp"],
+a[class*="viewerBadge"],
+iframe[title*="streamlit-badge"],
+[data-testid="stDecoration"],
+[data-testid="stToolbar"] {
+    visibility: hidden !important;
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+}
 header{background:transparent!important;}
 [data-testid="stSidebarCollapseButton"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;}
 [data-testid="collapsedControl"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;background:rgba(20,20,20,0.85)!important;border:1px solid rgba(220,20,60,0.4)!important;border-radius:8px!important;}
@@ -244,29 +261,32 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], secti
 /* Floating Dual Navigation Widget (Up & Down Arrow Controls) */
 .floating-scroll-dock {
     position: fixed;
-    right: 28px;
-    bottom: 24px;
+    right: 24px;
+    bottom: 32px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    z-index: 9999999;
+    gap: 10px;
+    z-index: 2147483647 !important;
+    pointer-events: auto !important;
 }
 .floating-nav-btn {
     background: linear-gradient(135deg, #1c0508 0%, #2a080e 100%);
     border: 2px solid #DC143C;
     color: #FFD700 !important;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 12px rgba(220, 20, 60, 0.5);
-    transition: all 0.25s ease;
-    user-select: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 14px rgba(220, 20, 60, 0.6);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: none !important;
     text-decoration: none !important;
     outline: none !important;
     padding: 0 !important;
@@ -276,9 +296,15 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], secti
 .floating-nav-btn:hover {
     background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
     color: #ffffff !important;
-    transform: scale(1.12);
+    transform: scale(1.1);
     box-shadow: 0 6px 25px rgba(220, 20, 60, 0.9);
     border-color: #FFD700;
+}
+.floating-nav-btn:active {
+    background: #DC143C !important;
+    color: #FFD700 !important;
+    transform: scale(0.92) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.85) !important;
 }
 .stApp::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,20,60,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,69,0,.05) 0%,transparent 50%);pointer-events:none;z-index:0;animation:bgP 8s ease-in-out infinite alternate;}
 @keyframes bgP{0%{opacity:.6}100%{opacity:1}}
@@ -2631,8 +2657,8 @@ with col_next:
 # ═══════════════════════════════════════════
 st.markdown("""
 <div class="floating-scroll-dock">
-    <button type="button" id="float-scroll-up" class="floating-nav-btn" title="Scroll Up Slowly (Dheere Dheere)">▲</button>
-    <button type="button" id="float-scroll-down" class="floating-nav-btn" title="Scroll Down Slowly (Dheere Dheere)">▼</button>
+    <button type="button" id="float-scroll-up" class="floating-nav-btn" title="Tap: Thoda Upar | Hold: Continue Upar" aria-label="Scroll Up">▲</button>
+    <button type="button" id="float-scroll-down" class="floating-nav-btn" title="Tap: Thoda Niche | Hold: Continue Niche" aria-label="Scroll Down">▼</button>
 </div>
 """, unsafe_allow_html=True)
 
@@ -2640,100 +2666,195 @@ import streamlit.components.v1 as stc
 stc.html("""
 <script>
 (function() {
-    let animId = null;
+    try {
+        const pWin = window.parent;
+        const pDoc = window.parent.document;
+        if (!pDoc || !pWin) return;
 
-    function slowScroll(distance, duration = 850) {
-        try {
-            const pWin = window.parent;
-            const pDoc = window.parent.document;
-            if (!pDoc || !pWin) return;
+        // 1. Hide Streamlit Cloud "Manage app" badges & controls completely
+        function hideCloudBadges() {
+            try {
+                const selectors = [
+                    '[data-testid="manage-app-button"]',
+                    '[data-testid="stStatusWidget"]',
+                    '.viewerBadge_container__1QSob',
+                    'div[class*="viewerBadge"]',
+                    'div[class*="manageApp"]',
+                    'div[class*="ManageApp"]',
+                    'a[class*="viewerBadge"]',
+                    'iframe[title*="streamlit-badge"]',
+                    '[data-testid="stDecoration"]',
+                    '[data-testid="stToolbar"]'
+                ];
+                selectors.forEach(sel => {
+                    pDoc.querySelectorAll(sel).forEach(el => {
+                        el.style.setProperty('display', 'none', 'important');
+                        el.style.setProperty('visibility', 'hidden', 'important');
+                        el.style.setProperty('opacity', '0', 'important');
+                        el.style.setProperty('pointer-events', 'none', 'important');
+                        el.style.setProperty('width', '0px', 'important');
+                        el.style.setProperty('height', '0px', 'important');
+                    });
+                });
+            } catch(e) {}
+        }
+        hideCloudBadges();
+        setInterval(hideCloudBadges, 1000);
 
-            if (animId) {
-                pWin.cancelAnimationFrame(animId);
-                animId = null;
-            }
+        // 2. Dual Scrolling Engine: Tap = Thoda Thoda | Hold = Continue
+        let continuousId = null;
+        let stepAnimId = null;
+        let isHolding = false;
+        let isLongPress = false;
+        let holdTimer = null;
 
-            const targets = [
+        function getContainers() {
+            return [
                 pDoc.querySelector('[data-testid="stAppViewContainer"]'),
                 pDoc.querySelector('section.main'),
                 pDoc.documentElement,
                 pDoc.body
             ].filter(Boolean);
+        }
 
-            const active = targets.find(t => t.scrollHeight > t.clientHeight) || targets[0] || pDoc.documentElement;
+        function getActive() {
+            const list = getContainers();
+            return list.find(el => el.scrollHeight > el.clientHeight) || list[0] || pDoc.documentElement;
+        }
+
+        // Tap: Thoda thoda jaye (110px smooth step)
+        function stepScroll(direction, distance = 110, duration = 320) {
+            if (stepAnimId) pWin.cancelAnimationFrame(stepAnimId);
+            const containers = getContainers();
+            const active = getActive();
             const startPos = active.scrollTop;
-            const startTime = performance.now();
+            const delta = direction * distance;
+            const t0 = performance.now();
 
-            // Very smooth and gentle cubic ease-out
-            function easeOutCubic(t) {
-                return 1 - Math.pow(1 - t, 3);
+            function anim(now) {
+                const elapsed = now - t0;
+                const progress = Math.min(elapsed / duration, 1);
+                const ease = progress * (2 - progress);
+                const pos = startPos + (delta * ease);
+                containers.forEach(c => {
+                    try { c.scrollTop = pos; } catch(err) {}
+                });
+                try { pWin.scrollTo(0, pos); } catch(err) {}
+                if (progress < 1) {
+                    stepAnimId = pWin.requestAnimationFrame(anim);
+                } else {
+                    stepAnimId = null;
+                }
+            }
+            stepAnimId = pWin.requestAnimationFrame(anim);
+        }
+
+        // Long Press: Continue jaye (smooth continuous frame loop)
+        function startContinuous(direction) {
+            if (continuousId) pWin.cancelAnimationFrame(continuousId);
+            const containers = getContainers();
+            const speed = direction * 8; // 8px per frame ≈ 480px/s continuous glide
+
+            function loop() {
+                if (!isHolding) return;
+                containers.forEach(c => {
+                    try { c.scrollTop += speed; } catch(err) {}
+                });
+                try { pWin.scrollBy(0, speed); } catch(err) {}
+                continuousId = pWin.requestAnimationFrame(loop);
+            }
+            continuousId = pWin.requestAnimationFrame(loop);
+        }
+
+        function stopContinuous() {
+            isHolding = false;
+            if (holdTimer) {
+                clearTimeout(holdTimer);
+                holdTimer = null;
+            }
+            if (continuousId) {
+                pWin.cancelAnimationFrame(continuousId);
+                continuousId = null;
+            }
+        }
+
+        function setupButton(btnId, direction) {
+            const btn = pDoc.getElementById(btnId);
+            if (!btn) return;
+
+            function pressStart(e) {
+                if (e) {
+                    if (e.cancelable) e.preventDefault();
+                    e.stopPropagation();
+                }
+                stopContinuous();
+                isHolding = true;
+                isLongPress = false;
+
+                // If held for 220ms or more -> starts continuous scroll
+                holdTimer = setTimeout(function() {
+                    if (isHolding) {
+                        isLongPress = true;
+                        startContinuous(direction);
+                    }
+                }, 220);
             }
 
-            function step(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = easeOutCubic(progress);
-                const currentPos = startPos + (distance * eased);
-
-                targets.forEach(el => {
-                    try { el.scrollTop = currentPos; } catch(e) {}
-                });
-                try { pWin.scrollTo(0, currentPos); } catch(e) {}
-
-                if (progress < 1) {
-                    animId = pWin.requestAnimationFrame(step);
-                } else {
-                    animId = null;
+            function pressEnd(e) {
+                if (e) {
+                    if (e.cancelable) e.preventDefault();
+                    e.stopPropagation();
+                }
+                if (holdTimer) {
+                    clearTimeout(holdTimer);
+                    holdTimer = null;
+                }
+                if (isHolding) {
+                    if (!isLongPress) {
+                        // Quick click/tap: Thoda thoda jaye
+                        stepScroll(direction, 110, 320);
+                    }
+                    stopContinuous();
                 }
             }
 
-            animId = pWin.requestAnimationFrame(step);
-        } catch(e) {
-            console.warn("Scroll animation error:", e);
+            // Modern pointer events (mouse + touch unified)
+            btn.onpointerdown = pressStart;
+            btn.onpointerup = pressEnd;
+            btn.onpointerleave = pressEnd;
+            btn.onpointercancel = pressEnd;
+
+            // Touch & mouse fallbacks
+            btn.onmousedown = pressStart;
+            btn.onmouseup = pressEnd;
+            btn.onmouseleave = pressEnd;
+            btn.ontouchstart = pressStart;
+            btn.ontouchend = pressEnd;
+            btn.ontouchcancel = pressEnd;
+
+            btn.onclick = function(e) {
+                if (e) {
+                    if (e.cancelable) e.preventDefault();
+                    e.stopPropagation();
+                }
+                return false;
+            };
         }
+
+        function bindAll() {
+            setupButton('float-scroll-up', -1);
+            setupButton('float-scroll-down', 1);
+        }
+
+        bindAll();
+        setTimeout(bindAll, 200);
+        setTimeout(bindAll, 600);
+        setTimeout(bindAll, 1200);
+        setInterval(bindAll, 2000);
+
+    } catch(err) {
+        console.warn("Scroll dock attach error:", err);
     }
-
-    function bindButtons() {
-        try {
-            const pDoc = window.parent.document;
-            if (!pDoc) return;
-
-            const upBtn = pDoc.getElementById('float-scroll-up');
-            const downBtn = pDoc.getElementById('float-scroll-down');
-
-            if (upBtn) {
-                upBtn.onclick = function(e) {
-                    if (e) { e.preventDefault(); e.stopPropagation(); }
-                    slowScroll(-120, 850); // Gentle 120px step over 850ms
-                    return false;
-                };
-                upBtn.ondblclick = function(e) {
-                    if (e) { e.preventDefault(); e.stopPropagation(); }
-                    slowScroll(-400, 1200); // Gentle 400px step over 1.2s
-                    return false;
-                };
-            }
-
-            if (downBtn) {
-                downBtn.onclick = function(e) {
-                    if (e) { e.preventDefault(); e.stopPropagation(); }
-                    slowScroll(120, 850); // Gentle 120px step over 850ms
-                    return false;
-                };
-                downBtn.ondblclick = function(e) {
-                    if (e) { e.preventDefault(); e.stopPropagation(); }
-                    slowScroll(400, 1200); // Gentle 400px step over 1.2s
-                    return false;
-                };
-            }
-        } catch(e) {}
-    }
-
-    bindButtons();
-    setTimeout(bindButtons, 200);
-    setTimeout(bindButtons, 600);
-    setTimeout(bindButtons, 1200);
-    setInterval(bindButtons, 2000);
 })();
 </script>
 """, height=0, width=0)
