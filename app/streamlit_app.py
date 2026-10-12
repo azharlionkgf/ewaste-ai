@@ -245,7 +245,50 @@ h4,h5,h6{font-family:'Rajdhani',sans-serif!important;color:#ddd!important;}
 .chat-icon{font-size:1.6rem;min-width:38px;padding-top:4px;}
 .chat-msg{margin:0;padding:16px 20px;flex:1;}
 .warning-card{background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.3);border-radius:12px;padding:16px 20px;margin:10px 0;}
-.tag{display:inline-block;background:rgba(220,20,60,.2);border:1px solid rgba(220,20,60,.4);border-radius:20px;padding:4px 16px;font-size:.85rem;color:#DC143C;font-weight:600;margin:4px;}
+/* ═══ SMOOTH SCROLLING ═══ */
+html, body, [data-testid="stAppViewContainer"], section.main {
+    scroll-behavior: smooth !important;
+}
+
+/* ═══ FLOATING SCROLL NAVIGATION DOCK (RIGHT SIDE) ═══ */
+.scroll-nav-dock {
+    position: fixed;
+    right: 25px;
+    bottom: 85px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999999;
+}
+.scroll-nav-btn {
+    background: linear-gradient(135deg, #1c0508 0%, #2a080e 100%);
+    border: 2px solid #DC143C;
+    color: #FFD700 !important;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7), 0 0 10px rgba(220, 20, 60, 0.5);
+    transition: all 0.25s ease;
+    user-select: none;
+    text-decoration: none !important;
+}
+.scroll-nav-btn:hover {
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    color: #ffffff !important;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.9);
+    border-color: #FFD700;
+}
+.scroll-nav-btn:active {
+    transform: scale(0.95);
+    background: #DC143C !important;
+}
 
 /* ═══ RESPONSIVE — AUTO FIT ALL SCREENS ═══ */
 *{box-sizing:border-box;}
@@ -389,6 +432,7 @@ li[role="option"][aria-selected="true"] {
     border: none !important;
 }
 </style>""", unsafe_allow_html=True)
+st.markdown('<div id="top-of-page"></div>', unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════
 # DATA & MODEL LOADING
@@ -2556,4 +2600,15 @@ with col_next:
         if st.button(f"Next: {next_page} ➡️", use_container_width=True, key="bottom_next_btn"):
             st.session_state.current_page = next_page
             st.rerun()
+
+# ═══════════════════════════════════════════
+# 🔝 DUAL FLOATING NAVIGATION BUTTONS (UP & DOWN)
+# ═══════════════════════════════════════════
+st.markdown("""
+<div id="bottom-of-page" style="height:1px;"></div>
+<div class="scroll-nav-dock">
+    <a href="#top-of-page" class="scroll-nav-btn" title="Upper Jaye (Top)">▲</a>
+    <a href="#bottom-of-page" class="scroll-nav-btn" title="Niche Jaye (Bottom)">▼</a>
+</div>
+""", unsafe_allow_html=True)
 
