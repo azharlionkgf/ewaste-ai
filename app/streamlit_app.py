@@ -1160,13 +1160,22 @@ elif page_id == "image":
                     st.markdown('<div class="section-header">🎨 INTERACTIVE 3D HARDWARE MODEL & EXPLODED ANATOMY</div>', unsafe_allow_html=True)
                     st.markdown(f'<p style="color:#888;font-size:.85rem;text-align:center;">🖱️ Rotate 360° • Zoom • Toggle Exploded/Assembled Slider • Step-by-Step Teardown Manual for <b>{final_cat}</b></p>', unsafe_allow_html=True)
                     try:
-                        dev_3d_info = get_device_info(final_cat) if KNOWLEDGE_LOADED else {}
+                        api_k = ""
+                        try: api_k = st.secrets.get("GEMINI_API_KEY", "")
+                        except: pass
+                        if not api_k: api_k = st.session_state.get("gemini_key", "")
+                        
+                        dev_3d_info = get_deep_device_specs(img_bytes, filename=getattr(uploaded, 'name', 'phone.jpg'), api_key=api_k)
+                        if not dev_3d_info or not isinstance(dev_3d_info, dict):
+                            dev_3d_info = get_device_info(final_cat) if KNOWLEDGE_LOADED else {}
                         if not dev_3d_info: dev_3d_info = {"category": final_cat}
                         dev_3d_info["category"] = final_cat
-                        dev_3d_info["model"] = f"{final_cat} (Uploaded Hardware)"
-                        viewer_3d_html = generate_3d_viewer(dev_3d_info, height=560)
+                        if "model" not in dev_3d_info or not dev_3d_info["model"]:
+                            dev_3d_info["model"] = f"{final_cat} (Uploaded Hardware)"
+                        
+                        viewer_3d_html = generate_3d_viewer(dev_3d_info, height=580)
                         import streamlit.components.v1 as stc
-                        stc.html(viewer_3d_html, height=580, scrolling=False)
+                        stc.html(viewer_3d_html, height=600, scrolling=False)
                     except Exception as ex_3d:
                         st.warning(f"3D viewer: {ex_3d}")
 
