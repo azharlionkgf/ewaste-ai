@@ -186,61 +186,94 @@ header{background:transparent!important;}
 [data-testid="stSidebarCollapseButton"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;}
 [data-testid="collapsedControl"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;background:rgba(20,20,20,0.85)!important;border:1px solid rgba(220,20,60,0.4)!important;border-radius:8px!important;}
 .stApp{background:#0a0a0a;color:#e0e0e0;font-family:'Rajdhani',sans-serif;}
-/* ═══ HIGH-VISIBILITY EXTRA-WIDE SCROLLBARS ═══ */
+/* ═══ HIGH-VISIBILITY EXTRA-WIDE SCROLLBARS WITH PROMINENT ARROWS ═══ */
 html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], section.main {
     scrollbar-width: auto !important;
     scrollbar-color: #DC143C #0a0c10 !important;
     scroll-behavior: smooth !important;
 }
 ::-webkit-scrollbar {
-    width: 18px !important;
-    height: 18px !important;
+    width: 22px !important;
+    height: 22px !important;
 }
 ::-webkit-scrollbar-track {
     background: #0a0c10 !important;
-    border-radius: 9px !important;
-    border: 1px solid rgba(220, 20, 60, 0.2) !important;
+    border-radius: 11px !important;
+    border: 1px solid rgba(220, 20, 60, 0.25) !important;
 }
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #DC143C 0%, #990018 100%) !important;
-    border-radius: 9px !important;
+    background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%) !important;
+    border-radius: 11px !important;
     border: 3px solid #0a0c10 !important;
-    box-shadow: 0 0 10px rgba(220, 20, 60, 0.6) !important;
-    min-height: 55px !important;
+    box-shadow: 0 0 12px rgba(220, 20, 60, 0.7) !important;
+    min-height: 60px !important;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #ff2a55 0%, #DC143C 100%) !important;
     border-color: #1a0508 !important;
-    box-shadow: 0 0 18px rgba(220, 20, 60, 1.0) !important;
+    box-shadow: 0 0 20px rgba(220, 20, 60, 1.0) !important;
 }
 ::-webkit-scrollbar-corner {
     background: #0a0c10 !important;
 }
-/* Scroll to Top floating widget */
-.scroll-top-btn {
+/* Scrollbar Up & Down Arrow Buttons */
+::-webkit-scrollbar-button:single-button {
+    background-color: #161a24 !important;
+    display: block !important;
+    border: 2px solid rgba(220, 20, 60, 0.5) !important;
+    height: 22px !important;
+    width: 22px !important;
+    border-radius: 6px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+/* Up Arrow */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FFD700' viewBox='0 0 16 16'><path d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/></svg>") !important;
+}
+/* Down Arrow */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FFD700' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
+}
+::-webkit-scrollbar-button:single-button:hover {
+    background-color: #DC143C !important;
+    border-color: #FFD700 !important;
+}
+
+/* Floating Dual Navigation Widget (Up & Down Arrow Controls) */
+.floating-scroll-dock {
     position: fixed;
+    right: 28px;
     bottom: 24px;
-    right: 32px;
-    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
-    color: #fff !important;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999999;
+}
+.floating-nav-btn {
+    background: linear-gradient(135deg, #1c0508 0%, #2a080e 100%);
+    border: 2px solid #DC143C;
+    color: #FFD700 !important;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 12px rgba(220, 20, 60, 0.5);
+    transition: all 0.25s ease;
+    user-select: none;
     text-decoration: none !important;
-    box-shadow: 0 4px 20px rgba(220,20,60,0.6);
-    z-index: 999999;
-    border: 2px solid rgba(255,215,0,0.5);
-    transition: all 0.3s;
 }
-.scroll-top-btn:hover {
-    transform: translateY(-4px) scale(1.1);
-    box-shadow: 0 8px 30px rgba(220,20,60,0.9);
-    color: #FFD700 !important;
+.floating-nav-btn:hover {
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    color: #ffffff !important;
+    transform: scale(1.12);
+    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.9);
+    border-color: #FFD700;
 }
 .stApp::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,20,60,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,69,0,.05) 0%,transparent 50%);pointer-events:none;z-index:0;animation:bgP 8s ease-in-out infinite alternate;}
 @keyframes bgP{0%{opacity:.6}100%{opacity:1}}
@@ -2589,22 +2622,63 @@ with col_next:
             st.rerun()
 
 # ═══════════════════════════════════════════
-# 🔝 1-CLICK SCROLL TO TOP FLOATING BUTTON
+# 🔝 DUAL FLOATING SCROLL CONTROLS (UP & DOWN ARROWS)
 # ═══════════════════════════════════════════
 st.markdown("""
-<div id="app-top-anchor"></div>
-<a href="#app-top-anchor" class="scroll-top-btn" title="Go to Top">⬆</a>
+<div class="floating-scroll-dock">
+    <div id="float-scroll-up" class="floating-nav-btn" title="Scroll Up">▲</div>
+    <div id="float-scroll-down" class="floating-nav-btn" title="Scroll Down">▼</div>
+</div>
 <script>
-    // Smooth scroll top on click
-    const btn = document.querySelector('.scroll-top-btn');
-    if (btn) {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            const mainContainer = document.querySelector('[data-testid="stAppViewContainer"]');
-            if (mainContainer) mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    (function() {
+        function getScrollContainer() {
+            return document.querySelector('[data-testid="stAppViewContainer"]') || 
+                   document.querySelector('.main') || 
+                   window;
+        }
+
+        const upBtn = document.getElementById('float-scroll-up');
+        if (upBtn) {
+            upBtn.onclick = function() {
+                const c = getScrollContainer();
+                if (c === window) {
+                    window.scrollBy({ top: -500, behavior: 'smooth' });
+                } else {
+                    c.scrollBy({ top: -500, behavior: 'smooth' });
+                }
+            };
+            // Double click goes all the way to top
+            upBtn.ondblclick = function() {
+                const c = getScrollContainer();
+                if (c === window) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    c.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+        }
+
+        const downBtn = document.getElementById('float-scroll-down');
+        if (downBtn) {
+            downBtn.onclick = function() {
+                const c = getScrollContainer();
+                if (c === window) {
+                    window.scrollBy({ top: 500, behavior: 'smooth' });
+                } else {
+                    c.scrollBy({ top: 500, behavior: 'smooth' });
+                }
+            };
+            // Double click goes all the way to bottom
+            downBtn.ondblclick = function() {
+                const c = getScrollContainer();
+                if (c === window) {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
+                }
+            };
+        }
+    })();
 </script>
 """, unsafe_allow_html=True)
 
