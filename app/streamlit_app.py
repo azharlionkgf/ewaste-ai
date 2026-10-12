@@ -850,144 +850,144 @@ with st.sidebar:
 
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-        if st.session_state.role == "admin":
-            pages = {
-                "🏠 Dashboard": "home",
-                "📸 Image Classify": "image",
-                "💬 AI Chatbot": "chatbot",
-                "🔬 3D E-Waste Lab": "lab3d",
-                "📍 Recycling Centers": "centers",
-                "⚠️ Safety & Hazards": "safety",
-                "📜 Green Certificate": "certificate",
-                "🔍 Form Classify": "classify",
-                "📤 Dataset Upload": "upload_data",
-                "📋 Smart Analyzer": "analyzer",
-                "📊 EDA Explorer": "eda",
-                "🤖 Model Performance": "model_perf",
-                "♻️ Recovery Advisor": "recovery",
-                "🌍 Environmental Impact": "impact",
-                "📦 Batch Processing": "batch",
-                "📋 History": "history",
-                "📂 Dataset Manager": "datasets",
-                "ℹ️ About": "about"
-            }
-        else:
-            pages = {
-                "🏠 Dashboard": "home",
-                "📸 Image Classify": "image",
-                "💬 AI Chatbot": "chatbot",
-                "🔬 3D E-Waste Lab": "lab3d",
-                "📍 Recycling Centers": "centers",
-                "⚠️ Safety & Hazards": "safety",
-                "📜 Green Certificate": "certificate",
-                "🔍 Form Classify": "classify",
-                "📤 Dataset Upload": "upload_data",
-                "📋 Smart Analyzer": "analyzer",
-                "♻️ Recovery Advisor": "recovery",
-                "🌍 Environmental Impact": "impact",
-                "📋 My History": "history",
-                "ℹ️ About": "about"
-            }
+    if st.session_state.role == "admin":
+        pages = {
+            "🏠 Dashboard": "home",
+            "📸 Image Classify": "image",
+            "💬 AI Chatbot": "chatbot",
+            "🔬 3D E-Waste Lab": "lab3d",
+            "📍 Recycling Centers": "centers",
+            "⚠️ Safety & Hazards": "safety",
+            "📜 Green Certificate": "certificate",
+            "🔍 Form Classify": "classify",
+            "📤 Dataset Upload": "upload_data",
+            "📋 Smart Analyzer": "analyzer",
+            "📊 EDA Explorer": "eda",
+            "🤖 Model Performance": "model_perf",
+            "♻️ Recovery Advisor": "recovery",
+            "🌍 Environmental Impact": "impact",
+            "📦 Batch Processing": "batch",
+            "📋 History": "history",
+            "📂 Dataset Manager": "datasets",
+            "ℹ️ About": "about"
+        }
+    else:
+        pages = {
+            "🏠 Dashboard": "home",
+            "📸 Image Classify": "image",
+            "💬 AI Chatbot": "chatbot",
+            "🔬 3D E-Waste Lab": "lab3d",
+            "📍 Recycling Centers": "centers",
+            "⚠️ Safety & Hazards": "safety",
+            "📜 Green Certificate": "certificate",
+            "🔍 Form Classify": "classify",
+            "📤 Dataset Upload": "upload_data",
+            "📋 Smart Analyzer": "analyzer",
+            "♻️ Recovery Advisor": "recovery",
+            "🌍 Environmental Impact": "impact",
+            "📋 My History": "history",
+            "ℹ️ About": "about"
+        }
 
-        page_keys = list(pages.keys())
-        if 'current_page' not in st.session_state or st.session_state.current_page not in page_keys:
-            st.session_state.current_page = page_keys[0]
+    page_keys = list(pages.keys())
+    if 'current_page' not in st.session_state or st.session_state.current_page not in page_keys:
+        st.session_state.current_page = page_keys[0]
 
-        curr_index = page_keys.index(st.session_state.current_page)
-        selection = st.radio("NAV", page_keys, index=curr_index, key="nav_radio_selection", label_visibility="collapsed")
-        if selection != st.session_state.current_page:
-            st.session_state.current_page = selection
-            st.rerun()
+    curr_index = page_keys.index(st.session_state.current_page)
+    selection = st.radio("NAV", page_keys, index=curr_index, key="nav_radio_selection", label_visibility="collapsed")
+    if selection != st.session_state.current_page:
+        st.session_state.current_page = selection
+        st.rerun()
 
-        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+    
+    # ── GLOBAL LOCALIZATION SETTINGS ──
+    st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
+    
+    country_list = list(GLOBAL_COUNTRIES.keys())
+    current_c = st.session_state.get('app_jurisdiction', 'India')
+    if current_c not in country_list:
+        current_c = country_list[0]
+    
+    chosen_country = st.selectbox(
+        "🌍 Country / Region",
+        country_list,
+        index=country_list.index(current_c),
+        key="sb_country_picker"
+    )
+    if chosen_country != st.session_state.get('app_jurisdiction'):
+        st.session_state['app_jurisdiction'] = chosen_country
+        c_meta = GLOBAL_COUNTRIES.get(chosen_country, {})
+        if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
+            st.session_state['app_lang'] = c_meta['default_lang']
+        if c_meta.get('default_curr') in CURRENCY_RATES:
+            st.session_state['app_curr'] = c_meta['default_curr']
+        st.rerun()
+
+    c_lang, c_curr = st.columns(2)
+    with c_lang:
+        lang_opts = list(SUPPORTED_LANGUAGES.keys())
+        current_l = st.session_state.get('app_lang', 'en')
+        if current_l not in lang_opts:
+            current_l = 'en'
         
-        # ── GLOBAL LOCALIZATION SETTINGS ──
-        st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
-        
-        country_list = list(GLOBAL_COUNTRIES.keys())
-        current_c = st.session_state.get('app_jurisdiction', 'India')
-        if current_c not in country_list:
-            current_c = country_list[0]
-        
-        chosen_country = st.selectbox(
-            "🌍 Country / Region",
-            country_list,
-            index=country_list.index(current_c),
-            key="sb_country_picker"
+        chosen_lang = st.selectbox(
+            "Language",
+            lang_opts,
+            format_func=lambda x: SUPPORTED_LANGUAGES.get(x, x),
+            index=lang_opts.index(current_l),
+            key="sb_language_picker"
         )
-        if chosen_country != st.session_state.get('app_jurisdiction'):
-            st.session_state['app_jurisdiction'] = chosen_country
-            c_meta = GLOBAL_COUNTRIES.get(chosen_country, {})
-            if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
-                st.session_state['app_lang'] = c_meta['default_lang']
-            if c_meta.get('default_curr') in CURRENCY_RATES:
-                st.session_state['app_curr'] = c_meta['default_curr']
+        if chosen_lang != st.session_state.get('app_lang'):
+            st.session_state['app_lang'] = chosen_lang
             st.rerun()
 
-        c_lang, c_curr = st.columns(2)
-        with c_lang:
-            lang_opts = list(SUPPORTED_LANGUAGES.keys())
-            current_l = st.session_state.get('app_lang', 'en')
-            if current_l not in lang_opts:
-                current_l = 'en'
-            
-            chosen_lang = st.selectbox(
-                "Language",
-                lang_opts,
-                format_func=lambda x: SUPPORTED_LANGUAGES.get(x, x),
-                index=lang_opts.index(current_l),
-                key="sb_language_picker"
-            )
-            if chosen_lang != st.session_state.get('app_lang'):
-                st.session_state['app_lang'] = chosen_lang
-                st.rerun()
-
-        with c_curr:
-            curr_opts = list(CURRENCY_RATES.keys())
-            current_cur = st.session_state.get('app_curr', 'USD')
-            if current_cur not in curr_opts:
-                current_cur = 'USD'
-            
-            chosen_curr = st.selectbox(
-                "Currency",
-                curr_opts,
-                index=curr_opts.index(current_cur),
-                key="sb_currency_picker"
-            )
-            if chosen_curr != st.session_state.get('app_curr'):
-                st.session_state['app_curr'] = chosen_curr
-                st.rerun()
-
-        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-        st.markdown("#### ⚙️ STATUS")
-        s1,s2 = st.columns(2)
-        with s1: st.markdown("🟢 **Models**" if models_loaded else "🔴 **Models**")
-        with s2: st.markdown("🟢 **Engine**" if engines_loaded else "🔴 **Engine**")
-
-        st.markdown("#### 📊 DATASET SCALE")
-        curr_active_rows = st.session_state.get('active_dataset_rows', 10000)
-        row_choice = st.radio(
-            "Select Rows:",
-            ["10,000 Records", "50,000 Records"],
-            index=0 if curr_active_rows == 10000 else 1,
-            key="sidebar_row_scale_select"
+    with c_curr:
+        curr_opts = list(CURRENCY_RATES.keys())
+        current_cur = st.session_state.get('app_curr', 'USD')
+        if current_cur not in curr_opts:
+            current_cur = 'USD'
+        
+        chosen_curr = st.selectbox(
+            "Currency",
+            curr_opts,
+            index=curr_opts.index(current_cur),
+            key="sb_currency_picker"
         )
-        selected_rows = 50000 if "50,000" in row_choice else 10000
-        if selected_rows != curr_active_rows:
-            st.session_state['active_dataset_rows'] = selected_rows
+        if chosen_curr != st.session_state.get('app_curr'):
+            st.session_state['app_curr'] = chosen_curr
             st.rerun()
 
-        if data_loaded and df_raw is not None:
-            st.markdown(f"📊 Active: **{len(df_raw):,}** rows")
-        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-        st.markdown('''<div style="text-align:center;padding:10px;background:rgba(220,20,60,.06);border-radius:12px;border:1px solid rgba(220,20,60,.15);">
-            <div style="color:#DC143C;font-family:Orbitron;font-size:.65rem;letter-spacing:2px;">MCA FINAL YEAR PROJECT</div>
-            <div style="color:#ccc;font-size:.85rem;font-weight:600;">Azhar Fareed Mulla</div>
-            <div style="color:#888;font-size:.7rem;">USN: 2SA25MC002</div>
-            <div style="color:#666;font-size:.65rem;margin-top:4px;">Guide: Dr. Nisha S Amin</div>
-        </div>''', unsafe_allow_html=True)
-        if st.button("🚪 Logout", use_container_width=True):
-            st.session_state.role = None; st.session_state.logged_in = False; st.rerun()
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+    st.markdown("#### ⚙️ STATUS")
+    s1,s2 = st.columns(2)
+    with s1: st.markdown("🟢 **Models**" if models_loaded else "🔴 **Models**")
+    with s2: st.markdown("🟢 **Engine**" if engines_loaded else "🔴 **Engine**")
+
+    st.markdown("#### 📊 DATASET SCALE")
+    curr_active_rows = st.session_state.get('active_dataset_rows', 10000)
+    row_choice = st.radio(
+        "Select Rows:",
+        ["10,000 Records", "50,000 Records"],
+        index=0 if curr_active_rows == 10000 else 1,
+        key="sidebar_row_scale_select"
+    )
+    selected_rows = 50000 if "50,000" in row_choice else 10000
+    if selected_rows != curr_active_rows:
+        st.session_state['active_dataset_rows'] = selected_rows
+        st.rerun()
+
+    if data_loaded and df_raw is not None:
+        st.markdown(f"📊 Active: **{len(df_raw):,}** rows")
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+    st.markdown('''<div style="text-align:center;padding:10px;background:rgba(220,20,60,.06);border-radius:12px;border:1px solid rgba(220,20,60,.15);">
+        <div style="color:#DC143C;font-family:Orbitron;font-size:.65rem;letter-spacing:2px;">MCA FINAL YEAR PROJECT</div>
+        <div style="color:#ccc;font-size:.85rem;font-weight:600;">Azhar Fareed Mulla</div>
+        <div style="color:#888;font-size:.7rem;">USN: 2SA25MC002</div>
+        <div style="color:#666;font-size:.65rem;margin-top:4px;">Guide: Dr. Nisha S Amin</div>
+    </div>''', unsafe_allow_html=True)
+    if st.button("🚪 Logout", use_container_width=True):
+        st.session_state.role = None; st.session_state.logged_in = False; st.rerun()
 
 # ═══════════════════════════════════════════
 # MAIN CONTENT
