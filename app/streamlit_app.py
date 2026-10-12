@@ -181,129 +181,38 @@ init_db()
 # ═══════════════════════════════════════════
 st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
-#MainMenu, footer, .stDeployButton,
-[data-testid="manage-app-button"],
-[data-testid="stStatusWidget"],
-.viewerBadge_container__1QSob,
-div[class*="viewerBadge"],
-div[class*="manageApp"],
-div[class*="ManageApp"],
-a[class*="viewerBadge"],
-iframe[title*="streamlit-badge"],
-[data-testid="stDecoration"],
-[data-testid="stToolbar"] {
-    visibility: hidden !important;
-    display: none !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    height: 0 !important;
-    width: 0 !important;
-}
+#MainMenu,footer,.stDeployButton{visibility:hidden;display:none;}
 header{background:transparent!important;}
 [data-testid="stSidebarCollapseButton"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;}
 [data-testid="collapsedControl"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;background:rgba(20,20,20,0.85)!important;border:1px solid rgba(220,20,60,0.4)!important;border-radius:8px!important;}
 .stApp{background:#0a0a0a;color:#e0e0e0;font-family:'Rajdhani',sans-serif;}
-/* ═══ HIGH-VISIBILITY EXTRA-WIDE SCROLLBARS WITH PROMINENT ARROWS ═══ */
-html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], section.main {
-    scrollbar-width: auto !important;
-    scrollbar-color: #DC143C #0a0c10 !important;
+/* ═══ HIGH-VISIBILITY THICK SCROLLBARS ═══ */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #DC143C #12141a;
 }
-/* EXTRA WIDE SCROLLBAR (CHOUDAI / WIDTH: 32PX) */
 ::-webkit-scrollbar {
-    width: 32px !important;
-    height: 32px !important;
+    width: 14px !important;
+    height: 14px !important;
 }
 ::-webkit-scrollbar-track {
-    background: #0d0f17 !important;
-    border-radius: 16px !important;
-    border: 2px solid rgba(220, 20, 60, 0.35) !important;
+    background: #0d0f14 !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%) !important;
-    border-radius: 16px !important;
-    border: 4px solid #0d0f17 !important;
-    box-shadow: 0 0 16px rgba(220, 20, 60, 0.8) !important;
-    min-height: 70px !important;
+    border-radius: 8px !important;
+    border: 2px solid #0d0f14 !important;
+    box-shadow: 0 0 6px rgba(220, 20, 60, 0.4) !important;
+    min-height: 40px !important;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #ff2a55 0%, #DC143C 100%) !important;
-    border-color: #1a0508 !important;
-    box-shadow: 0 0 25px rgba(220, 20, 60, 1.0) !important;
+    box-shadow: 0 0 12px rgba(220, 20, 60, 0.8) !important;
 }
 ::-webkit-scrollbar-corner {
-    background: #0d0f17 !important;
-}
-/* Scrollbar Up & Down Arrow Buttons (32px Width Extra Wide) */
-::-webkit-scrollbar-button:single-button {
-    background-color: #1a1e2b !important;
-    display: block !important;
-    border: 2px solid rgba(220, 20, 60, 0.6) !important;
-    height: 32px !important;
-    width: 32px !important;
-    border-radius: 8px !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-}
-/* Up Arrow */
-::-webkit-scrollbar-button:single-button:vertical:decrement {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23FFD700' viewBox='0 0 16 16'><path d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/></svg>") !important;
-}
-/* Down Arrow */
-::-webkit-scrollbar-button:single-button:vertical:increment {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23FFD700' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
-}
-::-webkit-scrollbar-button:single-button:hover {
-    background-color: #DC143C !important;
-    border-color: #FFD700 !important;
-}
-
-/* Floating Dual Navigation Widget (Up & Down Arrow Controls) */
-.floating-scroll-dock {
-    position: fixed;
-    right: 28px !important;
-    bottom: 110px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 2147483647 !important;
-    pointer-events: auto !important;
-}
-.floating-nav-btn {
-    background: linear-gradient(135deg, #1c0508 0%, #2a080e 100%);
-    border: 2px solid #DC143C;
-    color: #FFD700 !important;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 14px rgba(220, 20, 60, 0.6);
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    touch-action: none !important;
-    text-decoration: none !important;
-    outline: none !important;
-    padding: 0 !important;
-    line-height: 1 !important;
-    font-family: inherit !important;
-}
-.floating-nav-btn:hover {
-    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
-    color: #ffffff !important;
-    transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.9);
-    border-color: #FFD700;
-}
-.floating-nav-btn:active {
-    background: #DC143C !important;
-    color: #FFD700 !important;
-    transform: scale(0.92) !important;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.85) !important;
+    background: #0d0f14 !important;
 }
 .stApp::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,20,60,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,69,0,.05) 0%,transparent 50%);pointer-events:none;z-index:0;animation:bgP 8s ease-in-out infinite alternate;}
 @keyframes bgP{0%{opacity:.6}100%{opacity:1}}
@@ -814,180 +723,161 @@ with st.sidebar:
     st.markdown('<div style="text-align:center;padding:15px 0;"><span style="font-family:Orbitron;font-size:1.8rem;color:#DC143C;text-shadow:0 0 15px rgba(220,20,60,.5);">⚡</span><br><span style="font-family:Orbitron;font-size:1rem;color:#DC143C;letter-spacing:3px;">E-WASTE AI</span><br><span style="font-family:Rajdhani;color:#666;font-size:.85rem;letter-spacing:2px;">INTELLIGENCE SYSTEM</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    # ── ACCESS MODE SELECTOR (ALWAYS VISIBLE) ──
-    role_options = ["👤 Normal User", "🔑 Admin Mode"]
-    curr_role_idx = 1 if st.session_state.get('role') == 'admin' else 0
-
-    selected_role = st.radio(
-        "🛡️ SELECT ACCESS MODE:",
-        role_options,
-        index=curr_role_idx,
-        key="sidebar_access_mode_radio",
-        horizontal=True
-    )
-
-    if selected_role == "🔑 Admin Mode":
-        if st.session_state.get('role') != 'admin':
-            admin_pwd = st.text_input("🔒 Admin Password", type="password", key="sidebar_admin_pwd_field", placeholder="Enter admin password...")
-            if st.button("🔓 LOGIN TO ADMIN", use_container_width=True, key="sidebar_admin_login_btn"):
-                if hashlib.sha256(admin_pwd.encode()).hexdigest() == ADMIN_PASS_HASH or admin_pwd == "admin@ewaste2025":
-                    st.session_state.role = "admin"
-                    st.session_state.logged_in = True
-                    st.success("✅ Admin Access Granted!")
-                    st.rerun()
-                else:
-                    st.error("❌ Wrong password!")
+    if not st.session_state.logged_in:
+        mode = st.radio("Access Mode", ["👤 Normal User", "🔑 Admin"], label_visibility="collapsed")
+        if mode == "👤 Normal User":
+            if st.button("🚀 ENTER AS USER", use_container_width=True):
+                st.session_state.role = "user"; st.session_state.logged_in = True; st.rerun()
         else:
-            st.markdown('<div style="text-align:center;color:#00ff88;font-family:Orbitron;font-size:0.8rem;font-weight:700;letter-spacing:1px;background:rgba(0,255,136,0.1);padding:6px;border-radius:8px;border:1px solid rgba(0,255,136,0.3);margin-bottom:8px;">🔑 ADMIN MODE UNLOCKED</div>', unsafe_allow_html=True)
-            if st.button("👤 Switch to Normal User", use_container_width=True, key="sidebar_logout_to_user_btn"):
-                st.session_state.role = "user"
+            pwd = st.text_input("🔒 Admin Password", type="password")
+            if st.button("🔓 LOGIN", use_container_width=True):
+                if hashlib.sha256(pwd.encode()).hexdigest() == ADMIN_PASS_HASH:
+                    st.session_state.role = "admin"; st.session_state.logged_in = True; st.rerun()
+                else: st.error("❌ Wrong password!")
+    else:
+        ri = "🔑" if st.session_state.role == "admin" else "👤"
+        rn = "ADMIN" if st.session_state.role == "admin" else "USER"
+        st.markdown(f'<div style="text-align:center;color:#DC143C;font-family:Orbitron;font-size:.8rem;letter-spacing:2px;">{ri} {rn} MODE</div>', unsafe_allow_html=True)
+        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+        if st.session_state.role == "admin":
+            pages = {
+                "🏠 Dashboard": "home",
+                "📸 Image Classify": "image",
+                "💬 AI Chatbot": "chatbot",
+                "🔬 3D E-Waste Lab": "lab3d",
+                "📍 Recycling Centers": "centers",
+                "⚠️ Safety & Hazards": "safety",
+                "📜 Green Certificate": "certificate",
+                "🔍 Form Classify": "classify",
+                "📤 Dataset Upload": "upload_data",
+                "📋 Smart Analyzer": "analyzer",
+                "📊 EDA Explorer": "eda",
+                "🤖 Model Performance": "model_perf",
+                "♻️ Recovery Advisor": "recovery",
+                "🌍 Environmental Impact": "impact",
+                "📦 Batch Processing": "batch",
+                "📋 History": "history",
+                "📂 Dataset Manager": "datasets",
+                "ℹ️ About": "about"
+            }
+        else:
+            pages = {
+                "🏠 Dashboard": "home",
+                "📸 Image Classify": "image",
+                "💬 AI Chatbot": "chatbot",
+                "🔬 3D E-Waste Lab": "lab3d",
+                "📍 Recycling Centers": "centers",
+                "⚠️ Safety & Hazards": "safety",
+                "📜 Green Certificate": "certificate",
+                "🔍 Form Classify": "classify",
+                "📤 Dataset Upload": "upload_data",
+                "📋 Smart Analyzer": "analyzer",
+                "♻️ Recovery Advisor": "recovery",
+                "🌍 Environmental Impact": "impact",
+                "📋 My History": "history",
+                "ℹ️ About": "about"
+            }
+
+        page_keys = list(pages.keys())
+        if 'current_page' not in st.session_state or st.session_state.current_page not in page_keys:
+            st.session_state.current_page = page_keys[0]
+
+        curr_index = page_keys.index(st.session_state.current_page)
+        selection = st.radio("NAV", page_keys, index=curr_index, key="nav_radio_selection", label_visibility="collapsed")
+        if selection != st.session_state.current_page:
+            st.session_state.current_page = selection
+            st.rerun()
+
+        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+        
+        # ── GLOBAL LOCALIZATION SETTINGS ──
+        st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
+        
+        country_list = list(GLOBAL_COUNTRIES.keys())
+        current_c = st.session_state.get('app_jurisdiction', 'India')
+        if current_c not in country_list:
+            current_c = country_list[0]
+        
+        chosen_country = st.selectbox(
+            "🌍 Country / Region",
+            country_list,
+            index=country_list.index(current_c),
+            key="sb_country_picker"
+        )
+        if chosen_country != st.session_state.get('app_jurisdiction'):
+            st.session_state['app_jurisdiction'] = chosen_country
+            c_meta = GLOBAL_COUNTRIES.get(chosen_country, {})
+            if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
+                st.session_state['app_lang'] = c_meta['default_lang']
+            if c_meta.get('default_curr') in CURRENCY_RATES:
+                st.session_state['app_curr'] = c_meta['default_curr']
+            st.rerun()
+
+        c_lang, c_curr = st.columns(2)
+        with c_lang:
+            lang_opts = list(SUPPORTED_LANGUAGES.keys())
+            current_l = st.session_state.get('app_lang', 'en')
+            if current_l not in lang_opts:
+                current_l = 'en'
+            
+            chosen_lang = st.selectbox(
+                "Language",
+                lang_opts,
+                format_func=lambda x: SUPPORTED_LANGUAGES.get(x, x),
+                index=lang_opts.index(current_l),
+                key="sb_language_picker"
+            )
+            if chosen_lang != st.session_state.get('app_lang'):
+                st.session_state['app_lang'] = chosen_lang
                 st.rerun()
-    else:
-        if st.session_state.get('role') == 'admin':
-            st.session_state.role = "user"
-            st.rerun()
-        st.markdown('<div style="text-align:center;color:#00e5ff;font-family:Orbitron;font-size:0.8rem;font-weight:700;letter-spacing:1px;background:rgba(0,229,255,0.1);padding:6px;border-radius:8px;border:1px solid rgba(0,229,255,0.3);margin-bottom:8px;">👤 NORMAL USER MODE</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+        with c_curr:
+            curr_opts = list(CURRENCY_RATES.keys())
+            current_cur = st.session_state.get('app_curr', 'USD')
+            if current_cur not in curr_opts:
+                current_cur = 'USD'
+            
+            chosen_curr = st.selectbox(
+                "Currency",
+                curr_opts,
+                index=curr_opts.index(current_cur),
+                key="sb_currency_picker"
+            )
+            if chosen_curr != st.session_state.get('app_curr'):
+                st.session_state['app_curr'] = chosen_curr
+                st.rerun()
 
-    if st.session_state.role == "admin":
-        pages = {
-            "🏠 Dashboard": "home",
-            "📸 Image Classify": "image",
-            "💬 AI Chatbot": "chatbot",
-            "🔬 3D E-Waste Lab": "lab3d",
-            "📍 Recycling Centers": "centers",
-            "⚠️ Safety & Hazards": "safety",
-            "📜 Green Certificate": "certificate",
-            "🔍 Form Classify": "classify",
-            "📤 Dataset Upload": "upload_data",
-            "📋 Smart Analyzer": "analyzer",
-            "📊 EDA Explorer": "eda",
-            "🤖 Model Performance": "model_perf",
-            "♻️ Recovery Advisor": "recovery",
-            "🌍 Environmental Impact": "impact",
-            "📦 Batch Processing": "batch",
-            "📋 History": "history",
-            "📂 Dataset Manager": "datasets",
-            "ℹ️ About": "about"
-        }
-    else:
-        pages = {
-            "🏠 Dashboard": "home",
-            "📸 Image Classify": "image",
-            "💬 AI Chatbot": "chatbot",
-            "🔬 3D E-Waste Lab": "lab3d",
-            "📍 Recycling Centers": "centers",
-            "⚠️ Safety & Hazards": "safety",
-            "📜 Green Certificate": "certificate",
-            "🔍 Form Classify": "classify",
-            "📤 Dataset Upload": "upload_data",
-            "📋 Smart Analyzer": "analyzer",
-            "♻️ Recovery Advisor": "recovery",
-            "🌍 Environmental Impact": "impact",
-            "📋 My History": "history",
-            "ℹ️ About": "about"
-        }
+        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+        st.markdown("#### ⚙️ STATUS")
+        s1,s2 = st.columns(2)
+        with s1: st.markdown("🟢 **Models**" if models_loaded else "🔴 **Models**")
+        with s2: st.markdown("🟢 **Engine**" if engines_loaded else "🔴 **Engine**")
 
-    page_keys = list(pages.keys())
-    if 'current_page' not in st.session_state or st.session_state.current_page not in page_keys:
-        st.session_state.current_page = page_keys[0]
-
-    curr_index = page_keys.index(st.session_state.current_page)
-    selection = st.radio("NAV", page_keys, index=curr_index, key="nav_radio_selection", label_visibility="collapsed")
-    if selection != st.session_state.current_page:
-        st.session_state.current_page = selection
-        st.rerun()
-
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-    
-    # ── GLOBAL LOCALIZATION SETTINGS ──
-    st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
-    
-    country_list = list(GLOBAL_COUNTRIES.keys())
-    current_c = st.session_state.get('app_jurisdiction', 'India')
-    if current_c not in country_list:
-        current_c = country_list[0]
-    
-    chosen_country = st.selectbox(
-        "🌍 Country / Region",
-        country_list,
-        index=country_list.index(current_c),
-        key="sb_country_picker"
-    )
-    if chosen_country != st.session_state.get('app_jurisdiction'):
-        st.session_state['app_jurisdiction'] = chosen_country
-        c_meta = GLOBAL_COUNTRIES.get(chosen_country, {})
-        if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
-            st.session_state['app_lang'] = c_meta['default_lang']
-        if c_meta.get('default_curr') in CURRENCY_RATES:
-            st.session_state['app_curr'] = c_meta['default_curr']
-        st.rerun()
-
-    c_lang, c_curr = st.columns(2)
-    with c_lang:
-        lang_opts = list(SUPPORTED_LANGUAGES.keys())
-        current_l = st.session_state.get('app_lang', 'en')
-        if current_l not in lang_opts:
-            current_l = 'en'
-        
-        chosen_lang = st.selectbox(
-            "Language",
-            lang_opts,
-            format_func=lambda x: SUPPORTED_LANGUAGES.get(x, x),
-            index=lang_opts.index(current_l),
-            key="sb_language_picker"
+        st.markdown("#### 📊 DATASET SCALE")
+        curr_active_rows = st.session_state.get('active_dataset_rows', 10000)
+        row_choice = st.radio(
+            "Select Rows:",
+            ["10,000 Records", "50,000 Records"],
+            index=0 if curr_active_rows == 10000 else 1,
+            key="sidebar_row_scale_select"
         )
-        if chosen_lang != st.session_state.get('app_lang'):
-            st.session_state['app_lang'] = chosen_lang
+        selected_rows = 50000 if "50,000" in row_choice else 10000
+        if selected_rows != curr_active_rows:
+            st.session_state['active_dataset_rows'] = selected_rows
             st.rerun()
 
-    with c_curr:
-        curr_opts = list(CURRENCY_RATES.keys())
-        current_cur = st.session_state.get('app_curr', 'USD')
-        if current_cur not in curr_opts:
-            current_cur = 'USD'
-        
-        chosen_curr = st.selectbox(
-            "Currency",
-            curr_opts,
-            index=curr_opts.index(current_cur),
-            key="sb_currency_picker"
-        )
-        if chosen_curr != st.session_state.get('app_curr'):
-            st.session_state['app_curr'] = chosen_curr
-            st.rerun()
-
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-    st.markdown("#### ⚙️ STATUS")
-    s1,s2 = st.columns(2)
-    with s1: st.markdown("🟢 **Models**" if models_loaded else "🔴 **Models**")
-    with s2: st.markdown("🟢 **Engine**" if engines_loaded else "🔴 **Engine**")
-
-    st.markdown("#### 📊 DATASET SCALE")
-    curr_active_rows = st.session_state.get('active_dataset_rows', 10000)
-    row_choice = st.radio(
-        "Select Rows:",
-        ["10,000 Records", "50,000 Records"],
-        index=0 if curr_active_rows == 10000 else 1,
-        key="sidebar_row_scale_select"
-    )
-    selected_rows = 50000 if "50,000" in row_choice else 10000
-    if selected_rows != curr_active_rows:
-        st.session_state['active_dataset_rows'] = selected_rows
-        st.rerun()
-
-    if data_loaded and df_raw is not None:
-        st.markdown(f"📊 Active: **{len(df_raw):,}** rows")
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-    st.markdown('''<div style="text-align:center;padding:10px;background:rgba(220,20,60,.06);border-radius:12px;border:1px solid rgba(220,20,60,.15);">
-        <div style="color:#DC143C;font-family:Orbitron;font-size:.65rem;letter-spacing:2px;">MCA FINAL YEAR PROJECT</div>
-        <div style="color:#ccc;font-size:.85rem;font-weight:600;">Azhar Fareed Mulla</div>
-        <div style="color:#888;font-size:.7rem;">USN: 2SA25MC002</div>
-        <div style="color:#666;font-size:.65rem;margin-top:4px;">Guide: Dr. Nisha S Amin</div>
-    </div>''', unsafe_allow_html=True)
-    if st.button("🚪 Logout", use_container_width=True):
-        st.session_state.role = None; st.session_state.logged_in = False; st.rerun()
+        if data_loaded and df_raw is not None:
+            st.markdown(f"📊 Active: **{len(df_raw):,}** rows")
+        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+        st.markdown('''<div style="text-align:center;padding:10px;background:rgba(220,20,60,.06);border-radius:12px;border:1px solid rgba(220,20,60,.15);">
+            <div style="color:#DC143C;font-family:Orbitron;font-size:.65rem;letter-spacing:2px;">MCA FINAL YEAR PROJECT</div>
+            <div style="color:#ccc;font-size:.85rem;font-weight:600;">Azhar Fareed Mulla</div>
+            <div style="color:#888;font-size:.7rem;">USN: 2SA25MC002</div>
+            <div style="color:#666;font-size:.65rem;margin-top:4px;">Guide: Dr. Nisha S Amin</div>
+        </div>''', unsafe_allow_html=True)
+        if st.button("🚪 Logout", use_container_width=True):
+            st.session_state.role = None; st.session_state.logged_in = False; st.rerun()
 
 # ═══════════════════════════════════════════
 # MAIN CONTENT
@@ -1031,9 +921,6 @@ if not st.session_state.logged_in:
     st.stop()
 
 page_id = pages[st.session_state.current_page]
-
-# Target anchor for Scroll to Top button
-st.markdown('<div id="app-top-anchor" style="position:relative;top:-30px;visibility:hidden;"></div>', unsafe_allow_html=True)
 
 # ═══ DASHBOARD ═══
 if page_id == "home":
@@ -2669,108 +2556,4 @@ with col_next:
         if st.button(f"Next: {next_page} ➡️", use_container_width=True, key="bottom_next_btn"):
             st.session_state.current_page = next_page
             st.rerun()
-
-# ═══════════════════════════════════════════
-# 🔝 DUAL FLOATING SCROLL CONTROLS (UP & DOWN ARROWS)
-# ═══════════════════════════════════════════
-st.markdown("""
-<div class="floating-scroll-dock">
-    <button type="button" id="float-scroll-up" class="floating-nav-btn" title="Tap: Thoda Upar | Hold: Continue Upar" aria-label="Scroll Up">▲</button>
-    <button type="button" id="float-scroll-down" class="floating-nav-btn" title="Tap: Thoda Niche | Hold: Continue Niche" aria-label="Scroll Down">▼</button>
-</div>
-""", unsafe_allow_html=True)
-
-import streamlit.components.v1 as stc
-stc.html("""
-<script>
-(function() {
-    try {
-        const pWin = window.parent;
-        const pDoc = window.parent.document;
-        if (!pDoc || !pWin) return;
-
-        function scrollStep(dir) {
-            try {
-                const el = pDoc.querySelector('[data-testid="stAppViewContainer"]') || pDoc.querySelector('section.main');
-                if (el && el.scrollHeight > el.clientHeight) {
-                    el.scrollBy({ top: dir * 140, behavior: 'smooth' });
-                } else {
-                    pWin.scrollBy({ top: dir * 140, behavior: 'smooth' });
-                }
-            } catch(e) {
-                try { pWin.scrollBy(0, dir * 140); } catch(err) {}
-            }
-        }
-
-        function scrollGlide(dir) {
-            try {
-                const el = pDoc.querySelector('[data-testid="stAppViewContainer"]') || pDoc.querySelector('section.main');
-                if (el && el.scrollHeight > el.clientHeight) {
-                    el.scrollTop += (dir * 18);
-                } else {
-                    pWin.scrollBy(0, dir * 18);
-                }
-            } catch(e) {
-                try { pWin.scrollBy(0, dir * 18); } catch(err) {}
-            }
-        }
-
-        function attach(btnId, dir) {
-            const btn = pDoc.getElementById(btnId);
-            if (!btn) return;
-
-            let holdTimer = null;
-            let glideInterval = null;
-            let isLong = false;
-
-            function pressStart(e) {
-                isLong = false;
-                if (glideInterval) { clearInterval(glideInterval); glideInterval = null; }
-                if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-
-                holdTimer = setTimeout(function() {
-                    isLong = true;
-                    glideInterval = setInterval(function() {
-                        scrollGlide(dir);
-                    }, 22);
-                }, 220);
-            }
-
-            function pressEnd(e) {
-                if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-                if (glideInterval) { clearInterval(glideInterval); glideInterval = null; }
-                if (!isLong) {
-                    scrollStep(dir);
-                }
-            }
-
-            btn.onmousedown = pressStart;
-            btn.onmouseup = pressEnd;
-            btn.onmouseleave = pressEnd;
-
-            btn.ontouchstart = pressStart;
-            btn.ontouchend = pressEnd;
-            btn.ontouchcancel = pressEnd;
-
-            btn.onclick = function(e) {
-                if (!isLong) scrollStep(dir);
-            };
-        }
-
-        function bindAll() {
-            attach('float-scroll-up', -1);
-            attach('float-scroll-down', 1);
-        }
-
-        bindAll();
-        setTimeout(bindAll, 200);
-        setTimeout(bindAll, 600);
-        setTimeout(bindAll, 1200);
-        setInterval(bindAll, 2000);
-    } catch(err) {
-        console.warn("Scroll dock attach error:", err);
-    }
-})();
-</script>
-""", height=0, width=0)
 
