@@ -207,7 +207,6 @@ header{background:transparent!important;}
 html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], section.main {
     scrollbar-width: auto !important;
     scrollbar-color: #DC143C #0a0c10 !important;
-    scroll-behavior: smooth !important;
 }
 /* EXTRA WIDE SCROLLBAR (CHOUDAI / WIDTH: 32PX) */
 ::-webkit-scrollbar {
@@ -261,11 +260,11 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], secti
 /* Floating Dual Navigation Widget (Up & Down Arrow Controls) */
 .floating-scroll-dock {
     position: fixed;
-    right: 24px;
-    bottom: 32px;
+    right: 28px !important;
+    bottom: 110px !important;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     z-index: 2147483647 !important;
     pointer-events: auto !important;
 }
@@ -815,22 +814,41 @@ with st.sidebar:
     st.markdown('<div style="text-align:center;padding:15px 0;"><span style="font-family:Orbitron;font-size:1.8rem;color:#DC143C;text-shadow:0 0 15px rgba(220,20,60,.5);">⚡</span><br><span style="font-family:Orbitron;font-size:1rem;color:#DC143C;letter-spacing:3px;">E-WASTE AI</span><br><span style="font-family:Rajdhani;color:#666;font-size:.85rem;letter-spacing:2px;">INTELLIGENCE SYSTEM</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    if not st.session_state.logged_in:
-        mode = st.radio("Access Mode", ["👤 Normal User", "🔑 Admin"], label_visibility="collapsed")
-        if mode == "👤 Normal User":
-            if st.button("🚀 ENTER AS USER", use_container_width=True):
-                st.session_state.role = "user"; st.session_state.logged_in = True; st.rerun()
+    # ── ACCESS MODE SELECTOR (ALWAYS VISIBLE) ──
+    role_options = ["👤 Normal User", "🔑 Admin Mode"]
+    curr_role_idx = 1 if st.session_state.get('role') == 'admin' else 0
+
+    selected_role = st.radio(
+        "🛡️ SELECT ACCESS MODE:",
+        role_options,
+        index=curr_role_idx,
+        key="sidebar_access_mode_radio",
+        horizontal=True
+    )
+
+    if selected_role == "🔑 Admin Mode":
+        if st.session_state.get('role') != 'admin':
+            admin_pwd = st.text_input("🔒 Admin Password", type="password", key="sidebar_admin_pwd_field", placeholder="Enter admin password...")
+            if st.button("🔓 LOGIN TO ADMIN", use_container_width=True, key="sidebar_admin_login_btn"):
+                if hashlib.sha256(admin_pwd.encode()).hexdigest() == ADMIN_PASS_HASH or admin_pwd == "admin@ewaste2025":
+                    st.session_state.role = "admin"
+                    st.session_state.logged_in = True
+                    st.success("✅ Admin Access Granted!")
+                    st.rerun()
+                else:
+                    st.error("❌ Wrong password!")
         else:
-            pwd = st.text_input("🔒 Admin Password", type="password")
-            if st.button("🔓 LOGIN", use_container_width=True):
-                if hashlib.sha256(pwd.encode()).hexdigest() == ADMIN_PASS_HASH:
-                    st.session_state.role = "admin"; st.session_state.logged_in = True; st.rerun()
-                else: st.error("❌ Wrong password!")
+            st.markdown('<div style="text-align:center;color:#00ff88;font-family:Orbitron;font-size:0.8rem;font-weight:700;letter-spacing:1px;background:rgba(0,255,136,0.1);padding:6px;border-radius:8px;border:1px solid rgba(0,255,136,0.3);margin-bottom:8px;">🔑 ADMIN MODE UNLOCKED</div>', unsafe_allow_html=True)
+            if st.button("👤 Switch to Normal User", use_container_width=True, key="sidebar_logout_to_user_btn"):
+                st.session_state.role = "user"
+                st.rerun()
     else:
-        ri = "🔑" if st.session_state.role == "admin" else "👤"
-        rn = "ADMIN" if st.session_state.role == "admin" else "USER"
-        st.markdown(f'<div style="text-align:center;color:#DC143C;font-family:Orbitron;font-size:.8rem;letter-spacing:2px;">{ri} {rn} MODE</div>', unsafe_allow_html=True)
-        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+        if st.session_state.get('role') == 'admin':
+            st.session_state.role = "user"
+            st.rerun()
+        st.markdown('<div style="text-align:center;color:#00e5ff;font-family:Orbitron;font-size:0.8rem;font-weight:700;letter-spacing:1px;background:rgba(0,229,255,0.1);padding:6px;border-radius:8px;border:1px solid rgba(0,229,255,0.3);margin-bottom:8px;">👤 NORMAL USER MODE</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
         if st.session_state.role == "admin":
             pages = {
@@ -2671,179 +2689,77 @@ stc.html("""
         const pDoc = window.parent.document;
         if (!pDoc || !pWin) return;
 
-        // 1. Hide Streamlit Cloud "Manage app" badges & controls completely
-        function hideCloudBadges() {
+        function scrollStep(dir) {
             try {
-                const selectors = [
-                    '[data-testid="manage-app-button"]',
-                    '[data-testid="stStatusWidget"]',
-                    '.viewerBadge_container__1QSob',
-                    'div[class*="viewerBadge"]',
-                    'div[class*="manageApp"]',
-                    'div[class*="ManageApp"]',
-                    'a[class*="viewerBadge"]',
-                    'iframe[title*="streamlit-badge"]',
-                    '[data-testid="stDecoration"]',
-                    '[data-testid="stToolbar"]'
-                ];
-                selectors.forEach(sel => {
-                    pDoc.querySelectorAll(sel).forEach(el => {
-                        el.style.setProperty('display', 'none', 'important');
-                        el.style.setProperty('visibility', 'hidden', 'important');
-                        el.style.setProperty('opacity', '0', 'important');
-                        el.style.setProperty('pointer-events', 'none', 'important');
-                        el.style.setProperty('width', '0px', 'important');
-                        el.style.setProperty('height', '0px', 'important');
-                    });
-                });
-            } catch(e) {}
-        }
-        hideCloudBadges();
-        setInterval(hideCloudBadges, 1000);
-
-        // 2. Dual Scrolling Engine: Tap = Thoda Thoda | Hold = Continue
-        let continuousId = null;
-        let stepAnimId = null;
-        let isHolding = false;
-        let isLongPress = false;
-        let holdTimer = null;
-
-        function getContainers() {
-            return [
-                pDoc.querySelector('[data-testid="stAppViewContainer"]'),
-                pDoc.querySelector('section.main'),
-                pDoc.documentElement,
-                pDoc.body
-            ].filter(Boolean);
-        }
-
-        function getActive() {
-            const list = getContainers();
-            return list.find(el => el.scrollHeight > el.clientHeight) || list[0] || pDoc.documentElement;
-        }
-
-        // Tap: Thoda thoda jaye (110px smooth step)
-        function stepScroll(direction, distance = 110, duration = 320) {
-            if (stepAnimId) pWin.cancelAnimationFrame(stepAnimId);
-            const containers = getContainers();
-            const active = getActive();
-            const startPos = active.scrollTop;
-            const delta = direction * distance;
-            const t0 = performance.now();
-
-            function anim(now) {
-                const elapsed = now - t0;
-                const progress = Math.min(elapsed / duration, 1);
-                const ease = progress * (2 - progress);
-                const pos = startPos + (delta * ease);
-                containers.forEach(c => {
-                    try { c.scrollTop = pos; } catch(err) {}
-                });
-                try { pWin.scrollTo(0, pos); } catch(err) {}
-                if (progress < 1) {
-                    stepAnimId = pWin.requestAnimationFrame(anim);
+                const el = pDoc.querySelector('[data-testid="stAppViewContainer"]') || pDoc.querySelector('section.main');
+                if (el && el.scrollHeight > el.clientHeight) {
+                    el.scrollBy({ top: dir * 140, behavior: 'smooth' });
                 } else {
-                    stepAnimId = null;
+                    pWin.scrollBy({ top: dir * 140, behavior: 'smooth' });
                 }
-            }
-            stepAnimId = pWin.requestAnimationFrame(anim);
-        }
-
-        // Long Press: Continue jaye (smooth continuous frame loop)
-        function startContinuous(direction) {
-            if (continuousId) pWin.cancelAnimationFrame(continuousId);
-            const containers = getContainers();
-            const speed = direction * 8; // 8px per frame ≈ 480px/s continuous glide
-
-            function loop() {
-                if (!isHolding) return;
-                containers.forEach(c => {
-                    try { c.scrollTop += speed; } catch(err) {}
-                });
-                try { pWin.scrollBy(0, speed); } catch(err) {}
-                continuousId = pWin.requestAnimationFrame(loop);
-            }
-            continuousId = pWin.requestAnimationFrame(loop);
-        }
-
-        function stopContinuous() {
-            isHolding = false;
-            if (holdTimer) {
-                clearTimeout(holdTimer);
-                holdTimer = null;
-            }
-            if (continuousId) {
-                pWin.cancelAnimationFrame(continuousId);
-                continuousId = null;
+            } catch(e) {
+                try { pWin.scrollBy(0, dir * 140); } catch(err) {}
             }
         }
 
-        function setupButton(btnId, direction) {
+        function scrollGlide(dir) {
+            try {
+                const el = pDoc.querySelector('[data-testid="stAppViewContainer"]') || pDoc.querySelector('section.main');
+                if (el && el.scrollHeight > el.clientHeight) {
+                    el.scrollTop += (dir * 18);
+                } else {
+                    pWin.scrollBy(0, dir * 18);
+                }
+            } catch(e) {
+                try { pWin.scrollBy(0, dir * 18); } catch(err) {}
+            }
+        }
+
+        function attach(btnId, dir) {
             const btn = pDoc.getElementById(btnId);
             if (!btn) return;
 
-            function pressStart(e) {
-                if (e) {
-                    if (e.cancelable) e.preventDefault();
-                    e.stopPropagation();
-                }
-                stopContinuous();
-                isHolding = true;
-                isLongPress = false;
+            let holdTimer = null;
+            let glideInterval = null;
+            let isLong = false;
 
-                // If held for 220ms or more -> starts continuous scroll
+            function pressStart(e) {
+                isLong = false;
+                if (glideInterval) { clearInterval(glideInterval); glideInterval = null; }
+                if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+
                 holdTimer = setTimeout(function() {
-                    if (isHolding) {
-                        isLongPress = true;
-                        startContinuous(direction);
-                    }
+                    isLong = true;
+                    glideInterval = setInterval(function() {
+                        scrollGlide(dir);
+                    }, 22);
                 }, 220);
             }
 
             function pressEnd(e) {
-                if (e) {
-                    if (e.cancelable) e.preventDefault();
-                    e.stopPropagation();
-                }
-                if (holdTimer) {
-                    clearTimeout(holdTimer);
-                    holdTimer = null;
-                }
-                if (isHolding) {
-                    if (!isLongPress) {
-                        // Quick click/tap: Thoda thoda jaye
-                        stepScroll(direction, 110, 320);
-                    }
-                    stopContinuous();
+                if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+                if (glideInterval) { clearInterval(glideInterval); glideInterval = null; }
+                if (!isLong) {
+                    scrollStep(dir);
                 }
             }
 
-            // Modern pointer events (mouse + touch unified)
-            btn.onpointerdown = pressStart;
-            btn.onpointerup = pressEnd;
-            btn.onpointerleave = pressEnd;
-            btn.onpointercancel = pressEnd;
-
-            // Touch & mouse fallbacks
             btn.onmousedown = pressStart;
             btn.onmouseup = pressEnd;
             btn.onmouseleave = pressEnd;
+
             btn.ontouchstart = pressStart;
             btn.ontouchend = pressEnd;
             btn.ontouchcancel = pressEnd;
 
             btn.onclick = function(e) {
-                if (e) {
-                    if (e.cancelable) e.preventDefault();
-                    e.stopPropagation();
-                }
-                return false;
+                if (!isLong) scrollStep(dir);
             };
         }
 
         function bindAll() {
-            setupButton('float-scroll-up', -1);
-            setupButton('float-scroll-down', 1);
+            attach('float-scroll-up', -1);
+            attach('float-scroll-down', 1);
         }
 
         bindAll();
@@ -2851,7 +2767,6 @@ stc.html("""
         setTimeout(bindAll, 600);
         setTimeout(bindAll, 1200);
         setInterval(bindAll, 2000);
-
     } catch(err) {
         console.warn("Scroll dock attach error:", err);
     }
