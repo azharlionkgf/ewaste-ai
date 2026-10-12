@@ -625,21 +625,108 @@ function showToast(msg) {{
 
 function createLeatherTexture() {{
     const canvas = document.createElement('canvas');
-    canvas.width = 256;
-    canvas.height = 256;
+    canvas.width = 1024;
+    canvas.height = 2048;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#E6D7C3';
-    ctx.fillRect(0, 0, 256, 256);
-    for (let i = 0; i < 1500; i++) {{
-        const x = Math.random() * 256;
-        const y = Math.random() * 256;
-        const r = Math.random() * 1.5 + 0.5;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = (Math.random() > 0.5) ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)';
-        ctx.fill();
+
+    // 1. Base Pale Cream / Sunrise Beige Lychee Grain Leather
+    ctx.fillStyle = '#EBE3D5';
+    ctx.fillRect(0, 0, 1024, 2048);
+
+    // Micro-pebble grain noise
+    const imgData = ctx.getImageData(0, 0, 1024, 2048);
+    const data = imgData.data;
+    for (let i = 0; i < data.length; i += 4) {{
+        const noise = (Math.random() - 0.5) * 16;
+        data[i] = Math.min(255, Math.max(0, data[i] + noise));
+        data[i+1] = Math.min(255, Math.max(0, data[i+1] + noise));
+        data[i+2] = Math.min(255, Math.max(0, data[i+2] + noise));
     }}
-    return new THREE.CanvasTexture(canvas);
+    ctx.putImageData(imgData, 0, 0);
+
+    // 2. Center Gold / Emerald Green Racing Stripe (Reference Match)
+    const centerX = 512;
+    const stripeWidth = 54;
+    
+    // Outer stitched groove shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+    ctx.fillRect(centerX - stripeWidth/2 - 4, 0, stripeWidth + 8, 2048);
+
+    // Gold woven ribbon
+    ctx.fillStyle = '#D4AF37';
+    ctx.fillRect(centerX - stripeWidth/2, 0, stripeWidth, 2048);
+
+    // Emerald green center runner stripe
+    ctx.fillStyle = '#115E39';
+    ctx.fillRect(centerX - 8, 0, 16, 2048);
+
+    // Gold accent hairline
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(centerX - 2, 0, 4, 2048);
+
+    // 3. Realistic 3D Double Stitching lines along the stripe borders
+    const stitchPitch = 22;
+    for (let y = 10; y < 2048; y += stitchPitch) {{
+        // Left stitch thread
+        ctx.fillStyle = '#F5EE38';
+        ctx.fillRect(centerX - stripeWidth/2 + 4, y, 6, 12);
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.fillRect(centerX - stripeWidth/2 + 4, y + 12, 6, 3); // Stitch shadow
+
+        // Right stitch thread
+        ctx.fillStyle = '#F5EE38';
+        ctx.fillRect(centerX + stripeWidth/2 - 10, y, 6, 12);
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.fillRect(centerX + stripeWidth/2 - 10, y + 12, 6, 3); // Stitch shadow
+    }}
+
+    // 4. Subtle "realme" logo debossing near bottom left
+    ctx.fillStyle = '#8C827A';
+    ctx.font = 'bold 36px Rajdhani, sans-serif';
+    ctx.fillText('realme', 110, 1820);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.wrapS = THREE.ClampToEdgeWrapping;
+    texture.wrapT = THREE.ClampToEdgeWrapping;
+    return texture;
+}}
+
+function createScreenTexture() {{
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080;
+    canvas.height = 2400;
+    const ctx = canvas.getContext('2d');
+
+    // Deep AMOLED black background with subtle wallpaper gradient
+    const grad = ctx.createLinearGradient(0, 0, 1080, 2400);
+    grad.addColorStop(0, '#060A12');
+    grad.addColorStop(0.4, '#0D1B2A');
+    grad.addColorStop(0.8, '#1B263B');
+    grad.addColorStop(1, '#0A0E17');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1080, 2400);
+
+    // Status bar clock & icons
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 64px Rajdhani, sans-serif';
+    ctx.fillText('10:24', 90, 140);
+
+    ctx.font = '36px Rajdhani, sans-serif';
+    ctx.fillText('5G  100%  ⚡', 820, 140);
+
+    // Clean lockscreen widget
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.font = '42px Rajdhani, sans-serif';
+    ctx.fillText('E-Waste AI • Circular OS', 90, 220);
+
+    // Punch hole selfie camera cutout at top center
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(540, 120, 26, 0, Math.PI * 2);
+    ctx.fill();
+
+    const texture = new THREE.CanvasTexture(canvas);
+    return texture;
 }}
 
 function init3D() {{
@@ -904,62 +991,316 @@ function buildDeviceGeometry(type) {{
             }}
 
         }} else {{
-            // ═══ SMARTPHONE / TABLET / UNIVERSAL ELECTRONICS ═══
-            const phoneWidth = 2.05;
-            const phoneHeight = 4.3;
+            // ═══ SMARTPHONE / TABLET / REALME REFERENCE ARCHITECTURE ═══
+            const phoneWidth = 2.15;
+            const phoneHeight = 4.45;
+            const phoneThickness = 0.085;
 
             if (idx === 0) {{
-                // Back Panel
-                primaryMesh = new THREE.Mesh(
-                    new THREE.BoxGeometry(phoneWidth, phoneHeight, 0.055),
-                    new THREE.MeshStandardMaterial({{ color: parseInt(COLOR_CHASSIS.replace('#', '0x')), roughness: 0.75, metalness: 0.08 }})
+                // ── 1. REALISTIC REAR COVER (Sunrise Beige Vegan Leather + Stitched Center Stripe) ──
+                primaryMesh = new THREE.Group();
+
+                // Base Leather Backplate
+                const leatherTex = createLeatherTexture();
+                const backGeo = new THREE.BoxGeometry(phoneWidth, phoneHeight, 0.035);
+                const backMat = new THREE.MeshStandardMaterial({{
+                    map: leatherTex,
+                    roughness: 0.88,
+                    metalness: 0.04
+                }});
+                const backPlate = new THREE.Mesh(backGeo, backMat);
+                primaryMesh.add(backPlate);
+
+                // ── Camera Module Assembly (Raised Circular Halo + Matte Disc + Glass + Triple Lenses) ──
+                const camCenterY = 1.05;
+                const camBaseZ = 0.025;
+
+                // Step A: Fluted Golden Outer Ring (Halo with metallic luster)
+                const haloOuterGeo = new THREE.CylinderGeometry(0.68, 0.70, 0.05, 64);
+                const haloOuterMat = new THREE.MeshStandardMaterial({{
+                    color: 0xD4AF37,
+                    metalness: 0.95,
+                    roughness: 0.15
+                }});
+                const haloOuter = new THREE.Mesh(haloOuterGeo, haloOuterMat);
+                haloOuter.rotation.x = Math.PI / 2;
+                haloOuter.position.set(0, camCenterY, camBaseZ + 0.025);
+                primaryMesh.add(haloOuter);
+
+                // Step B: Deep Obsidian Black Camera Disc
+                const discGeo = new THREE.CylinderGeometry(0.64, 0.64, 0.055, 64);
+                const discMat = new THREE.MeshStandardMaterial({{
+                    color: 0x050505,
+                    roughness: 0.25,
+                    metalness: 0.85
+                }});
+                const disc = new THREE.Mesh(discGeo, discMat);
+                disc.rotation.x = Math.PI / 2;
+                disc.position.set(0, camCenterY, camBaseZ + 0.03);
+                primaryMesh.add(disc);
+
+                // Step C: Center Primary SuperZoom Lens (200MP / 100MP OIS Camera)
+                // Gold Inner Bezel
+                const mainLensRing = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.24, 0.24, 0.065, 48),
+                    new THREE.MeshStandardMaterial({{ color: 0xD4AF37, metalness: 0.98, roughness: 0.1 }})
                 );
-                // Halo Ring & Camera Island
-                const halo = new THREE.Mesh(
-                    new THREE.CylinderGeometry(0.55, 0.55, 0.08, 48),
-                    new THREE.MeshStandardMaterial({{ color: parseInt(COLOR_ACCENT.replace('#', '0x')), metalness: 0.95, roughness: 0.18 }})
+                mainLensRing.rotation.x = Math.PI / 2;
+                mainLensRing.position.set(0, camCenterY, camBaseZ + 0.035);
+                primaryMesh.add(mainLensRing);
+
+                // Convex Glass Lens Element
+                const mainLensGlass = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.20, 32, 16, 0, Math.PI * 2, 0, Math.PI * 0.4),
+                    new THREE.MeshPhysicalMaterial({{
+                        color: 0x0a192f,
+                        transmission: 0.85,
+                        opacity: 0.95,
+                        transparent: true,
+                        roughness: 0.05,
+                        metalness: 0.1,
+                        ior: 1.62
+                    }})
                 );
-                halo.rotation.x = Math.PI / 2;
-                halo.position.set(0, 0.95, 0.05);
-                layerGroup.add(halo);
+                mainLensGlass.position.set(0, camCenterY, camBaseZ + 0.068);
+                primaryMesh.add(mainLensGlass);
+
+                // Deep Camera Sensor Aperture Pupil
+                const mainPupil = new THREE.Mesh(
+                    new THREE.CircleGeometry(0.12, 32),
+                    new THREE.MeshBasicMaterial({{ color: 0x000814 }})
+                );
+                mainPupil.position.set(0, camCenterY, camBaseZ + 0.063);
+                primaryMesh.add(mainPupil);
+
+                // Step D: Left Ultra-Wide Secondary Lens
+                const leftLens = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.12, 0.12, 0.062, 32),
+                    new THREE.MeshStandardMaterial({{ color: 0x111111, metalness: 0.9, roughness: 0.1 }})
+                );
+                leftLens.rotation.x = Math.PI / 2;
+                leftLens.position.set(-0.35, camCenterY - 0.20, camBaseZ + 0.035);
+                primaryMesh.add(leftLens);
+
+                const leftPupil = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.08, 0.08, 0.066, 24),
+                    new THREE.MeshStandardMaterial({{ color: 0x051b2c, roughness: 0.1, metalness: 0.5 }})
+                );
+                leftPupil.rotation.x = Math.PI / 2;
+                leftPupil.position.set(-0.35, camCenterY - 0.20, camBaseZ + 0.036);
+                primaryMesh.add(leftPupil);
+
+                // Step E: Right Macro / Depth Lens
+                const rightLens = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.12, 0.12, 0.062, 32),
+                    new THREE.MeshStandardMaterial({{ color: 0x111111, metalness: 0.9, roughness: 0.1 }})
+                );
+                rightLens.rotation.x = Math.PI / 2;
+                rightLens.position.set(0.35, camCenterY - 0.20, camBaseZ + 0.035);
+                primaryMesh.add(rightLens);
+
+                const rightPupil = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.08, 0.08, 0.066, 24),
+                    new THREE.MeshStandardMaterial({{ color: 0x051b2c, roughness: 0.1, metalness: 0.5 }})
+                );
+                rightPupil.rotation.x = Math.PI / 2;
+                rightPupil.position.set(0.35, camCenterY - 0.20, camBaseZ + 0.036);
+                primaryMesh.add(rightPupil);
+
+                // Step F: Dual-LED TrueTone Flash & Ambient Light Sensor
+                const ledFlash = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.065, 0.065, 0.062, 24),
+                    new THREE.MeshStandardMaterial({{ color: 0xFFF2B2, emissive: 0x887733, roughness: 0.2 }})
+                );
+                ledFlash.rotation.x = Math.PI / 2;
+                ledFlash.position.set(0, camCenterY + 0.38, camBaseZ + 0.035);
+                primaryMesh.add(ledFlash);
+
+                // "200MP OIS" Camera Branding Ring Rim
+                const labelRim = new THREE.Mesh(
+                    new THREE.TorusGeometry(0.52, 0.008, 16, 64),
+                    new THREE.MeshStandardMaterial({{ color: 0xAAAAAA, metalness: 0.8 }})
+                );
+                labelRim.position.set(0, camCenterY, camBaseZ + 0.06);
+                primaryMesh.add(labelRim);
+
             }} else if (idx === 1) {{
-                // Thermal Graphite Sheet & NFC
-                primaryMesh = new THREE.Mesh(
-                    new THREE.BoxGeometry(phoneWidth * 0.86, phoneHeight * 0.86, 0.02),
-                    new THREE.MeshStandardMaterial({{ color: 0x222225, roughness: 0.85 }})
+                // ── 2. NFC ANTENNA LOOP & GRAPHITE HEAT SPREADER ──
+                primaryMesh = new THREE.Group();
+                const sheet = new THREE.Mesh(
+                    new THREE.BoxGeometry(phoneWidth * 0.88, phoneHeight * 0.88, 0.015),
+                    new THREE.MeshStandardMaterial({{ color: 0x1E1E22, roughness: 0.92, metalness: 0.1 }})
                 );
+                primaryMesh.add(sheet);
+
+                // Copper NFC coil ring
+                const nfcCoil = new THREE.Mesh(
+                    new THREE.TorusGeometry(0.48, 0.02, 16, 48),
+                    new THREE.MeshStandardMaterial({{ color: 0xD35400, metalness: 0.95, roughness: 0.2 }})
+                );
+                nfcCoil.position.set(0, 0.3, 0.01);
+                primaryMesh.add(nfcCoil);
+
             }} else if (idx === 2) {{
-                // Shield Frame & 16 Screws
-                primaryMesh = new THREE.Mesh(
+                // ── 3. INTERNAL MAGNESIUM SHIELD PLATE & 16 FASTENING SCREWS ──
+                primaryMesh = new THREE.Group();
+                const shieldPlate = new THREE.Mesh(
                     new THREE.BoxGeometry(phoneWidth * 0.95, phoneHeight * 0.95, 0.02),
-                    new THREE.MeshStandardMaterial({{ color: 0x424949, metalness: 0.8, roughness: 0.3 }})
+                    new THREE.MeshStandardMaterial({{ color: 0x3E4444, metalness: 0.85, roughness: 0.3 }})
                 );
+                primaryMesh.add(shieldPlate);
+
+                // Precision micro-screws along perimeter
+                const screwGeo = new THREE.CylinderGeometry(0.028, 0.028, 0.03, 16);
+                const screwMat = new THREE.MeshStandardMaterial({{ color: 0xC0C0C0, metalness: 0.98, roughness: 0.1 }});
+                const screwPositions = [
+                    [-0.9, 2.0], [0.9, 2.0], [-0.9, -2.0], [0.9, -2.0],
+                    [-0.9, 0.8], [0.9, 0.8], [-0.9, -0.8], [0.9, -0.8],
+                    [-0.4, 1.8], [0.4, 1.8], [-0.4, -1.8], [0.4, -1.8],
+                    [-0.9, 0.0], [0.9, 0.0], [0.0, 0.6], [0.0, -0.3]
+                ];
+                screwPositions.forEach(p => {{
+                    const sc = new THREE.Mesh(screwGeo, screwMat);
+                    sc.rotation.x = Math.PI / 2;
+                    sc.position.set(p[0], p[1], 0.015);
+                    primaryMesh.add(sc);
+                }});
+
             }} else if (idx === 3) {{
-                // Logic Motherboard (FR4 + SoC)
-                primaryMesh = new THREE.Mesh(
-                    new THREE.BoxGeometry(phoneWidth * 0.90, phoneHeight * 0.48, 0.03),
-                    new THREE.MeshStandardMaterial({{ color: 0x145A32, roughness: 0.35, metalness: 0.2 }})
+                // ── 4. MULTI-LAYER FR4 LOGIC BOARD & DIMENSITY 7050 5G SOC ──
+                primaryMesh = new THREE.Group();
+                // PCB substrate
+                const pcb = new THREE.Mesh(
+                    new THREE.BoxGeometry(phoneWidth * 0.92, phoneHeight * 0.44, 0.03),
+                    new THREE.MeshStandardMaterial({{ color: 0x0E5A33, roughness: 0.35, metalness: 0.3 }})
                 );
-                primaryMesh.position.set(0, 0.95, 0);
+                primaryMesh.add(pcb);
+
+                // EMI metal RF shielding cans
+                const emiCan1 = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.7, 0.6, 0.04),
+                    new THREE.MeshStandardMaterial({{ color: 0xDCDDE1, metalness: 0.92, roughness: 0.15 }})
+                );
+                emiCan1.position.set(-0.35, 0.1, 0.025);
+                primaryMesh.add(emiCan1);
+
+                const emiCan2 = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.6, 0.5, 0.04),
+                    new THREE.MeshStandardMaterial({{ color: 0xDCDDE1, metalness: 0.92, roughness: 0.15 }})
+                );
+                emiCan2.position.set(0.4, 0.15, 0.025);
+                primaryMesh.add(emiCan2);
+
+                // Gold edge connectors & ribbon headers
+                const conn = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.3, 0.08, 0.04),
+                    new THREE.MeshStandardMaterial({{ color: 0xD4AF37, metalness: 0.98, roughness: 0.1 }})
+                );
+                conn.position.set(0, -0.15, 0.025);
+                primaryMesh.add(conn);
+
+                primaryMesh.position.set(0, 1.05, 0);
+
             }} else if (idx === 4) {{
-                // 5000mAh Battery Pack
-                primaryMesh = new THREE.Mesh(
-                    new THREE.BoxGeometry(phoneWidth * 0.82, phoneHeight * 0.46, 0.065),
-                    new THREE.MeshStandardMaterial({{ color: 0x922B21, roughness: 0.65 }})
+                // ── 5. 5000MAH HIGH-DENSITY LI-ION BATTERY CELL (Stretch Tabs) ──
+                primaryMesh = new THREE.Group();
+                const cell = new THREE.Mesh(
+                    new THREE.BoxGeometry(phoneWidth * 0.86, phoneHeight * 0.46, 0.065),
+                    new THREE.MeshStandardMaterial({{ color: 0x8B1E0F, roughness: 0.5, metalness: 0.1 }})
                 );
-                primaryMesh.position.set(0, -0.65, 0);
+                primaryMesh.add(cell);
+
+                // Stretch release pull tab A & B (Neon orange)
+                const tabGeo = new THREE.BoxGeometry(0.25, 0.08, 0.01);
+                const tabMat = new THREE.MeshStandardMaterial({{ color: 0xE67E22, roughness: 0.4 }});
+                const tabA = new THREE.Mesh(tabGeo, tabMat);
+                tabA.position.set(-0.35, -0.24, 0.035);
+                const tabB = new THREE.Mesh(tabGeo, tabMat);
+                tabB.position.set(0.35, -0.24, 0.035);
+                primaryMesh.add(tabA);
+                primaryMesh.add(tabB);
+
+                primaryMesh.position.set(0, -0.70, 0);
+
             }} else if (idx === 5) {{
-                // Midframe & Haptics
-                primaryMesh = new THREE.Mesh(
-                    new THREE.BoxGeometry(phoneWidth * 0.98, phoneHeight * 0.98, 0.055),
-                    new THREE.MeshStandardMaterial({{ color: parseInt(COLOR_FRAME.replace('#', '0x')), metalness: 0.88, roughness: 0.22 }})
+                // ── 6. AEROSPACE ALUMINUM MIDFRAME & SIDE BUTTON RAILS ──
+                primaryMesh = new THREE.Group();
+
+                // Unibody CNC Aluminum Bezel Frame
+                const frameMat = new THREE.MeshStandardMaterial({{
+                    color: 0xD4AF37, // Polished Light Gold
+                    metalness: 0.92,
+                    roughness: 0.20
+                }});
+                const frame = new THREE.Mesh(
+                    new THREE.BoxGeometry(phoneWidth * 0.99, phoneHeight * 0.99, 0.06),
+                    frameMat
                 );
+                primaryMesh.add(frame);
+
+                // Right Side Power Button
+                const pwrBtn = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.03, 0.35, 0.04),
+                    frameMat
+                );
+                pwrBtn.position.set(phoneWidth * 0.50, 0.4, 0);
+                primaryMesh.add(pwrBtn);
+
+                // Right Side Volume Rocker
+                const volBtn = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.03, 0.65, 0.04),
+                    frameMat
+                );
+                volBtn.position.set(phoneWidth * 0.50, 1.1, 0);
+                primaryMesh.add(volBtn);
+
+                // Bottom USB Type-C Port cut
+                const usbPort = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.32, 0.04, 0.04),
+                    new THREE.MeshStandardMaterial({{ color: 0x111111, roughness: 0.8 }})
+                );
+                usbPort.position.set(0, -phoneHeight * 0.50, 0);
+                primaryMesh.add(usbPort);
+
+                // Bottom Speaker Grille slots
+                for (let g = 0; g < 4; g++) {{
+                    const gr = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.05, 0.03, 0.03),
+                        new THREE.MeshStandardMaterial({{ color: 0x111111 }})
+                    );
+                    gr.position.set(0.4 + g * 0.1, -phoneHeight * 0.50, 0);
+                    primaryMesh.add(gr);
+                }}
+
             }} else {{
-                // AMOLED Display & Front Glass
-                primaryMesh = new THREE.Mesh(
-                    new THREE.BoxGeometry(phoneWidth * 0.96, phoneHeight * 0.96, 0.03),
-                    new THREE.MeshStandardMaterial({{ color: parseInt(COLOR_SCREEN.replace('#', '0x')), roughness: 0.05, metalness: 0.85 }})
+                // ── 7. 120HZ CURVED AMOLED DISPLAY & CORNING GORILLA GLASS ──
+                primaryMesh = new THREE.Group();
+                const screenTex = createScreenTexture();
+
+                // Ultra-thin curved glass front
+                const dispGeo = new THREE.BoxGeometry(phoneWidth * 0.96, phoneHeight * 0.97, 0.025);
+                const dispMat = new THREE.MeshStandardMaterial({{
+                    map: screenTex,
+                    roughness: 0.05,
+                    metalness: 0.88
+                }});
+                const disp = new THREE.Mesh(dispGeo, dispMat);
+                primaryMesh.add(disp);
+
+                // Glass coating sheen reflection
+                const glassCoating = new THREE.Mesh(
+                    new THREE.BoxGeometry(phoneWidth * 0.965, phoneHeight * 0.975, 0.005),
+                    new THREE.MeshPhysicalMaterial({{
+                        color: 0xffffff,
+                        transmission: 0.90,
+                        opacity: 0.3,
+                        transparent: true,
+                        roughness: 0.02,
+                        ior: 1.52
+                    }})
                 );
+                glassCoating.position.set(0, 0, 0.015);
+                primaryMesh.add(glassCoating);
             }}
         }}
 
