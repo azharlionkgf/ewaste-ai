@@ -186,33 +186,61 @@ header{background:transparent!important;}
 [data-testid="stSidebarCollapseButton"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;}
 [data-testid="collapsedControl"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;background:rgba(20,20,20,0.85)!important;border:1px solid rgba(220,20,60,0.4)!important;border-radius:8px!important;}
 .stApp{background:#0a0a0a;color:#e0e0e0;font-family:'Rajdhani',sans-serif;}
-/* ═══ HIGH-VISIBILITY THICK SCROLLBARS ═══ */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #DC143C #12141a;
+/* ═══ HIGH-VISIBILITY EXTRA-WIDE SCROLLBARS ═══ */
+html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], section.main {
+    scrollbar-width: auto !important;
+    scrollbar-color: #DC143C #0a0c10 !important;
+    scroll-behavior: smooth !important;
 }
 ::-webkit-scrollbar {
-    width: 14px !important;
-    height: 14px !important;
+    width: 18px !important;
+    height: 18px !important;
 }
 ::-webkit-scrollbar-track {
-    background: #0d0f14 !important;
-    border-radius: 8px !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #0a0c10 !important;
+    border-radius: 9px !important;
+    border: 1px solid rgba(220, 20, 60, 0.2) !important;
 }
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%) !important;
-    border-radius: 8px !important;
-    border: 2px solid #0d0f14 !important;
-    box-shadow: 0 0 6px rgba(220, 20, 60, 0.4) !important;
-    min-height: 40px !important;
+    background: linear-gradient(180deg, #DC143C 0%, #990018 100%) !important;
+    border-radius: 9px !important;
+    border: 3px solid #0a0c10 !important;
+    box-shadow: 0 0 10px rgba(220, 20, 60, 0.6) !important;
+    min-height: 55px !important;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #ff2a55 0%, #DC143C 100%) !important;
-    box-shadow: 0 0 12px rgba(220, 20, 60, 0.8) !important;
+    border-color: #1a0508 !important;
+    box-shadow: 0 0 18px rgba(220, 20, 60, 1.0) !important;
 }
 ::-webkit-scrollbar-corner {
-    background: #0d0f14 !important;
+    background: #0a0c10 !important;
+}
+/* Scroll to Top floating widget */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 32px;
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    color: #fff !important;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+    text-decoration: none !important;
+    box-shadow: 0 4px 20px rgba(220,20,60,0.6);
+    z-index: 999999;
+    border: 2px solid rgba(255,215,0,0.5);
+    transition: all 0.3s;
+}
+.scroll-top-btn:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 30px rgba(220,20,60,0.9);
+    color: #FFD700 !important;
 }
 .stApp::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,20,60,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,69,0,.05) 0%,transparent 50%);pointer-events:none;z-index:0;animation:bgP 8s ease-in-out infinite alternate;}
 @keyframes bgP{0%{opacity:.6}100%{opacity:1}}
@@ -921,6 +949,9 @@ if not st.session_state.logged_in:
     st.stop()
 
 page_id = pages[st.session_state.current_page]
+
+# Target anchor for Scroll to Top button
+st.markdown('<div id="app-top-anchor" style="position:relative;top:-30px;visibility:hidden;"></div>', unsafe_allow_html=True)
 
 # ═══ DASHBOARD ═══
 if page_id == "home":
@@ -2556,4 +2587,24 @@ with col_next:
         if st.button(f"Next: {next_page} ➡️", use_container_width=True, key="bottom_next_btn"):
             st.session_state.current_page = next_page
             st.rerun()
+
+# ═══════════════════════════════════════════
+# 🔝 1-CLICK SCROLL TO TOP FLOATING BUTTON
+# ═══════════════════════════════════════════
+st.markdown("""
+<div id="app-top-anchor"></div>
+<a href="#app-top-anchor" class="scroll-top-btn" title="Go to Top">⬆</a>
+<script>
+    // Smooth scroll top on click
+    const btn = document.querySelector('.scroll-top-btn');
+    if (btn) {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const mainContainer = document.querySelector('[data-testid="stAppViewContainer"]');
+            if (mainContainer) mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+</script>
+""", unsafe_allow_html=True)
 
