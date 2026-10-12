@@ -259,6 +259,46 @@ iframe{max-width:100%!important;}
 [data-testid="stDataFrame"] div[data-testid="stDataFrameResizable"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;}
 .stDataFrame table{min-width:100%!important;font-size:.85rem!important;}
 
+/* ═══ SELECTBOX & DROPDOWN HIGH CONTRAST & VISIBILITY FIX ═══ */
+[data-testid="stSelectbox"] {
+    position: relative !important;
+    z-index: 50 !important;
+}
+[data-testid="stSelectbox"] > div {
+    background: #141720 !important;
+    border: 1px solid rgba(220, 20, 60, 0.4) !important;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+}
+[data-testid="stSelectbox"] * {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+/* Popover dropdown container */
+div[data-baseweb="popover"],
+div[data-baseweb="menu"],
+ul[data-testid="stSelectboxVirtualDropdown"],
+ul[role="listbox"] {
+    background-color: #12151e !important;
+    border: 1px solid rgba(220, 20, 60, 0.6) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9) !important;
+    border-radius: 10px !important;
+    z-index: 9999999 !important;
+}
+li[role="option"] {
+    background-color: #12151e !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    padding: 10px 14px !important;
+    cursor: pointer !important;
+}
+li[role="option"]:hover,
+li[role="option"][aria-selected="true"] {
+    background: linear-gradient(90deg, rgba(220, 20, 60, 0.35), rgba(220, 20, 60, 0.15)) !important;
+    color: #FFD700 !important;
+    font-weight: 700 !important;
+}
+
 /* ═══ WHATSAPP TOOLBAR ═══ */
 .wa-toolbar-wrapper {
     background: #111b21;
@@ -616,7 +656,7 @@ def chatbot_respond(query):
 # ═══════════════════════════════════════════
 # SESSION STATE
 # ═══════════════════════════════════════════
-for k, v in {'logged_in':False, 'role':None, 'chat_messages':[], 'chatbot_device':None}.items():
+for k, v in {'logged_in':True, 'role':'user', 'chat_messages':[], 'chatbot_device':None, 'app_jurisdiction':'India', 'app_lang':'en', 'app_curr':'USD'}.items():
     if k not in st.session_state: st.session_state[k] = v
 if not st.session_state.chat_messages:
     st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Namaste! I'm your E-Waste AI Assistant.**\n\n📸 **Upload Photos** or 🎬 **Videos** of e-waste items!\n🔍 Identify devices | 💰 Material values | ♻️ Recovery steps\n⚠️ Safety tips | 🌍 Eco impact | 📍 Find recyclers\n\n**Upload a file or type your question below!**"}]
@@ -698,43 +738,62 @@ with st.sidebar:
         
         # ── GLOBAL LOCALIZATION SETTINGS ──
         st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
-        if 'app_jurisdiction' not in st.session_state: st.session_state.app_jurisdiction = 'India'
-        if 'app_lang' not in st.session_state: st.session_state.app_lang = 'en'
-        if 'app_curr' not in st.session_state: st.session_state.app_curr = 'USD'
-
-        # Country / Jurisdiction Selector
+        
         country_list = list(GLOBAL_COUNTRIES.keys())
-        curr_country = st.session_state.app_jurisdiction
-        if curr_country not in country_list: curr_country = 'India'
-        sel_country = st.selectbox(
-            "🌍 Country / Region",
-            country_list,
-            index=country_list.index(curr_country),
-            key="sidebar_country_select"
-        )
-        if sel_country != st.session_state.app_jurisdiction:
-            st.session_state.app_jurisdiction = sel_country
-            c_meta = GLOBAL_COUNTRIES.get(sel_country, {})
-            # Auto-align language and currency if available
+        def_country = st.session_state.get('app_jurisdiction', 'India')
+        c_idx = country_list.index(def_country) if def_country in country_list else 0
+
+        def on_country_change():
+            chosen = st.session_state.sidebar_country_select
+            st.session_state.app_jurisdiction = chosen
+            c_meta = GLOBAL_COUNTRIES.get(chosen, {})
             if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
                 st.session_state.app_lang = c_meta['default_lang']
+                st.session_state.sidebar_lang_select = c_meta['default_lang']
             if c_meta.get('default_curr') in CURRENCY_RATES:
                 st.session_state.app_curr = c_meta['default_curr']
-            st.rerun()
+                st.session_state.sidebar_curr_select = c_meta['default_curr']
+
+        st.selectbox(
+            "🌍 Country / Region",
+            country_list,
+            index=c_idx,
+            key="sidebar_country_select",
+            on_change=on_country_change
+        )
 
         c_lang, c_curr = st.columns(2)
         with c_lang:
             lang_opts = list(SUPPORTED_LANGUAGES.keys())
-            sel_lang = st.selectbox("Language", lang_opts, format_func=lambda x: SUPPORTED_LANGUAGES[x], index=lang_opts.index(st.session_state.app_lang) if st.session_state.app_lang in lang_opts else 0, key="sidebar_lang_select")
-            if sel_lang != st.session_state.app_lang:
-                st.session_state.app_lang = sel_lang
-                st.rerun()
+            cur_lang = st.session_state.get('app_lang', 'en')
+            l_idx = lang_opts.index(cur_lang) if cur_lang in lang_opts else 0
+            
+            def on_lang_change():
+                st.session_state.app_lang = st.session_state.sidebar_lang_select
+
+            st.selectbox(
+                "Language",
+                lang_opts,
+                format_func=lambda x: SUPPORTED_LANGUAGES.get(x, x),
+                index=l_idx,
+                key="sidebar_lang_select",
+                on_change=on_lang_change
+            )
         with c_curr:
             curr_opts = list(CURRENCY_RATES.keys())
-            sel_curr = st.selectbox("Currency", curr_opts, index=curr_opts.index(st.session_state.app_curr) if st.session_state.app_curr in curr_opts else 0, key="sidebar_curr_select")
-            if sel_curr != st.session_state.app_curr:
-                st.session_state.app_curr = sel_curr
-                st.rerun()
+            cur_curr = st.session_state.get('app_curr', 'USD')
+            curr_idx = curr_opts.index(cur_curr) if cur_curr in curr_opts else 0
+            
+            def on_curr_change():
+                st.session_state.app_curr = st.session_state.sidebar_curr_select
+
+            st.selectbox(
+                "Currency",
+                curr_opts,
+                index=curr_idx,
+                key="sidebar_curr_select",
+                on_change=on_curr_change
+            )
 
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
         st.markdown("#### ⚙️ STATUS")
