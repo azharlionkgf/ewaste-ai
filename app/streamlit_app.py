@@ -268,6 +268,10 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], secti
     transition: all 0.25s ease;
     user-select: none;
     text-decoration: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    font-family: inherit !important;
 }
 .floating-nav-btn:hover {
     background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
@@ -2627,80 +2631,110 @@ with col_next:
 # ═══════════════════════════════════════════
 st.markdown("""
 <div class="floating-scroll-dock">
-    <a href="#app-top-anchor" id="float-scroll-up" class="floating-nav-btn" title="Scroll Up">▲</a>
-    <a href="#app-bottom-anchor" id="float-scroll-down" class="floating-nav-btn" title="Scroll Down">▼</a>
+    <button type="button" id="float-scroll-up" class="floating-nav-btn" title="Scroll Up Slowly (Dheere Dheere)">▲</button>
+    <button type="button" id="float-scroll-down" class="floating-nav-btn" title="Scroll Down Slowly (Dheere Dheere)">▼</button>
 </div>
-<div id="app-bottom-anchor" style="position:relative;bottom:0;visibility:hidden;"></div>
-<script>
-    (function attachScrollers() {
-        let activeScrollTimer = null;
+""", unsafe_allow_html=True)
 
-        function smoothStepScroll(distance, duration = 400) {
-            if (activeScrollTimer) cancelAnimationFrame(activeScrollTimer);
+import streamlit.components.v1 as stc
+stc.html("""
+<script>
+(function() {
+    let animId = null;
+
+    function slowScroll(distance, duration = 850) {
+        try {
+            const pWin = window.parent;
+            const pDoc = window.parent.document;
+            if (!pDoc || !pWin) return;
+
+            if (animId) {
+                pWin.cancelAnimationFrame(animId);
+                animId = null;
+            }
 
             const targets = [
-                document.querySelector('[data-testid="stAppViewContainer"]'),
-                document.querySelector('section.main'),
-                document.documentElement,
-                document.body
+                pDoc.querySelector('[data-testid="stAppViewContainer"]'),
+                pDoc.querySelector('section.main'),
+                pDoc.documentElement,
+                pDoc.body
             ].filter(Boolean);
 
-            const primary = targets[0] || document.documentElement;
-            const startPos = primary.scrollTop;
-            const targetPos = startPos + distance;
+            const active = targets.find(t => t.scrollHeight > t.clientHeight) || targets[0] || pDoc.documentElement;
+            const startPos = active.scrollTop;
             const startTime = performance.now();
 
-            function easeInOutQuad(t) {
-                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            // Very smooth and gentle cubic ease-out
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
             }
 
             function step(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                const eased = easeInOutQuad(progress);
-                const currentPos = startPos + distance * eased;
+                const eased = easeOutCubic(progress);
+                const currentPos = startPos + (distance * eased);
 
                 targets.forEach(el => {
                     try { el.scrollTop = currentPos; } catch(e) {}
                 });
+                try { pWin.scrollTo(0, currentPos); } catch(e) {}
 
                 if (progress < 1) {
-                    activeScrollTimer = requestAnimationFrame(step);
+                    animId = pWin.requestAnimationFrame(step);
                 } else {
-                    activeScrollTimer = null;
+                    animId = null;
                 }
             }
 
-            activeScrollTimer = requestAnimationFrame(step);
+            animId = pWin.requestAnimationFrame(step);
+        } catch(e) {
+            console.warn("Scroll animation error:", e);
         }
+    }
 
-        const up = document.getElementById('float-scroll-up');
-        if (up) {
-            up.addEventListener('click', function(e) {
-                e.preventDefault();
-                smoothStepScroll(-250, 450); // Gentle 250px scroll over 450ms
-            });
-            up.addEventListener('dblclick', function(e) {
-                e.preventDefault();
-                const primary = document.querySelector('[data-testid="stAppViewContainer"]') || document.documentElement;
-                smoothStepScroll(-primary.scrollTop, 650);
-            });
-        }
+    function bindButtons() {
+        try {
+            const pDoc = window.parent.document;
+            if (!pDoc) return;
 
-        const down = document.getElementById('float-scroll-down');
-        if (down) {
-            down.addEventListener('click', function(e) {
-                e.preventDefault();
-                smoothStepScroll(250, 450); // Gentle 250px scroll over 450ms
-            });
-            down.addEventListener('dblclick', function(e) {
-                e.preventDefault();
-                const primary = document.querySelector('[data-testid="stAppViewContainer"]') || document.documentElement;
-                const remaining = (primary.scrollHeight - primary.clientHeight) - primary.scrollTop;
-                smoothStepScroll(remaining, 650);
-            });
-        }
-    })();
+            const upBtn = pDoc.getElementById('float-scroll-up');
+            const downBtn = pDoc.getElementById('float-scroll-down');
+
+            if (upBtn) {
+                upBtn.onclick = function(e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
+                    slowScroll(-120, 850); // Gentle 120px step over 850ms
+                    return false;
+                };
+                upBtn.ondblclick = function(e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
+                    slowScroll(-400, 1200); // Gentle 400px step over 1.2s
+                    return false;
+                };
+            }
+
+            if (downBtn) {
+                downBtn.onclick = function(e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
+                    slowScroll(120, 850); // Gentle 120px step over 850ms
+                    return false;
+                };
+                downBtn.ondblclick = function(e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
+                    slowScroll(400, 1200); // Gentle 400px step over 1.2s
+                    return false;
+                };
+            }
+        } catch(e) {}
+    }
+
+    bindButtons();
+    setTimeout(bindButtons, 200);
+    setTimeout(bindButtons, 600);
+    setTimeout(bindButtons, 1200);
+    setInterval(bindButtons, 2000);
+})();
 </script>
-""", unsafe_allow_html=True)
+""", height=0, width=0)
 
