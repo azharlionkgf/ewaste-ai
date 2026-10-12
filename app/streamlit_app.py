@@ -2627,57 +2627,62 @@ with col_next:
 # ═══════════════════════════════════════════
 st.markdown("""
 <div class="floating-scroll-dock">
-    <div id="float-scroll-up" class="floating-nav-btn" title="Scroll Up">▲</div>
-    <div id="float-scroll-down" class="floating-nav-btn" title="Scroll Down">▼</div>
+    <a href="#app-top-anchor" id="float-scroll-up" class="floating-nav-btn" title="Scroll Up">▲</a>
+    <a href="#app-bottom-anchor" id="float-scroll-down" class="floating-nav-btn" title="Scroll Down">▼</a>
 </div>
+<div id="app-bottom-anchor" style="position:relative;bottom:0;visibility:hidden;"></div>
 <script>
-    (function() {
-        function getScrollContainer() {
-            return document.querySelector('[data-testid="stAppViewContainer"]') || 
-                   document.querySelector('.main') || 
-                   window;
+    (function attachScrollers() {
+        function scrollPage(amount, toAbsolute) {
+            const targets = [
+                document.querySelector('[data-testid="stAppViewContainer"]'),
+                document.querySelector('section.main'),
+                document.documentElement,
+                document.body,
+                window
+            ];
+            targets.forEach(el => {
+                if (!el) return;
+                try {
+                    if (toAbsolute !== undefined) {
+                        if (typeof el.scrollTo === 'function') {
+                            el.scrollTo({ top: toAbsolute, behavior: 'smooth' });
+                        } else {
+                            el.scrollTop = toAbsolute;
+                        }
+                    } else {
+                        if (typeof el.scrollBy === 'function') {
+                            el.scrollBy({ top: amount, behavior: 'smooth' });
+                        } else {
+                            el.scrollTop += amount;
+                        }
+                    }
+                } catch(e) {}
+            });
         }
 
-        const upBtn = document.getElementById('float-scroll-up');
-        if (upBtn) {
-            upBtn.onclick = function() {
-                const c = getScrollContainer();
-                if (c === window) {
-                    window.scrollBy({ top: -500, behavior: 'smooth' });
-                } else {
-                    c.scrollBy({ top: -500, behavior: 'smooth' });
-                }
-            };
-            // Double click goes all the way to top
-            upBtn.ondblclick = function() {
-                const c = getScrollContainer();
-                if (c === window) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    c.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            };
+        const up = document.getElementById('float-scroll-up');
+        if (up) {
+            up.addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollPage(-600);
+            });
+            up.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                scrollPage(0, 0);
+            });
         }
 
-        const downBtn = document.getElementById('float-scroll-down');
-        if (downBtn) {
-            downBtn.onclick = function() {
-                const c = getScrollContainer();
-                if (c === window) {
-                    window.scrollBy({ top: 500, behavior: 'smooth' });
-                } else {
-                    c.scrollBy({ top: 500, behavior: 'smooth' });
-                }
-            };
-            // Double click goes all the way to bottom
-            downBtn.ondblclick = function() {
-                const c = getScrollContainer();
-                if (c === window) {
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                } else {
-                    c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
-                }
-            };
+        const down = document.getElementById('float-scroll-down');
+        if (down) {
+            down.addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollPage(600);
+            });
+            down.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                scrollPage(0, 999999);
+            });
         }
     })();
 </script>
