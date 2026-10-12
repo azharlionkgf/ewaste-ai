@@ -1,28 +1,37 @@
 """
-🎨 High-Fidelity Three.js 3D E-Waste & Device Architecture Viewer
-==================================================================
-Procedural 3D WebGL generator for electronic devices with exploded anatomy,
-real-time animation, interactive component inspection, deep hardware specs,
-and interactive step-by-step physical manual disassembly guidance.
+🎨 Ultra-Realistic High-Fidelity Three.js 3D E-Waste & Precision Device Architecture Engine
+=============================================================================================
+Procedural 3D WebGL generator for electronic devices with micro-component anatomy:
+- SIM Tray & Ejector Pin hole
+- Laser-textured Logic PCB with BGA solder balls, MediaTek/Snapdragon SoC, NAND Flash, 5G RF filters, Power ICs
+- Real microscopic Phillips #00 screws with cross-drive heads
+- Multi-lens camera system with sapphire glass, gold bezel ring, flash LED, and LiDAR/depth sensor
+- Copper vapor chamber & thermal heat pipes with pyrolytic graphite sheet
+- Ultra-thin flexible printed circuits (FPC ribbons) & zif connectors
+- Lithium pouch battery with safety warning label, pull tabs, and terminal anode/cathode flex
+- CNC milled aerospace aluminum unibody mid-frame with antenna plastic isolation bands
+- 120Hz Curved AMOLED display with digitizer matrix and punch-hole selfie camera
+- Front aluminosilicate cover glass
+- Multi-language interactive controls and step-by-step physical teardown manual!
 """
 
 import json
 from typing import Dict, Any
 
-def generate_3d_viewer(device_info: Dict[str, Any], height: int = 600) -> str:
+def generate_3d_viewer(device_info: Dict[str, Any], height: int = 620) -> str:
     """
-    Generate an interactive high-fidelity Three.js 3D viewer HTML for any electronic device.
-    Supports granular hardware specs and physical step-by-step disassembly guidance.
+    Generate an interactive ultra-realistic Three.js 3D viewer HTML for electronic devices.
+    Includes micro-details: screws, flex cables, SIM slot, antenna bands, chip packages, and camera lenses.
     """
     # Extract hardware metadata
     brand = device_info.get("brand", "Electronic Device")
     model_name = device_info.get("model", device_info.get("category", "Device Model"))
     category = device_info.get("category", "Electronics")
-    storage = device_info.get("storage", "128 GB Flash")
-    ram = device_info.get("ram", "8 GB RAM")
+    storage = device_info.get("storage", "256 GB UFS Flash")
+    ram = device_info.get("ram", "12 GB LPDDR5")
     processor = device_info.get("processor", "SoC Multi-Core Processor")
-    camera_specs = device_info.get("camera", "High-Resolution Sensor Array")
-    battery_specs = device_info.get("battery", "Li-Ion High-Capacity Pack")
+    camera_specs = device_info.get("camera", "200MP OIS High-Resolution Sensor Array")
+    battery_specs = device_info.get("battery", "5000 mAh Li-Po High-Capacity Pack")
     camera_module_type = device_info.get("camera_module_type", "circular_matrix")
     has_racing_stripe = device_info.get("has_racing_stripe", True)
     
@@ -31,62 +40,62 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 600) -> str:
     frame_color = device_info.get("frame_color", "#D4AF37")
     screen_color = device_info.get("screen_color", "#080E1A")
     
-    # Precise Physical Disassembly Manual Steps
+    # 7-Step Physical Disassembly Manual
     manual_steps = [
         {
             "step": 1,
-            "title": "1. Detach Vegan Leather Back Cover & Camera Halo Ring",
-            "tool": "Heat Mat / Heat Gun (75°C) • Suction Cup • 0.3mm Guitar Pick",
-            "action": "Warm device perimeter at 75°C for 180s to soften polyurethane adhesive. Attach suction clamp to lower rear panel, insert guitar pick 3mm deep, and slice adhesive clips. Carefully pivot open rightward to prevent tearing NFC ribbon.",
-            "safety": "⚠️ Do not use metal blades to prevent gouging battery or cutting internal flex ribbons.",
+            "title": "1. Eject Dual-SIM Tray & Heat Rear Vegan Leather Shell",
+            "tool": "0.8mm SIM Ejector Pin • Heat Mat (75°C - 80°C) • Suction Clamp",
+            "action": "Insert SIM ejector pin into pinhole on lower left chassis to pop tray. Place unit on 78°C heating platform for 180 seconds to soften hot-melt polyurethane perimeter adhesive. Affix heavy-duty suction clamp to lower back panel.",
+            "safety": "⚠️ Do not heat above 85°C to protect internal lithium pouch battery and AMOLED organic polymers.",
             "layer_idx": 0
         },
         {
             "step": 2,
-            "title": "2. Remove Graphite Thermal Dissipation Sheet & NFC Antenna",
-            "tool": "Phillips #00 Precision Screwdriver • Anti-Static ESD Tweezers",
-            "action": "Extract 16 Phillips #00 screws (1.4mm) securing the perimeter shield bracket. Using ESD nylon tweezers, peel back the pyrolytic graphite heat transfer sheet and unhook NFC coil connector from motherboard.",
-            "safety": "⚠️ Keep track of screw lengths; overtightening longer screws into logic board can pierce traces.",
+            "title": "2. Slice Perimeter Adhesive & Remove Gold Bezel Camera Halo",
+            "tool": "0.3mm Nylon Guitar Pick • Isopropyl Alcohol (IPA 99%)",
+            "action": "Pry 2mm opening at bottom seam; slice around perimeter using nylon guitar pick. Carefully separate the luxury vegan leather back cover with circular gold bezel. Unclip NFC and wireless induction loop.",
+            "safety": "⚠️ Insert pick maximum 3mm deep to avoid lacerating internal ribbon cables or battery casing.",
             "layer_idx": 1
         },
         {
             "step": 3,
-            "title": "3. ⚡ CRITICAL: Disconnect Battery FIRST & Unseat Logic Motherboard",
-            "tool": "Non-Conductive ESD Plastic Spudger • Torx T2 Driver",
-            "action": "MANDATORY FIRST ELECTRICAL STEP: Disconnect battery ribbon connector immediately to eliminate short-circuit hazard. Unplug rear & front camera ribbon cables, display flex, and antenna coax cables. Unscrew logic board standoffs to safely lift motherboard with MediaTek Dimensity 7050 & 256GB Flash NAND.",
-            "safety": "🚨 NEVER use metal tweezers near battery terminal. Ground yourself with ESD wristband.",
+            "title": "3. Extract 16 Precision Screws & Graphite Thermal Shield",
+            "tool": "Phillips #00 Precision Screwdriver (1.4mm) • Magnetic Mat",
+            "action": "Remove 16 perimeter Phillips #00 screws. Organize screws on magnetic mat by length. Gently peel back pyrolytic graphite heat dissipation shield and unfasten mid-frame antenna bracket.",
+            "safety": "⚠️ Note screw placements: long screws installed into short standoff holes will pierce the logic board traces.",
             "layer_idx": 2
         },
         {
             "step": 4,
-            "title": "4. Extract 5000 mAh Li-Po High-Capacity Battery Pack",
-            "tool": "Adhesive Pull-Tabs • Isopropyl Alcohol (IPA 99%)",
-            "action": "Locate the two green/orange stretch-release adhesive pull-tabs. Pull slowly, steadily, and flat at a 15-degree low angle along battery face. If a tab tears, apply 2 drops of 99% IPA at edges to dissolve adhesive. Lift battery gently.",
-            "safety": "🔥 NEVER PRY OR PUNCTURE BATTERY. Punctured lithium cells react exothermically causing chemical fire.",
+            "title": "4. ⚡ MANDATORY: Disconnect Battery Connector FIRST",
+            "tool": "ESD Non-Conductive Plastic Spudger • Anti-Static Wrist Strap",
+            "action": "CRITICAL FIRST ELECTRICAL PROTOCOL: Pry off the main battery BMU flex connector using a nylon spudger to cut power and prevent motherboard short-circuits. Disconnect display FPC, sub-board interconnect, and coax antennas.",
+            "safety": "🚨 NEVER use metal tweezers near battery terminal pins. Static discharge can destroy micro-transistors.",
             "layer_idx": 3
         },
         {
             "step": 5,
-            "title": "5. Separate Aluminum Mid-Frame, USB-C Port & Haptic Motor",
-            "tool": "Phillips #00 Driver • Curved Tweezers",
-            "action": "Unscrew lower loud-speaker acoustic chamber (6 screws). Extract sub-board with USB-C 100W connector port and X-axis linear haptic vibration motor. Recover 6063 aerospace aluminum mid-frame chassis for high-grade alloy recycling.",
-            "safety": "🟢 Aluminum frame and copper motor coils are 100% recyclable non-hazardous scrap.",
+            "title": "5. Extract Logic Motherboard & 200MP Triple Camera Module",
+            "tool": "ESD Tweezers • Torx T2 Screwdriver • Thermal Paste Spatula",
+            "action": "Unscrew logic board standoff screw. Gently lift the 10-layer high-Tg FR4 motherboard containing MediaTek Dimensity 7050 SoC, UFS 3.1 Flash, and Samsung HP3 200MP OIS sensor assembly.",
+            "safety": "🟢 Pure gold micro-plating and silver BGA solder pads on motherboard are recovered for high-purity refining.",
             "layer_idx": 4
         },
         {
             "step": 6,
-            "title": "6. Release 120Hz Curved AMOLED Display Matrix",
-            "tool": "Display Separator Hot Plate (80°C) • Flexible Plastic Film",
-            "action": "Place front chassis face-down on 80°C heating plate for 3 minutes. Insert ultra-thin plastic separator film between display glass and aluminum chassis rail. Slide smoothly to release factory OCA display adhesive.",
-            "safety": "⚠️ AMOLED display substrate is 0.2mm fragile glass. Apply gentle, zero-force levering.",
+            "title": "6. Extract 5000 mAh Li-Po Battery Using Stretch Pull-Tabs",
+            "tool": "Stretch Release Adhesive Tabs • 99% IPA (if tabs tear)",
+            "action": "Grasp battery pull-tabs (marked A & B). Pull steadily, slowly, and completely flat along the plane of the battery at a 15° angle. If a pull tab snaps, apply 3 drops of 99% IPA around edge to dissolve adhesive and lift gently.",
+            "safety": "🔥 NEVER PRY WITH SHARP TOOLS OR PUNCTURE BATTERY. Punctured lithium oxidizes violently causing thermal runaway fire.",
             "layer_idx": 5
         },
         {
             "step": 7,
-            "title": "7. Harvest Front Aluminosilicate Double-Reinforced Glass",
-            "tool": "Heat Mat • Citrus-Based Adhesive Remover",
-            "action": "Separate exterior toughened aluminosilicate glass cover. Clean off residual adhesive layers using citrus solvent. Sort glass into specialized display cullet recycling bin.",
-            "safety": "🧤 Wear cut-resistant nitrile gloves to prevent injury from micro-glass shards.",
+            "title": "7. Separate AMOLED Display Assembly & Aerospace Aluminum Frame",
+            "tool": "Curved Heated Separator • Plastic Pry Strip • Nitrile Cut Gloves",
+            "action": "Unscrew lower loud-speaker box, recover USB-C 100W sub-board and X-axis tactile haptic motor. Heat front assembly and gently slice OCA adhesive to harvest the 120Hz Curved AMOLED panel and 6063 aerospace aluminum unibody frame.",
+            "safety": "🧤 Aluminum frame and copper motor coils are 100% recyclable non-hazardous metallurgical scrap.",
             "layer_idx": 6
         }
     ]
@@ -94,13 +103,13 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 600) -> str:
     components = device_info.get("components", [])
     if not components:
         components = [
-            {"name": "Circular Halo Camera Ring & Vegan Leather Back", "material": "Polycarbonate + PU Vegan Leather + Gold Bezel", "specs": camera_specs, "weight_pct": 14.5, "hazardous": False, "recyclable": True, "value_usd": 7.50, "color": chassis_color, "layer": 1},
-            {"name": "Graphite Thermal Dissipation Sheet & NFC Loop", "material": "Pyrolytic Graphite + Pure Copper Induction Coil", "specs": "Thermal Dissipation Interface (13.56 MHz)", "weight_pct": 3.2, "hazardous": False, "recyclable": True, "value_usd": 1.20, "color": "#4A4A4A", "layer": 2},
-            {"name": "Logic Motherboard (SoC & 256GB Flash NAND)", "material": "High-Tg 10-Layer FR4 Glass Epoxy + 18k Gold Micro-Plating", "specs": f"{processor} | {ram} | {storage}", "weight_pct": 12.8, "hazardous": False, "recyclable": True, "value_usd": 16.50, "color": "#1B4332", "layer": 3},
-            {"name": "5000 mAh Li-Po Battery Pack", "material": "Lithium Cobalt Oxide (LiCoO2) + Graphite Anode", "specs": battery_specs, "weight_pct": 36.5, "hazardous": True, "recyclable": True, "value_usd": 3.80, "color": "#C0392B", "layer": 4},
-            {"name": "Die-Cast Aluminum Mid-Frame & Haptic Motor", "material": "6063 Aerospace Aluminum Alloy + Neodymium Magnet", "specs": "CNC Precision Core + Linear Tactile Engine", "weight_pct": 18.0, "hazardous": False, "recyclable": True, "value_usd": 2.80, "color": frame_color, "layer": 5},
-            {"name": "120Hz Curved AMOLED Display Substrate", "material": "Indium Tin Oxide (ITO) + Organic Light Emitting Polymers", "specs": "6.7\" Curved Matrix, 1.07 Billion Colors", "weight_pct": 9.0, "hazardous": False, "recyclable": True, "value_usd": 7.20, "color": "#1F618D", "layer": 6},
-            {"name": "Front Double-Reinforced Curved Cover Glass", "material": "Aluminosilicate Strengthened Glass (0.55mm)", "specs": "61° Curvature, Oleophobic Smudge-Proof Coating", "weight_pct": 6.0, "hazardous": False, "recyclable": True, "value_usd": 1.20, "color": "#2C3E50", "layer": 7}
+            {"name": "Vegan Leather Shell & Gold Halo Camera Ring", "material": "Polycarbonate + PU Vegan Leather + Titanium Gold Bezel", "specs": camera_specs, "weight_pct": 14.5, "hazardous": False, "recyclable": True, "value_usd": 7.50, "color": chassis_color, "layer": 1},
+            {"name": "Graphite Thermal Dissipation & NFC Coil", "material": "Pyrolytic Graphite Sheet + Pure Copper Induction Loop", "specs": "0.12mm Vapor Shield Interface (13.56 MHz)", "weight_pct": 3.2, "hazardous": False, "recyclable": True, "value_usd": 1.20, "color": "#333338", "layer": 2},
+            {"name": "16x Precision Screws & Antenna Shield Bracket", "material": "Austenitic Stainless Steel + Polycarbonate-ABS", "specs": "16x Phillips #00 (1.4mm & 1.8mm Torx)", "weight_pct": 2.8, "hazardous": False, "recyclable": True, "value_usd": 0.80, "color": "#7F8C8D", "layer": 3},
+            {"name": "Logic Motherboard (SoC + 256GB NAND + Cameras)", "material": "10-Layer FR4 Glass Epoxy + 18k Gold Micro-Plating", "specs": f"{processor} | {ram} | {storage}", "weight_pct": 12.8, "hazardous": False, "recyclable": True, "value_usd": 16.50, "color": "#1B4332", "layer": 4},
+            {"name": "5000 mAh Li-Po Battery Pack (100W Fast Charge)", "material": "Lithium Cobalt Oxide (LiCoO2) + Graphite Anode", "specs": battery_specs, "weight_pct": 36.5, "hazardous": True, "recyclable": True, "value_usd": 3.80, "color": "#C0392B", "layer": 5},
+            {"name": "Die-Cast Mid-Frame, USB-C & Haptic Engine", "material": "6063 Aerospace Aluminum Alloy + Neodymium Magnet", "specs": "CNC Precision Unibody Core + X-Axis Linear Motor", "weight_pct": 18.0, "hazardous": False, "recyclable": True, "value_usd": 2.80, "color": frame_color, "layer": 6},
+            {"name": "120Hz Curved AMOLED Display & Front Glass", "material": "Indium Tin Oxide (ITO) + Aluminosilicate Glass (0.55mm)", "specs": "6.7\" Curved Matrix, 1.07B Colors, 2160Hz PWM", "weight_pct": 12.2, "hazardous": False, "recyclable": True, "value_usd": 7.50, "color": "#1F618D", "layer": 7}
         ]
 
     comp_data = []
@@ -141,7 +150,7 @@ body {{
     width: 100%;
     height: {height}px;
     position: relative;
-    background: radial-gradient(circle at 50% 40%, #151821 0%, #08080a 85%);
+    background: radial-gradient(circle at 50% 35%, #161b26 0%, #08080c 85%);
 }}
 canvas {{ display: block; width: 100%; height: 100%; }}
 
@@ -149,151 +158,137 @@ canvas {{ display: block; width: 100%; height: 100%; }}
 #device-hud {{
     position: absolute;
     top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(15, 18, 25, 0.90);
-    border: 1px solid rgba(220, 20, 60, 0.45);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(220, 20, 60, 0.2);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    padding: 6px 18px;
+    left: 12px;
+    right: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 11px;
+    gap: 8px;
+    flex-wrap: wrap;
     z-index: 10;
-    max-width: 95%;
-    white-space: nowrap;
-    overflow-x: auto;
+    pointer-events: none;
 }}
 .hud-brand {{
     background: #DC143C;
     color: #fff;
+    font-size: 10.5px;
     font-weight: 800;
-    padding: 3px 10px;
-    border-radius: 12px;
-    letter-spacing: 0.5px;
-    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    font-family: 'Orbitron', sans-serif;
+    box-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
 }}
 .hud-title {{
-    font-weight: 700;
     color: #f1f1f1;
-    font-size: 12px;
-    letter-spacing: 0.3px;
+    font-size: 13px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }}
 .hud-pill {{
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #d1d5db;
-    padding: 2px 8px;
-    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    color: #ccc;
     font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 12px;
 }}
 .hud-pill-gold {{
     background: rgba(255, 215, 0, 0.15);
-    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-color: #FFD700;
     color: #FFD700;
+    font-weight: 700;
 }}
 
-/* Left Components Legend */
+/* Left Component Legend */
 #legend-panel {{
     position: absolute;
     top: 55px;
-    left: 10px;
-    background: rgba(12, 14, 20, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 14px;
-    padding: 10px;
-    font-size: 10px;
-    max-height: {height - 180}px;
-    width: 210px;
+    left: 12px;
+    background: rgba(12, 14, 20, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 8px 10px;
+    max-width: 230px;
+    max-height: {height - 130}px;
     overflow-y: auto;
-    z-index: 9;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
 }}
 #legend-panel h4 {{
+    font-size: 10.5px;
     color: #DC143C;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     margin-bottom: 6px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid rgba(220, 20, 60, 0.2);
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
 }}
 .legend-item {{
     display: flex;
     align-items: center;
     gap: 7px;
-    padding: 5px 6px;
-    margin: 2px 0;
+    padding: 4px 6px;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 10px;
+    color: #bbb;
     transition: all 0.2s;
+    margin-bottom: 2px;
 }}
-.legend-item:hover {{
-    background: rgba(255, 255, 255, 0.12);
+.legend-item:hover, .legend-item.active {{
+    background: rgba(220, 20, 60, 0.25);
+    color: #fff;
+    border-left: 2px solid #DC143C;
     transform: translateX(2px);
 }}
 .legend-dot {{
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-}}
-.legend-text {{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 10px;
 }}
 
-/* Floating Hologram Inspection Card */
+/* Right Floating Inspection HUD */
 #inspect-card {{
     position: absolute;
     top: 55px;
     right: 12px;
-    background: rgba(10, 12, 18, 0.90);
-    border: 1px solid rgba(220, 20, 60, 0.45);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(220, 20, 60, 0.2);
-    backdrop-filter: blur(14px);
-    border-radius: 14px;
-    padding: 14px;
-    width: 280px;
+    background: rgba(12, 14, 20, 0.92);
+    border: 1px solid rgba(220, 20, 60, 0.4);
+    box-shadow: 0 8px 32px rgba(220, 20, 60, 0.25);
+    border-radius: 12px;
+    padding: 12px 14px;
+    width: 250px;
     z-index: 10;
     display: none;
-    animation: fadeIn 0.3s ease-out;
+    backdrop-filter: blur(14px);
+    animation: fadeIn 0.2s ease-out;
 }}
 @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(-5px); }} to {{ opacity: 1; transform: translateY(0); }} }}
 #inspect-card h3 {{
     color: #DC143C;
-    font-size: 13px;
+    font-size: 12px;
     margin-bottom: 6px;
-    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
 }}
 .inspect-row {{
     display: flex;
     justify-content: space-between;
-    margin: 4px 0;
-    font-size: 10.5px;
-    color: #c9d1d9;
-    padding: 2px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 4px;
+    font-size: 10px;
 }}
-.inspect-label {{ color: #8b949e; }}
-.badge-danger {{ color: #ff4d4d; font-weight: bold; }}
-.badge-safe {{ color: #2ecc71; font-weight: bold; }}
+.inspect-label {{ color: #888; }}
 
-/* Physical Disassembly Step Banner (Bottom center) */
+/* Physical Disassembly Step Action Banner */
 #step-banner {{
     position: absolute;
-    bottom: 54px;
+    top: 55px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(10, 12, 18, 0.92);
-    border: 1px solid #FFD700;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.25);
+    background: rgba(15, 18, 25, 0.96);
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
     border-radius: 14px;
     padding: 10px 16px;
     width: 90%;
@@ -334,9 +329,9 @@ canvas {{ display: block; width: 100%; height: 100%; }}
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(12, 14, 20, 0.90);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+    background: rgba(12, 14, 20, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(12px);
     border-radius: 24px;
     padding: 5px 12px;
@@ -348,8 +343,8 @@ canvas {{ display: block; width: 100%; height: 100%; }}
     justify-content: center;
 }}
 .btn-ctrl {{
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     color: #f1f1f1;
     padding: 4px 10px;
     border-radius: 14px;
@@ -407,7 +402,7 @@ canvas {{ display: block; width: 100%; height: 100%; }}
 </head>
 <body>
 <div id="viewer-container">
-    <div id="loading-overlay">⚡ INITIALIZING 3D WEBGL ENGINE...</div>
+    <div id="loading-overlay">⚡ INITIALIZING ULTRA-REALISTIC 3D HARDWARE SIMULATOR...</div>
 
     <!-- Top Device HUD -->
     <div id="device-hud">
@@ -443,30 +438,34 @@ canvas {{ display: block; width: 100%; height: 100%; }}
             <span id="step-name">Step 1 of 7</span>
             <span id="step-count" style="color:#aaa;">Physical Teardown Manual</span>
         </div>
-        <div id="step-tools">🛠️ Tools: Heat Mat (75°C) • Suction Cup • Nylon Spudger</div>
+        <div id="step-tools">🛠️ Tools: Heat Mat (78°C) • Suction Clamp • SIM Pin</div>
         <div id="step-action">Step Instructions...</div>
         <div id="step-safety">⚠️ Safety Warning...</div>
     </div>
 
-    <!-- Bottom Controls Bar -->
+    <!-- Bottom Controls -->
     <div id="controls-bar">
-        <button class="btn-ctrl active" id="btn-assembled" onclick="setExplodeMode(false)">🔧 Assembled</button>
+        <button class="btn-ctrl active" id="btn-assembled" onclick="setExplodeMode(false)">🔒 Assembled</button>
         <button class="btn-ctrl" id="btn-exploded" onclick="setExplodeMode(true)">💥 Exploded</button>
-        <button class="btn-ctrl" id="btn-manual" onclick="toggleManualMode()">📖 Manual Teardown</button>
-        <button class="btn-ctrl" id="btn-prev-step" onclick="prevStep()" style="display:none;">⏮️ Prev</button>
-        <button class="btn-ctrl" id="btn-next-step" onclick="nextStep()" style="display:none;">Next ⏭️</button>
-        <button class="btn-ctrl" id="btn-xray" onclick="toggleXRay()">🩻 X-Ray</button>
-        <button class="btn-ctrl active" id="btn-spin" onclick="toggleAutoSpin()">🔄 Rotate</button>
+        
         <div class="slider-container">
             <span>Explode:</span>
             <input type="range" id="explode-slider" min="0" max="100" value="0" oninput="onSliderExplode(this.value)">
         </div>
-        <button class="btn-ctrl" onclick="reset3DView()">🎯 Reset</button>
+
+        <button class="btn-ctrl btn-ctrl-gold" id="btn-manual" onclick="toggleManualMode()">📖 Manual Teardown</button>
+        <button class="btn-ctrl" id="btn-prev-step" onclick="prevStep()" style="display:none;">⏮️ Prev</button>
+        <button class="btn-ctrl" id="btn-next-step" onclick="nextStep()" style="display:none;">Next ⏭️</button>
+
+        <button class="btn-ctrl active" id="btn-spin" onclick="toggleAutoSpin()">🔄 Rotate</button>
+        <button class="btn-ctrl" id="btn-xray" onclick="toggleXRay()">👁️ X-Ray</button>
+        <button class="btn-ctrl" id="btn-reset" onclick="reset3DView()">🎯 Center</button>
     </div>
 </div>
 
 <!-- Three.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 <script>
 const COMPONENTS = {comp_json};
 const MANUAL_STEPS = {manual_steps_json};
@@ -479,12 +478,12 @@ const COLOR_SCREEN = "{screen_color}";
 
 let scene, camera, renderer, rootGroup;
 let meshLayers = [];
+let targetExplodeRatio = 0.0;
+let currentExplodeRatio = 0.0;
 let isSpinning = true;
 let isXRay = false;
 let isManualMode = false;
 let currentManualStep = 0;
-let currentExplodeRatio = 0.0;
-let targetExplodeRatio = 0.0;
 let selectedMesh = null;
 let raycaster, mouse;
 
@@ -494,38 +493,42 @@ function init3D() {{
     const height = {height};
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x08080a);
+    scene.background = null;
 
-    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
     camera.position.set(3.8, 2.6, 5.0);
     camera.lookAt(0, 0, 0);
 
-    renderer = new THREE.WebGLRenderer({{ antialias: true, alpha: true }});
+    renderer = new THREE.WebGLRenderer({{ antialias: true, alpha: true, powerPreference: "high-performance" }});
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
-    // Dynamic Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // Advanced Studio Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.95);
-    dirLight1.position.set(6, 10, 8);
-    dirLight1.castShadow = true;
-    scene.add(dirLight1);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.1);
+    keyLight.position.set(7, 12, 9);
+    keyLight.castShadow = true;
+    scene.add(keyLight);
 
-    const dirLight2 = new THREE.DirectionalLight(0x406080, 0.5);
-    dirLight2.position.set(-6, -4, -6);
-    scene.add(dirLight2);
+    const rimLight = new THREE.DirectionalLight(0x4080ff, 0.6);
+    rimLight.position.set(-8, -4, -7);
+    scene.add(rimLight);
 
-    const spotAccent = new THREE.SpotLight(0xDC143C, 1.2, 20, Math.PI / 4, 0.5);
-    spotAccent.position.set(0, 7, 0);
-    scene.add(spotAccent);
+    const warmUnderLight = new THREE.DirectionalLight(0xffaa44, 0.35);
+    warmUnderLight.position.set(0, -8, 2);
+    scene.add(warmUnderLight);
+
+    const redAccent = new THREE.SpotLight(0xDC143C, 1.4, 25, Math.PI / 4, 0.5);
+    redAccent.position.set(0, 8, 0);
+    scene.add(redAccent);
 
     const grid = new THREE.GridHelper(12, 24, 0x222630, 0x111318);
-    grid.position.y = -1.8;
+    grid.position.y = -2.0;
     scene.add(grid);
 
     rootGroup = new THREE.Group();
@@ -534,7 +537,7 @@ function init3D() {{
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    buildRealisticDevice();
+    buildUltraRealisticDevice();
     buildLegend();
     setupMouseAndTouch(renderer.domElement);
 
@@ -542,12 +545,12 @@ function init3D() {{
     animate();
 }}
 
-/* Construct High-Fidelity Multi-Layer Smartphone Architecture */
-function buildRealisticDevice() {{
-    const phoneWidth = 2.0;
-    const phoneHeight = 4.2;
-    const layerSpacingAssembled = 0.045;
-    const layerSpacingExploded = 0.55;
+/* Construct Ultra-Realistic Multi-Layer Electronic Architecture with Micro-Parts */
+function buildUltraRealisticDevice() {{
+    const phoneWidth = 2.05;
+    const phoneHeight = 4.3;
+    const layerSpacingAssembled = 0.048;
+    const layerSpacingExploded = 0.58;
 
     const nLayers = COMPONENTS.length;
 
@@ -560,176 +563,297 @@ function buildRealisticDevice() {{
         const matColor = parseInt(comp.color.replace('#', '0x')) || 0x777777;
 
         if (comp.layer === 1) {{
-            // LAYER 1: BACK HOUSING & CAMERA MODULE
-            const backGeo = new THREE.BoxGeometry(phoneWidth, phoneHeight, 0.06);
+            // ═══ LAYER 1: BACK HOUSING & CAMERA MATRIX & VEGAN LEATHER ═══
+            const backGeo = new THREE.BoxGeometry(phoneWidth, phoneHeight, 0.055);
             const backMat = new THREE.MeshStandardMaterial({{
                 color: parseInt(COLOR_CHASSIS.replace('#', '0x')),
-                roughness: 0.65,
-                metalness: 0.1
+                roughness: 0.7,
+                metalness: 0.08
             }});
             primaryMesh = new THREE.Mesh(backGeo, backMat);
             layerGroup.add(primaryMesh);
 
-            // 3D Racing Seam Stripe (Realme 11 Pro Signature)
+            // 3D Racing Seam Stripe & Stitching
             if (HAS_RACING_STRIPE) {{
-                const stripeGeo = new THREE.BoxGeometry(0.08, phoneHeight + 0.01, 0.065);
+                const stripeGeo = new THREE.BoxGeometry(0.075, phoneHeight + 0.01, 0.062);
                 const stripeMat = new THREE.MeshStandardMaterial({{
                     color: parseInt(COLOR_ACCENT.replace('#', '0x')),
-                    metalness: 0.8,
-                    roughness: 0.3
+                    metalness: 0.85,
+                    roughness: 0.25
                 }});
                 const stripeMesh = new THREE.Mesh(stripeGeo, stripeMat);
                 layerGroup.add(stripeMesh);
+
+                // Detailed Stitch lines left & right
+                const stitchMat = new THREE.MeshBasicMaterial({{ color: 0x9e8354 }});
+                const sGeo = new THREE.BoxGeometry(0.012, phoneHeight, 0.063);
+                const s1 = new THREE.Mesh(sGeo, stitchMat); s1.position.x = -0.055; layerGroup.add(s1);
+                const s2 = new THREE.Mesh(sGeo, stitchMat); s2.position.x = 0.055; layerGroup.add(s2);
             }}
 
             if (CAMERA_TYPE === "circular_matrix") {{
-                // Iconic Circular Halo Ring (Realme / Oppo style)
-                const haloOuterGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.08, 36);
+                // Luxury Gold Bezel Halo Ring
+                const haloOuterGeo = new THREE.CylinderGeometry(0.58, 0.58, 0.075, 48);
                 const haloOuterMat = new THREE.MeshStandardMaterial({{
                     color: parseInt(COLOR_ACCENT.replace('#', '0x')),
-                    metalness: 0.9,
-                    roughness: 0.2
+                    metalness: 0.95,
+                    roughness: 0.18
                 }});
                 const haloMesh = new THREE.Mesh(haloOuterGeo, haloOuterMat);
                 haloMesh.rotation.x = Math.PI / 2;
-                haloMesh.position.set(0, 0.95, 0.06);
+                haloMesh.position.set(0, 0.95, 0.055);
                 layerGroup.add(haloMesh);
 
-                const discGeo = new THREE.CylinderGeometry(0.48, 0.48, 0.09, 36);
-                const discMat = new THREE.MeshStandardMaterial({{ color: 0x111115, roughness: 0.1, metalness: 0.9 }});
+                // Deep Obsidian Camera Glass Disc
+                const discGeo = new THREE.CylinderGeometry(0.51, 0.51, 0.085, 48);
+                const discMat = new THREE.MeshStandardMaterial({{ color: 0x0a0a0f, roughness: 0.05, metalness: 0.95 }});
                 const discMesh = new THREE.Mesh(discGeo, discMat);
                 discMesh.rotation.x = Math.PI / 2;
-                discMesh.position.set(0, 0.95, 0.065);
+                discMesh.position.set(0, 0.95, 0.06);
                 layerGroup.add(discMesh);
 
-                const lensGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.11, 24);
-                const lensMat = new THREE.MeshStandardMaterial({{ color: 0x0f3460, metalness: 0.8, roughness: 0.1 }});
+                // Primary 200MP OIS Lens with Sapphire Multi-Coating (deep optical blue)
+                const lensGeo = new THREE.CylinderGeometry(0.20, 0.20, 0.10, 32);
+                const lensMat = new THREE.MeshStandardMaterial({{ color: 0x09203f, metalness: 0.95, roughness: 0.05 }});
                 const lensMesh = new THREE.Mesh(lensGeo, lensMat);
                 lensMesh.rotation.x = Math.PI / 2;
                 lensMesh.position.set(0, 0.95, 0.07);
                 layerGroup.add(lensMesh);
 
-                const subLensGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.10, 16);
+                // Secondary 8MP Ultra-Wide & 2MP Macro Lenses
+                const subLensGeo = new THREE.CylinderGeometry(0.09, 0.09, 0.095, 20);
                 const sub1 = new THREE.Mesh(subLensGeo, lensMat);
                 sub1.rotation.x = Math.PI / 2;
-                sub1.position.set(-0.25, 0.95, 0.07);
+                sub1.position.set(-0.27, 0.95, 0.068);
                 layerGroup.add(sub1);
 
                 const sub2 = new THREE.Mesh(subLensGeo, lensMat);
                 sub2.rotation.x = Math.PI / 2;
-                sub2.position.set(0.25, 0.95, 0.07);
+                sub2.position.set(0.27, 0.95, 0.068);
                 layerGroup.add(sub2);
 
-                const flashGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.10, 16);
-                const flashMat = new THREE.MeshStandardMaterial({{ color: 0xFFF8DC, emissive: 0xFFE4B5, emissiveIntensity: 0.4 }});
+                // Dual-Tone LED Flash Ring
+                const flashGeo = new THREE.CylinderGeometry(0.065, 0.065, 0.092, 20);
+                const flashMat = new THREE.MeshStandardMaterial({{ color: 0xFFF5E1, emissive: 0xFFE082, emissiveIntensity: 0.7 }});
                 const flashMesh = new THREE.Mesh(flashGeo, flashMat);
                 flashMesh.rotation.x = Math.PI / 2;
-                flashMesh.position.set(0, 1.25, 0.07);
+                flashMesh.position.set(0, 1.28, 0.068);
                 layerGroup.add(flashMesh);
             }}
 
         }} else if (comp.layer === 2) {{
-            // LAYER 2: GRAPHITE THERMAL SHEET & NFC INDUCTION LOOP
-            const graphGeo = new THREE.BoxGeometry(phoneWidth * 0.85, phoneHeight * 0.85, 0.02);
-            const graphMat = new THREE.MeshStandardMaterial({{ color: 0x2b2b2b, roughness: 0.8, metalness: 0.3 }});
+            // ═══ LAYER 2: GRAPHITE THERMAL DISSIPATION & NFC LOOP & COPPER FOIL ═══
+            const graphGeo = new THREE.BoxGeometry(phoneWidth * 0.86, phoneHeight * 0.86, 0.018);
+            const graphMat = new THREE.MeshStandardMaterial({{ color: 0x222225, roughness: 0.85, metalness: 0.35 }});
             primaryMesh = new THREE.Mesh(graphGeo, graphMat);
             layerGroup.add(primaryMesh);
 
-            const coilGeo = new THREE.TorusGeometry(0.45, 0.03, 8, 32);
-            const coilMat = new THREE.MeshStandardMaterial({{ color: 0xB87333, metalness: 0.9, roughness: 0.2 }});
+            // Copper Vapor Chamber Foil
+            const cuFoilGeo = new THREE.BoxGeometry(phoneWidth * 0.65, phoneHeight * 0.38, 0.022);
+            const cuFoilMat = new THREE.MeshStandardMaterial({{ color: 0xB87333, metalness: 0.92, roughness: 0.25 }});
+            const cuFoil = new THREE.Mesh(cuFoilGeo, cuFoilMat);
+            cuFoil.position.set(0, 0.6, 0.005);
+            layerGroup.add(cuFoil);
+
+            // NFC Induction Coil Ring (Pure Electrified Copper)
+            const coilGeo = new THREE.TorusGeometry(0.48, 0.028, 12, 36);
+            const coilMat = new THREE.MeshStandardMaterial({{ color: 0xCD7F32, metalness: 0.95, roughness: 0.2 }});
             const coilMesh = new THREE.Mesh(coilGeo, coilMat);
-            coilMesh.position.set(0, 0, 0.015);
+            coilMesh.position.set(0, -0.15, 0.015);
             layerGroup.add(coilMesh);
 
         }} else if (comp.layer === 3) {{
-            // LAYER 3: LOGIC MOTHERBOARD (PCB) WITH SOC & NAND FLASH CHIPS
-            const pcbGeo = new THREE.BoxGeometry(phoneWidth * 0.88, phoneHeight * 0.48, 0.03);
-            const pcbMat = new THREE.MeshStandardMaterial({{ color: 0x1B4332, roughness: 0.4, metalness: 0.2 }});
+            // ═══ LAYER 3: 16x PRECISION SCREWS & MIDFRAME PERIMETER BRACKET ═══
+            const bracketGeo = new THREE.BoxGeometry(phoneWidth * 0.95, phoneHeight * 0.95, 0.022);
+            const bracketMat = new THREE.MeshStandardMaterial({{ color: 0x424949, metalness: 0.8, roughness: 0.3 }});
+            primaryMesh = new THREE.Mesh(bracketGeo, bracketMat);
+            layerGroup.add(primaryMesh);
+
+            // Procedural Screws across perimeter (16 Phillips #00 Screws)
+            const screwHeadGeo = new THREE.CylinderGeometry(0.045, 0.035, 0.035, 16);
+            const screwDriveGeo = new THREE.BoxGeometry(0.05, 0.012, 0.04);
+            const screwMat = new THREE.MeshStandardMaterial({{ color: 0xd5d8dc, metalness: 0.95, roughness: 0.15 }});
+            const driveMat = new THREE.MeshBasicMaterial({{ color: 0x1c2833 }});
+
+            const screwCoords = [
+                [-0.85, 1.85], [0.85, 1.85], [-0.85, -1.85], [0.85, -1.85],
+                [-0.85, 1.2], [0.85, 1.2], [-0.85, -1.2], [0.85, -1.2],
+                [-0.85, 0.4], [0.85, 0.4], [-0.85, -0.4], [0.85, -0.4],
+                [-0.35, 1.85], [0.35, 1.85], [-0.35, -1.85], [0.35, -1.85]
+            ];
+
+            screwCoords.forEach(pos => {{
+                const sGroup = new THREE.Group();
+                const sh = new THREE.Mesh(screwHeadGeo, screwMat);
+                sh.rotation.x = Math.PI / 2;
+                const sd = new THREE.Mesh(screwDriveGeo, driveMat);
+                sd.position.z = 0.015;
+                sGroup.add(sh);
+                sGroup.add(sd);
+                sGroup.position.set(pos[0], pos[1], 0.02);
+                layerGroup.add(sGroup);
+            }});
+
+        }} else if (comp.layer === 4) {{
+            // ═══ LAYER 4: LOGIC MOTHERBOARD (10-LAYER FR4 PCB + SOC + MEMORY + ICs + FPC) ═══
+            const pcbGeo = new THREE.BoxGeometry(phoneWidth * 0.90, phoneHeight * 0.48, 0.028);
+            const pcbMat = new THREE.MeshStandardMaterial({{ color: 0x145A32, roughness: 0.35, metalness: 0.25 }});
             primaryMesh = new THREE.Mesh(pcbGeo, pcbMat);
             primaryMesh.position.set(0, 0.95, 0);
             layerGroup.add(primaryMesh);
 
-            const socGeo = new THREE.BoxGeometry(0.42, 0.42, 0.04);
-            const socMat = new THREE.MeshStandardMaterial({{ color: 0x0d1117, metalness: 0.8, roughness: 0.3 }});
+            // Gold Solder Contact Traces (Real E-Waste Gold Yield)
+            const goldTraceMat = new THREE.MeshStandardMaterial({{ color: 0xFFD700, metalness: 0.98, roughness: 0.15 }});
+            for (let g = 0; g < 8; g++) {{
+                const gt = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.018, 0.032), goldTraceMat);
+                gt.position.set(-0.75 + g * 0.22, 0.65, 0.012);
+                layerGroup.add(gt);
+            }}
+
+            // Dimensity 7050 5G Application Processor (BGA Chip Package)
+            const socGeo = new THREE.BoxGeometry(0.44, 0.44, 0.038);
+            const socMat = new THREE.MeshStandardMaterial({{ color: 0x0b0e14, metalness: 0.88, roughness: 0.2 }});
             const socMesh = new THREE.Mesh(socGeo, socMat);
-            socMesh.position.set(-0.25, 0.95, 0.025);
+            socMesh.position.set(-0.25, 1.0, 0.025);
             layerGroup.add(socMesh);
 
-            const nandGeo = new THREE.BoxGeometry(0.38, 0.32, 0.035);
-            const nandMat = new THREE.MeshStandardMaterial({{ color: 0x161b22, metalness: 0.7, roughness: 0.4 }});
+            // 256GB UFS 3.1 NAND Flash Storage Chip
+            const nandGeo = new THREE.BoxGeometry(0.40, 0.34, 0.035);
+            const nandMat = new THREE.MeshStandardMaterial({{ color: 0x161c24, metalness: 0.85, roughness: 0.25 }});
             const nandMesh = new THREE.Mesh(nandGeo, nandMat);
-            nandMesh.position.set(0.28, 0.95, 0.025);
+            nandMesh.position.set(0.28, 1.0, 0.025);
             layerGroup.add(nandMesh);
 
-            const shieldGeo = new THREE.BoxGeometry(0.55, 0.35, 0.03);
-            const shieldMat = new THREE.MeshStandardMaterial({{ color: 0xd0d7de, metalness: 0.95, roughness: 0.2 }});
+            // Nickel-Silver RF EMI Shield Cans
+            const shieldGeo = new THREE.BoxGeometry(0.58, 0.38, 0.034);
+            const shieldMat = new THREE.MeshStandardMaterial({{ color: 0xEAEDED, metalness: 0.96, roughness: 0.12 }});
             const shieldMesh = new THREE.Mesh(shieldGeo, shieldMat);
-            shieldMesh.position.set(0, 0.5, 0.02);
+            shieldMesh.position.set(0, 0.52, 0.02);
             layerGroup.add(shieldMesh);
 
-        }} else if (comp.layer === 4) {{
-            // LAYER 4: 5000 mAh HIGH-DENSITY LI-PO BATTERY
-            const battGeo = new THREE.BoxGeometry(phoneWidth * 0.82, phoneHeight * 0.45, 0.07);
-            const battMat = new THREE.MeshStandardMaterial({{ color: 0xC0392B, roughness: 0.5, metalness: 0.2 }});
+            // Flexible Printed Circuit Ribbon (FPC Flex Interconnect Cable)
+            const fpcGeo = new THREE.BoxGeometry(0.22, 1.8, 0.015);
+            const fpcMat = new THREE.MeshStandardMaterial({{ color: 0xB7950B, metalness: 0.6, roughness: 0.35 }});
+            const fpcMesh = new THREE.Mesh(fpcGeo, fpcMat);
+            fpcMesh.position.set(0.68, -0.15, 0.018);
+            layerGroup.add(fpcMesh);
+
+            // SIM Card Slot Reader & Pinhole
+            const simSlotGeo = new THREE.BoxGeometry(0.38, 0.45, 0.03);
+            const simSlotMat = new THREE.MeshStandardMaterial({{ color: 0x95A5A6, metalness: 0.9 }});
+            const simSlot = new THREE.Mesh(simSlotGeo, simSlotMat);
+            simSlot.position.set(-0.65, 1.2, 0.02);
+            layerGroup.add(simSlot);
+
+        }} else if (comp.layer === 5) {{
+            // ═══ LAYER 5: 5000 mAh HIGH-DENSITY LI-PO BATTERY WITH PULL-TABS ═══
+            const battGeo = new THREE.BoxGeometry(phoneWidth * 0.82, phoneHeight * 0.46, 0.068);
+            const battMat = new THREE.MeshStandardMaterial({{ color: 0x922B21, roughness: 0.65, metalness: 0.15 }});
             primaryMesh = new THREE.Mesh(battGeo, battMat);
             primaryMesh.position.set(0, -0.65, 0);
             layerGroup.add(primaryMesh);
 
-            const warnGeo = new THREE.BoxGeometry(0.5, 0.2, 0.075);
-            const warnMat = new THREE.MeshStandardMaterial({{ color: 0xF39C12, roughness: 0.8 }});
+            // Battery Safety Certification Label (Lithium Warning)
+            const warnGeo = new THREE.BoxGeometry(0.65, 0.25, 0.072);
+            const warnMat = new THREE.MeshStandardMaterial({{ color: 0xF39C12, roughness: 0.7 }});
             const warnMesh = new THREE.Mesh(warnGeo, warnMat);
             warnMesh.position.set(0, -0.65, 0.005);
             layerGroup.add(warnMesh);
 
-        }} else if (comp.layer === 5) {{
-            // LAYER 5: ALUMINUM MID-FRAME CHASSIS
-            const frameGeo = new THREE.BoxGeometry(phoneWidth * 0.98, phoneHeight * 0.98, 0.06);
+            // Dual Battery Stretch Release Pull-Tabs (Orange/Green handles)
+            const tabGeo = new THREE.BoxGeometry(0.18, 0.09, 0.075);
+            const tabMat = new THREE.MeshStandardMaterial({{ color: 0x27AE60, roughness: 0.4 }});
+            const tab1 = new THREE.Mesh(tabGeo, tabMat); tab1.position.set(-0.35, -0.38, 0.01); layerGroup.add(tab1);
+            const tab2 = new THREE.Mesh(tabGeo, tabMat); tab2.position.set(0.35, -0.38, 0.01); layerGroup.add(tab2);
+
+            // Battery BMU Protection Circuit Flex
+            const bmuGeo = new THREE.BoxGeometry(0.45, 0.06, 0.04);
+            const bmuMat = new THREE.MeshStandardMaterial({{ color: 0x1B4F72, metalness: 0.8 }});
+            const bmu = new THREE.Mesh(bmuGeo, bmuMat);
+            bmu.position.set(0, -0.39, 0.02);
+            layerGroup.add(bmu);
+
+        }} else if (comp.layer === 6) {{
+            // ═══ LAYER 6: 6063 AEROSPACE ALUMINUM MID-FRAME & HAPTIC MOTOR & USB-C ═══
+            const frameGeo = new THREE.BoxGeometry(phoneWidth * 0.98, phoneHeight * 0.98, 0.058);
             const frameMat = new THREE.MeshStandardMaterial({{
                 color: parseInt(COLOR_FRAME.replace('#', '0x')),
-                metalness: 0.85,
-                roughness: 0.25
+                metalness: 0.88,
+                roughness: 0.22
             }});
             primaryMesh = new THREE.Mesh(frameGeo, frameMat);
             layerGroup.add(primaryMesh);
 
-            const usbcGeo = new THREE.BoxGeometry(0.3, 0.06, 0.08);
-            const usbcMat = new THREE.MeshStandardMaterial({{ color: 0x111111, metalness: 0.9 }});
+            // Antenna Plastic Isolation Bands on perimeter
+            const bandMat = new THREE.MeshBasicMaterial({{ color: 0x2C3E50 }});
+            const bGeo = new THREE.BoxGeometry(0.04, 0.08, 0.065);
+            const b1 = new THREE.Mesh(bGeo, bandMat); b1.position.set(-phoneWidth*0.49, 1.4, 0); layerGroup.add(b1);
+            const b2 = new THREE.Mesh(bGeo, bandMat); b2.position.set(phoneWidth*0.49, 1.4, 0); layerGroup.add(b2);
+            const b3 = new THREE.Mesh(bGeo, bandMat); b3.position.set(-phoneWidth*0.49, -1.4, 0); layerGroup.add(b3);
+            const b4 = new THREE.Mesh(bGeo, bandMat); b4.position.set(phoneWidth*0.49, -1.4, 0); layerGroup.add(b4);
+
+            // USB-C 100W Fast Charge Connector Port
+            const usbcGeo = new THREE.BoxGeometry(0.32, 0.08, 0.075);
+            const usbcMat = new THREE.MeshStandardMaterial({{ color: 0x17202A, metalness: 0.95 }});
             const usbcMesh = new THREE.Mesh(usbcGeo, usbcMat);
-            usbcMesh.position.set(0, -phoneHeight * 0.48, 0);
+            usbcMesh.position.set(0, -phoneHeight * 0.485, 0);
             layerGroup.add(usbcMesh);
 
-        }} else if (comp.layer === 6) {{
-            // LAYER 6: 120Hz CURVED AMOLED DISPLAY SUBSTRATE
-            const dispGeo = new THREE.BoxGeometry(phoneWidth * 0.94, phoneHeight * 0.94, 0.03);
+            // X-Axis Linear Tactile Vibration Motor (Haptic Engine)
+            const motorGeo = new THREE.CylinderGeometry(0.14, 0.14, 0.06, 24);
+            const motorMat = new THREE.MeshStandardMaterial({{ color: 0xBDC3C7, metalness: 0.92, roughness: 0.2 }});
+            const motorMesh = new THREE.Mesh(motorGeo, motorMat);
+            motorMesh.rotation.x = Math.PI / 2;
+            motorMesh.position.set(-0.55, -1.65, 0.02);
+            layerGroup.add(motorMesh);
+
+            // Speaker Acoustic Resonator Chamber
+            const spkGeo = new THREE.BoxGeometry(0.65, 0.28, 0.045);
+            const spkMat = new THREE.MeshStandardMaterial({{ color: 0x2C3E50, roughness: 0.8 }});
+            const spk = new THREE.Mesh(spkGeo, spkMat);
+            spk.position.set(0.35, -1.65, 0.015);
+            layerGroup.add(spk);
+
+        }} else {{
+            // ═══ LAYER 7: 120Hz CURVED AMOLED DISPLAY & FRONT ALUMINOSILICATE GLASS ═══
+            const dispGeo = new THREE.BoxGeometry(phoneWidth * 0.96, phoneHeight * 0.96, 0.026);
             const dispMat = new THREE.MeshStandardMaterial({{
                 color: parseInt(COLOR_SCREEN.replace('#', '0x')),
-                roughness: 0.1,
-                metalness: 0.6,
+                roughness: 0.08,
+                metalness: 0.7,
                 emissive: 0x051329,
-                emissiveIntensity: 0.3
+                emissiveIntensity: 0.35
             }});
             primaryMesh = new THREE.Mesh(dispGeo, dispMat);
             layerGroup.add(primaryMesh);
 
-        }} else {{
-            // LAYER 7: FRONT CURVED TOUGHENED GLASS WITH PUNCH HOLE
-            const glassGeo = new THREE.BoxGeometry(phoneWidth * 0.98, phoneHeight * 0.98, 0.025);
+            // Front Aluminosilicate Glass Cover (Ultra-glossy transparent)
+            const glassGeo = new THREE.BoxGeometry(phoneWidth * 0.98, phoneHeight * 0.98, 0.02);
             const glassMat = new THREE.MeshStandardMaterial({{
                 color: 0x000000,
-                roughness: 0.05,
-                metalness: 0.9,
+                roughness: 0.03,
+                metalness: 0.95,
                 transparent: true,
-                opacity: 0.75
+                opacity: 0.65
             }});
-            primaryMesh = new THREE.Mesh(glassGeo, glassMat);
-            layerGroup.add(primaryMesh);
+            const glassMesh = new THREE.Mesh(glassGeo, glassMat);
+            glassMesh.position.set(0, 0, 0.012);
+            layerGroup.add(glassMesh);
 
-            const holeGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.03, 16);
-            const holeMat = new THREE.MeshStandardMaterial({{ color: 0x0a1128, metalness: 0.9, roughness: 0.1 }});
+            // Punch-Hole Selfie Camera Lens
+            const holeGeo = new THREE.CylinderGeometry(0.045, 0.045, 0.032, 20);
+            const holeMat = new THREE.MeshStandardMaterial({{ color: 0x071120, metalness: 0.95, roughness: 0.05 }});
             const holeMesh = new THREE.Mesh(holeGeo, holeMat);
             holeMesh.rotation.x = Math.PI / 2;
-            holeMesh.position.set(0, 1.8, 0.015);
+            holeMesh.position.set(0, 1.85, 0.022);
             layerGroup.add(holeMesh);
+
+            // Earpiece Speaker Grille Slot
+            const earGeo = new THREE.BoxGeometry(0.35, 0.02, 0.03);
+            const earMat = new THREE.MeshBasicMaterial({{ color: 0x111115 }});
+            const ear = new THREE.Mesh(earGeo, earMat);
+            ear.position.set(0, 2.05, 0.022);
+            layerGroup.add(ear);
         }}
 
         if (primaryMesh) {{
@@ -750,28 +874,29 @@ function buildRealisticDevice() {{
 /* Construct Left Component Legend */
 function buildLegend() {{
     const list = document.getElementById('legend-list');
-    let html = '';
+    list.innerHTML = '';
     COMPONENTS.forEach((comp, idx) => {{
-        const hazIcon = comp.hazardous ? ' ⚠️' : '';
-        html += `<div class="legend-item" onclick="selectComponentByIndex(${{idx}})">
+        const item = document.createElement('div');
+        item.className = 'legend-item';
+        item.innerHTML = `
             <div class="legend-dot" style="background:${{comp.color}};"></div>
-            <span class="legend-text">${{comp.name}}${{hazIcon}}</span>
-        </div>`;
+            <span>${{comp.name}}</span>
+        `;
+        item.onclick = () => selectComponentByIndex(idx);
+        list.appendChild(item);
     }});
-    list.innerHTML = html;
 }}
 
-/* Interactive Raycast Selection */
+/* Interactive Raycasting Selection */
 function selectComponent(mesh) {{
     if (!mesh || !mesh.userData) return;
     selectedMesh = mesh;
-    const data = mesh.userData;
 
     meshLayers.forEach(m => {{
         if (m === mesh) {{
             m.material.emissive = new THREE.Color(0xDC143C);
             m.material.emissiveIntensity = 0.5;
-            m.scale.set(1.06, 1.06, 1.06);
+            m.scale.set(1.04, 1.04, 1.04);
         }} else {{
             m.material.emissive = new THREE.Color(0x000000);
             m.material.emissiveIntensity = 0;
@@ -779,21 +904,18 @@ function selectComponent(mesh) {{
         }}
     }});
 
+    const data = mesh.userData;
     document.getElementById('card-title').textContent = data.name;
     document.getElementById('card-mat').textContent = data.material;
-    document.getElementById('card-spec').textContent = data.specs || 'Standard Spec';
-    document.getElementById('card-weight').textContent = data.weight_pct + '% of device';
-    document.getElementById('card-val').textContent = '$' + data.value_usd.toFixed(2);
-    
-    const hazEl = document.getElementById('card-haz');
-    hazEl.textContent = data.hazardous ? '🔴 HAZARDOUS (Requires PPE)' : '🟢 Safe Component';
-    hazEl.className = data.hazardous ? 'badge-danger' : 'badge-safe';
-
-    const recEl = document.getElementById('card-rec');
-    recEl.textContent = data.recyclable ? '♻️ 100% Recyclable' : '❌ Non-Recyclable';
-    recEl.className = data.recyclable ? 'badge-safe' : 'badge-danger';
-
+    document.getElementById('card-spec').textContent = data.specs || 'Standard Part';
+    document.getElementById('card-weight').textContent = `${{data.weight_pct}}% of total`;
+    document.getElementById('card-val').textContent = `$${{data.value_usd.toFixed(2)}} USD`;
+    document.getElementById('card-haz').innerHTML = data.hazardous ? '<span style="color:#FF4500;">⚠️ HAZARDOUS</span>' : '<span style="color:#00FF7F;">Safe</span>';
+    document.getElementById('card-rec').innerHTML = data.recyclable ? '<span style="color:#00FF7F;">✅ 100% Recyclable</span>' : 'Non-Recyclable';
     document.getElementById('inspect-card').style.display = 'block';
+
+    const items = document.querySelectorAll('.legend-item');
+    items.forEach((it, i) => it.classList.toggle('active', i === data.index));
 }}
 
 function selectComponentByIndex(idx) {{
@@ -846,7 +968,7 @@ function toggleXRay() {{
     meshLayers.forEach(m => {{
         m.material.wireframe = isXRay;
         m.material.transparent = true;
-        m.material.opacity = isXRay ? 0.35 : (m.userData.layer === 7 ? 0.75 : 1.0);
+        m.material.opacity = isXRay ? 0.35 : (m.userData.layer === 7 ? 0.65 : 1.0);
     }});
 }}
 
@@ -884,16 +1006,16 @@ function showManualStep(stepIdx) {{
     // Animate target layer forward to show manual removal
     meshLayers.forEach((m, idx) => {{
         if (idx === stepData.layer_idx) {{
-            m.userData.targetManualZ = m.userData.assembledZ + 1.4;
+            m.userData.targetManualZ = m.userData.assembledZ + 1.45;
             m.material.emissive = new THREE.Color(0xFFD700);
-            m.material.emissiveIntensity = 0.6;
+            m.material.emissiveIntensity = 0.65;
         }} else if (idx < stepData.layer_idx) {{
-            // Already disassembled parts float away
-            m.userData.targetManualZ = m.userData.assembledZ + 2.2;
+            // Already disassembled parts float away smoothly
+            m.userData.targetManualZ = m.userData.assembledZ + 2.3;
             m.material.emissive = new THREE.Color(0x000000);
             m.material.emissiveIntensity = 0;
         }} else {{
-            // Remaining assembled parts stay in place
+            // Remaining assembled parts stay in core position
             m.userData.targetManualZ = m.userData.assembledZ;
             m.material.emissive = new THREE.Color(0x000000);
             m.material.emissiveIntensity = 0;

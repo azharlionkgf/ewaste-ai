@@ -1,23 +1,30 @@
 """
-🌐 Internationalization (i18n) & Localization Engine
-===================================================
-Supports multi-language UI, currency conversion with uncertainty,
-and regional measurement conventions.
+🌐 Internationalization (i18n), Multi-Country & Global Localization Engine
+=============================================================================
+Supports worldwide languages, currencies, and country regulations so users from
+ANY country and speaking ANY language can use the E-Waste Intelligence platform seamlessly.
 """
 
 from datetime import datetime
 from typing import Dict, Any, Tuple
 
-# Supported languages
+# Supported Global Languages
 SUPPORTED_LANGUAGES = {
-    'en': 'English',
-    'hi': 'हिन्दी (Hindi)',
-    'es': 'Español (Spanish)',
-    'fr': 'Français (French)',
-    'de': 'Deutsch (German)'
+    'en': 'English 🇬🇧/🇺🇸',
+    'hi': 'हिन्दी (Hindi) 🇮🇳',
+    'ur': 'اردو (Urdu) 🇵🇰',
+    'ar': 'العربية (Arabic) 🇦🇪/🇸🇦',
+    'es': 'Español (Spanish) 🇪🇸/🇲🇽',
+    'fr': 'Français (French) 🇫🇷',
+    'de': 'Deutsch (German) 🇩🇪',
+    'zh': '中文 (Chinese Simplified) 🇨🇳',
+    'ja': '日本語 (Japanese) 🇯🇵',
+    'ru': 'Русский (Russian) 🇷🇺',
+    'pt': 'Português (Portuguese) 🇧🇷/🇵🇹',
+    'bn': 'বাংলা (Bengali) 🇧🇩/🇮🇳'
 }
 
-# Translation Dictionaries
+# Translation Dictionaries across 12 Worldwide Languages
 TRANSLATIONS = {
     'en': {
         'app_title': 'E-WASTE INTELLIGENCE SYSTEM',
@@ -42,6 +49,7 @@ TRANSLATIONS = {
         'environmental_savings': 'Environmental Savings',
         'currency': 'Currency',
         'language': 'Language',
+        'country': 'Country / Region',
         'disclaimer_title': 'Scientific & Regulatory Notice',
         'disclaimer_text': 'Material values and environmental metrics are engineering estimates based on life-cycle analysis models. Actual recovery yield varies with extraction technology and market fluctuations.'
     },
@@ -68,8 +76,63 @@ TRANSLATIONS = {
         'environmental_savings': 'पर्यावरणीय बचत',
         'currency': 'मुद्रा',
         'language': 'भाषा',
+        'country': 'देश / क्षेत्र',
         'disclaimer_title': 'वैज्ञानिक एवं विनियामक सूचना',
-        'disclaimer_text': 'सामग्री मूल्य और पर्यावरणीय आंकड़े जीवन चक्र विश्लेषण मॉडल पर आधारित अनुमान हैं। वास्तविक पुनर्प्राप्ति निष्कर्षण तकनीक और बाजार की कीमतों पर निर्भर करती है।'
+        'disclaimer_text': 'सामग्री मूल्य और पर्यावरणीय आंकड़े जीवन चक्र विश्लेषण मॉडल पर आधारित अनुमान हैं।'
+    },
+    'ur': {
+        'app_title': 'ای ویسٹ انٹیلی جنس سسٹم',
+        'subtitle': 'مصنوعی ذہانت پر مبنی الیکٹرانک فضلے کی شناخت اور تھری ڈی ری سائیکلنگ پلیٹ فارم',
+        'dashboard': 'ڈیش بورڈ',
+        'image_classify': 'تصویری شناخت',
+        'chatbot': 'اے آئی چیٹ باٹ',
+        'lab3d': '3D ای ویسٹ لیب',
+        'form_classify': 'فارم درجہ بندی',
+        'upload_data': 'ڈیٹا سیٹ اپ لوڈ',
+        'smart_analyzer': 'سمارٹ تجزیہ کار',
+        'recovery_advisor': 'ری سائیکلنگ مشیر',
+        'environmental_impact': 'ماحولیاتی اثرات',
+        'my_history': 'تاریخچہ',
+        'about': 'ہمارے متعلق',
+        'select_device': 'ڈیوائس کی قسم منتخب کریں',
+        'recovery_value': 'تخمینہ شدہ بازیافت قیمت',
+        'hazardous': 'خطرناک جزو',
+        'safe': 'محفوظ استعمال',
+        'recycling_steps': 'تجویز کردہ ری سائیکلنگ مراحل',
+        'safety_warnings': 'حفاظتی تدابیر اور انتباہ',
+        'environmental_savings': 'ماحولیاتی بچت',
+        'currency': 'کرنسی',
+        'language': 'زبان',
+        'country': 'ملک / خطہ',
+        'disclaimer_title': 'سائنسی و قانونی اطلاع',
+        'disclaimer_text': 'مواد کی قیمتیں اور ماحولیاتی تخمینے لائف سائیکل اینالیسس پر مبنی ہیں۔'
+    },
+    'ar': {
+        'app_title': 'نظام الذكاء الاصطناعي للنفايات الإلكترونية',
+        'subtitle': 'منصة عالمية للتصنيف وإعادة التدوير ونماذج ثلاثية الأبعاد بالذكاء الاصطناعي',
+        'dashboard': 'لوحة القيادة',
+        'image_classify': 'تصنيف الصور',
+        'chatbot': 'المساعد الذكي',
+        'lab3d': 'مختبر النفايات ثلاثي الأبعاد',
+        'form_classify': 'تصنيف النموذج',
+        'upload_data': 'رفع البيانات',
+        'smart_analyzer': 'المحلل الذكي',
+        'recovery_advisor': 'مستشار الاسترداد',
+        'environmental_impact': 'الأثر البيئي',
+        'my_history': 'السجل',
+        'about': 'حول النظام',
+        'select_device': 'اختر فئة الجهاز',
+        'recovery_value': 'القيمة التقديرية للاسترداد',
+        'hazardous': 'عنصر خطير',
+        'safe': 'آمن للتعامل',
+        'recycling_steps': 'خطوات إعادة التدوير الموصى بها',
+        'safety_warnings': 'احتياطات السلامة وإيقاف العمل',
+        'environmental_savings': 'الوفورات البيئية',
+        'currency': 'العملة',
+        'language': 'اللغة',
+        'country': 'الدولة / المنطقة',
+        'disclaimer_title': 'إشعار علمي وقانوني',
+        'disclaimer_text': 'قيم المواد والمؤشرات البيئية هي تقديرات هندسية مبنية على نماذج دورة الحياة.'
     },
     'es': {
         'app_title': 'SISTEMA DE INTELIGENCIA DE RESIDUOS ELECTRÓNICOS',
@@ -94,6 +157,7 @@ TRANSLATIONS = {
         'environmental_savings': 'Ahorro Ambiental',
         'currency': 'Moneda',
         'language': 'Idioma',
+        'country': 'País / Región',
         'disclaimer_title': 'Aviso Científico y Regulatorio',
         'disclaimer_text': 'Los valores de materiales son estimaciones de ingeniería basadas en análisis de ciclo de vida.'
     },
@@ -120,6 +184,7 @@ TRANSLATIONS = {
         'environmental_savings': 'Bénéfices Environnementaux',
         'currency': 'Devise',
         'language': 'Langue',
+        'country': 'Pays / Région',
         'disclaimer_title': 'Avis Scientifique et Réglementaire',
         'disclaimer_text': 'Les valeurs de valorisation sont des estimations d\'ingénierie.'
     },
@@ -146,25 +211,188 @@ TRANSLATIONS = {
         'environmental_savings': 'Umwelteinsparungen',
         'currency': 'Währung',
         'language': 'Sprache',
+        'country': 'Land / Region',
         'disclaimer_title': 'Wissenschaftlicher Hinweis',
         'disclaimer_text': 'Rückgewinnungswerte basieren auf standardisierten Lebenszyklusanalysen.'
+    },
+    'zh': {
+        'app_title': '电子垃圾智能循环系统',
+        'subtitle': '人工智能电子废弃物识别、回收利用与3D精密拆解平台',
+        'dashboard': '仪表板',
+        'image_classify': '图像智能识别',
+        'chatbot': 'AI智能助手',
+        'lab3d': '3D拆解实验室',
+        'form_classify': '参数分类',
+        'upload_data': '数据上传',
+        'smart_analyzer': '智能分析器',
+        'recovery_advisor': '回收建议顾问',
+        'environmental_impact': '环境效益评估',
+        'my_history': '历史记录',
+        'about': '关于平台',
+        'select_device': '选择设备类别',
+        'recovery_value': '预估回收价值',
+        'hazardous': '危险废弃组件',
+        'safe': '安全可处理',
+        'recycling_steps': '推荐拆解回收步骤',
+        'safety_warnings': '安全警示与停工指引',
+        'environmental_savings': '环保节约指标',
+        'currency': '货币单位',
+        'language': '选择语言',
+        'country': '国家 / 地区',
+        'disclaimer_title': '科学与法规声明',
+        'disclaimer_text': '材料回收价值和环境影响指标基于全生命周期评估模型。'
+    },
+    'ja': {
+        'app_title': '電子機器廃棄物インテリジェンスシステム',
+        'subtitle': 'AIによるE-Waste自動識別・貴金属回収・高精度3D解体プラットフォーム',
+        'dashboard': 'ダッシュボード',
+        'image_classify': '画像AI診断',
+        'chatbot': 'AIチャットボット',
+        'lab3d': '3D解体ラボ',
+        'form_classify': '仕様分類',
+        'upload_data': 'データアップロード',
+        'smart_analyzer': 'スマート解析',
+        'recovery_advisor': 'リサイクル助言',
+        'environmental_impact': '環境負荷削減効果',
+        'my_history': '履歴',
+        'about': '概要',
+        'select_device': '機器カテゴリ選択',
+        'recovery_value': '推定回収価値',
+        'hazardous': '有害危険成分',
+        'safe': '安全取扱い可能',
+        'recycling_steps': '推奨分解・リサイクル手順',
+        'safety_warnings': '安全注意事項・作業停止基準',
+        'environmental_savings': 'CO2・省資源効果',
+        'currency': '通貨',
+        'language': '言語',
+        'country': '国 / 地域',
+        'disclaimer_title': '科学的・法規的通知',
+        'disclaimer_text': '回収価値と環境指標はライフサイクルアセスメントに基づく工学的推計値です。'
+    },
+    'ru': {
+        'app_title': 'ИНТЕЛЛЕКТУАЛЬНАЯ СИСТЕМА ЭЛЕКТРОННЫХ ОТХОДОВ',
+        'subtitle': 'ИИ-платформа классификации, переработки и 3D-демонтажа электронных устройств',
+        'dashboard': 'Панель управления',
+        'image_classify': 'Классификация по фото',
+        'chatbot': 'ИИ-чат-бот',
+        'lab3d': '3D Лаборатория демонтажа',
+        'form_classify': 'Классификация по форме',
+        'upload_data': 'Загрузка датасета',
+        'smart_analyzer': 'Умный анализатор',
+        'recovery_advisor': 'Советник по утилизации',
+        'environmental_impact': 'Экологический эффект',
+        'my_history': 'История',
+        'about': 'О проекте',
+        'select_device': 'Выберите категорию устройства',
+        'recovery_value': 'Расчетная стоимость утилизации',
+        'hazardous': 'Опасный компонент',
+        'safe': 'Безопасно для работы',
+        'recycling_steps': 'Шаги безопасной переработки',
+        'safety_warnings': 'Техника безопасности и запреты',
+        'environmental_savings': 'Экологическая экономия',
+        'currency': 'Валюта',
+        'language': 'Язык',
+        'country': 'Страна / Регион',
+        'disclaimer_title': 'Научное и нормативное уведомление',
+        'disclaimer_text': 'Оценка стоимости и экологические показатели рассчитаны на основе моделей жизненного цикла.'
+    },
+    'pt': {
+        'app_title': 'SISTEMA DE INTELIGÊNCIA EM LIXO ELETRÔNICO',
+        'subtitle': 'Plataforma IA de classificação, reciclagem e desmontagem 3D de precisão',
+        'dashboard': 'Painel Geral',
+        'image_classify': 'Classificar Imagem',
+        'chatbot': 'Chatbot IA',
+        'lab3d': 'Laboratório 3D',
+        'form_classify': 'Formulário',
+        'upload_data': 'Carregar Dados',
+        'smart_analyzer': 'Analisador Inteligente',
+        'recovery_advisor': 'Consultor de Reciclagem',
+        'environmental_impact': 'Impacto Ambiental',
+        'my_history': 'Histórico',
+        'about': 'Sobre',
+        'select_device': 'Selecionar Dispositivo',
+        'recovery_value': 'Valor Estimado de Recuperação',
+        'hazardous': 'Componente Perigoso',
+        'safe': 'Manuseio Seguro',
+        'recycling_steps': 'Passos de Reciclagem Recomendados',
+        'safety_warnings': 'Precauções de Segurança',
+        'environmental_savings': 'Economia Ambiental',
+        'currency': 'Moeda',
+        'language': 'Idioma',
+        'country': 'País / Região',
+        'disclaimer_title': 'Aviso Científico e Regulatório',
+        'disclaimer_text': 'Os valores de recuperação e métricas ambientais são estimativas de engenharia.'
+    },
+    'bn': {
+        'app_title': 'ই-বর্জ্য ইন্টেলিজেন্স সিস্টেম',
+        'subtitle': 'কৃত্রিম বুদ্ধিমত্তা চালিত ই-বর্জ্য শনাক্তকরণ, উপাদান পুনরুদ্ধার এবং ৩ডি ডিসঅ্যাসেম্বলি প্ল্যাটফর্ম',
+        'dashboard': 'ড্যাশবোর্ড',
+        'image_classify': 'ছবি শনাক্তকরণ',
+        'chatbot': 'এআই চ্যাটবট',
+        'lab3d': '৩ডি ই-বর্জ্য ল্যাব',
+        'form_classify': 'ফর্ম শ্রেণিবিভাগ',
+        'upload_data': 'ডেটা আপলোড',
+        'smart_analyzer': 'স্মার্ট অ্যানালাইজার',
+        'recovery_advisor': 'রিসাইক্লিং উপদেষ্টা',
+        'environmental_impact': 'পরিবেশগত প্রভাব',
+        'my_history': 'ইতিহাস',
+        'about': 'পরিচিতি',
+        'select_device': 'ডিভাইস নির্বাচন করুন',
+        'recovery_value': 'আনুমানিক পুনরুদ্ধার মূল্য',
+        'hazardous': 'বিপজ্জনক উপাদান',
+        'safe': 'নিরাপদ হ্যান্ডলিং',
+        'recycling_steps': 'প্রস্তাবিত রিসাইক্লিং পদক্ষেপ',
+        'safety_warnings': 'নিরাপত্তা সতর্কতা',
+        'environmental_savings': 'পরিবেশগত সাশ্রয়',
+        'currency': 'মুদ্রা',
+        'language': 'ভাষা',
+        'country': 'দেশ / অঞ্চল',
+        'disclaimer_title': 'বিজ্ঞপ্তি',
+        'disclaimer_text': 'উপাদান মূল্য এবং পরিবেশগত মেট্রিক্স বৈজ্ঞানিক জীবনচক্র মডেল ভিত্তিক।'
     }
 }
 
 # Configurable Currency Rates relative to USD (Base: USD = 1.0)
-# Updated benchmark reference with explicit attribution & source
 CURRENCY_RATES = {
-    'USD': {'symbol': '$', 'rate': 1.00, 'name': 'US Dollar'},
-    'INR': {'symbol': '₹', 'rate': 86.50, 'name': 'Indian Rupee'},
-    'EUR': {'symbol': '€', 'rate': 0.92, 'name': 'Euro'},
-    'GBP': {'symbol': '£', 'rate': 0.78, 'name': 'British Pound'},
-    'JPY': {'symbol': '¥', 'rate': 152.00, 'name': 'Japanese Yen'}
+    'USD': {'symbol': '$', 'rate': 1.00, 'name': 'US Dollar (USA)'},
+    'INR': {'symbol': '₹', 'rate': 86.50, 'name': 'Indian Rupee (India)'},
+    'PKR': {'symbol': '₨', 'rate': 278.50, 'name': 'Pakistani Rupee (Pakistan)'},
+    'EUR': {'symbol': '€', 'rate': 0.92, 'name': 'Euro (European Union)'},
+    'GBP': {'symbol': '£', 'rate': 0.78, 'name': 'British Pound (UK)'},
+    'AED': {'symbol': 'د.إ', 'rate': 3.67, 'name': 'UAE Dirham (UAE)'},
+    'SAR': {'symbol': '﷼', 'rate': 3.75, 'name': 'Saudi Riyal (Saudi Arabia)'},
+    'JPY': {'symbol': '¥', 'rate': 152.00, 'name': 'Japanese Yen (Japan)'},
+    'CNY': {'symbol': '¥', 'rate': 7.24, 'name': 'Chinese Yuan (China)'},
+    'RUB': {'symbol': '₽', 'rate': 96.00, 'name': 'Russian Ruble (Russia)'},
+    'BRL': {'symbol': 'R$', 'rate': 5.70, 'name': 'Brazilian Real (Brazil)'},
+    'BDT': {'symbol': '৳', 'rate': 120.00, 'name': 'Bangladeshi Taka (Bangladesh)'},
+    'CAD': {'symbol': 'C$', 'rate': 1.38, 'name': 'Canadian Dollar (Canada)'},
+    'AUD': {'symbol': 'A$', 'rate': 1.52, 'name': 'Australian Dollar (Australia)'}
+}
+
+# Supported Countries with Auto-Language and Auto-Currency mappings
+GLOBAL_COUNTRIES = {
+    'India': {'code': 'IN', 'flag': '🇮🇳', 'default_lang': 'hi', 'default_curr': 'INR', 'region': 'South Asia'},
+    'United States': {'code': 'US', 'flag': '🇺🇸', 'default_lang': 'en', 'default_curr': 'USD', 'region': 'North America'},
+    'United Kingdom': {'code': 'GB', 'flag': '🇬🇧', 'default_lang': 'en', 'default_curr': 'GBP', 'region': 'Europe'},
+    'European Union (Germany/France/Spain)': {'code': 'EU', 'flag': '🇪🇺', 'default_lang': 'de', 'default_curr': 'EUR', 'region': 'Europe'},
+    'United Arab Emirates (UAE)': {'code': 'AE', 'flag': '🇦🇪', 'default_lang': 'ar', 'default_curr': 'AED', 'region': 'Middle East'},
+    'Saudi Arabia': {'code': 'SA', 'flag': '🇸🇦', 'default_lang': 'ar', 'default_curr': 'SAR', 'region': 'Middle East'},
+    'Pakistan': {'code': 'PK', 'flag': '🇵🇰', 'default_lang': 'ur', 'default_curr': 'PKR', 'region': 'South Asia'},
+    'Bangladesh': {'code': 'BD', 'flag': '🇧🇩', 'default_lang': 'bn', 'default_curr': 'BDT', 'region': 'South Asia'},
+    'China': {'code': 'CN', 'flag': '🇨🇳', 'default_lang': 'zh', 'default_curr': 'CNY', 'region': 'East Asia'},
+    'Japan': {'code': 'JP', 'flag': '🇯🇵', 'default_lang': 'ja', 'default_curr': 'JPY', 'region': 'East Asia'},
+    'Russia': {'code': 'RU', 'flag': '🇷🇺', 'default_lang': 'ru', 'default_curr': 'RUB', 'region': 'Eurasia'},
+    'Brazil': {'code': 'BR', 'flag': '🇧🇷', 'default_lang': 'pt', 'default_curr': 'BRL', 'region': 'South America'},
+    'Canada': {'code': 'CA', 'flag': '🇨🇦', 'default_lang': 'en', 'default_curr': 'CAD', 'region': 'North America'},
+    'Australia': {'code': 'AU', 'flag': '🇦🇺', 'default_lang': 'en', 'default_curr': 'AUD', 'region': 'Oceania'},
+    'Global / Other': {'code': 'GL', 'flag': '🌐', 'default_lang': 'en', 'default_curr': 'USD', 'region': 'International'}
 }
 
 EXCHANGE_RATE_METADATA = {
-    'provider': 'Central Benchmark Reference Rates',
+    'provider': 'Central Benchmark International Reference Rates',
     'benchmark_date': 'October 2026',
-    'status': 'Verified Offline Baseline'
+    'status': 'Verified Global Offline Baseline'
 }
 
 def get_text(key: str, lang: str = 'en') -> str:

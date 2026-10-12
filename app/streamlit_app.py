@@ -48,13 +48,14 @@ CATEGORIES = ['Mobile Phones','Laptops','Desktop Computers','Tablets','Monitors/
 
 # ═══ Internationalization & Safety Compliance ═══
 try:
-    from src.i18n import get_text, convert_currency, format_recovery_range, SUPPORTED_LANGUAGES, CURRENCY_RATES, EXCHANGE_RATE_METADATA
+    from src.i18n import get_text, convert_currency, format_recovery_range, SUPPORTED_LANGUAGES, CURRENCY_RATES, GLOBAL_COUNTRIES, EXCHANGE_RATE_METADATA
     from src.safety_compliance import get_hazard_protocol, get_regulatory_framework, HAZARD_PROTOCOLS, GLOBAL_REGULATIONS
     I18N_LOADED = True
 except:
     I18N_LOADED = False
     SUPPORTED_LANGUAGES = {'en': 'English'}
     CURRENCY_RATES = {'USD': {'symbol': '$', 'rate': 1.0}}
+    GLOBAL_COUNTRIES = {'India': {'default_lang': 'hi', 'default_curr': 'INR'}}
     def get_text(k, l='en'): return k
     def convert_currency(amt, c='USD'): return amt, '$', f"${amt:,.2f} USD"
     def format_recovery_range(amt, c='USD', u=20.0): return f"${amt:,.2f}"
@@ -665,21 +666,41 @@ with st.sidebar:
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
         
         # ── GLOBAL LOCALIZATION SETTINGS ──
-        st.markdown("#### 🌐 REGIONAL SETTINGS")
+        st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
+        if 'app_jurisdiction' not in st.session_state: st.session_state.app_jurisdiction = 'India'
         if 'app_lang' not in st.session_state: st.session_state.app_lang = 'en'
         if 'app_curr' not in st.session_state: st.session_state.app_curr = 'USD'
-        if 'app_jurisdiction' not in st.session_state: st.session_state.app_jurisdiction = 'India'
+
+        # Country / Jurisdiction Selector
+        country_list = list(GLOBAL_COUNTRIES.keys())
+        curr_country = st.session_state.app_jurisdiction
+        if curr_country not in country_list: curr_country = 'India'
+        sel_country = st.selectbox(
+            "🌍 Country / Region",
+            country_list,
+            index=country_list.index(curr_country),
+            key="sidebar_country_select"
+        )
+        if sel_country != st.session_state.app_jurisdiction:
+            st.session_state.app_jurisdiction = sel_country
+            c_meta = GLOBAL_COUNTRIES.get(sel_country, {})
+            # Auto-align language and currency if available
+            if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
+                st.session_state.app_lang = c_meta['default_lang']
+            if c_meta.get('default_curr') in CURRENCY_RATES:
+                st.session_state.app_curr = c_meta['default_curr']
+            st.rerun()
 
         c_lang, c_curr = st.columns(2)
         with c_lang:
             lang_opts = list(SUPPORTED_LANGUAGES.keys())
-            sel_lang = st.selectbox("Language", lang_opts, format_func=lambda x: SUPPORTED_LANGUAGES[x], index=lang_opts.index(st.session_state.app_lang), key="sidebar_lang_select")
+            sel_lang = st.selectbox("Language", lang_opts, format_func=lambda x: SUPPORTED_LANGUAGES[x], index=lang_opts.index(st.session_state.app_lang) if st.session_state.app_lang in lang_opts else 0, key="sidebar_lang_select")
             if sel_lang != st.session_state.app_lang:
                 st.session_state.app_lang = sel_lang
                 st.rerun()
         with c_curr:
             curr_opts = list(CURRENCY_RATES.keys())
-            sel_curr = st.selectbox("Currency", curr_opts, index=curr_opts.index(st.session_state.app_curr), key="sidebar_curr_select")
+            sel_curr = st.selectbox("Currency", curr_opts, index=curr_opts.index(st.session_state.app_curr) if st.session_state.app_curr in curr_opts else 0, key="sidebar_curr_select")
             if sel_curr != st.session_state.app_curr:
                 st.session_state.app_curr = sel_curr
                 st.rerun()
@@ -1021,6 +1042,10 @@ elif page_id == "chatbot":
                 "⚠️ Wear ESD wristband and heat-resistant nitrile gloves during teardown."
             ])])
 
+            curr_code = st.session_state.get('app_curr', 'USD')
+            converted_scrap, sym, scrap_formatted = convert_currency(scrap_val, curr_code)
+            converted_resale, _, resale_formatted = convert_currency(deep_specs.get('secondary_market_value_usd', 165.0), curr_code)
+
             bot_reply = f"""### 🎯 Astra-GPT Multimodal Device Intelligence Report
 
 **🔬 Hardware Identification:**
@@ -1044,8 +1069,8 @@ elif page_id == "chatbot":
 ---
 
 ### 💰 Economic & Scrap Valuation:
-- 💵 **Estimated Raw Scrap Yield:** **${scrap_val:.2f} USD (₹{inr_val:,.0f} INR)**
-- 🏷️ **Secondary Refurbished Resale:** **${deep_specs.get('secondary_market_value_usd', 165.0):.2f} USD**
+- 💵 **Estimated Raw Scrap Yield:** **{scrap_formatted} (${scrap_val:.2f} USD)**
+- 🏷️ **Secondary Refurbished Resale:** **{resale_formatted}**
 - 🔧 **Repairability Index:** **{deep_specs.get('repairability_score', 7.5)}/10**
 
 ---
