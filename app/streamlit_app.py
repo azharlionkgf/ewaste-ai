@@ -46,6 +46,16 @@ except:
         def generate_expert_ai_response(*args, **kwargs): return "E-Waste AI Assistant ready!"
         FLAGSHIP_CATALOG = {}
 
+try:
+    from src.centers_engine import get_nearest_recovery_centers, book_doorstep_pickup, RECYCLING_CENTERS_DB
+except:
+    try:
+        from centers_engine import get_nearest_recovery_centers, book_doorstep_pickup, RECYCLING_CENTERS_DB
+    except:
+        def get_nearest_recovery_centers(*args, **kwargs): return []
+        def book_doorstep_pickup(*args, **kwargs): return {}
+        RECYCLING_CENTERS_DB = []
+
 ADMIN_PASS_HASH = hashlib.sha256("admin@ewaste2025".encode()).hexdigest()
 CATEGORIES = ['Mobile Phones','Laptops','Desktop Computers','Tablets','Monitors/Displays','Televisions','Printers','Batteries','PCBs/Circuit Boards','Cables & Wires','Small Appliances','Large Appliances','Lighting Equipment','Audio/Video Equipment','Networking Equipment']
 
@@ -757,6 +767,14 @@ def chatbot_respond(query):
 # ═══════════════════════════════════════════
 for k, v in {'logged_in':True, 'role':'user', 'chat_messages':[], 'chatbot_device':None, 'app_jurisdiction':'India', 'app_lang':'en', 'app_curr':'USD'}.items():
     if k not in st.session_state: st.session_state[k] = v
+if 'user_profile' not in st.session_state:
+    st.session_state.user_profile = {
+        'name': 'Azhar Mulla',
+        'phone': '+91 98765 43210',
+        'country': 'India',
+        'city': 'Bengaluru',
+        'address': 'Koramangala 4th Block, Bengaluru, Karnataka - 560034'
+    }
 if not st.session_state.chat_messages:
     st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Namaste! I'm your E-Waste AI Assistant.**\n\n📸 **Upload Photos** or 🎬 **Videos** of e-waste items!\n🔍 Identify devices | 💰 Material values | ♻️ Recovery steps\n⚠️ Safety tips | 🌍 Eco impact | 📍 Find recyclers\n\n**Upload a file or type your question below!**"}]
 
@@ -784,6 +802,26 @@ with st.sidebar:
         st.markdown(f'<div style="text-align:center;color:#DC143C;font-family:Orbitron;font-size:.8rem;letter-spacing:2px;">{ri} {rn} MODE</div>', unsafe_allow_html=True)
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
+        # ── USER PROFILE & LOCATION WIDGET ──
+        u_p = st.session_state.user_profile
+        with st.expander(f"📍 Location: {u_p.get('city','Bengaluru')}, {u_p.get('country','India')}", expanded=False):
+            st.markdown("<p style='font-size:0.8rem;color:#aaa;margin-bottom:6px;'>Set your details to get nearby recovery centers & doorstep pickups:</p>", unsafe_allow_html=True)
+            new_p_name = st.text_input("👤 Your Full Name", value=u_p.get('name',''), key="sb_prof_name")
+            new_p_phone = st.text_input("📱 Phone Number", value=u_p.get('phone',''), key="sb_prof_phone")
+            new_p_country = st.selectbox("🌍 Country", ["India", "United States", "United Kingdom", "United Arab Emirates", "Germany", "Canada", "Australia", "Singapore"], index=0, key="sb_prof_country")
+            new_p_city = st.text_input("🏙️ City / District", value=u_p.get('city','Bengaluru'), key="sb_prof_city")
+            new_p_addr = st.text_input("📍 Street / Area / Pincode", value=u_p.get('address','Koramangala'), key="sb_prof_addr")
+            if st.button("💾 Save Location & Profile", key="btn_save_user_profile_sb", use_container_width=True):
+                st.session_state.user_profile = {
+                    'name': new_p_name.strip() or 'User',
+                    'phone': new_p_phone.strip() or '+91 98765 43210',
+                    'country': new_p_country,
+                    'city': new_p_city.strip() or 'Bengaluru',
+                    'address': new_p_addr.strip() or 'Local Address'
+                }
+                st.success("✅ Profile Updated!")
+                st.rerun()
+
         if st.session_state.role == "admin":
             pages = {
                 "🏠 Dashboard": "home",
@@ -793,7 +831,6 @@ with st.sidebar:
                 "📍 Recycling Centers": "centers",
                 "⚠️ Safety & Hazards": "safety",
                 "📜 Green Certificate": "certificate",
-                "🔍 Form Classify": "classify",
                 "📤 Dataset Upload": "upload_data",
                 "📋 Smart Analyzer": "analyzer",
                 "📊 EDA Explorer": "eda",
@@ -814,7 +851,6 @@ with st.sidebar:
                 "📍 Recycling Centers": "centers",
                 "⚠️ Safety & Hazards": "safety",
                 "📜 Green Certificate": "certificate",
-                "🔍 Form Classify": "classify",
                 "📤 Dataset Upload": "upload_data",
                 "📋 Smart Analyzer": "analyzer",
                 "♻️ Recovery Advisor": "recovery",
@@ -1119,6 +1155,62 @@ elif page_id == "image":
                     ]
                     for m in msgs:
                         st.markdown(f'<div class="chat-bot"><div class="chat-icon">🤖</div><div class="glass-card chat-msg" style="border-left:3px solid #DC143C;">{m}</div></div>', unsafe_allow_html=True)
+
+                    # ── INTERACTIVE 3D COMPONENT MODEL FOR CLASSIFIED DEVICE ──
+                    st.markdown('<div class="section-header">🎨 INTERACTIVE 3D HARDWARE MODEL & EXPLODED ANATOMY</div>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="color:#888;font-size:.85rem;text-align:center;">🖱️ Rotate 360° • Zoom • Toggle Exploded/Assembled Slider • Step-by-Step Teardown Manual for <b>{final_cat}</b></p>', unsafe_allow_html=True)
+                    try:
+                        dev_3d_info = get_device_info(final_cat) if KNOWLEDGE_LOADED else {}
+                        if not dev_3d_info: dev_3d_info = {"category": final_cat}
+                        dev_3d_info["category"] = final_cat
+                        dev_3d_info["model"] = f"{final_cat} (Uploaded Hardware)"
+                        viewer_3d_html = generate_3d_viewer(dev_3d_info, height=560)
+                        import streamlit.components.v1 as stc
+                        stc.html(viewer_3d_html, height=580, scrolling=False)
+                    except Exception as ex_3d:
+                        st.warning(f"3D viewer: {ex_3d}")
+
+                    # ── NEAREST CERTIFIED RECOVERY CENTERS & DOORSTEP PICKUP ──
+                    u_prof = st.session_state.get('user_profile', {})
+                    u_name = u_prof.get('name', 'Azhar Mulla')
+                    u_city = u_prof.get('city', 'Bengaluru')
+                    u_country = u_prof.get('country', 'India')
+                    u_addr = u_prof.get('address', 'Koramangala 4th Block')
+
+                    st.markdown(f'<div class="section-header">📍 NEAREST CERTIFIED RECOVERY CENTERS FOR {u_name.upper()} IN {u_city.upper()}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="color:#888;font-size:0.85rem;">Showing certified e-waste facilities accepting <b>{final_cat}</b> nearest to your registered address: <code>{u_addr} ({u_city}, {u_country})</code></p>', unsafe_allow_html=True)
+
+                    nearby_hubs = get_nearest_recovery_centers(user_city=u_city, user_country=u_country, device_category=final_cat)
+                    if nearby_hubs:
+                        for idx, hub in enumerate(nearby_hubs[:3]):
+                            dist_str = f"📍 {hub.get('distance_km', 2.5)} km away" if 'distance_km' in hub else "📍 Nearby Hub"
+                            st.markdown(f'''<div class="glass-card" style="margin:10px 0;padding:16px;border-left:4px solid #00FF7F;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                                    <h4 style="color:#00FF7F;margin:0;">🏢 {hub['name']}</h4>
+                                    <span class="tag" style="background:rgba(0,255,127,0.15);color:#00FF7F;font-weight:bold;">{dist_str}</span>
+                                </div>
+                                <p style="margin:6px 0;color:#ccc;font-size:0.85rem;">📍 <strong>Address:</strong> {hub['address']}</p>
+                                <p style="margin:4px 0;color:#aaa;font-size:0.85rem;">📞 <strong>Helpline:</strong> <span style="color:#FFD700;">{hub.get('toll_free', hub.get('phone','1800-103-6328'))}</span> • {hub['phone']}</p>
+                                <p style="margin:4px 0;color:#888;font-size:0.8rem;">📜 <strong>Certification:</strong> {hub.get('cert', 'CPCB Certified')} • ✅ Free Doorstep Pickup Fleet</p>
+                            </div>''', unsafe_allow_html=True)
+
+                            c_pk1, c_pk2 = st.columns([1, 2])
+                            with c_pk1:
+                                if st.button(f"🚚 Request Free Doorstep Pickup", key=f"btn_pickup_img_{idx}_{hub.get('id', idx)}", use_container_width=True):
+                                    slip = book_doorstep_pickup(u_prof, final_cat, hub['name'])
+                                    st.success(f"✅ Doorstep Pickup Booked! Booking ID: **{slip['booking_id']}**")
+                                    st.markdown(f'''<div class="glass-card" style="border:1px dashed #00FF7F;padding:14px;margin-top:8px;">
+                                        <div style="color:#00FF7F;font-weight:bold;font-size:1rem;">📋 CONFIRMED E-WASTE PICKUP SLIP</div>
+                                        <div style="font-size:0.85rem;color:#ddd;margin-top:6px;line-height:1.6;">
+                                            • <b>Booking Tracking ID:</b> <code>{slip['booking_id']}</code><br>
+                                            • <b>Item Category:</b> {slip['category']}<br>
+                                            • <b>Assigned Facility:</b> {slip['center_name']}<br>
+                                            • <b>Donor Name:</b> {slip['user_name']} ({slip['phone']})<br>
+                                            • <b>Doorstep Address:</b> {slip['address']}, {slip['city']}<br>
+                                            • <b>Estimated Pickup Window:</b> {slip['eta']} (EV Collection Van)<br>
+                                            • <b>Helpline:</b> {slip['toll_free']}
+                                        </div>
+                                    </div>''', unsafe_allow_html=True)
     else:
         st.markdown('''<div class="glass-card" style="text-align:center;padding:60px;">
             <div style="font-size:4rem;margin-bottom:15px;">📸</div>
@@ -1319,56 +1411,8 @@ elif page_id == "chatbot":
 
 
 elif page_id == "classify":
-    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🔍 FORM CLASSIFICATION</h1>', unsafe_allow_html=True)
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-    model_key, model_label = model_selector()
-
-    with st.form("classify_form"):
-        st.markdown('<div class="section-header">📋 DEVICE DETAILS</div>', unsafe_allow_html=True)
-        fc1,fc2,fc3 = st.columns(3)
-        with fc1:
-            weight = st.number_input("Weight (kg)", 0.01, 200.0, 1.0)
-            length = st.number_input("Length (cm)", 1.0, 300.0, 30.0)
-            width = st.number_input("Width (cm)", 1.0, 200.0, 20.0)
-            height = st.number_input("Height (cm)", 0.1, 200.0, 10.0)
-            condition = st.slider("Condition (1-10)", 1, 10, 5)
-        with fc2:
-            plastic = st.slider("Plastic %", 0, 100, 30)
-            metal = st.slider("Metal %", 0, 100, 40)
-            glass = st.slider("Glass %", 0, 100, 10)
-            pcb = st.slider("PCB %", 0, 100, 15)
-            age = st.number_input("Age (years)", 0, 30, 5)
-        with fc3:
-            gold = st.number_input("Gold (mg)", 0.0, 500.0, 20.0)
-            silver = st.number_input("Silver (mg)", 0.0, 2000.0, 200.0)
-            copper = st.number_input("Copper (g)", 0.0, 500.0, 50.0)
-            power = st.number_input("Power (watts)", 0.0, 3000.0, 50.0)
-            has_screen = st.checkbox("Has Screen?", True)
-            has_battery = st.checkbox("Has Battery?", True)
-
-        submitted = st.form_submit_button("⚡ CLASSIFY", use_container_width=True)
-        if submitted:
-            features = {'weight_kg':weight,'length_cm':length,'width_cm':width,'height_cm':height,
-                'plastic_pct':plastic,'metal_pct':metal,'glass_pct':glass,'pcb_pct':pcb,
-                'ceramic_pct':max(0,100-plastic-metal-glass-pcb),'gold_mg':gold,'silver_mg':silver,'copper_g':copper,
-                'power_consumption_watts':power,'age_years':age,'condition_score':condition,'repair_count':1,
-                'battery_health_pct':60 if has_battery else -1,'screen_size_inch':length*0.4 if has_screen else -1,
-                'storage_capacity_gb':128,'manufacturing_year':2025-age,'original_price_usd':weight*200,
-                'component_count':int(pcb*5),'connector_count':int(pcb*0.5)+2,
-                'functional_status':'working' if condition>6 else 'partial' if condition>3 else 'non_functional',
-                'damage_level':'none' if condition>7 else 'minor' if condition>5 else 'moderate' if condition>3 else 'severe',
-                'energy_rating':'A','brand_tier':'mid_range','country_of_origin':'China',
-                'lead_present':0,'mercury_present':0,'cadmium_present':0,'chromium_present':0,'bfr_present':0,
-                'battery_present':1 if has_battery else 0,'screen_present':1 if has_screen else 0,
-                'data_storage_present':1,'platinum_mg':2,'rare_earth_g':2,'palladium_mg':10,'_category':'Mobile Phones'}
-            cat, conf = classify_with_model(features, model_key)
-            st.markdown(f'''<div class="result-box"><div style="color:#888;letter-spacing:3px;font-size:.9rem;">🤖 {model_label}</div>
-                <div class="glow-title" style="font-size:2.2rem;margin:10px 0;">{cat}</div>
-                <div style="color:#aaa;">Confidence: <span style="color:#00FF7F;font-weight:700;">{conf*100:.1f}%</span></div></div>''', unsafe_allow_html=True)
-            rec, env = get_recovery_info(cat)
-            if rec:
-                save_classification(st.session_state.role,"form",cat,conf,rec['estimated_value_usd'],rec['recovery_method'],env.get('co2_saved_kg',0),"Form input")
-                show_recovery_cards(rec, env, cat)
+    st.session_state.current_page = "📸 Image Classify"
+    st.rerun()
 
 # ═══ RECOVERY ADVISOR ═══
 elif page_id == "recovery":
@@ -2431,33 +2475,67 @@ elif page_id == "lab3d":
 # ═══ RECYCLING CENTERS DIRECTORY ═══
 elif page_id == "centers":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📍 AUTHORIZED RECYCLING CENTERS</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Certified E-Waste Collection Hubs • Producer Take-Back Centers • Nationwide Directories</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Certified E-Waste Collection Hubs • Producer Take-Back Centers • Proximity-Based Logistics</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    city_filter = st.selectbox("🏙️ Filter by City / Region:", ["All India", "Bengaluru", "Mumbai", "Delhi NCR", "Hyderabad", "Chennai", "Kolkata", "Pune"])
-    
-    centers_data = [
-        {"name": "Attero Recycling Pvt Ltd", "city": "All India", "type": "CPCB Certified R2 Facility", "contact": "1800-103-6328", "address": "Integrated Industrial Estate, Haridwar / Hubs across 28 states", "accepts": "All Electronics, Li-ion Batteries, PCBs"},
-        {"name": "E-Parisaraa Pvt Ltd", "city": "Bengaluru", "type": "India's 1st Scientific Recycler", "contact": "080-2836-3323", "address": "Dobaspet Industrial Area, Bengaluru, Karnataka", "accepts": "Computers, Telecom, High-Grade PCBs"},
-        {"name": "Cerebra Integrated Technologies", "city": "Bengaluru", "type": "Automated Dismantling Hub", "contact": "080-2211-3444", "address": "Narasapura Industrial Area, Kolar / Bengaluru", "accepts": "Servers, Laptops, Mobile Devices"},
-        {"name": "Eco Recycling Ltd (Ecoreco)", "city": "Mumbai", "type": "BSE Listed Official Recycler", "contact": "022-4005-2951", "address": "The Summit Business Bay, Andheri East, Mumbai", "accepts": "Corporate IT, Home Appliances"},
-        {"name": "Greenscape Eco Management", "city": "Delhi NCR", "type": "Authorized Multi-stream Recycler", "contact": "011-4100-5020", "address": "Alwar & Okhla Phase II, New Delhi", "accepts": "Batteries, Large Appliances, Displays"},
-        {"name": "Re Sustainability (Ramky E-Waste)", "city": "Hyderabad", "type": "Integrated Environmental Park", "contact": "040-2301-5000", "address": "Dundigal Waste Management Facility, Hyderabad", "accepts": "Industrial Electronics, Solar Inverters"},
-        {"name": "TES-AMM India Pvt Ltd", "city": "Chennai", "type": "Global ITAD & Precious Metals Refiner", "contact": "044-4286-5500", "address": "SIPCOT Industrial Complex, Sriperumbudur, Tamil Nadu", "accepts": "High-Grade Server Boards, Mobile Phones"},
-        {"name": "Hulladek Recycling", "city": "Kolkata", "type": "Eastern India Authorized Partner", "contact": "1800-212-4632", "address": "Park Street & Howrah Processing Zone, Kolkata", "accepts": "Consumer E-Waste, Small Appliances"}
-    ]
-    
-    for c in centers_data:
-        if city_filter == "All India" or c["city"] == city_filter or c["city"] == "All India":
-            st.markdown(f'''<div class="glass-card" style="margin:12px 0;padding:20px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
-                    <h3 style="color:#DC143C;margin:0;">🏢 {c["name"]}</h3>
-                    <span class="tag">{c["type"]}</span>
-                </div>
-                <p style="margin:8px 0;color:#ccc;">📍 <strong>Location:</strong> {c["address"]} ({c["city"]})</p>
-                <p style="margin:4px 0;color:#aaa;">📞 <strong>Helpline / Contact:</strong> <span style="color:#00FF7F;">{c["contact"]}</span></p>
-                <p style="margin:4px 0;color:#888;font-size:0.85rem;">📦 <strong>Accepted Categories:</strong> {c["accepts"]}</p>
-            </div>''', unsafe_allow_html=True)
+    u_prof = st.session_state.get('user_profile', {})
+    u_name = u_prof.get('name', 'Azhar Mulla')
+    u_phone = u_prof.get('phone', '+91 98765 43210')
+    u_city = u_prof.get('city', 'Bengaluru')
+    u_country = u_prof.get('country', 'India')
+    u_addr = u_prof.get('address', 'Koramangala 4th Block')
+
+    # Top Location Banner with quick edit
+    st.markdown(f'''<div class="glass-card" style="border-left:4px solid #00FF7F;padding:16px;margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+            <div>
+                <span style="color:#00FF7F;font-weight:bold;font-size:1.1rem;">📍 Active Recycler Location: {u_city}, {u_country}</span><br>
+                <span style="color:#aaa;font-size:0.85rem;">Registered to <b>{u_name}</b> ({u_phone}) • {u_addr}</span>
+            </div>
+            <span class="tag" style="background:rgba(0,255,127,0.15);color:#00FF7F;font-weight:bold;">✅ Location Verified</span>
+        </div>
+    </div>''', unsafe_allow_html=True)
+
+    c_flt1, c_flt2 = st.columns([2, 1])
+    with c_flt1:
+        city_options = ["All India", "Bengaluru", "Mumbai", "Delhi NCR", "Hyderabad", "Chennai", "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Lucknow", "Kochi", "San Jose", "London", "Dubai"]
+        default_idx = city_options.index(u_city) if u_city in city_options else 1
+        active_city = st.selectbox("🏙️ Filter / Switch City:", city_options, index=default_idx, key="rc_city_picker")
+    with c_flt2:
+        cat_filter = st.selectbox("📦 Filter by Device Type:", ["All Electronics"] + CATEGORIES, key="rc_cat_picker")
+
+    nearby_list = get_nearest_recovery_centers(user_city=active_city if active_city != "All India" else u_city, user_country=u_country)
+    st.markdown(f"### 🏢 Found **{len(nearby_list)}** Certified E-Waste Facilities in your proximity:")
+
+    for idx, c in enumerate(nearby_list):
+        dist_badge = f"📍 {c.get('distance_km', 2.5)} km away" if 'distance_km' in c else "📍 Regional Center"
+        st.markdown(f'''<div class="glass-card" style="margin:12px 0;padding:20px;border-left:4px solid #DC143C;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                <h3 style="color:#DC143C;margin:0;">🏢 {c["name"]}</h3>
+                <span class="tag" style="background:rgba(220,20,60,0.2);color:#ff3355;font-weight:bold;">{dist_badge}</span>
+            </div>
+            <p style="margin:8px 0;color:#ccc;">📍 <strong>Address:</strong> {c["address"]} ({c["city"]}, {c.get("country","India")})</p>
+            <p style="margin:4px 0;color:#aaa;">📞 <strong>Toll-Free Helpline:</strong> <span style="color:#00FF7F;font-weight:bold;">{c.get("toll_free", c["phone"])}</span> • Direct: {c["phone"]}</p>
+            <p style="margin:4px 0;color:#888;font-size:0.85rem;">📦 <strong>Accepted Categories:</strong> {c["accepts"]}</p>
+            <p style="margin:4px 0;color:#FFD700;font-size:0.85rem;">📜 <strong>Certification:</strong> {c.get("cert", "CPCB Certified")}</p>
+        </div>''', unsafe_allow_html=True)
+
+        col_b1, col_b2 = st.columns([1, 2])
+        with col_b1:
+            if st.button(f"🚚 Book Doorstep Pickup", key=f"btn_pickup_centers_{idx}_{c.get('id', idx)}", use_container_width=True):
+                slip = book_doorstep_pickup(u_prof, cat_filter if cat_filter != "All Electronics" else "Mixed E-Waste", c["name"])
+                st.success(f"✅ Pickup Dispatched! Booking ID: **{slip['booking_id']}**")
+                st.markdown(f'''<div class="glass-card" style="border:1px dashed #00FF7F;padding:14px;margin-top:8px;">
+                    <div style="color:#00FF7F;font-weight:bold;">📋 CONFIRMED E-WASTE DOORSTEP PICKUP RECEIPT</div>
+                    <div style="font-size:0.85rem;color:#ddd;margin-top:6px;line-height:1.6;">
+                        • <b>Booking Tracking ID:</b> <code>{slip['booking_id']}</code><br>
+                        • <b>Collector Facility:</b> {slip['center_name']}<br>
+                        • <b>Donor Name:</b> {slip['user_name']} ({slip['phone']})<br>
+                        • <b>Doorstep Address:</b> {slip['address']}, {slip['city']}<br>
+                        • <b>ETA:</b> {slip['eta']} (EV Collection Van)<br>
+                        • <b>Toll-Free Support:</b> {slip['toll_free']}
+                    </div>
+                </div>''', unsafe_allow_html=True)
 
 
 # ═══ SAFETY & HAZARDS STOP-WORK HUB ═══

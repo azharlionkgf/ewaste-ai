@@ -360,6 +360,106 @@ DEVICE_KNOWLEDGE = {
         "environmental_impact": {"co2_saved_kg": 45, "water_saved_liters": 1800, "energy_saved_kwh": 110, "toxic_prevented_kg": 0.35},
         "repairability_score": 4, "repair_difficulty": "Certified Biomedical Engineer Only",
         "3d_shape": "desktop"
+    },
+    "Monitors/Displays": {
+        "category": "Monitors/Displays", "icon": "🖥️",
+        "brands": ["Dell UltraSharp", "LG UltraGear", "Samsung Odyssey", "ASUS ROG", "BenQ", "Acer Predator"],
+        "avg_weight_kg": 4.5, "avg_lifespan_years": 6,
+        "components": [
+            {"name": "LCD/OLED Panel", "material": "Polarizing glass, Liquid crystal, Indium Tin Oxide", "weight_pct": 35, "hazardous": False, "recyclable": True, "value_usd": 3.50, "color": "#4FC3F7"},
+            {"name": "LED Backlight Assembly", "material": "Optical diffuser sheets, Light guide plate, PMMA", "weight_pct": 15, "hazardous": False, "recyclable": True, "value_usd": 1.20, "color": "#FFEE58"},
+            {"name": "Scaler / Controller Board", "material": "FR4 PCB, Video DSP, Gold-plated HDMI/DP ports", "weight_pct": 8, "hazardous": True, "recyclable": True, "value_usd": 2.80, "color": "#66BB6A"},
+            {"name": "Power Supply Board (PSU)", "material": "Transformers, Electrolytic capacitors, Aluminum heatsink", "weight_pct": 12, "hazardous": True, "recyclable": True, "value_usd": 2.00, "color": "#FFA726"},
+            {"name": "Heavy Metal Stand & Base", "material": "Cast aluminum, Cold-rolled steel, Counterweight", "weight_pct": 22, "hazardous": False, "recyclable": True, "value_usd": 1.80, "color": "#78909C"},
+            {"name": "Outer Bezel & Enclosure", "material": "Textured ABS Plastic, Polycarbonate", "weight_pct": 8, "hazardous": False, "recyclable": True, "value_usd": 0.30, "color": "#8D6E63"}
+        ],
+        "precious_metals": {"Gold (mg)": 25, "Silver (mg)": 180, "Copper (g)": 45, "Aluminum (g)": 350},
+        "hazardous_materials": ["Capacitor high DC voltage charge", "Mercury in CCFL lamps (older models)", "Lead solder joints"],
+        "recycling_steps": ["1. Disconnect AC power and video cables", "2. Unclip or unscrew VESA mount and stand", "3. Pry perimeter bezel clips to separate front frame", "4. CAUTION: Discharge high-voltage power board capacitors", "5. Disconnect LVDS ribbon cable from LCD", "6. Harvest optical diffuser sheets and backplate aluminum"],
+        "safety_warnings": ["⚠️ Power supply capacitors hold up to 400V DC — discharge safely", "⚠️ Older CCFL screens contain TOXIC MERCURY vapor tubes", "⚠️ Do not shatter thin polarized glass"],
+        "recovery_value_usd": 11.60,
+        "environmental_impact": {"co2_saved_kg": 22, "water_saved_liters": 850, "energy_saved_kwh": 65, "toxic_prevented_kg": 0.08},
+        "repairability_score": 6, "repair_difficulty": "Medium",
+        "3d_shape": "display"
+    },
+    "Cables & Wires": {
+        "category": "Cables & Wires", "icon": "🔌",
+        "brands": ["Anker", "Belkin", "Syska", "Finolex", "Polycab", "AmazonBasics"],
+        "avg_weight_kg": 0.25, "avg_lifespan_years": 4,
+        "components": [
+            {"name": "High-Purity Copper Conductors", "material": "Electrolytic Tough Pitch (ETP) Pure Copper", "weight_pct": 55, "hazardous": False, "recyclable": True, "value_usd": 2.20, "color": "#FFA726"},
+            {"name": "Braided Metal Shielding", "material": "Tinned Copper / Aluminum wire mesh", "weight_pct": 12, "hazardous": False, "recyclable": True, "value_usd": 0.40, "color": "#78909C"},
+            {"name": "PVC Insulation Jacket", "material": "Polyvinyl Chloride (PVC) with plasticizers", "weight_pct": 25, "hazardous": True, "recyclable": True, "value_usd": 0.15, "color": "#424242"},
+            {"name": "Gold-Plated Connector Pins", "material": "18k/24k Gold plating over phosphor bronze", "weight_pct": 8, "hazardous": False, "recyclable": True, "value_usd": 0.60, "color": "#FFD700"}
+        ],
+        "precious_metals": {"Copper (g)": 140, "Gold (mg)": 8, "Silver (mg)": 15},
+        "hazardous_materials": ["Brominated flame retardants in PVC jacket", "Lead stabilizers in legacy wire insulation"],
+        "recycling_steps": ["1. Sort cables by gauge and connector type", "2. Clip terminal connectors (USB/HDMI/RJ45) for pin harvesting", "3. Feed wire through mechanical wire stripper or granulator", "4. Separate granulated PVC from clean copper granules via water table"],
+        "safety_warnings": ["⚠️ NEVER BURN CABLES TO STRIP PLASTIC — releases deadly dioxins & furans", "⚠️ Sharp cut strands can puncture skin — wear nitrile cut-gloves"],
+        "recovery_value_usd": 3.35,
+        "environmental_impact": {"co2_saved_kg": 4, "water_saved_liters": 150, "energy_saved_kwh": 12, "toxic_prevented_kg": 0.05},
+        "repairability_score": 9, "repair_difficulty": "Very Easy",
+        "3d_shape": "cable"
+    },
+    "Lighting Equipment": {
+        "category": "Lighting Equipment", "icon": "💡",
+        "brands": ["Philips Lighting", "Havells", "Osram", "Syska", "Crompton", "Wipro"],
+        "avg_weight_kg": 0.15, "avg_lifespan_years": 3,
+        "components": [
+            {"name": "LED Emitter Array", "material": "Gallium Nitride (GaN) LEDs, Gold wire bonds", "weight_pct": 8, "hazardous": False, "recyclable": True, "value_usd": 0.50, "color": "#FFEE58"},
+            {"name": "Aluminum Heat Sink Core", "material": "Extruded 6063 Aluminum Alloy", "weight_pct": 45, "hazardous": False, "recyclable": True, "value_usd": 0.40, "color": "#78909C"},
+            {"name": "Internal Driver Circuit (SMPS)", "material": "Miniature FR4 PCB, Inductor, Electrolytic capacitor", "weight_pct": 18, "hazardous": True, "recyclable": True, "value_usd": 0.35, "color": "#66BB6A"},
+            {"name": "Polycarbonate Diffuser Dome", "material": "Optical-grade Polycarbonate", "weight_pct": 15, "hazardous": False, "recyclable": True, "value_usd": 0.05, "color": "#E0E0E0"},
+            {"name": "Brass / Nickel Screw Base", "material": "Nickel-plated brass / Copper threaded base", "weight_pct": 14, "hazardous": False, "recyclable": True, "value_usd": 0.20, "color": "#FFA726"}
+        ],
+        "precious_metals": {"Aluminum (g)": 65, "Copper (g)": 15, "Gold (mg)": 2},
+        "hazardous_materials": ["MERCURY VAPOR (in CFLs and Fluorescent tubes)", "Lead solder in older drivers"],
+        "recycling_steps": ["1. Inspect bulb type: distinguish LED from toxic CFL tubes", "2. Pop off polycarbonate diffuser cap", "3. Unscrew LED emitter star board from heatsink", "4. Extract driver PCB from base tube", "5. Recycle clean aluminum heatsink"],
+        "safety_warnings": ["⚠️ IF HANDLING CFL TUBES: MERCURY HAZARD — if broken, evacuate room for 15 mins", "⚠️ Do not crush tubes manually"],
+        "recovery_value_usd": 1.50,
+        "environmental_impact": {"co2_saved_kg": 3, "water_saved_liters": 90, "energy_saved_kwh": 8, "toxic_prevented_kg": 0.02},
+        "repairability_score": 8, "repair_difficulty": "Easy",
+        "3d_shape": "small_appliance"
+    },
+    "Audio/Video Equipment": {
+        "category": "Audio/Video Equipment", "icon": "🔊",
+        "brands": ["Sony", "Bose", "JBL / Harman", "Yamaha", "Sennheiser", "Pioneer"],
+        "avg_weight_kg": 3.2, "avg_lifespan_years": 7,
+        "components": [
+            {"name": "Acoustic Speaker Drivers", "material": "Neodymium NdFeB Magnets, Pure Copper Voice Coil", "weight_pct": 32, "hazardous": False, "recyclable": True, "value_usd": 3.80, "color": "#FFA726"},
+            {"name": "Audio Amplifier PCB", "material": "FR4 multi-layer, Power MOSFETs, Audio DAC chips", "weight_pct": 18, "hazardous": True, "recyclable": True, "value_usd": 3.20, "color": "#66BB6A"},
+            {"name": "Toroidal Power Transformer", "material": "Grain-oriented silicon steel core, Heavy Copper winding", "weight_pct": 25, "hazardous": False, "recyclable": True, "value_usd": 2.50, "color": "#FFEE58"},
+            {"name": "Aluminum Heat Sink", "material": "Extruded Aluminum Fin Array", "weight_pct": 12, "hazardous": False, "recyclable": True, "value_usd": 1.00, "color": "#78909C"},
+            {"name": "Enclosure & Grilles", "material": "MDF wood veneer / Perforated steel / ABS", "weight_pct": 13, "hazardous": False, "recyclable": True, "value_usd": 0.40, "color": "#8D6E63"}
+        ],
+        "precious_metals": {"Copper (g)": 220, "Neodymium (g)": 35, "Gold (mg)": 15, "Silver (mg)": 80},
+        "hazardous_materials": ["High-capacity electrolytic capacitors", "Lead solder traces"],
+        "recycling_steps": ["1. Remove exterior acoustic grille and faceplate", "2. Unscrew speaker drivers from baffle board", "3. Extract rare-earth neodymium magnets from voice coils", "4. Remove amplifier power board and transformer", "5. Recover high-grade heavy copper windings"],
+        "safety_warnings": ["⚠️ Large audio filter capacitors retain dangerous voltage", "⚠️ Powerful neodymium magnets can pinch fingers severely"],
+        "recovery_value_usd": 10.90,
+        "environmental_impact": {"co2_saved_kg": 18, "water_saved_liters": 720, "energy_saved_kwh": 55, "toxic_prevented_kg": 0.06},
+        "repairability_score": 7, "repair_difficulty": "Medium",
+        "3d_shape": "desktop"
+    },
+    "Networking Equipment": {
+        "category": "Networking Equipment", "icon": "📡",
+        "brands": ["Cisco", "TP-Link", "Netgear", "D-Link", "Ubiquiti UniFi", "MikroTik", "Huawei"],
+        "avg_weight_kg": 0.85, "avg_lifespan_years": 5,
+        "components": [
+            {"name": "Networking Switch / SoC Motherboard", "material": "FR4 PCB, Gigabit Switch ASIC, Gold PCIe pins", "weight_pct": 35, "hazardous": True, "recyclable": True, "value_usd": 4.50, "color": "#66BB6A"},
+            {"name": "Adjustable Dipole Wi-Fi Antennas", "material": "Copper internal wire, Gold U.FL micro-coax, ABS sheath", "weight_pct": 15, "hazardous": False, "recyclable": True, "value_usd": 1.20, "color": "#FFA726"},
+            {"name": "Aluminum SoC Heat Sink", "material": "Extruded anodized aluminum", "weight_pct": 18, "hazardous": False, "recyclable": True, "value_usd": 0.80, "color": "#78909C"},
+            {"name": "Shielded RJ45 Ethernet Ports", "material": "Gold-plated phosphor bronze pins, Stainless steel shield", "weight_pct": 12, "hazardous": False, "recyclable": True, "value_usd": 0.90, "color": "#FFEE58"},
+            {"name": "Ventilated Outer Enclosure", "material": "Flame-retardant ABS / Polycarbonate", "weight_pct": 20, "hazardous": False, "recyclable": True, "value_usd": 0.20, "color": "#424242"}
+        ],
+        "precious_metals": {"Gold (mg)": 28, "Silver (mg)": 120, "Copper (g)": 65},
+        "hazardous_materials": ["Brominated Flame Retardants (BFRs)", "Lead solder in legacy routers"],
+        "recycling_steps": ["1. Perform hardware factory reset button hold (wipe credentials)", "2. Unclip rubber feet to reveal hidden assembly screws", "3. Separate upper and lower shell casings", "4. Detach U.FL antenna coax connectors from motherboard", "5. Unscrew mainboard and recover gold-bearing network ASIC and RJ45 jacks"],
+        "safety_warnings": ["⚠️ WIPE CONFIGURATION: routers store Wi-Fi passwords and IP logs", "⚠️ Use ESD protection when handling flash memory"],
+        "recovery_value_usd": 7.60,
+        "environmental_impact": {"co2_saved_kg": 12, "water_saved_liters": 450, "energy_saved_kwh": 35, "toxic_prevented_kg": 0.04},
+        "repairability_score": 7, "repair_difficulty": "Medium-Easy",
+        "3d_shape": "networking"
     }
 }
 
