@@ -50,18 +50,73 @@ ADMIN_PASS_HASH = hashlib.sha256("admin@ewaste2025".encode()).hexdigest()
 CATEGORIES = ['Mobile Phones','Laptops','Desktop Computers','Tablets','Monitors/Displays','Televisions','Printers','Batteries','PCBs/Circuit Boards','Cables & Wires','Small Appliances','Large Appliances','Lighting Equipment','Audio/Video Equipment','Networking Equipment']
 
 # ═══ Internationalization & Safety Compliance ═══
+SUPPORTED_LANGUAGES = {
+    'en': 'English 🇬🇧/🇺🇸',
+    'hi': 'हिन्दी (Hindi) 🇮🇳',
+    'ur': 'اردو (Urdu) 🇵🇰',
+    'ar': 'العربية (Arabic) 🇦🇪/🇸🇦',
+    'es': 'Español (Spanish) 🇪🇸/🇲🇽',
+    'fr': 'Français (French) 🇫🇷',
+    'de': 'Deutsch (German) 🇩🇪',
+    'zh': '中文 (Chinese Simplified) 🇨🇳',
+    'ja': '日本語 (Japanese) 🇯🇵',
+    'ru': 'Русский (Russian) 🇷🇺',
+    'pt': 'Português (Portuguese) 🇧🇷/🇵🇹',
+    'bn': 'বাংলা (Bengali) 🇧🇩/🇮🇳'
+}
+CURRENCY_RATES = {
+    'USD': {'symbol': '$', 'rate': 1.00, 'name': 'US Dollar (USA)'},
+    'INR': {'symbol': '₹', 'rate': 86.50, 'name': 'Indian Rupee (India)'},
+    'PKR': {'symbol': '₨', 'rate': 278.50, 'name': 'Pakistani Rupee (Pakistan)'},
+    'EUR': {'symbol': '€', 'rate': 0.92, 'name': 'Euro (European Union)'},
+    'GBP': {'symbol': '£', 'rate': 0.78, 'name': 'British Pound (UK)'},
+    'AED': {'symbol': 'د.إ', 'rate': 3.67, 'name': 'UAE Dirham (UAE)'},
+    'SAR': {'symbol': '﷼', 'rate': 3.75, 'name': 'Saudi Riyal (Saudi Arabia)'},
+    'JPY': {'symbol': '¥', 'rate': 152.00, 'name': 'Japanese Yen (Japan)'},
+    'CNY': {'symbol': '¥', 'rate': 7.24, 'name': 'Chinese Yuan (China)'},
+    'RUB': {'symbol': '₽', 'rate': 96.00, 'name': 'Russian Ruble (Russia)'},
+    'BRL': {'symbol': 'R$', 'rate': 5.70, 'name': 'Brazilian Real (Brazil)'},
+    'BDT': {'symbol': '৳', 'rate': 120.00, 'name': 'Bangladeshi Taka (Bangladesh)'},
+    'CAD': {'symbol': 'C$', 'rate': 1.38, 'name': 'Canadian Dollar (Canada)'},
+    'AUD': {'symbol': 'A$', 'rate': 1.52, 'name': 'Australian Dollar (Australia)'}
+}
+GLOBAL_COUNTRIES = {
+    'India': {'code': 'IN', 'flag': '🇮🇳', 'default_lang': 'hi', 'default_curr': 'INR', 'region': 'South Asia'},
+    'United States': {'code': 'US', 'flag': '🇺🇸', 'default_lang': 'en', 'default_curr': 'USD', 'region': 'North America'},
+    'United Kingdom': {'code': 'GB', 'flag': '🇬🇧', 'default_lang': 'en', 'default_curr': 'GBP', 'region': 'Europe'},
+    'European Union (Germany/France/Spain)': {'code': 'EU', 'flag': '🇪🇺', 'default_lang': 'de', 'default_curr': 'EUR', 'region': 'Europe'},
+    'United Arab Emirates (UAE)': {'code': 'AE', 'flag': '🇦🇪', 'default_lang': 'ar', 'default_curr': 'AED', 'region': 'Middle East'},
+    'Saudi Arabia': {'code': 'SA', 'flag': '🇸🇦', 'default_lang': 'ar', 'default_curr': 'SAR', 'region': 'Middle East'},
+    'Pakistan': {'code': 'PK', 'flag': '🇵🇰', 'default_lang': 'ur', 'default_curr': 'PKR', 'region': 'South Asia'},
+    'Bangladesh': {'code': 'BD', 'flag': '🇧🇩', 'default_lang': 'bn', 'default_curr': 'BDT', 'region': 'South Asia'},
+    'China': {'code': 'CN', 'flag': '🇨🇳', 'default_lang': 'zh', 'default_curr': 'CNY', 'region': 'East Asia'},
+    'Japan': {'code': 'JP', 'flag': '🇯🇵', 'default_lang': 'ja', 'default_curr': 'JPY', 'region': 'East Asia'},
+    'Russia': {'code': 'RU', 'flag': '🇷🇺', 'default_lang': 'ru', 'default_curr': 'RUB', 'region': 'Eurasia'},
+    'Brazil': {'code': 'BR', 'flag': '🇧🇷', 'default_lang': 'pt', 'default_curr': 'BRL', 'region': 'South America'},
+    'Canada': {'code': 'CA', 'flag': '🇨🇦', 'default_lang': 'en', 'default_curr': 'CAD', 'region': 'North America'},
+    'Australia': {'code': 'AU', 'flag': '🇦🇺', 'default_lang': 'en', 'default_curr': 'AUD', 'region': 'Oceania'},
+    'Global / Other': {'code': 'GL', 'flag': '🌐', 'default_lang': 'en', 'default_curr': 'USD', 'region': 'International'}
+}
 try:
-    from src.i18n import get_text, convert_currency, format_recovery_range, SUPPORTED_LANGUAGES, CURRENCY_RATES, GLOBAL_COUNTRIES, EXCHANGE_RATE_METADATA
+    from src.i18n import get_text, convert_currency, format_recovery_range, EXCHANGE_RATE_METADATA
     from src.safety_compliance import get_hazard_protocol, get_regulatory_framework, HAZARD_PROTOCOLS, GLOBAL_REGULATIONS
     I18N_LOADED = True
 except:
-    I18N_LOADED = False
-    SUPPORTED_LANGUAGES = {'en': 'English'}
-    CURRENCY_RATES = {'USD': {'symbol': '$', 'rate': 1.0}}
-    GLOBAL_COUNTRIES = {'India': {'default_lang': 'hi', 'default_curr': 'INR'}}
-    def get_text(k, l='en'): return k
-    def convert_currency(amt, c='USD'): return amt, '$', f"${amt:,.2f} USD"
-    def format_recovery_range(amt, c='USD', u=20.0): return f"${amt:,.2f}"
+    try:
+        from i18n import get_text, convert_currency, format_recovery_range, EXCHANGE_RATE_METADATA
+        from safety_compliance import get_hazard_protocol, get_regulatory_framework, HAZARD_PROTOCOLS, GLOBAL_REGULATIONS
+        I18N_LOADED = True
+    except:
+        I18N_LOADED = False
+        def get_text(k, l='en'): return k
+        def convert_currency(amt, c='USD'):
+            r = CURRENCY_RATES.get(c, CURRENCY_RATES['USD'])
+            val = amt * r['rate']
+            sym = r['symbol']
+            return val, sym, f"{sym}{val:,.2f} {c}"
+        def format_recovery_range(amt, c='USD', u=20.0):
+            val, sym, s = convert_currency(amt, c)
+            return s
 
 
 # ═══════════════════════════════════════════
@@ -740,60 +795,58 @@ with st.sidebar:
         st.markdown("#### 🌐 REGIONAL & COUNTRY SETTINGS")
         
         country_list = list(GLOBAL_COUNTRIES.keys())
-        def_country = st.session_state.get('app_jurisdiction', 'India')
-        c_idx = country_list.index(def_country) if def_country in country_list else 0
-
-        def on_country_change():
-            chosen = st.session_state.sidebar_country_select
-            st.session_state.app_jurisdiction = chosen
-            c_meta = GLOBAL_COUNTRIES.get(chosen, {})
-            if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
-                st.session_state.app_lang = c_meta['default_lang']
-                st.session_state.sidebar_lang_select = c_meta['default_lang']
-            if c_meta.get('default_curr') in CURRENCY_RATES:
-                st.session_state.app_curr = c_meta['default_curr']
-                st.session_state.sidebar_curr_select = c_meta['default_curr']
-
-        st.selectbox(
+        current_c = st.session_state.get('app_jurisdiction', 'India')
+        if current_c not in country_list:
+            current_c = country_list[0]
+        
+        chosen_country = st.selectbox(
             "🌍 Country / Region",
             country_list,
-            index=c_idx,
-            key="sidebar_country_select",
-            on_change=on_country_change
+            index=country_list.index(current_c),
+            key="sb_country_picker"
         )
+        if chosen_country != st.session_state.get('app_jurisdiction'):
+            st.session_state['app_jurisdiction'] = chosen_country
+            c_meta = GLOBAL_COUNTRIES.get(chosen_country, {})
+            if c_meta.get('default_lang') in SUPPORTED_LANGUAGES:
+                st.session_state['app_lang'] = c_meta['default_lang']
+            if c_meta.get('default_curr') in CURRENCY_RATES:
+                st.session_state['app_curr'] = c_meta['default_curr']
+            st.rerun()
 
         c_lang, c_curr = st.columns(2)
         with c_lang:
             lang_opts = list(SUPPORTED_LANGUAGES.keys())
-            cur_lang = st.session_state.get('app_lang', 'en')
-            l_idx = lang_opts.index(cur_lang) if cur_lang in lang_opts else 0
+            current_l = st.session_state.get('app_lang', 'en')
+            if current_l not in lang_opts:
+                current_l = 'en'
             
-            def on_lang_change():
-                st.session_state.app_lang = st.session_state.sidebar_lang_select
-
-            st.selectbox(
+            chosen_lang = st.selectbox(
                 "Language",
                 lang_opts,
                 format_func=lambda x: SUPPORTED_LANGUAGES.get(x, x),
-                index=l_idx,
-                key="sidebar_lang_select",
-                on_change=on_lang_change
+                index=lang_opts.index(current_l),
+                key="sb_language_picker"
             )
+            if chosen_lang != st.session_state.get('app_lang'):
+                st.session_state['app_lang'] = chosen_lang
+                st.rerun()
+
         with c_curr:
             curr_opts = list(CURRENCY_RATES.keys())
-            cur_curr = st.session_state.get('app_curr', 'USD')
-            curr_idx = curr_opts.index(cur_curr) if cur_curr in curr_opts else 0
+            current_cur = st.session_state.get('app_curr', 'USD')
+            if current_cur not in curr_opts:
+                current_cur = 'USD'
             
-            def on_curr_change():
-                st.session_state.app_curr = st.session_state.sidebar_curr_select
-
-            st.selectbox(
+            chosen_curr = st.selectbox(
                 "Currency",
                 curr_opts,
-                index=curr_idx,
-                key="sidebar_curr_select",
-                on_change=on_curr_change
+                index=curr_opts.index(current_cur),
+                key="sb_currency_picker"
             )
+            if chosen_curr != st.session_state.get('app_curr'):
+                st.session_state['app_curr'] = chosen_curr
+                st.rerun()
 
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
         st.markdown("#### ⚙️ STATUS")
