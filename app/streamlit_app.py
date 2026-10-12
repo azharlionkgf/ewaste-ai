@@ -2633,43 +2633,57 @@ st.markdown("""
 <div id="app-bottom-anchor" style="position:relative;bottom:0;visibility:hidden;"></div>
 <script>
     (function attachScrollers() {
-        function scrollPage(amount, toAbsolute) {
+        let activeScrollTimer = null;
+
+        function smoothStepScroll(distance, duration = 400) {
+            if (activeScrollTimer) cancelAnimationFrame(activeScrollTimer);
+
             const targets = [
                 document.querySelector('[data-testid="stAppViewContainer"]'),
                 document.querySelector('section.main'),
                 document.documentElement,
-                document.body,
-                window
-            ];
-            targets.forEach(el => {
-                if (!el) return;
-                try {
-                    if (toAbsolute !== undefined) {
-                        if (typeof el.scrollTo === 'function') {
-                            el.scrollTo({ top: toAbsolute, behavior: 'smooth' });
-                        } else {
-                            el.scrollTop = toAbsolute;
-                        }
-                    } else {
-                        if (typeof el.scrollBy === 'function') {
-                            el.scrollBy({ top: amount, behavior: 'smooth' });
-                        } else {
-                            el.scrollTop += amount;
-                        }
-                    }
-                } catch(e) {}
-            });
+                document.body
+            ].filter(Boolean);
+
+            const primary = targets[0] || document.documentElement;
+            const startPos = primary.scrollTop;
+            const targetPos = startPos + distance;
+            const startTime = performance.now();
+
+            function easeInOutQuad(t) {
+                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            }
+
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = easeInOutQuad(progress);
+                const currentPos = startPos + distance * eased;
+
+                targets.forEach(el => {
+                    try { el.scrollTop = currentPos; } catch(e) {}
+                });
+
+                if (progress < 1) {
+                    activeScrollTimer = requestAnimationFrame(step);
+                } else {
+                    activeScrollTimer = null;
+                }
+            }
+
+            activeScrollTimer = requestAnimationFrame(step);
         }
 
         const up = document.getElementById('float-scroll-up');
         if (up) {
             up.addEventListener('click', function(e) {
                 e.preventDefault();
-                scrollPage(-600);
+                smoothStepScroll(-250, 450); // Gentle 250px scroll over 450ms
             });
             up.addEventListener('dblclick', function(e) {
                 e.preventDefault();
-                scrollPage(0, 0);
+                const primary = document.querySelector('[data-testid="stAppViewContainer"]') || document.documentElement;
+                smoothStepScroll(-primary.scrollTop, 650);
             });
         }
 
@@ -2677,11 +2691,13 @@ st.markdown("""
         if (down) {
             down.addEventListener('click', function(e) {
                 e.preventDefault();
-                scrollPage(600);
+                smoothStepScroll(250, 450); // Gentle 250px scroll over 450ms
             });
             down.addEventListener('dblclick', function(e) {
                 e.preventDefault();
-                scrollPage(0, 999999);
+                const primary = document.querySelector('[data-testid="stAppViewContainer"]') || document.documentElement;
+                const remaining = (primary.scrollHeight - primary.clientHeight) - primary.scrollTop;
+                smoothStepScroll(remaining, 650);
             });
         }
     })();
