@@ -192,48 +192,49 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"], secti
     scrollbar-color: #DC143C #0a0c10 !important;
     scroll-behavior: smooth !important;
 }
+/* EXTRA WIDE SCROLLBAR (CHOUDAI / WIDTH: 32PX) */
 ::-webkit-scrollbar {
-    width: 22px !important;
-    height: 22px !important;
+    width: 32px !important;
+    height: 32px !important;
 }
 ::-webkit-scrollbar-track {
-    background: #0a0c10 !important;
-    border-radius: 11px !important;
-    border: 1px solid rgba(220, 20, 60, 0.25) !important;
+    background: #0d0f17 !important;
+    border-radius: 16px !important;
+    border: 2px solid rgba(220, 20, 60, 0.35) !important;
 }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%) !important;
-    border-radius: 11px !important;
-    border: 3px solid #0a0c10 !important;
-    box-shadow: 0 0 12px rgba(220, 20, 60, 0.7) !important;
-    min-height: 60px !important;
+    border-radius: 16px !important;
+    border: 4px solid #0d0f17 !important;
+    box-shadow: 0 0 16px rgba(220, 20, 60, 0.8) !important;
+    min-height: 70px !important;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #ff2a55 0%, #DC143C 100%) !important;
     border-color: #1a0508 !important;
-    box-shadow: 0 0 20px rgba(220, 20, 60, 1.0) !important;
+    box-shadow: 0 0 25px rgba(220, 20, 60, 1.0) !important;
 }
 ::-webkit-scrollbar-corner {
-    background: #0a0c10 !important;
+    background: #0d0f17 !important;
 }
-/* Scrollbar Up & Down Arrow Buttons */
+/* Scrollbar Up & Down Arrow Buttons (32px Width Extra Wide) */
 ::-webkit-scrollbar-button:single-button {
-    background-color: #161a24 !important;
+    background-color: #1a1e2b !important;
     display: block !important;
-    border: 2px solid rgba(220, 20, 60, 0.5) !important;
-    height: 22px !important;
-    width: 22px !important;
-    border-radius: 6px !important;
+    border: 2px solid rgba(220, 20, 60, 0.6) !important;
+    height: 32px !important;
+    width: 32px !important;
+    border-radius: 8px !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
 }
 /* Up Arrow */
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FFD700' viewBox='0 0 16 16'><path d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/></svg>") !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23FFD700' viewBox='0 0 16 16'><path d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/></svg>") !important;
 }
 /* Down Arrow */
 ::-webkit-scrollbar-button:single-button:vertical:increment {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FFD700' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23FFD700' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
 }
 ::-webkit-scrollbar-button:single-button:hover {
     background-color: #DC143C !important;
