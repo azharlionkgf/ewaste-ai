@@ -131,6 +131,34 @@ header{background:transparent!important;}
 [data-testid="stSidebarCollapseButton"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;}
 [data-testid="collapsedControl"]{visibility:visible!important;display:block!important;color:#DC143C!important;z-index:999999!important;background:rgba(20,20,20,0.85)!important;border:1px solid rgba(220,20,60,0.4)!important;border-radius:8px!important;}
 .stApp{background:#0a0a0a;color:#e0e0e0;font-family:'Rajdhani',sans-serif;}
+/* ═══ HIGH-VISIBILITY THICK SCROLLBARS ═══ */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #DC143C #12141a;
+}
+::-webkit-scrollbar {
+    width: 14px !important;
+    height: 14px !important;
+}
+::-webkit-scrollbar-track {
+    background: #0d0f14 !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%) !important;
+    border-radius: 8px !important;
+    border: 2px solid #0d0f14 !important;
+    box-shadow: 0 0 6px rgba(220, 20, 60, 0.4) !important;
+    min-height: 40px !important;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff2a55 0%, #DC143C 100%) !important;
+    box-shadow: 0 0 12px rgba(220, 20, 60, 0.8) !important;
+}
+::-webkit-scrollbar-corner {
+    background: #0d0f14 !important;
+}
 .stApp::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,20,60,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,69,0,.05) 0%,transparent 50%);pointer-events:none;z-index:0;animation:bgP 8s ease-in-out infinite alternate;}
 @keyframes bgP{0%{opacity:.6}100%{opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}

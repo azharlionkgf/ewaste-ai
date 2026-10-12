@@ -215,6 +215,22 @@ canvas {{ display: block; width: 100%; height: 100%; }}
     z-index: 10;
     backdrop-filter: blur(12px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    scrollbar-width: thin;
+    scrollbar-color: #DC143C #12141a;
+}}
+#legend-panel::-webkit-scrollbar {{
+    width: 8px;
+}}
+#legend-panel::-webkit-scrollbar-track {{
+    background: #0d0f14;
+    border-radius: 4px;
+}}
+#legend-panel::-webkit-scrollbar-thumb {{
+    background: #DC143C;
+    border-radius: 4px;
+}}
+#legend-panel::-webkit-scrollbar-thumb:hover {{
+    background: #ff2a55;
 }}
 #legend-panel h4 {{
     font-size: 10.5px;
@@ -377,15 +393,18 @@ canvas {{ display: block; width: 100%; height: 100%; }}
 .slider-container {{
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-left: 4px;
-    font-size: 9.5px;
-    color: #aaa;
+    gap: 8px;
+    margin-left: 6px;
+    font-size: 11px;
+    color: #ccc;
+    font-weight: 600;
 }}
 .slider-container input[type=range] {{
-    width: 80px;
+    width: 120px;
+    height: 8px;
     accent-color: #DC143C;
     cursor: pointer;
+    border-radius: 4px;
 }}
 #loading-overlay {{
     position: absolute;
