@@ -748,7 +748,8 @@ function init3D() {{
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-    camera.position.set(4.0, 2.8, 5.2);
+    // Beauty 3/4 angled perspective directly looking at front/rear layers
+    camera.position.set(0.6, 0.4, 5.8);
     camera.lookAt(0, 0, 0);
 
     renderer = new THREE.WebGLRenderer({{ antialias: true, alpha: true, powerPreference: "high-performance" }});
@@ -786,6 +787,9 @@ function init3D() {{
     scene.add(grid);
 
     rootGroup = new THREE.Group();
+    // Default pleasant slight tilt to showcase textures, camera halo, and depth immediately
+    rootGroup.rotation.y = -0.35;
+    rootGroup.rotation.x = 0.08;
     scene.add(rootGroup);
 
     raycaster = new THREE.Raycaster();
@@ -807,12 +811,15 @@ function buildDeviceGeometry(type) {{
     meshLayers = [];
 
     const nLayers = COMPONENTS.length;
-    const spacing = 0.65; // exploded spacing
+    const spacing = 0.85; // generous exploded depth spacing
 
     COMPONENTS.forEach((comp, idx) => {{
         const layerGroup = new THREE.Group();
         const assembledZ = (idx - nLayers / 2) * 0.05;
+        // Explode along both Z (depth) and slightly X (lateral cascade) for phone so parts don't occlude each other
         const explodedZ = (idx - nLayers / 2) * spacing;
+        const explodedX = (type === 'phone' || type === 'tablet') ? (idx - nLayers / 2) * 0.55 : 0;
+        const explodedY = (type === 'phone' || type === 'tablet') ? (idx - nLayers / 2) * 0.08 : 0;
         const matColor = parseInt(comp.color.replace('#', '0x')) || 0x777777;
 
         let primaryMesh;
@@ -1321,12 +1328,16 @@ function buildDeviceGeometry(type) {{
                 ...comp,
                 assembledZ: assembledZ,
                 explodedZ: explodedZ,
+                assembledX: 0,
+                explodedX: explodedX,
+                assembledY: 0,
+                explodedY: explodedY,
                 group: layerGroup
             }};
             meshLayers.push(primaryMesh);
         }}
 
-        layerGroup.position.z = assembledZ;
+        layerGroup.position.set(0, 0, assembledZ);
         rootGroup.add(layerGroup);
     }});
 }}
@@ -1591,9 +1602,9 @@ function prevStep() {{
 }}
 
 function reset3DView() {{
-    camera.position.set(4.0, 2.8, 5.2);
+    camera.position.set(0.6, 0.4, 5.8);
     camera.lookAt(0, 0, 0);
-    rootGroup.rotation.set(0, 0, 0);
+    rootGroup.rotation.set(0.08, -0.35, 0);
     targetExplodeRatio = 0.0;
     isManualMode = false;
     document.getElementById('explode-slider').value = 0;
@@ -1680,15 +1691,20 @@ function animate() {{
 
     meshLayers.forEach(m => {{
         if (m.userData && m.userData.group) {{
-            let targetZ;
+            let targetZ, targetX = 0, targetY = 0;
             if (isManualMode && m.userData.targetManualZ !== undefined) {{
                 targetZ = m.userData.targetManualZ;
+                targetX = (m.userData.explodedX || 0) * 0.5;
             }} else {{
                 const asZ = m.userData.assembledZ;
                 const exZ = m.userData.explodedZ;
                 targetZ = asZ + (exZ - asZ) * currentExplodeRatio;
+                targetX = (m.userData.explodedX || 0) * currentExplodeRatio;
+                targetY = (m.userData.explodedY || 0) * currentExplodeRatio;
             }}
             m.userData.group.position.z += (targetZ - m.userData.group.position.z) * 0.1;
+            m.userData.group.position.x += (targetX - m.userData.group.position.x) * 0.1;
+            m.userData.group.position.y += (targetY - m.userData.group.position.y) * 0.1;
         }}
     }});
 
