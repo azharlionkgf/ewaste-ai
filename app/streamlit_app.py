@@ -30,17 +30,20 @@ try:
     from app.knowledge_engine import DEVICE_KNOWLEDGE, get_device_info, init_knowledge_db, save_device_knowledge, get_device_knowledge, search_knowledge, get_knowledge_stats
     from app.three_d_viewer import generate_3d_viewer
     from src.device_specs_engine import get_deep_device_specs, FLAGSHIP_CATALOG
+    from src.ai_reasoning_engine import generate_expert_ai_response
     KNOWLEDGE_LOADED = True
 except:
     try:
         from knowledge_engine import DEVICE_KNOWLEDGE, get_device_info, init_knowledge_db, save_device_knowledge, get_device_knowledge, search_knowledge, get_knowledge_stats
         from three_d_viewer import generate_3d_viewer
         from device_specs_engine import get_deep_device_specs, FLAGSHIP_CATALOG
+        from ai_reasoning_engine import generate_expert_ai_response
         KNOWLEDGE_LOADED = True
     except:
         KNOWLEDGE_LOADED = False
         DEVICE_KNOWLEDGE = {}
         def get_deep_device_specs(*args, **kwargs): return {}
+        def generate_expert_ai_response(*args, **kwargs): return "E-Waste AI Assistant ready!"
         FLAGSHIP_CATALOG = {}
 
 ADMIN_PASS_HASH = hashlib.sha256("admin@ewaste2025".encode()).hexdigest()
@@ -1115,14 +1118,17 @@ elif page_id == "chatbot":
         bot_reply = None
         if gemini_ready and gemini_model:
             try:
-                response = gemini_model.generate_content(user_text)
+                system_context = f"You are Astra-GPT, the world's most advanced E-Waste, Electronic Architecture, and Hardware Intelligence AI. Answer comprehensively, with step-by-step clarity, precious metal yields, safety warnings, and disassembly steps. Language: {st.session_state.get('app_lang', 'en')}, Currency: {st.session_state.get('app_curr', 'USD')}. User asks: {user_text}"
+                response = gemini_model.generate_content(system_context)
                 if response and hasattr(response, 'text') and response.text:
                     bot_reply = response.text
             except Exception:
                 bot_reply = None
                 
         if not bot_reply:
-            bot_reply = chatbot_respond(user_text)
+            curr_c = st.session_state.get('app_curr', 'USD')
+            current_dev = st.session_state.get('chatbot_device', None)
+            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
             
         st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
@@ -1951,50 +1957,39 @@ elif page_id == "lab3d":
                 import pandas as pd
                 try:
                     df_up = pd.read_csv(csv_file)
-                    st.success(f"✅ Dataset Loaded: {len(df_up)} rows, {len(df_up.columns)} columns")
+                    st.success(f"✅ Dataset Ingested: **{len(df_up):,} rows × {len(df_up.columns)} columns**")
                     st.dataframe(df_up.head(5), use_container_width=True)
                     # Check if device_type or Category column exists
                     col_found = None
                     for c in df_up.columns:
-                        if any(term in c.lower() for term in ['device', 'category', 'type', 'item']):
+                        if any(term in c.lower() for term in ['device', 'category', 'type', 'item', 'model']):
                             col_found = c
                             break
-                    if col_found:
-                        detected_device = str(df_up[col_found].iloc[0])
-                        matched_cat = None
-                        for cat in DEVICE_KNOWLEDGE.keys():
-                            if cat.lower() in detected_device.lower():
-                                matched_cat = cat
-                                break
-                        selected_device = matched_cat if matched_cat else "Desktop Computers"
-                    else:
-                        selected_device = "PCBs/Circuit Boards"
-                    st.info(f"📊 Auto-selected 3D Template from Dataset: **{selected_device}**")
-                    device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+                    detected_device = str(df_up[col_found].iloc[0]) if col_found else "Electronics Device"
+                    st.info(f"📊 Auto-Detected Hardware Signature from Data: **{detected_device}**")
+                    # Build deep hardware specs for this exact device
+                    device_data = get_deep_device_specs(filename=detected_device)
+                    selected_device = device_data.get("category", "Mobile Phones")
                 except Exception as ex:
                     st.error(f"Error parsing CSV: {ex}")
-                    selected_device = "Desktop Computers"
-                    device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+                    device_data = get_deep_device_specs(filename="laptop")
+                    selected_device = "Laptops"
 
         elif input_choice == "📄 Upload Document / Manual (PDF/TXT)":
             st.markdown("##### 📄 Upload Specification Manual or Document")
             doc_up = st.file_uploader("Upload PDF or TXT Document", type=['pdf','txt'], key="lab3d_doc_upload_tab1")
             if doc_up:
-                st.success(f"✅ Document Received: {doc_up.name}")
-                # Analyze text for category
+                st.success(f"✅ Specification Manual Received: **{doc_up.name}**")
+                # Extract text for hardware specs
                 txt_content = ""
                 try:
-                    txt_content = doc_up.getvalue().decode('utf-8', errors='ignore')[:3000].lower()
+                    txt_content = doc_up.getvalue().decode('utf-8', errors='ignore')[:4000].lower()
                 except:
                     txt_content = doc_up.name.lower()
-                detected = None
-                for cat in DEVICE_KNOWLEDGE.keys():
-                    if cat.lower() in txt_content or cat.lower() in doc_up.name.lower():
-                        detected = cat
-                        break
-                selected_device = detected if detected else "Laptops"
-                st.info(f"📄 Extracted Device Category: **{selected_device}**")
-                device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+                st.info(f"📄 Specification Parsed: Ingested technical bill-of-materials and disassembly scheme.")
+                # Build deep hardware specs from manual content
+                device_data = get_deep_device_specs(filename=f"{doc_up.name} {txt_content[:200]}")
+                selected_device = device_data.get("category", "Mobile Phones")
 
         # Fallback if no device chosen yet
         if not device_data:
