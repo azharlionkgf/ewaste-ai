@@ -5083,12 +5083,12 @@ function buildDeviceGeometry(type) {{
                 primaryMesh.position.set(0, -0.70, 0);
 
             }} else if (idx === 5) {{
-                // ── 6. AEROSPACE ALUMINUM MIDFRAME & SIDE BUTTON RAILS ──
+                // ── 6. MIDFRAME + SPEAKER + VIBRATION MOTOR + USB-C + SIM TRAY + ANTENNA ──
                 primaryMesh = new THREE.Group();
 
-                // Unibody CNC Aluminum Bezel Frame
+                // ─── A. CNC Aluminum Unibody Bezel Frame ───
                 const frameMat = new THREE.MeshStandardMaterial({{
-                    color: 0xD4AF37, // Polished Light Gold
+                    color: 0xD4AF37,
                     metalness: 0.92,
                     roughness: 0.20
                 }});
@@ -5098,39 +5098,150 @@ function buildDeviceGeometry(type) {{
                 );
                 primaryMesh.add(frame);
 
-                // Right Side Power Button
+                // ─── B. Right Side Power Button (Textured) ───
                 const pwrBtn = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.03, 0.35, 0.04),
-                    frameMat
+                    new THREE.BoxGeometry(0.035, 0.35, 0.05),
+                    new THREE.MeshStandardMaterial({{ color: 0xCCAA22, metalness: 0.95, roughness: 0.12 }})
                 );
                 pwrBtn.position.set(phoneWidth * 0.50, 0.4, 0);
                 primaryMesh.add(pwrBtn);
 
-                // Right Side Volume Rocker
-                const volBtn = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.03, 0.65, 0.04),
-                    frameMat
+                // ─── C. Right Side Volume Up + Down (Two Separate Buttons) ───
+                const volUp = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.035, 0.28, 0.05),
+                    new THREE.MeshStandardMaterial({{ color: 0xCCAA22, metalness: 0.95, roughness: 0.12 }})
                 );
-                volBtn.position.set(phoneWidth * 0.50, 1.1, 0);
-                primaryMesh.add(volBtn);
-
-                // Bottom USB Type-C Port cut
-                const usbPort = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.32, 0.04, 0.04),
-                    new THREE.MeshStandardMaterial({{ color: 0x111111, roughness: 0.8 }})
+                volUp.position.set(phoneWidth * 0.50, 1.2, 0);
+                primaryMesh.add(volUp);
+                const volDn = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.035, 0.28, 0.05),
+                    new THREE.MeshStandardMaterial({{ color: 0xCCAA22, metalness: 0.95, roughness: 0.12 }})
                 );
-                usbPort.position.set(0, -phoneHeight * 0.50, 0);
-                primaryMesh.add(usbPort);
+                volDn.position.set(phoneWidth * 0.50, 0.85, 0);
+                primaryMesh.add(volDn);
 
-                // Bottom Speaker Grille slots
-                for (let g = 0; g < 4; g++) {{
-                    const gr = new THREE.Mesh(
-                        new THREE.BoxGeometry(0.05, 0.03, 0.03),
-                        new THREE.MeshStandardMaterial({{ color: 0x111111 }})
+                // ─── D. LEFT SIDE SIM TRAY with Ejector Hole ───
+                const simTray = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.04, 0.55, 0.035),
+                    new THREE.MeshStandardMaterial({{ color: 0xBBAA33, metalness: 0.9, roughness: 0.15 }})
+                );
+                simTray.position.set(-phoneWidth * 0.50, 0.6, 0);
+                primaryMesh.add(simTray);
+                // Ejector pin hole
+                const ejHole = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.012, 0.012, 0.05, 8),
+                    new THREE.MeshStandardMaterial({{ color: 0x050505 }})
+                );
+                ejHole.rotation.z = Math.PI / 2;
+                ejHole.position.set(-phoneWidth * 0.50, 0.82, 0);
+                primaryMesh.add(ejHole);
+
+                // ─── E. BOTTOM USB TYPE-C PORT (Realistic with 24-pin Gold Contacts) ───
+                const usbShell = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.36, 0.06, 0.04),
+                    new THREE.MeshStandardMaterial({{ color: 0x222228, metalness: 0.7, roughness: 0.3 }})
+                );
+                usbShell.position.set(0, -phoneHeight * 0.50, 0);
+                primaryMesh.add(usbShell);
+                // 24 gold pins inside USB-C
+                for (let pin = 0; pin < 12; pin++) {{
+                    const p = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.012, 0.008, 0.025),
+                        new THREE.MeshStandardMaterial({{ color: 0xFFD700, metalness: 0.98, roughness: 0.05 }})
                     );
-                    gr.position.set(0.4 + g * 0.1, -phoneHeight * 0.50, 0);
+                    p.position.set(-0.13 + pin * 0.024, -phoneHeight * 0.50, 0.005);
+                    primaryMesh.add(p);
+                }}
+
+                // ─── F. BOTTOM SPEAKER GRILLE (Left side, visible cone) ───
+                for (let g = 0; g < 6; g++) {{
+                    const gr = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.04, 0.02, 0.025),
+                        new THREE.MeshStandardMaterial({{ color: 0x0a0a0e }})
+                    );
+                    gr.position.set(0.35 + g * 0.075, -phoneHeight * 0.50, 0);
                     primaryMesh.add(gr);
                 }}
+                // Speaker driver cone (visible behind grille)
+                const spkCone = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.15, 0.1, 0.03, 16),
+                    new THREE.MeshStandardMaterial({{ color: 0x333338, metalness: 0.6 }})
+                );
+                spkCone.rotation.x = Math.PI / 2;
+                spkCone.position.set(0.55, -phoneHeight * 0.48, -0.02);
+                primaryMesh.add(spkCone);
+
+                // ─── G. TOP EARPIECE SPEAKER ───
+                const earpiece = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.025, 0.025),
+                    new THREE.MeshStandardMaterial({{ color: 0x0a0a0e }})
+                );
+                earpiece.position.set(0, phoneHeight * 0.465, 0);
+                primaryMesh.add(earpiece);
+                // Earpiece mesh grill
+                for (let eg = 0; eg < 8; eg++) {{
+                    const egr = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.04, 0.006, 0.015),
+                        new THREE.MeshStandardMaterial({{ color: 0x050508 }})
+                    );
+                    egr.position.set(-0.18 + eg * 0.05, phoneHeight * 0.465, 0.01);
+                    primaryMesh.add(egr);
+                }}
+
+                // ─── H. VIBRATION MOTOR (Linear Haptic Motor with Off-Center Weight) ───
+                const vibrBody = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.35, 0.18, 0.035),
+                    new THREE.MeshStandardMaterial({{ color: 0x444450, metalness: 0.85, roughness: 0.2 }})
+                );
+                vibrBody.position.set(-0.5, -phoneHeight * 0.42, 0);
+                primaryMesh.add(vibrBody);
+                // Eccentric rotating mass
+                const vibrWeight = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.04, 0.04, 0.03, 12),
+                    new THREE.MeshStandardMaterial({{ color: 0xD4AF37, metalness: 0.95 }})
+                );
+                vibrWeight.rotation.x = Math.PI / 2;
+                vibrWeight.position.set(-0.42, -phoneHeight * 0.42, 0.02);
+                primaryMesh.add(vibrWeight);
+
+                // ─── I. ANTENNA MODULES (3 Flex Antenna Strips) ───
+                const antMat = new THREE.MeshStandardMaterial({{ color: 0x2a5e3a, roughness: 0.4 }});
+                // Top 5G antenna
+                const ant1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.08, 0.01), antMat);
+                ant1.position.set(0, phoneHeight * 0.44, -0.025);
+                primaryMesh.add(ant1);
+                // Bottom WiFi antenna
+                const ant2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.08, 0.01), antMat);
+                ant2.position.set(0, -phoneHeight * 0.44, -0.025);
+                primaryMesh.add(ant2);
+                // Side Bluetooth antenna strip
+                const ant3 = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.6, 0.01), antMat);
+                ant3.position.set(-phoneWidth * 0.46, -0.3, -0.025);
+                primaryMesh.add(ant3);
+
+                // ─── J. FLEX RIBBON CABLES (Display + Battery + Charging Board) ───
+                const flexMat = new THREE.MeshStandardMaterial({{ color: 0xCC8833, metalness: 0.5, roughness: 0.4 }});
+                // Display FPC flex
+                const flex1 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.5, 0.005), flexMat);
+                flex1.position.set(0.3, 0.5, 0.025);
+                primaryMesh.add(flex1);
+                // Battery flex connector
+                const flex2 = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.3, 0.005), flexMat);
+                flex2.position.set(-0.4, -0.2, 0.025);
+                primaryMesh.add(flex2);
+                // Charging board flex
+                const flex3 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.08, 0.005), flexMat);
+                flex3.position.set(0, -phoneHeight * 0.38, 0.025);
+                primaryMesh.add(flex3);
+
+                // ─── K. BOTTOM MICROPHONE HOLE ───
+                const mic = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.015, 0.015, 0.05, 8),
+                    new THREE.MeshStandardMaterial({{ color: 0x050505 }})
+                );
+                mic.rotation.x = Math.PI / 2;
+                mic.position.set(-0.4, -phoneHeight * 0.50, 0);
+                primaryMesh.add(mic);
 
             }} else {{
                 // ── 7. 120HZ CURVED AMOLED DISPLAY & CORNING GORILLA GLASS ──
