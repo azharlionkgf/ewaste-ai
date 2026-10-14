@@ -936,6 +936,100 @@ function createDisplayUITexture() {{
     return new THREE.CanvasTexture(canvas);
 }}
 
+// ═══ ULTRA-REALISTIC PHONE MOTHERBOARD TEXTURE ═══
+function createPhonePCBDetailTexture() {{
+    const c = document.createElement('canvas');
+    c.width = 2048; c.height = 1024;
+    const x = c.getContext('2d');
+    x.fillStyle = '#0a5a2a'; x.fillRect(0,0,2048,1024);
+    x.strokeStyle = 'rgba(180,120,50,0.12)'; x.lineWidth = 1;
+    for (let y=0;y<1024;y+=8) {{ x.beginPath(); x.moveTo(0,y); x.lineTo(2048,y); x.stroke(); }}
+    x.strokeStyle = 'rgba(200,150,60,0.35)'; x.lineWidth = 2;
+    [[100,200,500,200],[500,200,500,600],[500,600,900,600],[900,300,1300,300],[1400,100,1400,500],[1800,500,1800,900]].forEach(function(r){{ x.beginPath(); x.moveTo(r[0],r[1]); x.lineTo(r[2],r[3]); x.stroke(); }});
+    x.fillStyle = 'rgba(200,150,60,0.5)';
+    for(var v=0;v<60;v++){{ x.beginPath(); x.arc(80+Math.random()*1880,60+Math.random()*900,3,0,Math.PI*2); x.fill(); }}
+    x.fillStyle = '#c0c0cc'; x.fillRect(300,200,450,380);
+    x.fillStyle = '#0a0a14'; x.fillRect(340,240,370,300);
+    x.fillStyle = '#888'; x.font = 'bold 28px monospace';
+    x.fillText('DIMENSITY',380,400); x.fillText('7050 5G',400,435);
+    x.fillStyle = '#b8bcc0'; x.fillRect(850,180,340,280);
+    x.fillStyle = '#222'; x.font = '22px monospace';
+    x.fillText('SAMSUNG',900,300); x.fillText('256GB',920,360);
+    x.fillStyle = '#1a1a22'; x.fillRect(1300,250,200,160);
+    x.fillStyle = '#888'; x.font = '16px monospace'; x.fillText('PM8350',1330,340);
+    x.fillStyle = '#2a2a35'; x.fillRect(100,650,180,140);
+    x.fillStyle = '#aaa'; x.font = '14px monospace'; x.fillText('QTM545',130,730);
+    for(var s=0;s<80;s++){{ var sx=60+Math.random()*1920,sy=50+Math.random()*920,sw=14+Math.random()*16,sh=8+Math.random()*8; x.fillStyle=s%5===0?'#111':s%3===0?'#8a6840':'#333'; x.fillRect(sx,sy,sw,sh); x.fillStyle='#c0c0c0'; x.fillRect(sx,sy,3,sh); x.fillRect(sx+sw-3,sy,3,sh); }}
+    x.fillStyle = '#d4af37';
+    x.fillRect(200,900,250,40); x.fillRect(600,900,250,40); x.fillRect(1100,900,250,40);
+    for(var p=0;p<15;p++){{ x.fillStyle='#111'; x.fillRect(210+p*16,905,2,30); x.fillRect(610+p*16,905,2,30); }}
+    x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '11px monospace';
+    var pcbLabels = ['R101','C204','U3','L5','Q12','J7','D8','FL1','U9','C88'];
+    for(var li=0;li<pcbLabels.length;li++) x.fillText(pcbLabels[li],80+(li%5)*380,100+Math.floor(li/5)*350);
+    x.fillStyle = '#ffd700';
+    for(var f=0;f<24;f++) x.fillRect(1700+f*12,0,8,50);
+    return new THREE.CanvasTexture(c);
+}}
+
+// ═══ ULTRA-REALISTIC BATTERY LABEL TEXTURE ═══
+function createBatteryTexture() {{
+    var c = document.createElement('canvas');
+    c.width = 1024; c.height = 512;
+    var x = c.getContext('2d');
+    x.fillStyle = '#0a1020'; x.fillRect(0,0,1024,512);
+    x.fillStyle = 'rgba(240,240,240,0.95)'; x.fillRect(120,60,780,260);
+    x.fillStyle = '#111'; x.font = 'bold 42px Arial'; x.fillText('Li-ion',200,130);
+    x.font = '28px Arial'; x.fillText('RECHARGEABLE BATTERY',200,170);
+    x.font = '20px monospace';
+    x.fillText('Rated: 5000mAh / 19.25Wh',200,210);
+    x.fillText('Voltage: 3.85V / 4.45V Max',200,240);
+    x.fillText('Model: BLP951  Wt: 47.2g',200,270);
+    x.fillStyle = '#FFD700'; x.beginPath(); x.moveTo(150,140); x.lineTo(130,175); x.lineTo(170,175); x.closePath(); x.fill();
+    x.fillStyle = '#111'; x.font = 'bold 22px Arial'; x.fillText('!',145,170);
+    x.fillStyle = '#CC0000'; x.font = '12px Arial';
+    x.fillText('DO NOT disassemble, puncture or incinerate',200,295);
+    x.fillStyle = '#111';
+    for(var qx=0;qx<12;qx++) for(var qy=0;qy<12;qy++) if(Math.random()>0.4) x.fillRect(780+qx*8,80+qy*8,7,7);
+    x.fillRect(780,80,24,24); x.fillRect(852,80,24,24); x.fillRect(780,152,24,24);
+    for(var b=0;b<40;b++){{ x.fillStyle=b%2===0?'#111':'#fff'; x.fillRect(200+b*6,350,Math.random()>0.5?3:2,50); }}
+    x.fillStyle = '#555'; x.font = 'bold 18px Arial'; x.fillText('CE',600,390);
+    x.font = '14px Arial'; x.fillText('RoHS',650,390);
+    x.fillStyle = '#666'; x.font = '16px Arial';
+    x.fillText('Mfg: Guangdong OPPO Mobile',200,420);
+    x.fillText('Made in China  2024-06',200,445);
+    return new THREE.CanvasTexture(c);
+}}
+
+// ═══ REALISTIC PHONE BACK COVER TEXTURE ═══
+function createPhoneBackDetailTexture() {{
+    var c = document.createElement('canvas');
+    c.width = 1024; c.height = 2048;
+    var x = c.getContext('2d');
+    var g = x.createLinearGradient(0,0,1024,2048);
+    g.addColorStop(0,'#d4c4a0'); g.addColorStop(0.5,'#c8b890'); g.addColorStop(1,'#d0c098');
+    x.fillStyle = g; x.fillRect(0,0,1024,2048);
+    for(var i=0;i<8000;i++){{ x.fillStyle='rgba('+(140+Math.floor(Math.random()*40))+','+(120+Math.floor(Math.random()*40))+','+(80+Math.floor(Math.random()*40))+',0.15)'; x.fillRect(Math.random()*1024,Math.random()*2048,2+Math.random()*3,1+Math.random()*2); }}
+    x.strokeStyle = 'rgba(180,150,100,0.6)'; x.lineWidth = 2; x.setLineDash([6,4]);
+    x.beginPath(); x.moveTo(512,200); x.lineTo(512,1800); x.stroke(); x.setLineDash([]);
+    x.fillStyle = '#0a0a0a'; x.beginPath(); x.arc(512,480,260,0,Math.PI*2); x.fill();
+    x.strokeStyle = '#d4af37'; x.lineWidth = 8; x.beginPath(); x.arc(512,480,260,0,Math.PI*2); x.stroke();
+    var lg = x.createRadialGradient(512,480,10,512,480,95);
+    lg.addColorStop(0,'rgba(20,30,60,0.9)'); lg.addColorStop(0.5,'rgba(10,20,50,0.95)');
+    lg.addColorStop(0.8,'rgba(40,60,100,0.4)'); lg.addColorStop(1,'rgba(5,10,25,0.95)');
+    x.fillStyle = '#111'; x.beginPath(); x.arc(512,480,100,0,Math.PI*2); x.fill();
+    x.fillStyle = lg; x.beginPath(); x.arc(512,480,95,0,Math.PI*2); x.fill();
+    x.strokeStyle = '#d4af37'; x.lineWidth = 4; x.beginPath(); x.arc(512,480,98,0,Math.PI*2); x.stroke();
+    x.fillStyle = '#111'; x.beginPath(); x.arc(370,580,50,0,Math.PI*2); x.fill();
+    x.beginPath(); x.arc(654,580,50,0,Math.PI*2); x.fill();
+    x.fillStyle = '#ffe880'; x.beginPath(); x.arc(512,310,28,0,Math.PI*2); x.fill();
+    x.fillStyle = 'rgba(180,160,120,0.5)'; x.font = 'bold 36px Arial'; x.fillText('realme',430,1100);
+    x.fillStyle = 'rgba(200,180,140,0.4)'; x.font = '18px Arial'; x.fillText('200MP OIS AI CAMERA',380,700);
+    x.fillStyle = 'rgba(150,130,100,0.3)'; x.font = '11px monospace';
+    x.fillText('IMEI: 86XXXXXXXXXXX/XX',300,1750);
+    x.fillText('Model: RMX3771',250,1780);
+    return new THREE.CanvasTexture(c);
+}}
+
 // ═══ HAZARD GLOW OUTLINE SYSTEM ═══
 // Adds pulsing red wireframe outline on hazardous component layers
 function applyHazardGlow(mesh, isHazardous) {{
@@ -4860,8 +4954,8 @@ function buildDeviceGeometry(type) {{
                 // ── 1. REALISTIC REAR COVER (Sunrise Beige Vegan Leather + Stitched Center Stripe) ──
                 primaryMesh = new THREE.Group();
 
-                // Base Leather Backplate
-                const leatherTex = createLeatherTexture();
+                // Base Leather Backplate with detailed texture
+                const leatherTex = createPhoneBackDetailTexture();
                 const backGeo = new THREE.BoxGeometry(phoneWidth, phoneHeight, 0.035);
                 const backMat = new THREE.MeshStandardMaterial({{
                     map: leatherTex,
@@ -5030,9 +5124,9 @@ function buildDeviceGeometry(type) {{
                 // ── 4. MULTI-LAYER FR4 LOGIC BOARD — HYPER-DETAILED PHONE PCB ──
                 primaryMesh = new THREE.Group();
 
-                // PCB substrate with copper trace texture
-                const pcbMat = new THREE.MeshStandardMaterial({{ color: 0x0E5A33, roughness: 0.35, metalness: 0.3 }});
-                try {{ pcbMat.map = createPCBTexture(); }} catch(e) {{}}
+                // PCB substrate with ultra-detailed phone motherboard texture
+                const pcbMat = new THREE.MeshStandardMaterial({{ roughness: 0.35, metalness: 0.3 }});
+                try {{ pcbMat.map = createPhonePCBDetailTexture(); }} catch(e) {{ pcbMat.color = new THREE.Color(0x0E5A33); }}
                 const pcb = new THREE.Mesh(
                     new THREE.BoxGeometry(phoneWidth * 0.92, phoneHeight * 0.44, 0.03),
                     pcbMat
@@ -5172,10 +5266,11 @@ function buildDeviceGeometry(type) {{
                 // ── 5. 5000MAH LI-ION BATTERY — HYPER-DETAILED POUCH CELL ──
                 primaryMesh = new THREE.Group();
 
-                // Main pouch cell body (dark blue-black wrapping)
+                // Main pouch cell body with realistic label texture
+                const battTex = createBatteryTexture();
                 const cell = new THREE.Mesh(
                     new THREE.BoxGeometry(phoneWidth * 0.86, phoneHeight * 0.46, 0.065),
-                    new THREE.MeshStandardMaterial({{ color: 0x0a1020, roughness: 0.5, metalness: 0.1 }})
+                    new THREE.MeshStandardMaterial({{ map: battTex, roughness: 0.5, metalness: 0.1 }})
                 );
                 primaryMesh.add(cell);
 
