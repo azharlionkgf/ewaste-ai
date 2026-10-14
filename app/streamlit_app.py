@@ -145,6 +145,17 @@ def init_db():
         conn.execute('''CREATE TABLE IF NOT EXISTS datasets (
             id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, uploaded_at TEXT,
             rows INTEGER, columns INTEGER, filepath TEXT, is_active INTEGER DEFAULT 1)''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            phone TEXT NOT NULL UNIQUE,
+            email TEXT,
+            address TEXT,
+            city TEXT,
+            state TEXT,
+            country TEXT DEFAULT 'India',
+            password_hash TEXT NOT NULL,
+            created_at TEXT)''')
         conn.commit(); conn.close()
     except: pass
 
@@ -969,35 +980,111 @@ if not st.session_state.logged_in:
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
     c1,c2,c3 = st.columns([1,2,1])
     with c2:
-        st.markdown('''<div class="glass-card" style="text-align:center;padding:40px;">
-            <div style="font-size:4rem;margin-bottom:15px;">⚡</div>
-            <h3 style="color:#DC143C;">Welcome! Choose Access Mode</h3>
-            <p style="color:#888;">Select how you want to use the app</p>
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:30px;">
+            <div style="font-size:4rem;margin-bottom:10px;">⚡</div>
+            <h3 style="color:#DC143C;">Welcome! Login or Register</h3>
+            <p style="color:#888;">Create an account to get personalized recovery recommendations</p>
         </div>''', unsafe_allow_html=True)
 
-        # Direct login buttons on main page (works on mobile!)
-        st.markdown("")
-        if st.button("🚀 ENTER AS NORMAL USER", use_container_width=True, key="main_user_btn"):
-            st.session_state.logged_in = True
-            st.session_state.role = "user"
-            st.rerun()
+        login_tab, register_tab, admin_tab = st.tabs(["🔑 Login", "📝 Register", "🛡️ Admin"])
 
-        st.markdown("")
-        with st.expander("🔑 Admin Login"):
+        with register_tab:
+            st.markdown("##### 📝 Create Your Account")
+            reg_name = st.text_input("👤 Full Name *", key="reg_name", placeholder="e.g. Azhar Fareed Mulla")
+            reg_phone = st.text_input("📱 Phone Number *", key="reg_phone", placeholder="e.g. +91 9876543210")
+            reg_email = st.text_input("📧 Email (optional)", key="reg_email", placeholder="e.g. azhar@email.com")
+            reg_address = st.text_area("🏠 Address", key="reg_address", placeholder="Street, Area, Landmark", height=68)
+            rc1, rc2 = st.columns(2)
+            with rc1:
+                reg_city = st.text_input("🏙️ City *", key="reg_city", placeholder="e.g. Vijayapur")
+            with rc2:
+                reg_state = st.text_input("📍 State", key="reg_state", placeholder="e.g. Karnataka")
+            reg_country = st.selectbox("🌍 Country", ["India", "USA", "UK", "UAE", "Saudi Arabia", "Germany", "Japan", "China", "Australia", "Canada", "Pakistan", "Bangladesh", "Other"], key="reg_country")
+            reg_pw = st.text_input("🔒 Password *", type="password", key="reg_pw")
+            reg_pw2 = st.text_input("🔒 Confirm Password *", type="password", key="reg_pw2")
+
+            if st.button("🚀 REGISTER & LOGIN", use_container_width=True, key="btn_register"):
+                if not reg_name.strip():
+                    st.error("❌ Name is required!")
+                elif not reg_phone.strip():
+                    st.error("❌ Phone number is required!")
+                elif not reg_city.strip():
+                    st.error("❌ City is required!")
+                elif not reg_pw or len(reg_pw) < 4:
+                    st.error("❌ Password must be at least 4 characters!")
+                elif reg_pw != reg_pw2:
+                    st.error("❌ Passwords don't match!")
+                else:
+                    try:
+                        pw_hash = hashlib.sha256(reg_pw.encode()).hexdigest()
+                        conn = sqlite3.connect(DB_PATH)
+                        conn.execute("INSERT INTO users (name, phone, email, address, city, state, country, password_hash, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                            (reg_name.strip(), reg_phone.strip(), reg_email.strip(), reg_address.strip(), reg_city.strip(), reg_state.strip(), reg_country, pw_hash, datetime.now().isoformat()))
+                        conn.commit(); conn.close()
+                        st.session_state.logged_in = True
+                        st.session_state.role = "user"
+                        st.session_state['user_profile'] = {
+                            'name': reg_name.strip(), 'phone': reg_phone.strip(), 'email': reg_email.strip(),
+                            'address': reg_address.strip(), 'city': reg_city.strip(), 'state': reg_state.strip(), 'country': reg_country
+                        }
+                        st.success(f"✅ Welcome {reg_name.strip()}! Account created successfully!")
+                        time.sleep(1)
+                        st.rerun()
+                    except sqlite3.IntegrityError:
+                        st.error("❌ This phone number is already registered! Please login instead.")
+                    except Exception as e:
+                        st.error(f"❌ Registration failed: {str(e)}")
+
+        with login_tab:
+            st.markdown("##### 🔑 Login to Your Account")
+            login_phone = st.text_input("📱 Phone Number", key="login_phone", placeholder="Enter your registered phone")
+            login_pw = st.text_input("🔒 Password", type="password", key="login_pw")
+
+            if st.button("🔓 LOGIN", use_container_width=True, key="btn_login"):
+                if not login_phone.strip() or not login_pw:
+                    st.error("❌ Enter phone and password!")
+                else:
+                    try:
+                        pw_hash = hashlib.sha256(login_pw.encode()).hexdigest()
+                        conn = sqlite3.connect(DB_PATH)
+                        cur = conn.execute("SELECT name, phone, email, address, city, state, country FROM users WHERE phone=? AND password_hash=?",
+                            (login_phone.strip(), pw_hash))
+                        row = cur.fetchone()
+                        conn.close()
+                        if row:
+                            st.session_state.logged_in = True
+                            st.session_state.role = "user"
+                            st.session_state['user_profile'] = {
+                                'name': row[0], 'phone': row[1], 'email': row[2],
+                                'address': row[3], 'city': row[4], 'state': row[5], 'country': row[6]
+                            }
+                            st.success(f"✅ Welcome back, {row[0]}!")
+                            time.sleep(0.5)
+                            st.rerun()
+                        else:
+                            st.error("❌ Wrong phone number or password!")
+                    except Exception as e:
+                        st.error(f"❌ Login failed: {str(e)}")
+
+            st.markdown("")
+            st.markdown('<p style="color:#666;text-align:center;font-size:.85rem;">New here? Switch to the <strong>📝 Register</strong> tab above!</p>', unsafe_allow_html=True)
+
+            st.markdown("")
+            if st.button("👤 Quick Guest Access (No Account)", use_container_width=True, key="btn_guest"):
+                st.session_state.logged_in = True
+                st.session_state.role = "user"
+                st.rerun()
+
+        with admin_tab:
+            st.markdown("##### 🛡️ Admin Access")
             admin_pw = st.text_input("Enter Admin Password", type="password", key="main_admin_pw")
             if st.button("🔓 LOGIN AS ADMIN", use_container_width=True, key="main_admin_btn"):
-                import hashlib
-                if hashlib.sha256(admin_pw.encode()).hexdigest() == "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" or admin_pw == "admin@ewaste2025":
+                if hashlib.sha256(admin_pw.encode()).hexdigest() == ADMIN_PASS_HASH or admin_pw == "admin@ewaste2025":
                     st.session_state.logged_in = True
                     st.session_state.role = "admin"
                     st.rerun()
                 else:
                     st.error("❌ Wrong password!")
-
-        st.markdown('''<div style="text-align:center;margin-top:20px;padding:15px;background:rgba(255,255,255,.02);border-radius:10px;">
-            <p style="color:#666;font-size:.8rem;">📱 <strong>Mobile users:</strong> Tap the button above to start!<br>
-            💻 <strong>Desktop:</strong> You can also use the sidebar on the left</p>
-        </div>''', unsafe_allow_html=True)
     st.stop()
 
 page_id = pages[st.session_state.current_page]
@@ -1396,25 +1483,110 @@ elif page_id == "chatbot":
             st.session_state.chat_messages.append({"role": "assistant", "content": bot_reply})
             st.rerun()
 
-    # ── CHAT INPUT (WhatsApp message bar at very bottom) ──
+    # ── SMART CHAT INPUT with keyword AI ──
     user_text = st.chat_input("Message (Ask AI anything...)")
     if user_text:
         st.session_state.chat_messages.append({"role":"user","content":user_text})
         bot_reply = None
-        if gemini_ready and gemini_model:
+        q = user_text.lower().strip()
+        profile = st.session_state.get('user_profile', {})
+        user_name = profile.get('name', 'friend')
+        user_city = profile.get('city', '')
+        user_country = profile.get('country', 'India')
+        curr_c = st.session_state.get('app_curr', 'USD')
+        current_dev = st.session_state.get('chatbot_device', None) or st.session_state.get('last_classified_device', None)
+
+        # 1. GREETINGS
+        if any(w in q for w in ['hello','hi','hey','namaste','salam','assalam','hlo','howdy','kaise ho','kya haal','namaskar']):
+            bot_reply = f"👋 **Namaste {user_name}!** Main hoon Astra-GPT — aapka E-Waste Intelligence Assistant! 🤖\n\nMujhse pooch sakte ho:\n- 📱 Kisi bhi device ke baare mein (phone, laptop, TV, printer, PCB...)\n- 💰 Scrap value aur gold/silver kitna milega\n- 🛠️ Kaise safely kholo step-by-step\n- ♻️ Kahan recycle karein (nearby centers)\n- ⚠️ Safety precautions\n\n**Bolo, kya jaanna hai?** 😊"
+
+        # 2. THANKS
+        elif any(w in q for w in ['thanks','thank','shukriya','dhanyavaad','dhanyawad','thnx','thx','meherbani']):
+            bot_reply = f"😊 **Shukriya {user_name}!** Aapki seva mein hamesha hazir! Kuch aur poochna ho toh zaroor poochein. ♻️🌱"
+
+        # 3. LOCATION / NEARBY CENTERS
+        elif any(w in q for w in ['near me','nearby','center','centre','shop','dukan','kahan','where','location','recycle kahan','drop off','pickup']):
+            centers_text = ""
             try:
-                system_context = f"You are Astra-GPT, the world's most advanced E-Waste, Electronic Architecture, and Hardware Intelligence AI. Answer comprehensively, with step-by-step clarity, precious metal yields, safety warnings, and disassembly steps. Language: {st.session_state.get('app_lang', 'en')}, Currency: {st.session_state.get('app_curr', 'USD')}. User asks: {user_text}"
+                if user_city:
+                    nearby = [c for c in RECYCLING_CENTERS_DB if c.get('city','').lower() == user_city.lower() or c.get('state','').lower() == user_city.lower()]
+                    if not nearby:
+                        nearby = [c for c in RECYCLING_CENTERS_DB if c.get('country','').lower() == user_country.lower()][:4]
+                    if nearby:
+                        centers_text = f"📍 **{user_city} ke paas recovery centers:**\n\n"
+                        for c in nearby[:4]:
+                            pickup = "✅ Doorstep Pickup" if c.get('doorstep_pickup') else "🏪 Drop-off"
+                            centers_text += f"🏭 **{c['name']}**\n📍 {c['address']}\n📞 {c.get('phone','')} | {pickup}\n🏅 {c.get('cert','')}\n\n---\n"
+                    else:
+                        centers_text = "Aapke shehar mein abhi hamare database mein center nahi hai. **📍 Recycling Centers** page pe jaayein detailed list ke liye!"
+                else:
+                    centers_text = "⚠️ Aapne city register nahi kiya. Profile mein city update karein toh main nearby centers dikha sakta hoon!\n\n**📍 Recycling Centers** page pe jaayein sab centers dekhne ke liye."
+            except:
+                centers_text = "**📍 Recycling Centers** page pe jaayein nearby centers dekhne ke liye!"
+            bot_reply = f"### 📍 Nearest E-Waste Recovery Centers\n\n{centers_text}"
+
+        # 4. REPAIR vs RECYCLE
+        elif any(w in q for w in ['repair','fix','theek','thik','mend','jod','tod','broken','toot']):
+            dev_name = current_dev or "Electronic Device"
+            bot_reply = f"""### 🔧 Repair vs ♻️ Recycle: `{dev_name}`
+
+**🔧 Repair Karo Agar:**
+- Screen ya battery replace karna hai (₹500-₹3000 cost)
+- Device 2 saal se kam purana hai
+- Software problem hai (factory reset try karo)
+- Repairability Score > 6/10
+
+**♻️ Recycle Karo Agar:**
+- Water damage ya motherboard dead hai
+- Device 4+ saal purana hai
+- Repair cost > 60% of new device price
+- Device band ho gaya permanently
+
+**💡 Tip:** Pehle **📸 Image Classify** mein photo upload karo — main exact repair cost vs scrap value bata dunga!"""
+
+        # 5. PRICE / VALUE / SCRAP
+        elif any(w in q for w in ['price','cost','kitna','keemat','value','worth','paisa','rupee','dollar','milega','scrap','gold','silver','copper']):
+            if not bot_reply:
+                bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+
+        # 6. SAFETY / HAZARD
+        elif any(w in q for w in ['safety','safe','hazard','danger','toxic','khatra','nuksan','precaution','warning','dhyan']):
+            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+
+        # 7. ENVIRONMENT / CO2
+        elif any(w in q for w in ['environment','eco','co2','carbon','green','paryavaran','pollution','pradushan','tree','water','energy']):
+            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+
+        # 8. DEVICE-SPECIFIC queries
+        elif any(w in q for w in ['phone','mobile','laptop','desktop','computer','tablet','ipad','monitor','display','tv','television','printer','scanner','battery','pcb','circuit','board','cable','wire','router','networking','server','console','playstation','xbox','appliance','fridge','microwave','washing','ac','air conditioner','led','bulb','light','speaker','headphone','camera','realme','samsung','iphone','apple','dell','hp','lenovo','asus','acer','nokia','oppo','vivo','xiaomi','redmi','oneplus','nothing','google pixel']):
+            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+
+        # 9. DISASSEMBLY / TEARDOWN / OPEN
+        elif any(w in q for w in ['open','disassemble','teardown','kholo','nikalo','todna','dismantl','unscrew','remove','hatao','step by step','manual']):
+            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+
+        # 10. RECYCLE / DISPOSE / RECOVER
+        elif any(w in q for w in ['recycle','recover','dispose','disposal','kachra','ewaste','e-waste','waste','reuse']):
+            dev_name = current_dev or "device"
+            rec_text = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+            if user_city:
+                rec_text += f"\n\n---\n📍 **{user_name}**, aapke **{user_city}** mein nearest centers dekhne ke liye *\"near me\"* type karein ya **📍 Recycling Centers** page pe jaayein!"
+            bot_reply = rec_text
+
+        # 11. TRY GEMINI API IF AVAILABLE
+        if not bot_reply and gemini_ready and gemini_model:
+            try:
+                system_context = f"You are Astra-GPT, expert E-Waste AI assistant. Answer about electronics, recycling, precious metals, safety. Be concise and friendly. User's name: {user_name}, City: {user_city}. Language: {st.session_state.get('app_lang', 'en')}. User asks: {user_text}"
                 response = gemini_model.generate_content(system_context)
                 if response and hasattr(response, 'text') and response.text:
                     bot_reply = response.text
-            except Exception:
+            except:
                 bot_reply = None
-                
+
+        # 12. FALLBACK TO EXPERT ENGINE
         if not bot_reply:
-            curr_c = st.session_state.get('app_curr', 'USD')
-            current_dev = st.session_state.get('chatbot_device', None)
             bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
-            
+
         st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
 
@@ -1439,6 +1611,44 @@ elif page_id == "recovery":
                 with cb1: st.markdown(f'<div class="metric-card"><div class="metric-icon">💵</div><div class="metric-value green-value">${cba.get("gross_value_usd",0):.2f}</div><div class="metric-label">Gross Value</div></div>', unsafe_allow_html=True)
                 with cb2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🏭</div><div class="metric-value" style="color:#FF6347;">${cba.get("estimated_processing_cost_usd",0):.2f}</div><div class="metric-label">Processing Cost</div></div>', unsafe_allow_html=True)
                 with cb3: st.markdown(f'<div class="metric-card"><div class="metric-icon">📈</div><div class="metric-value {"green-value" if cba.get("is_profitable") else ""}">${cba.get("net_value_usd",0):.2f}</div><div class="metric-label">Net {"Profit ✅" if cba.get("is_profitable") else "Value"}</div></div>', unsafe_allow_html=True)
+
+            # ── LOCATION-BASED NEARBY RECOVERY CENTERS ──
+            st.markdown('<div class="section-header">📍 RECOMMENDED RECOVERY CENTERS NEAR YOU</div>', unsafe_allow_html=True)
+            try:
+                user_profile = st.session_state.get('user_profile', {})
+                user_city = user_profile.get('city', '').strip().lower()
+                user_country = user_profile.get('country', 'India').strip()
+
+                if user_city:
+                    nearby = [c for c in RECYCLING_CENTERS_DB if c.get('city','').lower() == user_city or c.get('state','').lower() == user_city]
+                    if not nearby:
+                        nearby = [c for c in RECYCLING_CENTERS_DB if c.get('country','').lower() == user_country.lower()]
+                    if not nearby:
+                        nearby = RECYCLING_CENTERS_DB[:5]
+                    
+                    st.success(f"📍 Showing centers near **{user_profile.get('city', 'your location')}**, {user_country}")
+                else:
+                    nearby = RECYCLING_CENTERS_DB[:6]
+                    st.info("💡 **Tip:** Register with your city to see centers nearest to you!")
+
+                for center in nearby[:6]:
+                    pickup_badge = '🚛 **FREE Doorstep Pickup**' if center.get('doorstep_pickup') else '🏪 Drop-off Only'
+                    st.markdown(f'''<div class="glass-card" style="padding:18px;margin:10px 0;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                            <div>
+                                <h4 style="color:#FFD700;margin:0;">🏭 {center['name']}</h4>
+                                <p style="color:#aaa;margin:4px 0;">📍 {center['address']}</p>
+                                <p style="color:#888;margin:2px 0;">📞 {center.get('phone','')} {(' • 📱 ' + center.get('toll_free','')) if center.get('toll_free') else ''}</p>
+                                <p style="color:#888;margin:2px 0;">🏅 {center.get('cert','Certified')}</p>
+                                <p style="color:#888;margin:2px 0;">📦 Accepts: {center.get('accepts','All Electronics')}</p>
+                            </div>
+                            <div style="text-align:right;">
+                                <span class="tag" style="background:rgba(0,255,127,.15);color:#00FF7F;padding:6px 14px;border-radius:20px;font-size:.85rem;">{pickup_badge}</span>
+                            </div>
+                        </div>
+                    </div>''', unsafe_allow_html=True)
+            except Exception as e:
+                st.info("📍 Register with your city to see nearby recovery centers!")
         else: st.warning("Recovery data unavailable. Check if src/recovery_engine.py is loaded.")
 
 # ═══ ENVIRONMENTAL IMPACT ═══
