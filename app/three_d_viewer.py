@@ -5027,50 +5027,229 @@ function buildDeviceGeometry(type) {{
                 }});
 
             }} else if (idx === 3) {{
-                // ── 4. MULTI-LAYER FR4 LOGIC BOARD & DIMENSITY 7050 5G SOC ──
+                // ── 4. MULTI-LAYER FR4 LOGIC BOARD — HYPER-DETAILED PHONE PCB ──
                 primaryMesh = new THREE.Group();
-                // PCB substrate
+
+                // PCB substrate with copper trace texture
+                const pcbMat = new THREE.MeshStandardMaterial({{ color: 0x0E5A33, roughness: 0.35, metalness: 0.3 }});
+                try {{ pcbMat.map = createPCBTexture(); }} catch(e) {{}}
                 const pcb = new THREE.Mesh(
                     new THREE.BoxGeometry(phoneWidth * 0.92, phoneHeight * 0.44, 0.03),
-                    new THREE.MeshStandardMaterial({{ color: 0x0E5A33, roughness: 0.35, metalness: 0.3 }})
+                    pcbMat
                 );
                 primaryMesh.add(pcb);
 
-                // EMI metal RF shielding cans
-                const emiCan1 = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.7, 0.6, 0.04),
+                // ── Main Application Processor (SoC) — Large BGA with IHS ──
+                const socBase = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.55, 0.5, 0.025),
                     new THREE.MeshStandardMaterial({{ color: 0xDCDDE1, metalness: 0.92, roughness: 0.15 }})
                 );
-                emiCan1.position.set(-0.35, 0.1, 0.025);
-                primaryMesh.add(emiCan1);
-
-                const emiCan2 = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.6, 0.5, 0.04),
-                    new THREE.MeshStandardMaterial({{ color: 0xDCDDE1, metalness: 0.92, roughness: 0.15 }})
+                socBase.position.set(-0.25, 0.15, 0.025);
+                primaryMesh.add(socBase);
+                // SoC die marking
+                const socDie = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.28, 0.25, 0.008),
+                    new THREE.MeshStandardMaterial({{ color: 0x0a0a18, metalness: 0.7 }})
                 );
-                emiCan2.position.set(0.4, 0.15, 0.025);
-                primaryMesh.add(emiCan2);
+                socDie.position.set(-0.25, 0.15, 0.04);
+                primaryMesh.add(socDie);
 
-                // Gold edge connectors & ribbon headers
-                const conn = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.3, 0.08, 0.04),
-                    new THREE.MeshStandardMaterial({{ color: 0xD4AF37, metalness: 0.98, roughness: 0.1 }})
+                // ── NAND Flash Storage Chip ──
+                const nand = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.4, 0.35, 0.02),
+                    new THREE.MeshStandardMaterial({{ color: 0xC8CED0, metalness: 0.88, roughness: 0.18 }})
                 );
-                conn.position.set(0, -0.15, 0.025);
-                primaryMesh.add(conn);
+                nand.position.set(0.35, 0.2, 0.025);
+                primaryMesh.add(nand);
+                // NAND label marking
+                const nandLabel = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.25, 0.08, 0.003),
+                    new THREE.MeshStandardMaterial({{ color: 0x222228 }})
+                );
+                nandLabel.position.set(0.35, 0.2, 0.037);
+                primaryMesh.add(nandLabel);
+
+                // ── LPDDR5 RAM Module ──
+                const ram = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.35, 0.3, 0.018),
+                    new THREE.MeshStandardMaterial({{ color: 0x111118, metalness: 0.85, roughness: 0.2 }})
+                );
+                ram.position.set(-0.25, -0.25, -0.022);
+                primaryMesh.add(ram);
+
+                // ── Power Management IC (PMIC) ──
+                const pmic = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.22, 0.18, 0.015),
+                    new THREE.MeshStandardMaterial({{ color: 0x1a1a22, metalness: 0.8 }})
+                );
+                pmic.position.set(0.5, -0.15, 0.022);
+                primaryMesh.add(pmic);
+
+                // ── RF Transceiver (5G/LTE Modem) ──
+                const rfChip = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.2, 0.15, 0.015),
+                    new THREE.MeshStandardMaterial({{ color: 0x2a2a35, metalness: 0.75 }})
+                );
+                rfChip.position.set(-0.6, -0.1, 0.022);
+                primaryMesh.add(rfChip);
+
+                // ── Audio Codec IC ──
+                const audioIC = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.14, 0.12, 0.012),
+                    new THREE.MeshStandardMaterial({{ color: 0x0a0a14, metalness: 0.7 }})
+                );
+                audioIC.position.set(0.6, 0.35, 0.022);
+                primaryMesh.add(audioIC);
+
+                // ── Wi-Fi / Bluetooth Module ──
+                const wifiBT = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.18, 0.14, 0.012),
+                    new THREE.MeshStandardMaterial({{ color: 0x888890, metalness: 0.85, roughness: 0.15 }})
+                );
+                wifiBT.position.set(0.55, -0.35, 0.022);
+                primaryMesh.add(wifiBT);
+
+                // ── SMD Capacitors & Resistors (30+ tiny components) ──
+                const smdDarkMat = new THREE.MeshStandardMaterial({{ color: 0x1a1a22, metalness: 0.6 }});
+                const smdLightMat = new THREE.MeshStandardMaterial({{ color: 0x888890, metalness: 0.7 }});
+                for (let s = 0; s < 30; s++) {{
+                    const sx = -0.75 + (s % 10) * 0.16;
+                    const sy = -0.35 + Math.floor(s / 10) * 0.22;
+                    if (Math.abs(sx + 0.25) < 0.3 && Math.abs(sy - 0.15) < 0.28) continue;
+                    const smd = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.04 + Math.random() * 0.03, 0.02, 0.015),
+                        s % 3 === 0 ? smdLightMat : smdDarkMat
+                    );
+                    smd.position.set(sx, sy, 0.022);
+                    primaryMesh.add(smd);
+                }}
+
+                // ── Gold FPC Ribbon Connectors (3 headers) ──
+                const fpcMat = new THREE.MeshStandardMaterial({{ color: 0xD4AF37, metalness: 0.98, roughness: 0.08 }});
+                for (let fc = 0; fc < 3; fc++) {{
+                    const fpc = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.25, 0.06, 0.012),
+                        fpcMat
+                    );
+                    fpc.position.set(-0.5 + fc * 0.45, -0.4, 0.022);
+                    primaryMesh.add(fpc);
+                    // Individual gold pins
+                    for (let fp = 0; fp < 8; fp++) {{
+                        const pin = new THREE.Mesh(
+                            new THREE.BoxGeometry(0.015, 0.008, 0.008),
+                            fpcMat
+                        );
+                        pin.position.set(-0.58 + fc * 0.45 + fp * 0.028, -0.43, 0.022);
+                        primaryMesh.add(pin);
+                    }}
+                }}
+
+                // ── Coaxial Antenna Connectors (2 gold micro-circles) ──
+                for (let cx = 0; cx < 2; cx++) {{
+                    const coax = new THREE.Mesh(
+                        new THREE.CylinderGeometry(0.03, 0.03, 0.015, 12),
+                        new THREE.MeshStandardMaterial({{ color: 0xFFD700, metalness: 0.95, roughness: 0.1 }})
+                    );
+                    coax.rotation.x = Math.PI / 2;
+                    coax.position.set(-0.7 + cx * 1.4, 0.35, 0.022);
+                    primaryMesh.add(coax);
+                }}
+
+                // ── Test Pads (Gold dots for factory QC) ──
+                for (let tp = 0; tp < 6; tp++) {{
+                    const pad = new THREE.Mesh(
+                        new THREE.CylinderGeometry(0.015, 0.015, 0.005, 8),
+                        new THREE.MeshStandardMaterial({{ color: 0xFFD700, metalness: 0.95 }})
+                    );
+                    pad.rotation.x = Math.PI / 2;
+                    pad.position.set(-0.6 + tp * 0.24, 0.42, 0.02);
+                    primaryMesh.add(pad);
+                }}
 
                 primaryMesh.position.set(0, 1.05, 0);
 
             }} else if (idx === 4) {{
-                // ── 5. 5000MAH HIGH-DENSITY LI-ION BATTERY CELL (Stretch Tabs) ──
+                // ── 5. 5000MAH LI-ION BATTERY — HYPER-DETAILED POUCH CELL ──
                 primaryMesh = new THREE.Group();
+
+                // Main pouch cell body (dark blue-black wrapping)
                 const cell = new THREE.Mesh(
                     new THREE.BoxGeometry(phoneWidth * 0.86, phoneHeight * 0.46, 0.065),
-                    new THREE.MeshStandardMaterial({{ color: 0x8B1E0F, roughness: 0.5, metalness: 0.1 }})
+                    new THREE.MeshStandardMaterial({{ color: 0x0a1020, roughness: 0.5, metalness: 0.1 }})
                 );
                 primaryMesh.add(cell);
 
-                // Stretch release pull tab A & B (Neon orange)
+                // "Li-ion" white text label area
+                const liLabel = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.12, 0.003),
+                    new THREE.MeshStandardMaterial({{ color: 0xe0e0e0, roughness: 0.8 }})
+                );
+                liLabel.position.set(0, 0.15, 0.034);
+                primaryMesh.add(liLabel);
+
+                // Warning triangle label (yellow)
+                const warnLabel = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.18, 0.15, 0.003),
+                    new THREE.MeshStandardMaterial({{ color: 0xFFCC00, roughness: 0.6 }})
+                );
+                warnLabel.position.set(-0.55, 0.3, 0.034);
+                primaryMesh.add(warnLabel);
+
+                // Voltage/Capacity spec label
+                const specLabel = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.6, 0.08, 0.003),
+                    new THREE.MeshStandardMaterial({{ color: 0xcccccc, roughness: 0.8 }})
+                );
+                specLabel.position.set(0, -0.05, 0.034);
+                primaryMesh.add(specLabel);
+
+                // QR code area
+                const qr = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.15, 0.15, 0.003),
+                    new THREE.MeshStandardMaterial({{ color: 0xffffff, roughness: 0.9 }})
+                );
+                qr.position.set(0.55, -0.25, 0.034);
+                primaryMesh.add(qr);
+                // QR pattern dots
+                for (let qx = 0; qx < 5; qx++) {{
+                    for (let qy = 0; qy < 5; qy++) {{
+                        if (Math.random() > 0.4) {{
+                            const dot = new THREE.Mesh(
+                                new THREE.BoxGeometry(0.02, 0.02, 0.002),
+                                new THREE.MeshStandardMaterial({{ color: 0x111111 }})
+                            );
+                            dot.position.set(0.49 + qx * 0.028, -0.31 + qy * 0.028, 0.036);
+                            primaryMesh.add(dot);
+                        }}
+                    }}
+                }}
+
+                // Battery connector (gold tabs + FPC)
+                const battConn = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.3, 0.06, 0.02),
+                    new THREE.MeshStandardMaterial({{ color: 0x222228, metalness: 0.5 }})
+                );
+                battConn.position.set(0, phoneHeight * 0.22, 0.025);
+                primaryMesh.add(battConn);
+                // Gold contact pads
+                for (let bp = 0; bp < 4; bp++) {{
+                    const bpin = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.04, 0.015, 0.015),
+                        new THREE.MeshStandardMaterial({{ color: 0xFFD700, metalness: 0.98, roughness: 0.05 }})
+                    );
+                    bpin.position.set(-0.08 + bp * 0.055, phoneHeight * 0.22, 0.035);
+                    primaryMesh.add(bpin);
+                }}
+
+                // Thermistor (tiny component on connector)
+                const therm = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.04, 0.03, 0.01),
+                    new THREE.MeshStandardMaterial({{ color: 0x444450, metalness: 0.6 }})
+                );
+                therm.position.set(0.18, phoneHeight * 0.21, 0.03);
+                primaryMesh.add(therm);
+
+                // Stretch release pull tabs (neon orange)
                 const tabGeo = new THREE.BoxGeometry(0.25, 0.08, 0.01);
                 const tabMat = new THREE.MeshStandardMaterial({{ color: 0xE67E22, roughness: 0.4 }});
                 const tabA = new THREE.Mesh(tabGeo, tabMat);
@@ -5079,6 +5258,14 @@ function buildDeviceGeometry(type) {{
                 tabB.position.set(0.35, -0.24, 0.035);
                 primaryMesh.add(tabA);
                 primaryMesh.add(tabB);
+
+                // Manufacturer stamp / CE marking
+                const ceStamp = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.1, 0.08, 0.002),
+                    new THREE.MeshStandardMaterial({{ color: 0x888888, roughness: 0.8 }})
+                );
+                ceStamp.position.set(-0.55, -0.2, 0.034);
+                primaryMesh.add(ceStamp);
 
                 primaryMesh.position.set(0, -0.70, 0);
 
