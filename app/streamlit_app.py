@@ -940,6 +940,18 @@ with st.sidebar:
                 st.rerun()
 
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+        # ── USER PROFILE CARD ──
+        user_p = st.session_state.get('user_profile', {})
+        if user_p.get('name'):
+            st.markdown(f'''<div style="background:linear-gradient(135deg,rgba(220,20,60,.08),rgba(255,215,0,.05));border:1px solid rgba(220,20,60,.2);border-radius:12px;padding:14px;margin-bottom:10px;text-align:center;">
+                <div style="font-size:1.8rem;">👤</div>
+                <div style="color:#FFD700;font-weight:700;font-size:1rem;">{user_p['name']}</div>
+                <div style="color:#888;font-size:.75rem;">📍 {user_p.get('city', '')} {', ' + user_p.get('country', '') if user_p.get('country') else ''}</div>
+                <div style="color:#666;font-size:.7rem;">📱 {user_p.get('phone', '')}</div>
+            </div>''', unsafe_allow_html=True)
+
+        st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
         st.markdown("#### ⚙️ STATUS")
         s1,s2 = st.columns(2)
         with s1: st.markdown("🟢 **Models**" if models_loaded else "🔴 **Models**")
@@ -1227,6 +1239,8 @@ elif page_id == "image":
                 rec, env = get_recovery_info(final_cat)
                 if rec:
                     save_classification(st.session_state.role, "image", final_cat, conf, rec['estimated_value_usd'], rec['recovery_method'], env.get('co2_saved_kg',0), f"Model:{model_key}")
+                    st.session_state['last_classified_device'] = final_cat
+                    st.session_state['chatbot_device'] = final_cat
                     st.markdown("<br>", unsafe_allow_html=True)
                     show_recovery_cards(rec, env, final_cat)
 
@@ -1590,10 +1604,6 @@ elif page_id == "chatbot":
         st.session_state.chat_messages.append({"role":"assistant","content":bot_reply})
         st.rerun()
 
-
-elif page_id == "classify":
-    st.session_state.current_page = "📸 Image Classify"
-    st.rerun()
 
 # ═══ RECOVERY ADVISOR ═══
 elif page_id == "recovery":
