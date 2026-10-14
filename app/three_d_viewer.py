@@ -746,9 +746,10 @@ function init3D() {{
     const height = {height};
 
     scene = new THREE.Scene();
+    // Cinematic depth fog
+    scene.fog = new THREE.FogExp2(0x0a0a12, 0.035);
 
     camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-    // Beauty 3/4 angled perspective directly looking at front/rear layers
     camera.position.set(0.6, 0.4, 5.8);
     camera.lookAt(0, 0, 0);
 
@@ -758,36 +759,94 @@ function init3D() {{
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.3;
+    renderer.outputEncoding = THREE.sRGBEncoding;
     container.appendChild(renderer.domElement);
 
-    // Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    // ═══ CINEMATIC HDR STUDIO LIGHTING ═══
+    const ambientLight = new THREE.AmbientLight(0xdde4ff, 0.55);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xfff8ee, 1.25);
-    keyLight.position.set(7, 12, 9);
+    // Hemisphere sky/ground fill light
+    const hemiLight = new THREE.HemisphereLight(0xc8d8ff, 0x3a2218, 0.6);
+    hemiLight.position.set(0, 10, 0);
+    scene.add(hemiLight);
+
+    // Key light — main directional with sharp shadow
+    const keyLight = new THREE.DirectionalLight(0xfff5e8, 1.4);
+    keyLight.position.set(5, 10, 8);
     keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = 2048;
+    keyLight.shadow.mapSize.height = 2048;
+    keyLight.shadow.camera.near = 0.5;
+    keyLight.shadow.camera.far = 30;
+    keyLight.shadow.camera.left = -6;
+    keyLight.shadow.camera.right = 6;
+    keyLight.shadow.camera.top = 6;
+    keyLight.shadow.camera.bottom = -6;
+    keyLight.shadow.bias = -0.0003;
+    keyLight.shadow.radius = 4;
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x4080ff, 0.65);
-    rimLight.position.set(-8, -4, -7);
+    // Rim / edge light (cool blue) from behind
+    const rimLight = new THREE.DirectionalLight(0x4488ff, 0.7);
+    rimLight.position.set(-6, 3, -8);
     scene.add(rimLight);
 
-    const warmUnderLight = new THREE.DirectionalLight(0xffaa44, 0.4);
-    warmUnderLight.position.set(0, -8, 2);
-    scene.add(warmUnderLight);
+    // Warm under/bounce fill light
+    const warmFill = new THREE.DirectionalLight(0xffaa44, 0.35);
+    warmFill.position.set(2, -6, 3);
+    scene.add(warmFill);
 
-    const redAccent = new THREE.SpotLight(0xDC143C, 1.5, 30, Math.PI / 4, 0.5);
-    redAccent.position.set(0, 9, 0);
+    // Crimson dramatic accent spot from above
+    const redAccent = new THREE.SpotLight(0xDC143C, 1.8, 25, Math.PI / 5, 0.6, 1.5);
+    redAccent.position.set(0, 8, 0);
     scene.add(redAccent);
 
+    // Subtle side fill for depth
+    const sideFill = new THREE.PointLight(0x66aaff, 0.3, 15);
+    sideFill.position.set(-5, 2, 4);
+    scene.add(sideFill);
+
+    // ═══ SHADOW-RECEIVING GROUND PLANE ═══
+    const groundGeo = new THREE.PlaneGeometry(20, 20);
+    const groundMat = new THREE.ShadowMaterial({{ opacity: 0.35 }});
+    const groundPlane = new THREE.Mesh(groundGeo, groundMat);
+    groundPlane.rotation.x = -Math.PI / 2;
+    groundPlane.position.y = -2.2;
+    groundPlane.receiveShadow = true;
+    scene.add(groundPlane);
+
+    // Subtle grid overlay
     const grid = new THREE.GridHelper(12, 24, 0x222630, 0x111318);
-    grid.position.y = -2.2;
+    grid.position.y = -2.19;
+    grid.material.opacity = 0.35;
+    grid.material.transparent = true;
     scene.add(grid);
 
+    // ═══ FLOATING DUST PARTICLE SYSTEM ═══
+    const particleCount = 180;
+    const particleGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {{
+        positions[i * 3]     = (Math.random() - 0.5) * 14;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 14;
+    }}
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({{
+        color: 0xffffff,
+        size: 0.025,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+    }});
+    const particles = new THREE.Points(particleGeo, particleMat);
+    particles.userData.isParticles = true;
+    scene.add(particles);
+
     rootGroup = new THREE.Group();
-    // Default pleasant slight tilt to showcase textures, camera halo, and depth immediately
     rootGroup.rotation.y = -0.35;
     rootGroup.rotation.x = 0.08;
     scene.add(rootGroup);
@@ -800,7 +859,30 @@ function init3D() {{
     setupMouseAndTouch(renderer.domElement);
 
     document.getElementById('loading-overlay').style.display = 'none';
-    animate();
+
+    // ═══ CINEMATIC ENTRANCE ANIMATION ═══
+    // Start zoomed out and scaled down, then spring in
+    camera.position.set(0.6, 0.4, 12.0);
+    rootGroup.scale.set(0.01, 0.01, 0.01);
+    let entranceProgress = 0;
+    function entranceAnimate() {{
+        entranceProgress += 0.018;
+        if (entranceProgress >= 1.0) {{
+            entranceProgress = 1.0;
+            camera.position.set(0.6, 0.4, 5.8);
+            rootGroup.scale.set(1, 1, 1);
+            animate();
+            return;
+        }}
+        // Spring easing
+        const t = 1 - Math.pow(1 - entranceProgress, 3.5);
+        camera.position.z = 12.0 + (5.8 - 12.0) * t;
+        const s = t;
+        rootGroup.scale.set(s, s, s);
+        renderer.render(scene, camera);
+        requestAnimationFrame(entranceAnimate);
+    }}
+    entranceAnimate();
 }}
 
 /* Universal Multi-Device Procedural Architecture Generator */
@@ -1680,8 +1762,11 @@ function setupMouseAndTouch(canvas) {{
     }}, {{ passive: true }});
 }}
 
+let animTime = 0;
+
 function animate() {{
     requestAnimationFrame(animate);
+    animTime += 0.016;
 
     if (isSpinning && !selectedMesh && !isManualMode) {{
         rootGroup.rotation.y += 0.004;
@@ -1689,7 +1774,7 @@ function animate() {{
 
     currentExplodeRatio += (targetExplodeRatio - currentExplodeRatio) * 0.08;
 
-    meshLayers.forEach(m => {{
+    meshLayers.forEach((m, idx) => {{
         if (m.userData && m.userData.group) {{
             let targetZ, targetX = 0, targetY = 0;
             if (isManualMode && m.userData.targetManualZ !== undefined) {{
@@ -1702,9 +1787,40 @@ function animate() {{
                 targetX = (m.userData.explodedX || 0) * currentExplodeRatio;
                 targetY = (m.userData.explodedY || 0) * currentExplodeRatio;
             }}
+
+            // Realistic floating hover when exploded
+            if (currentExplodeRatio > 0.05) {{
+                const floatPhase = animTime * 0.8 + idx * 1.2;
+                targetY += Math.sin(floatPhase) * 0.06 * currentExplodeRatio;
+                targetX += Math.cos(floatPhase * 0.7) * 0.03 * currentExplodeRatio;
+            }}
+
             m.userData.group.position.z += (targetZ - m.userData.group.position.z) * 0.1;
             m.userData.group.position.x += (targetX - m.userData.group.position.x) * 0.1;
             m.userData.group.position.y += (targetY - m.userData.group.position.y) * 0.1;
+
+            // Enable shadows on all layer meshes
+            m.userData.group.traverse(function(child) {{
+                if (child.isMesh) {{ child.castShadow = true; child.receiveShadow = true; }}
+            }});
+        }}
+
+        // Breathing pulse on selected component
+        if (m === selectedMesh && m.material && m.material.emissiveIntensity !== undefined) {{
+            m.material.emissiveIntensity = 0.4 + Math.sin(animTime * 3.0) * 0.25;
+        }}
+    }});
+
+    // Drift dust particles slowly
+    scene.traverse(function(obj) {{
+        if (obj.isPoints && obj.userData.isParticles) {{
+            const pos = obj.geometry.attributes.position.array;
+            for (let i = 0; i < pos.length; i += 3) {{
+                pos[i + 1] += 0.002;
+                if (pos[i + 1] > 5) pos[i + 1] = -5;
+            }}
+            obj.geometry.attributes.position.needsUpdate = true;
+            obj.rotation.y += 0.0003;
         }}
     }});
 
