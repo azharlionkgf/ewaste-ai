@@ -1,30 +1,22 @@
 """
-🔬 Hyper-Realistic Universal E-Waste Hardware Anatomy & Teardown Engine (Astra-Level 3D)
-========================================================================================
-Photorealistic 3D hardware breakdown with 360° auto-rotation, full OrbitControls,
-and an interactive disassembly slider that peels back every single internal layer:
-- 16 perimeter micro-screws that unscrew and float out
-- Back cover (vegan leather with gold stitching, camera cutouts, brand logos)
-- Triple-lens camera module with gold halo ring and glass optical reflections
-- Graphite thermal spreader & NFC wireless induction coil
-- Anodized aluminum structural mid-frame with tactile buttons & USB-C port
-- 5000mAh Li-ion battery pouch with stretch-release pull tabs, printed warning labels & QR code
-- 10-layer FR4 logic motherboard with Dimensity SoC, Samsung NAND, PMIC, EMI cans, 40+ SMDs, gold connectors
-- Haptic vibration motor with eccentric weight and stereo speaker chamber
-- Interconnect polyimide flex ribbon cables
-- 120Hz Curved AMOLED display assembly with copper backing
-- Curved Corning Gorilla Glass Victus with front punch-hole camera and earpiece slit
+✨ Futuristic Hologram Hardware Anatomy & 3D Disassembly Engine
+================================================================
+Photorealistic 3D hardware breakdown with Hologram Sci-Fi Mode:
+- Holographic cyan/gold particle aura and rotating concentric cyber-rings
+- Vertical scanning laser beam sweeping up and down the device
+- 360° continuous auto-spin with full OrbitControls touch/mouse rotation
+- Interactive peeling slider from 0% (solid intact device) to 100% (exploded holographic teardown)
+- 16 precision micro-screws, 200MP triple camera halo, 5000mAh battery, Dimensity SoC, and AMOLED display
 """
 
 import os
 import json
 from typing import Dict, Any, Optional
 
-def generate_3d_viewer(device_info: Dict[str, Any], height: int = 720) -> str:
+def generate_3d_viewer(device_info: Dict[str, Any], height: int = 740) -> str:
     """
-    Generate an Astra-style 360° rotating interactive 3D exploded anatomy viewer.
-    Allows sliding from 0% (closed solid device) to 100% (full anatomical explosion).
-    Every internal component down to the screws is modeled with photorealistic detail.
+    Generate a futuristic Hologram 3D hardware anatomy viewer with scanning laser,
+    glowing cyber pedestal, particle aura, 360° auto-spin, and disassembly slider.
     """
     brand = device_info.get("brand", "Electronic Device")
     model_name = device_info.get("model", device_info.get("category", "Device Model"))
@@ -51,7 +43,7 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 720) -> str:
 
     teardown_manuals = {
         "phone": [
-            {"step": 1, "title": "1. Remove 16 Perimeter Micro-Screws", "tool": "Phillips #00 (1.4mm) Screwdriver", "action": "Extract 16 structural screws securing chassis and back shield.", "safety": "⚠️ Keep screws organized on magnetic pad by thread size.", "slider_pct": 12},
+            {"step": 1, "title": "1. Unscrew 16 Holographic Screws", "tool": "Phillips #00 (1.4mm) Screwdriver", "action": "Extract 16 structural screws securing chassis and back shield.", "safety": "⚠️ Keep screws organized on magnetic pad by thread size.", "slider_pct": 12},
             {"step": 2, "title": "2. Heat & Lift Vegan Leather Rear Cover", "tool": "Heat Mat (78°C) • Suction Cup", "action": "Heat perimeter adhesive 180s; pry gently with nylon pick.", "safety": "⚠️ Do not heat past 85°C to avoid battery degradation.", "slider_pct": 28},
             {"step": 3, "title": "3. Unclip 200MP Camera Module & NFC", "tool": "ESD Plastic Spudger", "action": "Disconnect camera FPC flex ribbon and lift out halo camera island.", "safety": "⚠️ Do not touch optical lenses with bare fingers.", "slider_pct": 44},
             {"step": 4, "title": "4. Separate Structural Magnesium Midframe", "tool": "Precision Tweezers • Spatula", "action": "Unclip side frame rails; isolate USB-C and speaker modules.", "safety": "🧤 Aluminum/magnesium midframe is 100% recyclable.", "slider_pct": 60},
@@ -149,7 +141,7 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 720) -> str:
             </div>
             <div class="step-action">{s['action']}</div>
             <div class="step-safety">{s['safety']}</div>
-            <div class="step-btn-cue">👆 Click to view 3D extraction (Slider -> {s.get('slider_pct', 50)}%)</div>
+            <div class="step-btn-cue">👆 Click to view in Hologram 3D (Slider -> {s.get('slider_pct', 50)}%)</div>
         </div>
         """
 
@@ -157,7 +149,7 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 720) -> str:
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>E-Waste AI - Astra Hardware Anatomy & Disassembly</title>
+<title>E-Waste AI - Hologram Hardware Anatomy & 3D Teardown</title>
 <!-- Powered by Three.js 3D WebGL Engine -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -165,7 +157,7 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 720) -> str:
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
-    background: #06080E;
+    background: #04060A;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: #E2E8F0;
     overflow-x: hidden;
@@ -178,62 +170,64 @@ body {
     margin: 0 auto;
 }
 
-/* Top Banner */
+/* Futuristic Hologram Header */
 .header-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(90deg, rgba(16,20,32,0.98), rgba(8,11,20,0.98));
-    border: 1px solid rgba(255,215,0,0.25);
+    background: linear-gradient(90deg, rgba(10,25,45,0.95), rgba(6,12,22,0.95));
+    border: 1px solid #00F0FF;
     border-radius: 12px;
-    padding: 10px 16px;
+    padding: 10px 18px;
     margin-bottom: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    box-shadow: 0 0 25px rgba(0,240,255,0.25);
 }
 .header-left { display: flex; align-items: center; gap: 12px; }
 .brand-pill {
-    background: #00CC6A;
-    color: #06080E;
+    background: linear-gradient(135deg, #00F0FF, #00A3FF);
+    color: #04060A;
     font-weight: 800;
     font-size: 11px;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     padding: 4px 10px;
     border-radius: 6px;
     text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0,240,255,0.5);
 }
-.main-title { font-size: 15px; font-weight: 700; color: #F8FAFC; }
-.sub-title { font-size: 11px; color: #94A3B8; }
+.main-title { font-size: 15px; font-weight: 700; color: #F8FAFC; letter-spacing: 0.5px; }
+.sub-title { font-size: 11px; color: #38BDF8; }
 .header-badges { display: flex; gap: 8px; }
 .cert-badge {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #CBD5E1;
+    background: rgba(0,240,255,0.08);
+    border: 1px solid rgba(0,240,255,0.4);
+    color: #38BDF8;
     font-size: 10px;
     font-weight: 600;
     padding: 3px 8px;
     border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0,240,255,0.2);
 }
-.cert-badge.green { border-color: rgba(0,255,127,0.4); color: #00FF7F; background: rgba(0,255,127,0.08); }
-.cert-badge.gold { border-color: rgba(255,215,0,0.4); color: #FFD700; background: rgba(255,215,0,0.08); }
+.cert-badge.green { border-color: #00FF7F; color: #00FF7F; background: rgba(0,255,127,0.1); }
+.cert-badge.gold { border-color: #FFD700; color: #FFD700; background: rgba(255,215,0,0.1); }
 
-/* 3D Stage & Control Deck */
+/* Hologram 3D Stage */
 .stage-card {
-    background: radial-gradient(circle at 50% 35%, #131A2B 0%, #06080E 85%);
-    border: 1px solid rgba(255,215,0,0.2);
+    background: radial-gradient(circle at 50% 40%, #0B192E 0%, #04060A 85%);
+    border: 1px solid rgba(0,240,255,0.35);
     border-radius: 14px;
     padding: 12px;
     margin-bottom: 12px;
     position: relative;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.85);
+    box-shadow: 0 0 35px rgba(0,240,255,0.2);
 }
 .controls-deck {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    background: rgba(10,14,24,0.9);
-    border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(8px);
+    background: rgba(8,16,30,0.92);
+    border: 1px solid rgba(0,240,255,0.25);
+    backdrop-filter: blur(10px);
     border-radius: 10px;
     padding: 10px 16px;
     margin-bottom: 10px;
@@ -249,17 +243,19 @@ body {
 .slider-lbl {
     font-size: 11px;
     font-weight: 800;
-    color: #CBD5E1;
+    color: #38BDF8;
     white-space: nowrap;
+    letter-spacing: 0.5px;
 }
 .explode-slider {
     flex: 1;
     -webkit-appearance: none;
     height: 8px;
     border-radius: 5px;
-    background: linear-gradient(90deg, #00CC6A 0%, #FFD700 50%, #DC143C 100%);
+    background: linear-gradient(90deg, #00FF7F 0%, #00F0FF 50%, #FF0055 100%);
     outline: none;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,240,255,0.4);
 }
 .explode-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -268,14 +264,14 @@ body {
     height: 22px;
     border-radius: 50%;
     background: #FFFFFF;
-    border: 3px solid #FFD700;
+    border: 3px solid #00F0FF;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(255,215,0,0.8);
+    box-shadow: 0 0 16px rgba(0,240,255,0.9);
 }
 .btn-action {
-    background: rgba(255,215,0,0.12);
-    border: 1px solid #FFD700;
-    color: #FFD700;
+    background: rgba(0,240,255,0.12);
+    border: 1px solid #00F0FF;
+    color: #00F0FF;
     font-weight: 700;
     font-size: 11px;
     padding: 6px 14px;
@@ -285,9 +281,9 @@ body {
     white-space: nowrap;
 }
 .btn-action:hover {
-    background: #FFD700;
-    color: #06080E;
-    box-shadow: 0 0 14px rgba(255,215,0,0.5);
+    background: #00F0FF;
+    color: #04060A;
+    box-shadow: 0 0 16px rgba(0,240,255,0.7);
 }
 .quick-steps-row {
     display: flex;
@@ -296,9 +292,9 @@ body {
     padding-bottom: 4px;
 }
 .step-chip {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #CBD5E1;
+    background: rgba(0,240,255,0.06);
+    border: 1px solid rgba(0,240,255,0.2);
+    color: #BAE6FD;
     font-size: 9.5px;
     font-weight: 600;
     padding: 4px 10px;
@@ -308,9 +304,10 @@ body {
     transition: all 0.2s;
 }
 .step-chip:hover, .step-chip.active {
-    border-color: #FFD700;
-    color: #FFD700;
-    background: rgba(255,215,0,0.12);
+    border-color: #00F0FF;
+    color: #00F0FF;
+    background: rgba(0,240,255,0.18);
+    box-shadow: 0 0 10px rgba(0,240,255,0.4);
 }
 
 /* 3D Canvas Box */
@@ -330,21 +327,22 @@ body {
     cursor: grab;
     touch-action: none;
 }
-#canvas-3d-container canvas:active {
-    cursor: grabbing;
-}
+#canvas-3d-container canvas:active { cursor: grabbing; }
+
+/* Hologram Overlay Elements */
 .overlay-hint {
     position: absolute;
     bottom: 12px;
     left: 14px;
     font-size: 10.5px;
     font-weight: 600;
-    color: #CBD5E1;
-    background: rgba(10,14,24,0.8);
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 4px 10px;
+    color: #38BDF8;
+    background: rgba(6,12,22,0.85);
+    border: 1px solid rgba(0,240,255,0.3);
+    padding: 4px 12px;
     border-radius: 6px;
     pointer-events: none;
+    box-shadow: 0 0 12px rgba(0,240,255,0.2);
 }
 .overlay-slider-val {
     position: absolute;
@@ -352,53 +350,57 @@ body {
     right: 14px;
     font-size: 13px;
     font-weight: 800;
-    color: #FFD700;
-    background: rgba(10,14,24,0.88);
-    border: 1px solid rgba(255,215,0,0.35);
+    color: #00F0FF;
+    background: rgba(6,12,22,0.9);
+    border: 1px solid #00F0FF;
     padding: 5px 12px;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+    box-shadow: 0 0 16px rgba(0,240,255,0.4);
     pointer-events: none;
 }
-.overlay-rotate-btn {
+.hologram-scan-grid {
     position: absolute;
-    top: 12px;
-    left: 14px;
-    z-index: 10;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
 }
 
-/* Inspector Card */
+/* Inspector HUD */
 .inspector-card {
-    background: linear-gradient(135deg, rgba(20,26,42,0.98), rgba(12,16,28,0.98));
-    border: 1px solid #FFD700;
+    background: linear-gradient(135deg, rgba(10,25,45,0.95), rgba(6,14,26,0.95));
+    border: 1px solid #00F0FF;
     border-radius: 12px;
     padding: 12px 18px;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 16px;
-    box-shadow: 0 0 20px rgba(255,215,0,0.15);
+    box-shadow: 0 0 20px rgba(0,240,255,0.25);
 }
 .inspector-icon {
     width: 52px;
     height: 52px;
     border-radius: 10px;
-    background: rgba(255,215,0,0.12);
-    border: 1px solid rgba(255,215,0,0.3);
+    background: rgba(0,240,255,0.12);
+    border: 1px solid rgba(0,240,255,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 26px;
+    box-shadow: 0 0 12px rgba(0,240,255,0.3);
 }
 .inspector-details { flex: 1; }
-.inspector-title { font-size: 14px; font-weight: 700; color: #FFD700; }
-.inspector-sub { font-size: 11px; color: #CBD5E1; margin-top: 2px; }
+.inspector-title { font-size: 14px; font-weight: 700; color: #00F0FF; letter-spacing: 0.5px; }
+.inspector-sub { font-size: 11px; color: #BAE6FD; margin-top: 2px; }
 .inspector-specs { font-size: 9.5px; color: #94A3B8; margin-top: 2px; }
 .inspector-stats { display: flex; gap: 14px; margin-top: 6px; font-size: 10.5px; font-weight: 700; }
 .stat-item.gold { color: #FFD700; }
 .stat-item.green { color: #00FF7F; }
+.stat-item.cyan { color: #00F0FF; }
 
-/* 15-Part Identified Grid */
+/* 15-Part Grid */
 .section-title {
     font-size: 12.5px;
     font-weight: 700;
@@ -416,8 +418,8 @@ body {
     margin-bottom: 12px;
 }
 .comp-tile {
-    background: rgba(14, 18, 30, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 20, 35, 0.88);
+    border: 1px solid rgba(0, 240, 255, 0.15);
     border-radius: 8px;
     padding: 8px 10px;
     cursor: pointer;
@@ -427,19 +429,19 @@ body {
     justify-content: space-between;
 }
 .comp-tile:hover {
-    border-color: rgba(255, 215, 0, 0.5);
+    border-color: #00F0FF;
     transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(255, 215, 0, 0.12);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.3);
 }
 .comp-tile.active {
-    border-color: #FFD700;
-    background: rgba(255, 215, 0, 0.05);
-    box-shadow: 0 0 14px rgba(255, 215, 0, 0.2);
+    border-color: #00F0FF;
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
 }
 .comp-tile-top { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 6px; }
 .tile-num {
-    background: rgba(255,255,255,0.08);
-    color: #FFD700;
+    background: rgba(0,240,255,0.15);
+    color: #00F0FF;
     font-weight: 800;
     font-size: 9.5px;
     width: 18px;
@@ -449,6 +451,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    border: 1px solid rgba(0,240,255,0.3);
 }
 .tile-titles { flex: 1; min-width: 0; }
 .tile-name { font-size: 10.5px; font-weight: 700; color: #F1F5F9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -464,14 +467,14 @@ body {
     padding: 4px;
     margin-bottom: 6px;
 }
-.preview-icon {{ font-size: 16px; }}
+.preview-icon { font-size: 16px; }
 .preview-material { font-size: 8px; color: #E2E8F0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .tile-spec-line { font-size: 7.5px; color: #64748B; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tile-metrics { display: flex; align-items: center; justify-content: space-between; font-size: 8.5px; padding-top: 3px; border-top: 1px solid rgba(255,255,255,0.05); }
-.metric-val { font-weight: 700; color: #FFD700; }
+.metric-val { font-weight: 700; color: #00F0FF; }
 .metric-pct { color: #94A3B8; }
 .status-tag { font-size: 7px; font-weight: 700; padding: 1px 4px; border-radius: 3px; }
-.status-tag.haz { background: rgba(255,0,0,0.15); color: #FF4444; border: 1px solid rgba(255,0,0,0.3); }
+.status-tag.haz { background: rgba(255,0,85,0.18); color: #FF0055; border: 1px solid rgba(255,0,85,0.4); }
 .status-tag.safe { background: rgba(0,255,127,0.12); color: #00FF7F; border: 1px solid rgba(0,255,127,0.3); }
 
 /* Lower Deck */
@@ -482,8 +485,8 @@ body {
     margin-bottom: 12px;
 }
 .deck-panel {
-    background: rgba(14, 18, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 20, 35, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.15);
     border-radius: 10px;
     padding: 12px;
 }
@@ -496,7 +499,7 @@ body {
 }
 .view-tile {
     background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(0,240,255,0.12);
     border-radius: 6px;
     padding: 6px 10px;
     text-align: center;
@@ -506,18 +509,19 @@ body {
     transition: all 0.2s;
 }
 .view-tile:hover {
-    border-color: #FFD700;
-    background: rgba(255,215,0,0.08);
+    border-color: #00F0FF;
+    background: rgba(0,240,255,0.1);
+    box-shadow: 0 0 10px rgba(0,240,255,0.3);
 }
 .view-tile-icon { font-size: 16px; }
-.view-tile-lbl { font-size: 8.5px; color: #94A3B8; margin-top: 2px; font-weight: 600; }
+.view-tile-lbl { font-size: 8.5px; color: #38BDF8; margin-top: 2px; font-weight: 600; }
 .specs-list { font-size: 9.5px; color: #CBD5E1; line-height: 1.8; }
-.specs-list strong { color: #FFD700; }
+.specs-list strong { color: #00F0FF; }
 
 .steps-scroll { max-height: 240px; overflow-y: auto; padding-right: 4px; }
 .step-card {
     background: rgba(0,0,0,0.3);
-    border-left: 3px solid #FFD700;
+    border-left: 3px solid #00F0FF;
     border-radius: 4px;
     padding: 8px 10px;
     margin-bottom: 6px;
@@ -525,7 +529,7 @@ body {
     transition: all 0.2s;
 }
 .step-card:hover {
-    background: rgba(255,215,0,0.06);
+    background: rgba(0,240,255,0.08);
     border-left-color: #00FF7F;
 }
 .step-header { display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; font-weight: 700; margin-bottom: 2px; }
@@ -533,16 +537,16 @@ body {
 .step-tool { color: #00FF7F; font-size: 8.5px; }
 .step-action { font-size: 8.5px; color: #94A3B8; }
 .step-safety { font-size: 8px; color: #FF6347; margin-top: 2px; }
-.step-btn-cue { font-size: 8px; color: #FFD700; margin-top: 3px; font-weight: 600; }
+.step-btn-cue { font-size: 8px; color: #00F0FF; margin-top: 3px; font-weight: 600; }
 
 .footer-banner {
     text-align: center;
     padding: 8px;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(0,240,255,0.15);
     font-size: 9.5px;
     color: #64748B;
 }
-.footer-banner strong { color: #00CC6A; }
+.footer-banner strong { color: #00F0FF; }
 </style>
 </head>
 <body>
@@ -551,35 +555,36 @@ body {
     <!-- TOP BANNER -->
     <div class="header-bar">
         <div class="header-left">
-            <span class="brand-pill">♻️ __BRAND_UPPER__</span>
+            <span class="brand-pill">⚡ __BRAND_UPPER__</span>
             <div>
-                <div class="main-title">__BRAND__ __MODEL__ — Interactive 3D Anatomy Breakdown</div>
-                <div class="sub-title">Astra-Style 360° Rotatable Hardware Anatomy • Every Internal Organ & Screw Modeled</div>
+                <div class="main-title">__BRAND__ __MODEL__ — Hologram Hardware Disassembly 3D</div>
+                <div class="sub-title">Astra-Style Holographic Anatomy • Sweeping Laser Scan • Real Rotatable 3D Components</div>
             </div>
         </div>
         <div class="header-badges">
+            <span class="cert-badge cyan">✨ Hologram Grid</span>
             <span class="cert-badge green">✔ Real Parts</span>
-            <span class="cert-badge gold">✔ Realistic 3D</span>
-            <span class="cert-badge">✔ Educational Use</span>
+            <span class="cert-badge gold">✔ Educational Use</span>
         </div>
     </div>
 
-    <!-- 3D INTERACTIVE DISASSEMBLY STAGE -->
+    <!-- 3D HOLOGRAM DISASSEMBLY STAGE -->
     <div class="stage-card">
         <div class="controls-deck">
             <div class="slider-container">
                 <span class="slider-lbl">🔒 ASSEMBLED (0%)</span>
                 <input type="range" id="explodeSlider" class="explode-slider" min="0" max="100" value="55" oninput="onSliderChange(this.value)">
-                <span class="slider-lbl">💥 FULL EXPLODED (100%)</span>
+                <span class="slider-lbl">💥 HOLOGRAM EXPLODED (100%)</span>
             </div>
-            <button id="btnAutoSpin" class="btn-action" onclick="toggleAutoSpin()">🔄 Auto-Spin: ON</button>
+            <button id="btnAutoSpin" class="btn-action" onclick="toggleAutoSpin()">🔄 360° Spin: ON</button>
+            <button id="btnLaser" class="btn-action" onclick="toggleLaser()">⚡ Scan Laser: ON</button>
             <button id="btnAutoPlay" class="btn-action" onclick="toggleAutoPlay()">▶ Auto-Teardown</button>
             <button class="btn-action" onclick="reset3DCamera()">🎯 Center View</button>
         </div>
 
         <div class="quick-steps-row">
             <span class="step-chip" onclick="setSliderPercent(0)">🔒 Solid Device (0%)</span>
-            <span class="step-chip" onclick="setSliderPercent(12)">Step 1: 16 Screws Pop Out</span>
+            <span class="step-chip" onclick="setSliderPercent(12)">Step 1: 16 Screws Unscrew</span>
             <span class="step-chip" onclick="setSliderPercent(28)">Step 2: Vegan Leather Cover</span>
             <span class="step-chip" onclick="setSliderPercent(44)">Step 3: 200MP Triple Camera Halo</span>
             <span class="step-chip" onclick="setSliderPercent(60)">Step 4: Aluminum Midframe & USB-C</span>
@@ -590,7 +595,8 @@ body {
 
         <!-- 3D Canvas Box -->
         <div id="canvas-3d-container">
-            <div class="overlay-hint">🔄 Drag / Swipe with finger to Rotate 360° • Pinch / Scroll to Zoom</div>
+            <div class="hologram-scan-grid"></div>
+            <div class="overlay-hint">🔄 Drag / Swipe with finger to Rotate 360° • Pinch / Scroll to Zoom • Watch Scanning Laser</div>
             <div id="sliderBadge" class="overlay-slider-val">Disassembly: 55%</div>
         </div>
     </div>
@@ -603,7 +609,7 @@ body {
             <div id="insp-sub" class="inspector-sub">Material: Lychee Vegan Leather / Gorilla Glass</div>
             <div id="insp-specs" class="inspector-specs">Engineering Spec: Sunrise Beige PBR Cover with Halo Camera Island</div>
             <div class="inspector-stats">
-                <span id="insp-val" class="stat-item gold">💰 Recovery Value: $2.50 USD</span>
+                <span id="insp-val" class="stat-item cyan">💰 Recovery Value: $2.50 USD</span>
                 <span id="insp-mass" class="stat-item green">⚖️ Mass: 11.5%</span>
                 <span id="insp-status" class="stat-item" style="color:#00FF7F;">♻️ Safe Recyclable Material</span>
             </div>
@@ -613,7 +619,7 @@ body {
     <!-- 15-PART IDENTIFIED HARDWARE GRID -->
     <div class="section-title">
         <span>📋 Identified Components (__TOTAL_PARTS__ Structural Sub-Assemblies)</span>
-        <span style="font-size:11px;color:#FFD700;">Total Salvage Yield: $__TOTAL_VAL__ USD • __HAZ_COUNT__ Hazardous • __REC_COUNT__ Recyclable</span>
+        <span style="font-size:11px;color:#00F0FF;">Total Salvage Yield: $__TOTAL_VAL__ USD • __HAZ_COUNT__ Hazardous • __REC_COUNT__ Recyclable</span>
     </div>
     <div class="parts-grid">
         __GRID_CARDS_HTML__
@@ -654,7 +660,7 @@ body {
 
 </div>
 
-<!-- THREE.JS 3D DISASSEMBLY & FULL ROTATION ENGINE -->
+<!-- THREE.JS 3D HOLOGRAM DISASSEMBLY ENGINE -->
 <script>
 var MANUAL_STEPS = __MANUAL_STEPS_JSON__;
 var COMPONENT_DATA = __COMP_JSON__;
@@ -669,19 +675,16 @@ function createLeatherTexture() {
     grad.addColorStop(1, '#CDBB95');
     ctx.fillStyle = grad;
     ctx.fillRect(0,0,1024,2048);
-    // Real Lychee grain texture
     for(var i=0; i<6000; i++) {
         ctx.fillStyle = 'rgba(150,130,90,' + (Math.random()*0.15 + 0.05) + ')';
         ctx.beginPath();
         ctx.arc(Math.random()*1024, Math.random()*2048, Math.random()*2+1, 0, Math.PI*2);
         ctx.fill();
     }
-    // Gold Center Woven Racing Stripe
     ctx.strokeStyle = '#D4AF37';
     ctx.lineWidth = 10;
     ctx.setLineDash([16, 10]);
     ctx.beginPath(); ctx.moveTo(512, 120); ctx.lineTo(512, 1920); ctx.stroke();
-    // Brand Text
     ctx.fillStyle = '#64748B';
     ctx.font = 'bold 36px Arial';
     ctx.fillText('realme', 460, 1650);
@@ -692,14 +695,11 @@ function createBatteryTexture() {
     var c = document.createElement('canvas');
     c.width = 1024; c.height = 1024;
     var ctx = c.getContext('2d');
-    // Dark pouch cell wrapping
     ctx.fillStyle = '#0F131F';
     ctx.fillRect(0,0,1024,1024);
-    // Silver crimped border
     ctx.strokeStyle = '#5A6275';
     ctx.lineWidth = 14;
     ctx.strokeRect(10,10,1004,1004);
-    // White specs
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 56px Arial';
     ctx.fillText('Li-ion RECHARGEABLE BATTERY', 80, 160);
@@ -707,7 +707,6 @@ function createBatteryTexture() {
     ctx.fillStyle = '#94A3B8';
     ctx.fillText('Model: BLP951 • 5000mAh / 19.25Wh', 80, 230);
     ctx.fillText('Nominal: 3.85V • Max Charge: 4.45V', 80, 290);
-    // Warning Symbol
     ctx.fillStyle = '#FFD700';
     ctx.font = 'bold 38px Arial';
     ctx.fillText('⚠ CAUTION / WARNING:', 80, 390);
@@ -715,14 +714,12 @@ function createBatteryTexture() {
     ctx.font = '28px Arial';
     ctx.fillText('Do not puncture, incinerate, or expose over 60°C.', 80, 440);
     ctx.fillText('Danger of chemical fire or explosion.', 80, 480);
-    // QR Code
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(80, 600, 240, 240);
     ctx.fillStyle = '#000000';
     ctx.fillRect(100, 620, 200, 200);
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(140, 660, 120, 120);
-    // Barcode
     for(var b=0; b<45; b++) {
         ctx.fillStyle = (b%2===0)?'#FFFFFF':'#0F131F';
         ctx.fillRect(400 + b*10, 680, 8, 120);
@@ -734,10 +731,8 @@ function createPCBTexture() {
     var c = document.createElement('canvas');
     c.width = 1024; c.height = 1024;
     var ctx = c.getContext('2d');
-    // High-density Emerald FR4 base
     ctx.fillStyle = '#093B1F';
     ctx.fillRect(0,0,1024,1024);
-    // Copper trace buses
     ctx.strokeStyle = 'rgba(212,175,55,0.45)';
     ctx.lineWidth = 3;
     for(var i=0; i<30; i++) {
@@ -746,7 +741,6 @@ function createPCBTexture() {
         ctx.lineTo(30 + i*32, 980);
         ctx.stroke();
     }
-    // Main SoC
     ctx.fillStyle = '#111827';
     ctx.fillRect(320, 320, 380, 380);
     ctx.strokeStyle = '#D4AF37';
@@ -759,7 +753,6 @@ function createPCBTexture() {
     ctx.fillStyle = '#FFD700';
     ctx.font = 'bold 36px monospace';
     ctx.fillText('7050 5G', 440, 600);
-    // NAND chip
     ctx.fillStyle = '#1E293B';
     ctx.fillRect(120, 120, 240, 180);
     ctx.fillStyle = '#CBD5E1';
@@ -775,10 +768,14 @@ function switchModelMode(mode) { return mode; }
 var scene, camera, renderer, controls;
 var layers = [];
 var screws = [];
+var laserPlane = null;
+var cyberRing1, cyberRing2;
 var currentExplodeVal = 0.55;
 var isAutoPlaying = false;
 var autoPlayDir = 1;
 var isAutoSpinning = true;
+var isLaserActive = true;
+var clock = new THREE.Clock();
 
 function init3D() {
     var container = document.getElementById('canvas-3d-container');
@@ -798,53 +795,98 @@ function init3D() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
 
-    // Append canvas directly
     while (container.firstChild && container.firstChild.tagName === 'CANVAS') {
         container.removeChild(container.firstChild);
     }
     container.appendChild(renderer.domElement);
 
-    // OrbitControls for Full 360° Drag & Zoom
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
     controls.maxDistance = 26;
     controls.minDistance = 3.5;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 2.0;
+    controls.autoRotateSpeed = 2.2;
     controls.enableZoom = true;
     controls.enableRotate = true;
     controls.enablePan = true;
 
-    // User interaction pauses auto-spin briefly
-    controls.addEventListener('start', function() {
-        if (!isAutoSpinning) controls.autoRotate = false;
-    });
-
-    // Lights
-    var amb = new THREE.AmbientLight(0xffffff, 0.85);
+    // Lighting
+    var amb = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(amb);
 
-    var keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    var keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
     keyLight.position.set(8, 12, 10);
     scene.add(keyLight);
 
-    var blueRim = new THREE.DirectionalLight(0x00D2FF, 0.9);
-    blueRim.position.set(-8, -4, -6);
-    scene.add(blueRim);
+    // Cyan & Gold Hologram Rim Lights
+    var cyanRim = new THREE.DirectionalLight(0x00F0FF, 1.2);
+    cyanRim.position.set(-8, -4, 6);
+    scene.add(cyanRim);
 
-    var goldFill = new THREE.PointLight(0xFFD700, 1.2, 20);
+    var goldFill = new THREE.PointLight(0xFFD700, 1.0, 20);
     goldFill.position.set(0, 4, 6);
     scene.add(goldFill);
 
+    // --- Build Hologram Scenery ---
+    buildHologramEnvironment();
+
+    // --- Build Realistic Hardware Layers ---
     buildRealisticPhoneLayers();
     updateLayerPositions(currentExplodeVal);
 
     window.addEventListener('resize', onWindowResize, false);
     animate();
+}
+
+function buildHologramEnvironment() {
+    // 1. Hologram Circular Grid Pedestal
+    var gridHelper = new THREE.PolarGridHelper(5.5, 16, 8, 64, 0x00F0FF, 0x004466);
+    gridHelper.position.y = -3.2;
+    scene.add(gridHelper);
+
+    // 2. Concentric Neon Cyber Rings
+    var ringGeo1 = new THREE.RingGeometry(4.2, 4.28, 64);
+    var ringMat1 = new THREE.MeshBasicMaterial({ color: 0x00F0FF, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+    cyberRing1 = new THREE.Mesh(ringGeo1, ringMat1);
+    cyberRing1.rotation.x = Math.PI / 2;
+    cyberRing1.position.y = -3.15;
+    scene.add(cyberRing1);
+
+    var ringGeo2 = new THREE.RingGeometry(5.2, 5.25, 48);
+    var ringMat2 = new THREE.MeshBasicMaterial({ color: 0x38BDF8, side: THREE.DoubleSide, transparent: true, opacity: 0.4 });
+    cyberRing2 = new THREE.Mesh(ringGeo2, ringMat2);
+    cyberRing2.rotation.x = Math.PI / 2;
+    cyberRing2.position.y = -3.18;
+    scene.add(cyberRing2);
+
+    // 3. Sweeping Holographic Laser Beam
+    var laserGeo = new THREE.PlaneGeometry(8.5, 0.12);
+    var laserMat = new THREE.MeshBasicMaterial({
+        color: 0x00F0FF,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending
+    });
+    laserPlane = new THREE.Mesh(laserGeo, laserMat);
+    laserPlane.rotation.x = Math.PI / 2;
+    scene.add(laserPlane);
+
+    // 4. Floating Holographic Particles
+    var partGeo = new THREE.BufferGeometry();
+    var partCount = 180;
+    var posArray = new Float32Array(partCount * 3);
+    for(var p=0; p<partCount*3; p+=3) {
+        posArray[p] = (Math.random() - 0.5) * 9;
+        posArray[p+1] = (Math.random() - 0.5) * 6;
+        posArray[p+2] = (Math.random() - 0.5) * 9;
+    }
+    partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    var partMat = new THREE.PointsMaterial({ size: 0.05, color: 0x00F0FF, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+    var particles = new THREE.Points(partGeo, partMat);
+    scene.add(particles);
 }
 
 function buildRealisticPhoneLayers() {
@@ -856,7 +898,7 @@ function buildRealisticPhoneLayers() {
     var batteryTex = createBatteryTexture();
     var pcbTex = createPCBTexture();
 
-    // 16 Micro Screws (Layer: screws)
+    // 16 Micro Screws
     var screwGroup = new THREE.Group();
     var screwGeo = new THREE.CylinderGeometry(0.035, 0.035, 0.08, 12);
     var screwMat = new THREE.MeshStandardMaterial({ color: 0xDCDDE1, metalness: 0.95, roughness: 0.15 });
@@ -870,7 +912,6 @@ function buildRealisticPhoneLayers() {
         var sm = new THREE.Mesh(screwGeo, screwMat);
         sm.rotation.x = Math.PI / 2;
         sm.position.set(screwPositions[s][0], screwPositions[s][1], 0);
-        sm.userData = { origPos: sm.position.clone() };
         screwGroup.add(sm);
         screws.push(sm);
     }
@@ -904,7 +945,6 @@ function buildRealisticPhoneLayers() {
     );
     camDisc.rotation.x = Math.PI / 2;
     camGroup.add(camDisc);
-    // 200MP Lens
     var lens1 = new THREE.Mesh(
         new THREE.CylinderGeometry(0.26, 0.26, 0.12, 32),
         new THREE.MeshPhysicalMaterial({ color: 0x001B3A, metalness: 0.9, roughness: 0.02, transmission: 0.6, ior: 1.6 })
@@ -912,12 +952,10 @@ function buildRealisticPhoneLayers() {
     lens1.rotation.x = Math.PI / 2;
     lens1.position.set(0, 0, 0.03);
     camGroup.add(lens1);
-    // Secondary Lenses
     var lens2 = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.1, 20), new THREE.MeshStandardMaterial({ color: 0x001122 }));
     lens2.rotation.x = Math.PI / 2; lens2.position.set(-0.36, -0.22, 0.03); camGroup.add(lens2);
     var lens3 = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.1, 20), new THREE.MeshStandardMaterial({ color: 0x001122 }));
     lens3.rotation.x = Math.PI / 2; lens3.position.set(0.36, -0.22, 0.03); camGroup.add(lens3);
-    // Dual Tone LED Flash
     var flashMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.09, 16), new THREE.MeshStandardMaterial({ color: 0xFFEAA7, emissive: 0xFFD700, emissiveIntensity: 0.4 }));
     flashMesh.rotation.x = Math.PI / 2; flashMesh.position.set(0, -0.38, 0.03); camGroup.add(flashMesh);
     camGroup.position.set(0, 1.1, 0);
@@ -949,12 +987,10 @@ function buildRealisticPhoneLayers() {
         new THREE.MeshStandardMaterial({ color: 0xCBD5E1, metalness: 0.92, roughness: 0.22 })
     );
     frameGroup.add(frameMesh);
-    // Buttons
     var btn1 = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.45, 0.06), new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.9 }));
     btn1.position.set(pWidth*0.49, 0.6, 0); frameGroup.add(btn1);
     var btn2 = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.75, 0.06), new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.9 }));
     btn2.position.set(pWidth*0.49, 1.3, 0); frameGroup.add(btn2);
-    // USB-C port
     var usb = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.06, 0.06), new THREE.MeshStandardMaterial({ color: 0x0F172A }));
     usb.position.set(0, -pHeight*0.49, 0); frameGroup.add(usb);
     frameGroup.userData = { closedX: -0.01, explodedX: -0.9 * spread, name: 'Midframe Chassis', id: 'c3' };
@@ -968,7 +1004,6 @@ function buildRealisticPhoneLayers() {
         new THREE.MeshStandardMaterial({ map: batteryTex, roughness: 0.4, metalness: 0.1 })
     );
     battGroup.add(battMesh);
-    // Orange Pull Tabs
     var tabA = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.09, 0.02), new THREE.MeshStandardMaterial({ color: 0xFF5500 }));
     tabA.position.set(-0.35, -pHeight*0.24, 0.04); battGroup.add(tabA);
     var tabB = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.09, 0.02), new THREE.MeshStandardMaterial({ color: 0xFF5500 }));
@@ -985,7 +1020,6 @@ function buildRealisticPhoneLayers() {
         new THREE.MeshStandardMaterial({ map: pcbTex, roughness: 0.35, metalness: 0.3 })
     );
     pcbGroup.add(pcbMesh);
-    // EMI shields
     var emi1 = new THREE.Mesh(new THREE.BoxGeometry(0.70, 0.60, 0.05), new THREE.MeshStandardMaterial({ color: 0xE2E8F0, metalness: 0.92 }));
     emi1.position.set(-0.35, 0.1, 0.03); pcbGroup.add(emi1);
     var emi2 = new THREE.Mesh(new THREE.BoxGeometry(0.60, 0.50, 0.05), new THREE.MeshStandardMaterial({ color: 0xE2E8F0, metalness: 0.92 }));
@@ -1025,7 +1059,6 @@ function buildRealisticPhoneLayers() {
         })
     );
     glassGroup.add(glassMesh);
-    // Punch hole selfie camera
     var punchHole = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.03, 16), new THREE.MeshBasicMaterial({ color: 0x000000 }));
     punchHole.rotation.x = Math.PI / 2;
     punchHole.position.set(0, 2.15, 0.01);
@@ -1043,7 +1076,6 @@ function updateLayerPositions(val) {
         layer.position.x = THREE.MathUtils.lerp(closedX, explodedX, val);
         layer.rotation.y = THREE.MathUtils.lerp(0, 0.15, val);
     }
-    // Screws float out and spin
     for (var s = 0; s < screws.length; s++) {
         var sm = screws[s];
         sm.position.z = THREE.MathUtils.lerp(0.05, 0.6 + (s % 3)*0.2, val);
@@ -1069,7 +1101,14 @@ function toggleAutoSpin() {
     isAutoSpinning = !isAutoSpinning;
     if (controls) controls.autoRotate = isAutoSpinning;
     var btn = document.getElementById('btnAutoSpin');
-    if (btn) btn.textContent = isAutoSpinning ? '🔄 Auto-Spin: ON' : '⏸ Auto-Spin: OFF';
+    if (btn) btn.textContent = isAutoSpinning ? '🔄 360° Spin: ON' : '⏸ 360° Spin: OFF';
+}
+
+function toggleLaser() {
+    isLaserActive = !isLaserActive;
+    if (laserPlane) laserPlane.visible = isLaserActive;
+    var btn = document.getElementById('btnLaser');
+    if (btn) btn.textContent = isLaserActive ? '⚡ Scan Laser: ON' : '⚡ Scan Laser: OFF';
 }
 
 function toggleAutoPlay() {
@@ -1141,6 +1180,17 @@ function onWindowResize() {
 
 function animate() {
     requestAnimationFrame(animate);
+
+    var t = clock.getElapsedTime();
+
+    // Rotate Cyber Pedestal Rings
+    if (cyberRing1) cyberRing1.rotation.z = t * 0.3;
+    if (cyberRing2) cyberRing2.rotation.z = -t * 0.2;
+
+    // Sweeping Scanning Laser
+    if (laserPlane && isLaserActive) {
+        laserPlane.position.y = Math.sin(t * 1.8) * 2.8;
+    }
 
     if (isAutoPlaying) {
         currentExplodeVal += 0.005 * autoPlayDir;
