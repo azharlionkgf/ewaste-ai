@@ -1284,9 +1284,9 @@ elif page_id == "image":
                         if "model" not in dev_3d_info or not dev_3d_info["model"]:
                             dev_3d_info["model"] = f"{final_cat} (Uploaded Hardware)"
                         
-                        viewer_3d_html = generate_3d_viewer(dev_3d_info, height=580)
+                        viewer_3d_html = generate_3d_viewer(dev_3d_info, height=680)
                         import streamlit.components.v1 as stc
-                        stc.html(viewer_3d_html, height=600, scrolling=False)
+                        stc.html(viewer_3d_html, height=1150, scrolling=True)
                     except Exception as ex_3d:
                         st.warning(f"3D viewer: {ex_3d}")
 
@@ -2482,9 +2482,9 @@ elif page_id == "lab3d":
             st.markdown('<div class="section-header">🎨 INTERACTIVE 3D COMPONENT VIEW & EXPLODED ANATOMY</div>', unsafe_allow_html=True)
             st.markdown('<p style="color:#888;font-size:.8rem;text-align:center;">🖱️ Drag to rotate 360° • Scroll to zoom • Toggle Exploded/Assembled or Slider • Click components to inspect</p>', unsafe_allow_html=True)
             try:
-                viewer_html = generate_3d_viewer(device_data, height=560)
+                viewer_html = generate_3d_viewer(device_data, height=680)
                 import streamlit.components.v1 as stc
-                stc.html(viewer_html, height=580, scrolling=False)
+                stc.html(viewer_html, height=1150, scrolling=True)
             except Exception as e:
                 st.warning(f"3D viewer loading... ({e})")
 
@@ -2587,9 +2587,9 @@ elif page_id == "lab3d":
             st.markdown('<div class="section-header">🎨 3D EXPLODED ANATOMY & PHYSICAL TEARDOWN GUIDE</div>', unsafe_allow_html=True)
             st.markdown('<p style="color:#888;font-size:.8rem;text-align:center;">🖱️ Rotate 360° • Zoom • Toggle Exploded/Assembled • Click "📖 Manual Teardown" for Step-by-Step physical opening guidance</p>', unsafe_allow_html=True)
             try:
-                viewer_html = generate_3d_viewer(deep_info, height=580)
+                viewer_html = generate_3d_viewer(deep_info, height=680)
                 import streamlit.components.v1 as stc
-                stc.html(viewer_html, height=600, scrolling=False)
+                stc.html(viewer_html, height=1150, scrolling=True)
             except Exception as e:
                 st.warning(f"3D viewer initializing... ({e})")
 
