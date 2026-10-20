@@ -587,7 +587,7 @@ def get_deep_device_specs(image_bytes: Optional[bytes] = None, filename: str = "
         try:
             import google.generativeai as genai
             genai.configure(api_key=api_key)
-            candidates = ["gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-flash-latest", "gemini-pro-vision"]
+            candidates = ["gemini-3.8-flash", "gemini-flash-latest", "gemini-2.5-flash", "gemini-1.5-flash-latest", "gemini-pro-latest", "gemini-1.5-pro-latest"]
             model = None
             for mc in candidates:
                 try:
