@@ -5,7 +5,7 @@ By: Azhar Fareed Mulla (2SA25MC002) | Guide: Dr. Nisha S Amin
 MCA Final Year Project — 100% Functional, Free, Offline
 """
 import streamlit as st
-import os, sys, json, pickle, time, sqlite3, hashlib, io, traceback
+import os, sys, json, pickle, time, sqlite3, hashlib, io, traceback, base64
 from datetime import datetime
 import pandas as pd
 import numpy as np
@@ -59,7 +59,10 @@ except:
 ADMIN_PASS_HASH = hashlib.sha256("admin@ewaste2025".encode()).hexdigest()
 CATEGORIES = ['Mobile Phones','Laptops','Desktop Computers','Tablets','Monitors/Displays','Televisions','Printers','Batteries','PCBs/Circuit Boards','Cables & Wires','Small Appliances','Large Appliances','Lighting Equipment','Audio/Video Equipment','Networking Equipment']
 
-DEFAULT_GEMINI_API_KEY = base64.b64decode(b'QVEuQWI4Uk42SmFyWGFtRzIwVXBzaTJIYVdfU2tybGdZTDlSbDBGZFZ2OUJxMXB1Y0JueGc=').decode('utf-8')
+try:
+    DEFAULT_GEMINI_API_KEY = base64.b64decode(b'QVEuQWI4Uk42SmFyWGFtRzIwVXBzaTJIYVdfU2tybGdZTDlSbDBGZFZ2OUJxMXB1Y0JueGc=').decode('utf-8')
+except Exception:
+    DEFAULT_GEMINI_API_KEY = ""
 
 def get_active_gemini_key() -> str:
     key = ""
