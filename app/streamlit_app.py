@@ -999,6 +999,18 @@ with st.sidebar:
 # ═══════════════════════════════════════════
 # MAIN CONTENT
 # ═══════════════════════════════════════════
+if not st.session_state.get('logged_in', False):
+    st.session_state.logged_in = True
+    st.session_state.role = "user"
+    if 'user_profile' not in st.session_state:
+        st.session_state['user_profile'] = {
+            'name': 'Azhar Fareed Mulla',
+            'phone': '+91 9876543210',
+            'city': 'Bengaluru',
+            'country': 'India',
+            'address': 'Koramangala 4th Block'
+        }
+
 if not st.session_state.logged_in:
     st.markdown('<h1 class="glow-title" style="font-size:3rem;margin-top:60px;">⚡ E-WASTE INTELLIGENCE SYSTEM</h1>', unsafe_allow_html=True)
     st.markdown('<p class="subtitle">AI-Powered Classification & Recovery Platform</p>', unsafe_allow_html=True)
@@ -1138,6 +1150,49 @@ if page_id == "home":
     with m2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🤖</div><div class="metric-value">6</div><div class="metric-label">ML Models</div></div>', unsafe_allow_html=True)
     with m3: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(df_raw):,}</div><div class="metric-label">Dataset Rows</div></div>' if data_loaded and df_raw is not None else '<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">0</div><div class="metric-label">Dataset Rows</div></div>', unsafe_allow_html=True)
     with m4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-value green-value">100%</div><div class="metric-label">Accuracy</div></div>', unsafe_allow_html=True)
+
+    # ── ASTRA 3D HOLOGRAPHIC HARDWARE ANATOMY & DISASSEMBLY ENGINE ──
+    st.markdown('<div class="section-header">✨ ASTRA 3D HOLOGRAPHIC HARDWARE ANATOMY & DISASSEMBLY LAB</div>', unsafe_allow_html=True)
+    st.markdown('''<div style="background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(10,20,35,0.92));border:1px solid #00F0FF;border-radius:14px;padding:16px 20px;margin:12px 0;text-align:center;box-shadow:0 0 25px rgba(0,240,255,0.18);">
+        <div style="color:#00F0FF;font-weight:700;font-size:1.25rem;letter-spacing:1px;font-family:Orbitron,Rajdhani,sans-serif;">🔬 SCI-FI HARDWARE TEARDOWN • 360° CONTINUOUS AUTO-SPIN • STEP-BY-STEP RECYCLING MANUAL</div>
+        <p style="color:#CBD5E1;font-size:0.9rem;margin:8px 0 0 0;line-height:1.5;">
+            🖱️ <b>Rotate 360° in any angle</b> with mouse or finger • ⚡ <b>Sweeping Cyan Scanning Laser</b> • 💥 <b>Interactive Disassembly Slider</b>: Slide from 0% (Solid Assembled) to 100% (Exploded Teardown) to peel apart all internal layers down to 16 micro-screws, 200MP camera halo, Dimensity 7050 SoC & 5000mAh battery!
+        </p>
+    </div>''', unsafe_allow_html=True)
+
+    c_hdev, c_hinfo = st.columns([3, 1])
+    with c_hdev:
+        dash_device_choice = st.selectbox(
+            "📱 Select Flagship Hardware Model for Live 3D Disassembly:",
+            [
+                "📱 Realme 11 Pro+ 5G (Sunrise Beige • 200MP OIS • Dimensity 7050 • 16 Screws)",
+                "💻 Lenovo ThinkPad X1 Carbon (Intel Core i7 • 512GB NVMe SSD • Motherboard)",
+                "🍎 Apple iPhone 15 Pro (Grade 5 Titanium • A17 Pro SoC • MagSafe Coil)",
+                "🔋 High-Density Li-ion Battery Pack (5000mAh • Dual Pull Tabs • BMS Protection)"
+            ],
+            key="dash_3d_device_select"
+        )
+    with c_hinfo:
+        st.markdown("<div style='height:28px;'></div>", unsafe_allow_html=True)
+        st.markdown('<div style="text-align:center;padding:8px;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);border-radius:8px;font-size:0.8rem;color:#00F0FF;font-weight:600;">🔄 360° Continuous Spin ACTIVE</div>', unsafe_allow_html=True)
+
+    if "Realme" in dash_device_choice:
+        dash_specs = FLAGSHIP_CATALOG.get("realme_11_pro", {})
+    elif "ThinkPad" in dash_device_choice:
+        dash_specs = FLAGSHIP_CATALOG.get("thinkpad_x1_carbon", {})
+    elif "iPhone" in dash_device_choice:
+        dash_specs = FLAGSHIP_CATALOG.get("apple_iphone_15_pro", {})
+    else:
+        dash_specs = get_deep_device_specs(filename="battery.jpg")
+
+    try:
+        dash_viewer_html = generate_3d_viewer(dash_specs, height=680)
+        import streamlit.components.v1 as stc
+        stc.html(dash_viewer_html, height=1150, scrolling=True)
+    except Exception as ex_dash_3d:
+        st.warning(f"3D Viewer Engine: {ex_dash_3d}")
+
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
     # ── QUICK START FOR ANY USER ──
     st.markdown('<div class="section-header">⚡ QUICK START — WHAT WOULD YOU LIKE TO DO?</div>', unsafe_allow_html=True)

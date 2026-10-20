@@ -766,6 +766,7 @@ function switchModelMode(mode) { return mode; }
 
 // --- 3D Scene Global Variables ---
 var scene, camera, renderer, controls;
+var phoneModelGroup = null;
 var layers = [];
 var screws = [];
 var laserPlane = null;
@@ -776,6 +777,10 @@ var autoPlayDir = 1;
 var isAutoSpinning = true;
 var isLaserActive = true;
 var clock = new THREE.Clock();
+
+var isPointerDown = false;
+var lastPointerX = 0;
+var lastPointerY = 0;
 
 function init3D() {
     var container = document.getElementById('canvas-3d-container');
@@ -801,16 +806,62 @@ function init3D() {
     }
     container.appendChild(renderer.domElement);
 
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.06;
-    controls.maxDistance = 26;
-    controls.minDistance = 3.5;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 2.2;
-    controls.enableZoom = true;
-    controls.enableRotate = true;
-    controls.enablePan = true;
+    // Master Phone Group for seamless 360° continuous rotation
+    phoneModelGroup = new THREE.Group();
+    scene.add(phoneModelGroup);
+
+    // OrbitControls for smooth camera zoom
+    if (typeof THREE.OrbitControls !== 'undefined') {
+        try {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.08;
+            controls.maxDistance = 26;
+            controls.minDistance = 3.5;
+            controls.enableZoom = true;
+            controls.enableRotate = false; // direct pointer rotates phoneModelGroup directly
+            controls.enablePan = false;
+        } catch (e) {
+            console.warn('OrbitControls optional init:', e);
+        }
+    }
+
+    // Direct touch & mouse drag to rotate the phone in 3D from any angle
+    container.addEventListener('pointerdown', function(e) {
+        isPointerDown = true;
+        lastPointerX = e.clientX;
+        lastPointerY = e.clientY;
+        container.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('pointermove', function(e) {
+        if (!isPointerDown || !phoneModelGroup) return;
+        var dx = e.clientX - lastPointerX;
+        var dy = e.clientY - lastPointerY;
+        lastPointerX = e.clientX;
+        lastPointerY = e.clientY;
+        phoneModelGroup.rotation.y += dx * 0.012;
+        phoneModelGroup.rotation.x += dy * 0.012;
+        phoneModelGroup.rotation.x = Math.max(-1.15, Math.min(1.15, phoneModelGroup.rotation.x));
+    });
+
+    window.addEventListener('pointerup', function() {
+        isPointerDown = false;
+        if (container) container.style.cursor = 'grab';
+    });
+
+    window.addEventListener('pointercancel', function() {
+        isPointerDown = false;
+        if (container) container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        if (camera) {
+            camera.position.z += e.deltaY * 0.005;
+            camera.position.z = Math.max(3.8, Math.min(24.0, camera.position.z));
+        }
+    }, { passive: false });
 
     // Lighting
     var amb = new THREE.AmbientLight(0xffffff, 0.7);
@@ -916,7 +967,7 @@ function buildRealisticPhoneLayers() {
         screws.push(sm);
     }
     screwGroup.userData = { closedX: -0.09, explodedX: -4.5 * spread, name: '16 Micro-Screws', id: 'c16' };
-    scene.add(screwGroup);
+    phoneModelGroup.add(screwGroup);
     layers.push(screwGroup);
 
     // Layer 0: Back Cover
@@ -934,7 +985,7 @@ function buildRealisticPhoneLayers() {
     haloMesh.position.set(0, 1.1, 0.05);
     backGroup.add(haloMesh);
     backGroup.userData = { closedX: -0.07, explodedX: -3.6 * spread, name: 'Back Cover', id: 'c1' };
-    scene.add(backGroup);
+    phoneModelGroup.add(backGroup);
     layers.push(backGroup);
 
     // Layer 1: Camera Module
@@ -960,7 +1011,7 @@ function buildRealisticPhoneLayers() {
     flashMesh.rotation.x = Math.PI / 2; flashMesh.position.set(0, -0.38, 0.03); camGroup.add(flashMesh);
     camGroup.position.set(0, 1.1, 0);
     camGroup.userData = { closedX: -0.05, explodedX: -2.7 * spread, name: 'Camera Module', id: 'c2' };
-    scene.add(camGroup);
+    phoneModelGroup.add(camGroup);
     layers.push(camGroup);
 
     // Layer 2: NFC & Graphite Heat Spreader
@@ -977,7 +1028,7 @@ function buildRealisticPhoneLayers() {
     nfcCoil.position.set(0, 0.2, 0.015);
     nfcGroup.add(nfcCoil);
     nfcGroup.userData = { closedX: -0.03, explodedX: -1.8 * spread, name: 'NFC & Graphite Sheet', id: 'c14' };
-    scene.add(nfcGroup);
+    phoneModelGroup.add(nfcGroup);
     layers.push(nfcGroup);
 
     // Layer 3: Middle Chassis / Frame
@@ -994,7 +1045,7 @@ function buildRealisticPhoneLayers() {
     var usb = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.06, 0.06), new THREE.MeshStandardMaterial({ color: 0x0F172A }));
     usb.position.set(0, -pHeight*0.49, 0); frameGroup.add(usb);
     frameGroup.userData = { closedX: -0.01, explodedX: -0.9 * spread, name: 'Midframe Chassis', id: 'c3' };
-    scene.add(frameGroup);
+    phoneModelGroup.add(frameGroup);
     layers.push(frameGroup);
 
     // Layer 4: Battery (Li-ion)
@@ -1010,7 +1061,7 @@ function buildRealisticPhoneLayers() {
     tabB.position.set(0.35, -pHeight*0.24, 0.04); battGroup.add(tabB);
     battGroup.position.set(0, -0.7, 0);
     battGroup.userData = { closedX: 0.01, explodedX: 0.1 * spread, name: 'Battery (Li-ion)', id: 'c4' };
-    scene.add(battGroup);
+    phoneModelGroup.add(battGroup);
     layers.push(battGroup);
 
     // Layer 5: Mainboard (PCB)
@@ -1026,7 +1077,7 @@ function buildRealisticPhoneLayers() {
     emi2.position.set(0.4, 0.12, 0.03); pcbGroup.add(emi2);
     pcbGroup.position.set(0, 1.05, 0);
     pcbGroup.userData = { closedX: 0.03, explodedX: 1.2 * spread, name: 'Mainboard (PCB)', id: 'c5' };
-    scene.add(pcbGroup);
+    phoneModelGroup.add(pcbGroup);
     layers.push(pcbGroup);
 
     // Layer 6: Display Assembly
@@ -1042,7 +1093,7 @@ function buildRealisticPhoneLayers() {
     );
     cuBack.position.set(0, 0, -0.02); dispGroup.add(cuBack);
     dispGroup.userData = { closedX: 0.05, explodedX: 2.3 * spread, name: 'Display Assembly', id: 'c6' };
-    scene.add(dispGroup);
+    phoneModelGroup.add(dispGroup);
     layers.push(dispGroup);
 
     // Layer 7: Front Screen (Gorilla Glass)
@@ -1064,7 +1115,7 @@ function buildRealisticPhoneLayers() {
     punchHole.position.set(0, 2.15, 0.01);
     glassGroup.add(punchHole);
     glassGroup.userData = { closedX: 0.07, explodedX: 3.5 * spread, name: 'Front Screen Glass', id: 'c8' };
-    scene.add(glassGroup);
+    phoneModelGroup.add(glassGroup);
     layers.push(glassGroup);
 }
 
@@ -1079,7 +1130,7 @@ function updateLayerPositions(val) {
     for (var s = 0; s < screws.length; s++) {
         var sm = screws[s];
         sm.position.z = THREE.MathUtils.lerp(0.05, 0.6 + (s % 3)*0.2, val);
-        sm.rotation.z = val * Math.PI * 4;
+        sm.rotation.z = val * Math.PI * 6;
     }
 }
 
@@ -1099,7 +1150,6 @@ function setSliderPercent(pct) {
 
 function toggleAutoSpin() {
     isAutoSpinning = !isAutoSpinning;
-    if (controls) controls.autoRotate = isAutoSpinning;
     var btn = document.getElementById('btnAutoSpin');
     if (btn) btn.textContent = isAutoSpinning ? '🔄 360° Spin: ON' : '⏸ 360° Spin: OFF';
 }
@@ -1118,23 +1168,22 @@ function toggleAutoPlay() {
 }
 
 function reset3DCamera() {
-    if (camera && controls) {
-        camera.position.set(0, 1.2, 11.5);
+    if (camera) camera.position.set(0, 1.2, 11.5);
+    if (phoneModelGroup) phoneModelGroup.rotation.set(0, 0, 0);
+    if (controls) {
         controls.target.set(0, 0, 0);
         controls.update();
     }
 }
 
 function setCameraAngle(view) {
-    if (!camera || !controls) return;
-    if (view === 'back') camera.position.set(0, 0, -11.5);
-    else if (view === 'front') camera.position.set(0, 0, 11.5);
-    else if (view === 'left') camera.position.set(-11.5, 0, 0);
-    else if (view === 'right') camera.position.set(11.5, 0, 0);
-    else if (view === 'top') camera.position.set(0, 11.5, 0.1);
-    else if (view === 'bottom') camera.position.set(0, -11.5, 0.1);
-    controls.target.set(0, 0, 0);
-    controls.update();
+    if (!phoneModelGroup) return;
+    if (view === 'front') phoneModelGroup.rotation.set(0, 0, 0);
+    else if (view === 'back') phoneModelGroup.rotation.set(0, Math.PI, 0);
+    else if (view === 'left') phoneModelGroup.rotation.set(0, Math.PI / 2, 0);
+    else if (view === 'right') phoneModelGroup.rotation.set(0, -Math.PI / 2, 0);
+    else if (view === 'top') phoneModelGroup.rotation.set(Math.PI / 2, 0, 0);
+    else if (view === 'bottom') phoneModelGroup.rotation.set(-Math.PI / 2, 0, 0);
 }
 
 function inspectPart(partId) {
@@ -1192,6 +1241,11 @@ function animate() {
         laserPlane.position.y = Math.sin(t * 1.8) * 2.8;
     }
 
+    // Auto-Spin Phone 360° continuously when not manually dragging
+    if (isAutoSpinning && !isPointerDown && phoneModelGroup) {
+        phoneModelGroup.rotation.y += 0.014;
+    }
+
     if (isAutoPlaying) {
         currentExplodeVal += 0.005 * autoPlayDir;
         if (currentExplodeVal >= 1.0) { currentExplodeVal = 1.0; autoPlayDir = -1; }
@@ -1206,8 +1260,20 @@ function animate() {
     if (renderer && scene && camera) renderer.render(scene, camera);
 }
 
-window.addEventListener('load', init3D);
-setTimeout(init3D, 250);
+var initDone = false;
+function safeInit3D() {
+    if (initDone) return;
+    if (typeof THREE === 'undefined') {
+        setTimeout(safeInit3D, 100);
+        return;
+    }
+    initDone = true;
+    init3D();
+}
+
+window.addEventListener('DOMContentLoaded', safeInit3D);
+window.addEventListener('load', safeInit3D);
+setTimeout(safeInit3D, 150);
 </script>
 </body>
 </html>'''
