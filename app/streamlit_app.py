@@ -2747,202 +2747,208 @@ elif page_id == "lab3d":
     lab_tab1, lab_tab2, lab_tab3, lab_tab4 = st.tabs(["🔬 3D Explorer", "📸 AI Identify", "📚 Knowledge Base", "📊 Analytics"])
 
     with lab_tab1:
-        st.markdown('<div class="section-header">🎯 DEVICE SELECTION & UPLOAD</div>', unsafe_allow_html=True)
-        # Auto-preload from Image Classify page
+        st.markdown('<div class="section-header">⚡ INSTANT 3D DEVICE VIEWER — UPLOAD & VISUALIZE IN SECONDS</div>', unsafe_allow_html=True)
+
+        # ── INSTANT DETECTION HELPER ────────────────────────────────────────
+        def _instant_detect(name_or_text):
+            """Detect device category from filename/text in <1ms — NO API needed."""
+            t = str(name_or_text).lower()
+            if any(w in t for w in ['laptop','notebook','macbook','thinkpad','asus rog','lenovo','hp pavil','dell xps','acer','chromebook']):
+                return "Laptops"
+            if any(w in t for w in ['desktop','tower','imac','pc tower','atx','itx','workstation','gaming pc']):
+                return "Desktop Computers"
+            if any(w in t for w in ['tablet','ipad','galaxy tab','surface pro','kindle','e-reader','huawei matepad']):
+                return "Tablets"
+            if any(w in t for w in ['television','tv','monitor','display','led tv','oled tv','qled','smart tv','lcd monitor']):
+                return "Televisions"
+            if any(w in t for w in ['battery','batterie','18650','li-ion pack','power bank','bms','cell pack']):
+                return "Batteries"
+            if any(w in t for w in ['pcb','circuit board','motherboard','mainboard','arduino','raspberry pi','esp32','microcontroller']):
+                return "PCBs/Circuit Boards"
+            if any(w in t for w in ['printer','inkjet','laser printer','toner','cartridge','epson','canon printer']):
+                return "Printers"
+            if any(w in t for w in ['router','modem','wifi','access point','netgear','tp-link','dlink']):
+                return "Routers/Modems"
+            if any(w in t for w in ['console','playstation','xbox','nintendo','gamepad','controller','ps4','ps5']):
+                return "Gaming Consoles"
+            # Default: Mobile Phone
+            return "Mobile Phones"
+
+        def _cat_to_icon(cat):
+            icons = {
+                "Mobile Phones": "📱", "Laptops": "💻", "Desktop Computers": "🖥️",
+                "Tablets": "📱", "Televisions": "📺", "Batteries": "🔋",
+                "PCBs/Circuit Boards": "🔌", "Printers": "🖨️",
+                "Routers/Modems": "📡", "Gaming Consoles": "🎮",
+            }
+            return icons.get(cat, "📦")
+
+        # ── AUTO-PRELOAD from Classify Page ─────────────────────────────────
         _preload = st.session_state.pop('lab3d_preload_cat', None)
         if _preload:
-            st.success(f'✅ Loaded from Image Classifier: **{_preload}** — 3D model is ready below!')
-        
-        # 3 Upload/Selection options via Dropdown
-        input_choice = st.selectbox(
-            "📥 Choose How to Load Device for 3D Model:",
-            ["📋 Select from Category Database", "📸 Upload Image / Photo", "📊 Upload Dataset (CSV)", "📄 Upload Document / Manual (PDF/TXT)"],
-            key="lab3d_input_choice"
+            st.session_state['lab3d_instant_cat'] = _preload
+            st.success(f'✅ Auto-loaded from Image Classifier: **{_preload}**')
+
+        # ── QUICK CATEGORY BUTTONS (instant — no upload needed) ─────────────
+        st.markdown("#### 🎯 Quick Select — Instant 3D (no upload needed)")
+        _qcats = ["📱 Phone","💻 Laptop","🖥️ Desktop","📱 Tablet","📺 TV","🔋 Battery","🔌 PCB","🖨️ Printer"]
+        _qvals = ["Mobile Phones","Laptops","Desktop Computers","Tablets","Televisions","Batteries","PCBs/Circuit Boards","Printers"]
+        _qcols = st.columns(4)
+        for _qi, (_qlbl, _qval) in enumerate(zip(_qcats, _qvals)):
+            with _qcols[_qi % 4]:
+                if st.button(_qlbl, key=f"qbtn_{_qi}", use_container_width=True):
+                    st.session_state['lab3d_instant_cat'] = _qval
+                    st.session_state['lab3d_instant_src'] = f"Quick Select: {_qlbl}"
+                    st.rerun()
+
+        st.markdown("---")
+
+        # ── IMAGE / FILE UPLOAD ──────────────────────────────────────────────
+        st.markdown("#### 📸 Upload Device — Auto-Identified & 3D in <1 Second")
+        _upfile = st.file_uploader(
+            "Drop any device image, CSV, PDF or ZIP here",
+            type=['jpg','jpeg','png','webp','bmp','csv','pdf','txt','zip'],
+            key="lab3d_fastupload"
         )
-        
-        device_data = None
-        selected_device = None
 
-        if input_choice == "📋 Select from Category Database":
-            device_cats = list(DEVICE_KNOWLEDGE.keys())
-            selected_device = st.selectbox("Select Device Category", device_cats, key="lab3d_device_select")
-            device_data = DEVICE_KNOWLEDGE.get(selected_device, {})
+        if _upfile:
+            _fn = _upfile.name
+            # INSTANT category detect from filename (no API)
+            _instant_cat = _instant_detect(_fn)
+            st.session_state['lab3d_instant_cat'] = _instant_cat
+            st.session_state['lab3d_instant_src'] = f"Uploaded: {_fn}"
 
-        elif input_choice == "📸 Upload Image / Photo":
-            st.markdown("##### 📸 Upload Electronic Device Image / Photo")
-            img_file = st.file_uploader("Upload Image (JPG, PNG, WEBP)", type=['jpg','jpeg','png','webp'], key="lab3d_img_upload")
-            if img_file:
-                c_img1, c_img2 = st.columns([1, 2])
-                with c_img1:
-                    st.image(img_file, caption=f"Uploaded: {img_file.name}", use_container_width=True)
-                with c_img2:
-                    st.success("⚡ Image Received! Multimodal Hardware Analysis Active...")
-                    api_key = get_active_gemini_key()
-                    # Deep Multimodal Hardware Identification
-                    deep_specs = get_deep_device_specs(img_file.getvalue(), filename=img_file.name, api_key=api_key)
-                    selected_device = deep_specs.get("category", "Mobile Phones")
-                    device_data = deep_specs
+            _col1, _col2 = st.columns([1, 2])
+            with _col1:
+                if _fn.lower().split('.')[-1] in ['jpg','jpeg','png','webp','bmp']:
+                    st.image(_upfile, caption=_fn, width=220)
+                else:
+                    st.info(f"📄 {_fn}")
+            with _col2:
+                st.success(f"✅ **Detected:** {_cat_to_icon(_instant_cat)} {_instant_cat}")
+                st.caption("🔍 Auto-detected from filename in <1ms — 3D loads instantly below!")
 
-                    st.markdown(f'''<div style="background:rgba(220,20,60,0.15);border:1px solid rgba(220,20,60,0.4);border-radius:12px;padding:12px;margin:8px 0;">
-                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-                            <span class="tag" style="background:#DC143C;color:#fff;font-weight:bold;">{deep_specs.get('brand','DEVICE').upper()}</span>
-                            <span class="tag" style="color:#FFD700;border-color:#FFD700;">{deep_specs.get('storage','128 GB')}</span>
-                            <span class="tag">⚡ {deep_specs.get('ram','8 GB RAM')}</span>
-                        </div>
-                        <h4 style="color:#f1f1f1;margin:2px 0 6px 0;">{deep_specs.get('model','Identified Hardware')}</h4>
-                        <div style="font-size:0.85rem;color:#bbb;line-height:1.5;">
-                            🧠 <b>SoC:</b> {deep_specs.get('processor','N/A')}<br>
-                            📸 <b>Camera:</b> {deep_specs.get('camera','N/A')}<br>
-                            🔋 <b>Battery:</b> {deep_specs.get('battery','N/A')}<br>
-                            ✨ <b>Finish:</b> {deep_specs.get('color_finish','Standard')}
-                        </div>
-                    </div>''', unsafe_allow_html=True)
+                # Try API in background (optional enhancement — won't block 3D)
+                _api_key = get_active_gemini_key()
+                if _api_key and _fn.lower().split('.')[-1] in ['jpg','jpeg','png','webp','bmp']:
+                    try:
+                        with st.spinner("🤖 AI deep-scanning for exact model... (3D already loaded below)"):
+                            _deep = get_deep_device_specs(_upfile.getvalue(), filename=_fn, api_key=_api_key)
+                        if _deep and _deep.get('category'):
+                            st.session_state['lab3d_instant_cat'] = _deep.get('category', _instant_cat)
+                            st.session_state['lab3d_deep_specs'] = _deep
+                            _b = _deep.get('brand','')
+                            _m = _deep.get('model','')
+                            if _b or _m:
+                                st.info(f"🎯 AI Identified: **{_b} {_m}** ({_deep.get('category','')})")
+                    except Exception:
+                        pass  # Filename detection is already good enough
 
-        elif input_choice == "📊 Upload Dataset (CSV)":
-            st.markdown("##### 📊 Upload Dataset File (CSV)")
-            csv_file = st.file_uploader("Upload CSV Dataset", type=['csv'], key="lab3d_csv_upload")
-            if csv_file:
-                import pandas as pd
-                try:
-                    df_up = pd.read_csv(csv_file)
-                    st.success(f"✅ Dataset Ingested: **{len(df_up):,} rows × {len(df_up.columns)} columns**")
-                    st.dataframe(df_up.head(5), use_container_width=True)
-                    # Check if device_type or Category column exists
-                    col_found = None
-                    for c in df_up.columns:
-                        if any(term in c.lower() for term in ['device', 'category', 'type', 'item', 'model']):
-                            col_found = c
-                            break
-                    detected_device = str(df_up[col_found].iloc[0]) if col_found else "Electronics Device"
-                    st.info(f"📊 Auto-Detected Hardware Signature from Data: **{detected_device}**")
-                    # Build deep hardware specs for this exact device
-                    device_data = get_deep_device_specs(filename=detected_device)
-                    selected_device = device_data.get("category", "Mobile Phones")
-                except Exception as ex:
-                    st.error(f"Error parsing CSV: {ex}")
-                    device_data = get_deep_device_specs(filename="laptop")
-                    selected_device = "Laptops"
+        # ── GET CURRENT CATEGORY ─────────────────────────────────────────────
+        _cur_cat = st.session_state.get('lab3d_instant_cat', 'Mobile Phones')
+        _cur_src = st.session_state.get('lab3d_instant_src', 'Default')
+        _deep_specs = st.session_state.get('lab3d_deep_specs', {})
 
-        elif input_choice == "📄 Upload Document / Manual (PDF/TXT)":
-            st.markdown("##### 📄 Upload Specification Manual or Document")
-            doc_up = st.file_uploader("Upload PDF or TXT Document", type=['pdf','txt'], key="lab3d_doc_upload_tab1")
-            if doc_up:
-                st.success(f"✅ Specification Manual Received: **{doc_up.name}**")
-                # Extract text for hardware specs
-                txt_content = ""
-                try:
-                    txt_content = doc_up.getvalue().decode('utf-8', errors='ignore')[:4000].lower()
-                except:
-                    txt_content = doc_up.name.lower()
-                st.info(f"📄 Specification Parsed: Ingested technical bill-of-materials and disassembly scheme.")
-                # Build deep hardware specs from manual content
-                device_data = get_deep_device_specs(filename=f"{doc_up.name} {txt_content[:200]}")
-                selected_device = device_data.get("category", "Mobile Phones")
+        # Build device_data — prefer deep specs if category matches, else use knowledge base
+        if _deep_specs and _deep_specs.get('category') == _cur_cat:
+            device_data = _deep_specs
+            selected_device = _cur_cat
+        else:
+            device_data = DEVICE_KNOWLEDGE.get(_cur_cat, {}) if KNOWLEDGE_LOADED else {}
+            if not device_data:
+                device_data = {}
+            device_data['category'] = _cur_cat
+            selected_device = _cur_cat
 
-        # Fallback if no device chosen yet
-        if not device_data:
-            selected_device = "Mobile Phones"
-            device_data = get_deep_device_specs(filename="realme_11_pro_sunrise_beige.jpg")
-        elif selected_device == "Mobile Phones" and "brand" not in device_data:
-            device_data = get_deep_device_specs(filename="realme_11_pro_sunrise_beige.jpg")
+        # ── DEVICE HEADER BANNER ─────────────────────────────────────────────
+        _is_deep = "brand" in device_data and device_data.get("brand","")
+        _disp_title = f"{device_data.get('brand','')} {device_data.get('model','')}".strip() if _is_deep else _cur_cat
+        _disp_icon = _cat_to_icon(_cur_cat)
+        _rec_val_usd = device_data.get("scrap_value_usd", device_data.get("recovery_value_usd", 0.0))
+        _curr_code = st.session_state.get('app_curr', 'USD')
+        try:
+            _formatted_val = format_recovery_range(_rec_val_usd, _curr_code, uncertainty_pct=20.0)
+        except:
+            _formatted_val = f"${_rec_val_usd:.2f}" if _rec_val_usd else "N/A"
 
-        if device_data:
-            # Device header with dynamic currency & uncertainty
-            rec_val_usd = device_data.get("scrap_value_usd", device_data.get("recovery_value_usd", 0.0))
-            curr_code = st.session_state.get('app_curr', 'USD')
-            formatted_val = format_recovery_range(rec_val_usd, curr_code, uncertainty_pct=20.0)
-            
-            is_deep = "brand" in device_data
-            disp_title = f"{device_data.get('brand','')} {device_data.get('model','')}".strip() if is_deep else selected_device
-            disp_icon = "📱" if ("Phone" in selected_device or "Tablet" in selected_device or is_deep) else device_data.get("icon","📦")
+        st.markdown(f"""<div class="glass-card" style="text-align:center;padding:16px;margin:12px 0;">
+            <span style="font-size:2.8rem;">{_disp_icon}</span>
+            <h2 style="color:#DC143C;margin:8px 0;">{_disp_title}</h2>
+            <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+                {"<span class='tag' style='background:#DC143C;color:#fff;font-weight:bold;'>" + device_data.get('brand','').upper() + "</span>" if _is_deep and device_data.get('brand','') else ""}
+                {"<span class='tag' style='border-color:#FFD700;color:#FFD700;'>💾 " + str(device_data.get('storage','')) + "</span>" if _is_deep and device_data.get('storage','') else ""}
+                {"<span class='tag'>⚡ " + str(device_data.get('ram','')) + "</span>" if _is_deep and device_data.get('ram','') else ""}
+                <span class="tag" style="border-color:#FFD700;color:#FFD700;">💰 {_formatted_val}</span>
+                <span class="tag">📊 {device_data.get('repairability_score', 7)}/10 Repairability</span>
+            </div>
+            {"<p style='color:#aaa;font-size:0.82rem;margin-top:8px;'>🧠 <b>SoC:</b> " + str(device_data.get('processor','')) + " • 📸 <b>Camera:</b> " + str(device_data.get('camera','')) + " • 🔋 <b>Battery:</b> " + str(device_data.get('battery','')) + "</p>" if _is_deep else ""}
+        </div>""", unsafe_allow_html=True)
 
-            st.markdown(f'''<div class="glass-card" style="text-align:center;padding:20px;">
-                <span style="font-size:3rem;">{disp_icon}</span>
-                <h2 style="color:#DC143C;margin:10px 0;">{disp_title}</h2>
-                <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-                    {f'<span class="tag" style="background:#DC143C;color:#fff;font-weight:bold;">{device_data.get("brand","").upper()}</span>' if is_deep else ''}
-                    {f'<span class="tag" style="border-color:#FFD700;color:#FFD700;">💾 {device_data.get("storage","")}</span>' if is_deep else ''}
-                    {f'<span class="tag">⚡ {device_data.get("ram","")}</span>' if is_deep else ''}
-                    <span class="tag" style="border-color:#FFD700;color:#FFD700;">💰 {formatted_val}</span>
-                    <span class="tag">🔧 {device_data.get("repair_difficulty","7.5/10")}</span>
-                    <span class="tag">📊 Repairability: {device_data.get("repairability_score",7.5)}/10</span>
-                </div>
-                {f'<p style="color:#aaa;font-size:0.85rem;margin-top:10px;">🧠 <b>SoC:</b> {device_data.get("processor","")} • 📸 <b>Camera:</b> {device_data.get("camera","")} • 🔋 <b>Battery:</b> {device_data.get("battery","")}</p>' if is_deep else ''}
-            </div>''', unsafe_allow_html=True)
+        # ── 3D VIEWER — ALWAYS SHOWN INSTANTLY ────────────────────────────────
+        st.markdown('<div class="section-header">🔬 LIVE 3D ANATOMY & CASCADE DISASSEMBLY</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#94A3B8;font-size:0.82rem;text-align:center;">🖱️ Drag=Rotate • Scroll=Zoom • Slider=Disassemble each part one by one • Click part to inspect</p>', unsafe_allow_html=True)
 
-            # 3D VIEWER
-            st.markdown('<div class="section-header">🎨 INTERACTIVE 3D COMPONENT VIEW & EXPLODED ANATOMY</div>', unsafe_allow_html=True)
-            st.markdown('<p style="color:#888;font-size:.8rem;text-align:center;">🖱️ Drag to rotate 360° • Scroll to zoom • Toggle Exploded/Assembled or Slider • Click components to inspect</p>', unsafe_allow_html=True)
-            try:
-                viewer_html = generate_3d_viewer(device_data, height=680)
-                import streamlit.components.v1 as stc
-                stc.html(viewer_html, height=1150, scrolling=True)
-            except Exception as e:
-                st.warning(f"3D viewer loading... ({e})")
+        try:
+            import streamlit.components.v1 as _stc
+            _vh = generate_3d_viewer(device_data, height=700)
+            _stc.html(_vh, height=1200, scrolling=True)
+        except Exception as _e3d:
+            st.error(f"3D Viewer Error: {_e3d}")
+            import traceback
+            st.code(traceback.format_exc())
 
-            # COMPONENTS TABLE
+        # ── COMPONENT BREAKDOWN ───────────────────────────────────────────────
+        _comps = device_data.get("components", [])
+        if _comps:
             st.markdown('<div class="section-header">📦 COMPONENT BREAKDOWN</div>', unsafe_allow_html=True)
-            components = device_data.get("components", [])
-            for comp in components:
-                haz = "🔴 HAZARDOUS" if comp["hazardous"] else "🟢 Safe"
-                rec = "♻️" if comp["recyclable"] else "❌"
+            for _comp in _comps:
+                _haz = "🔴 HAZARDOUS" if _comp.get("hazardous") else "🟢 Safe"
+                _rec = "♻️" if _comp.get("recyclable") else "❌"
                 st.markdown(f'''<div class="step-card" style="display:flex;align-items:center;gap:10px;">
-                    <div style="width:14px;height:14px;border-radius:50%;background:{comp["color"]};flex-shrink:0;"></div>
-                    <div style="flex:1;">
-                        <strong>{comp["name"]}</strong><br>
-                        <span style="color:#888;font-size:.8rem;">{comp["material"]}</span>
-                    </div>
+                    <div style="width:13px;height:13px;border-radius:50%;background:{_comp.get("color","#888")};flex-shrink:0;"></div>
+                    <div style="flex:1;"><strong>{_comp.get("name","")}</strong><br>
+                    <span style="color:#888;font-size:.8rem;">{_comp.get("material","")}</span></div>
                     <div style="text-align:right;font-size:.8rem;">
-                        <div>⚖️ {comp["weight_pct"]}%</div>
-                        <div>💰 ${comp["value_usd"]:.2f}</div>
-                        <div>{haz} {rec}</div>
-                    </div>
-                </div>''', unsafe_allow_html=True)
+                        <div>⚖️ {_comp.get("weight_pct",0)}%</div>
+                        <div>💰 ${_comp.get("value_usd",0):.2f}</div>
+                        <div>{_haz} {_rec}</div>
+                    </div></div>''', unsafe_allow_html=True)
 
-            # PRECIOUS METALS
+        # ── PRECIOUS METALS ───────────────────────────────────────────────────
+        _metals = device_data.get("precious_metals", {})
+        if _metals:
             st.markdown('<div class="section-header">💎 PRECIOUS METALS</div>', unsafe_allow_html=True)
-            metals = device_data.get("precious_metals", {})
-            mc = st.columns(min(len(metals), 5))
-            for i, (metal, amount) in enumerate(metals.items()):
-                with mc[i % len(mc)]:
+            _mc = st.columns(min(len(_metals), 5))
+            for _mi, (_metal, _amount) in enumerate(_metals.items()):
+                with _mc[_mi % len(_mc)]:
                     st.markdown(f'''<div class="metric-card">
                         <div class="metric-icon">💰</div>
-                        <div class="metric-value">{amount}</div>
-                        <div class="metric-label">{metal}</div>
+                        <div class="metric-value">{_amount}</div>
+                        <div class="metric-label">{_metal}</div>
                     </div>''', unsafe_allow_html=True)
 
-            # RECYCLING STEPS
-            c1, c2 = st.columns(2)
-            with c1:
-                st.markdown('<div class="section-header">♻️ RECYCLING STEPS</div>', unsafe_allow_html=True)
-                for step in device_data.get("recycling_steps", []):
-                    st.markdown(f'<div class="step-card">{step}</div>', unsafe_allow_html=True)
-            with c2:
-                st.markdown('<div class="section-header">⚠️ SAFETY WARNINGS & STOP-WORK</div>', unsafe_allow_html=True)
-                for warn in device_data.get("safety_warnings", []):
-                    st.markdown(f'<div class="warning-card">{warn}</div>', unsafe_allow_html=True)
-
-                # Regional Compliance & Statutory Notice
-                reg_info = get_regulatory_framework(st.session_state.get('app_jurisdiction', 'India'))
-                with st.expander(f"📜 Regulatory Compliance: {reg_info['agency']}"):
-                    st.markdown(f"**Statute:** `{reg_info['statute']}` ({reg_info['compliance_tier']})")
-                    for req in reg_info['key_requirements']:
-                        st.markdown(f"• {req}")
-
-                st.markdown('<div class="section-header">🌍 ENVIRONMENTAL IMPACT</div>', unsafe_allow_html=True)
-                env = device_data.get("environmental_impact", {})
+        # ── RECYCLING STEPS + SAFETY ──────────────────────────────────────────
+        _c1, _c2 = st.columns(2)
+        with _c1:
+            st.markdown('<div class="section-header">♻️ RECYCLING STEPS</div>', unsafe_allow_html=True)
+            for _step in device_data.get("recycling_steps", []):
+                st.markdown(f'<div class="step-card">{_step}</div>', unsafe_allow_html=True)
+        with _c2:
+            st.markdown('<div class="section-header">⚠️ SAFETY WARNINGS</div>', unsafe_allow_html=True)
+            for _warn in device_data.get("safety_warnings", []):
+                st.markdown(f'<div class="warning-card">{_warn}</div>', unsafe_allow_html=True)
+            _env = device_data.get("environmental_impact", {})
+            if _env:
                 st.markdown(f'''<div class="glass-card">
-                    <div>🌱 CO₂ Saved: <strong>{env.get("co2_saved_kg",0)} kg</strong></div>
-                    <div>💧 Water Saved: <strong>{env.get("water_saved_liters",0)} L</strong></div>
-                    <div>⚡ Energy Saved: <strong>{env.get("energy_saved_kwh",0)} kWh</strong></div>
-                    <div>☠️ Toxic Prevented: <strong>{env.get("toxic_prevented_kg",0)} kg</strong></div>
+                    <div>🌱 CO₂ Saved: <strong>{_env.get("co2_saved_kg",0)} kg</strong></div>
+                    <div>💧 Water Saved: <strong>{_env.get("water_saved_liters",0)} L</strong></div>
+                    <div>⚡ Energy Saved: <strong>{_env.get("energy_saved_kwh",0)} kWh</strong></div>
                 </div>''', unsafe_allow_html=True)
 
-            # BRANDS
-            brands = device_data.get("brands", [])
-            if brands:
-                st.markdown('<div class="section-header">🏭 KNOWN BRANDS</div>', unsafe_allow_html=True)
-                st.markdown('<div style="display:flex;flex-wrap:wrap;gap:6px;">' + ''.join([f'<span class="tag">{b}</span>' for b in brands]) + '</div>', unsafe_allow_html=True)
+        _brands = device_data.get("brands", [])
+        if _brands:
+            st.markdown('<div class="section-header">🏭 KNOWN BRANDS</div>', unsafe_allow_html=True)
+            st.markdown('<div style="display:flex;flex-wrap:wrap;gap:6px;">' + ''.join([f'<span class="tag">{b}</span>' for b in _brands]) + '</div>', unsafe_allow_html=True)
 
     with lab_tab2:
         st.markdown('<div class="section-header">📸 AI DEVICE IDENTIFICATION</div>', unsafe_allow_html=True)
