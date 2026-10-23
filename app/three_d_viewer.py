@@ -958,21 +958,7 @@ function buildRealisticPhoneLayers() {
 
     // Helper: rounded-rectangle Shape
     function roundedBox(w, h, d, r) {
-        var shape = new THREE.Shape();
-        var rr = Math.min(r, w/2-0.01, h/2-0.01);
-        shape.moveTo(-w/2+rr, -h/2);
-        shape.lineTo( w/2-rr, -h/2);
-        shape.quadraticCurveTo( w/2, -h/2,  w/2, -h/2+rr);
-        shape.lineTo( w/2,  h/2-rr);
-        shape.quadraticCurveTo( w/2,  h/2,  w/2-rr,  h/2);
-        shape.lineTo(-w/2+rr,  h/2);
-        shape.quadraticCurveTo(-w/2,  h/2, -w/2,  h/2-rr);
-        shape.lineTo(-w/2, -h/2+rr);
-        shape.quadraticCurveTo(-w/2, -h/2, -w/2+rr, -h/2);
-        var extSettings = { depth: d, bevelEnabled: false };
-        var geo = new THREE.ExtrudeGeometry(shape, extSettings);
-        geo.center();
-        return geo;
+        return new THREE.BoxGeometry(w, h, d);
     }
 
     // ─── LAYER 0: 16 Micro-Screws ───
@@ -1249,37 +1235,26 @@ function buildRealisticPhoneLayers() {
     ribbon2.position.set(-0.65, 0.6, 0); phoneModelGroup.add(ribbon2);
 }
 
-// CASCADE EXPLODE — each layer peels at its own slider window
-var LAYER_WINDOWS = [
-    [0.00, 0.12],   // 0: screws
-    [0.10, 0.22],   // 1: back cover
-    [0.20, 0.30],   // 2: camera module
-    [0.28, 0.38],   // 3: NFC sheet
-    [0.36, 0.48],   // 4: midframe
-    [0.46, 0.60],   // 5: battery
-    [0.58, 0.72],   // 6: PCB mainboard
-    [0.70, 0.84],   // 7: AMOLED display
-    [0.82, 1.00]    // 8: front glass
-];
-var LAYER_Z_SPREAD = [0.3, 1.1, 1.9, 2.6, 3.2, -1.3, -2.1, -2.9, -3.8];
-
+// CASCADE EXPLODE — dynamic per-layer windows based on actual layer count
 function updateLayerPositions(val) {
-    for (var i = 0; i < layers.length; i++) {
-        var layer = layers[i];
-        var win = LAYER_WINDOWS[i] || [i/layers.length, (i+1)/layers.length];
-        var wStart = win[0], wEnd = win[1];
-        var t = (val - wStart) / (wEnd - wStart);
+    var n = layers.length;
+    if (n === 0) return;
+    for (var i = 0; i < n; i++) {
+        var wStart = i / n;
+        var wEnd   = (i + 1) / n;
+        var t = (val - wStart) / Math.max(0.001, wEnd - wStart);
         t = Math.max(0.0, Math.min(1.0, t));
         // Ease-out cubic
         var te = 1.0 - Math.pow(1.0 - t, 3.0);
-        var zDest = LAYER_Z_SPREAD[i] !== undefined ? LAYER_Z_SPREAD[i] : (i - layers.length/2)*1.4;
-        var closedY = layer.userData.closedY !== undefined ? layer.userData.closedY : 0;
-        var explodedY = layer.userData.explodedY !== undefined ? layer.userData.explodedY : 0;
-        layer.position.y = THREE.MathUtils.lerp(closedY, explodedY, te);
-        layer.position.z = THREE.MathUtils.lerp(0, zDest, te);
+        var layer = layers[i];
+        var closedY   = (layer.userData.closedY   !== undefined) ? layer.userData.closedY   : 0;
+        var explodedY = (layer.userData.explodedY  !== undefined) ? layer.userData.explodedY : (i - n/2) * 1.4;
+        layer.position.y = closedY + (explodedY - closedY) * te;
+        var zSign = (i % 2 === 0) ? 1.0 : -0.8;
+        layer.position.z = te * zSign * (i+1) * 0.3;
         var tiltDir = (i % 2 === 0) ? -1 : 1;
-        layer.rotation.x = THREE.MathUtils.lerp(0, tiltDir * 0.13, te);
-        layer.rotation.y = THREE.MathUtils.lerp(0, tiltDir * 0.08, te);
+        layer.rotation.x = te * tiltDir * 0.12;
+        layer.rotation.y = te * tiltDir * 0.07;
         // Cyan glow on the actively peeling layer
         var isActive = val >= wStart && val <= wEnd;
         layer.traverse(function(obj) {
@@ -1294,27 +1269,21 @@ function updateLayerPositions(val) {
             }
         });
     }
-    // Screws: staggered pop-out 0-12%
+    // Screws: staggered pop-out first 12% of slider
     for (var s2 = 0; s2 < screws.length; s2++) {
         var sm = screws[s2];
-        var delay = (s2 / screws.length) * 0.08;
+        var delay = (s2 / Math.max(1, screws.length)) * 0.08;
         var lt = Math.max(0, Math.min(1, (val - delay) / Math.max(0.001, 0.12 - delay)));
         var lte = 1.0 - Math.pow(1.0 - lt, 2.0);
-        sm.position.z = THREE.MathUtils.lerp(0, 0.7 + (s2 % 5)*0.14, lte);
+        sm.position.z = lte * (0.7 + (s2 % 5)*0.14);
         sm.rotation.z = lte * Math.PI * 8;
     }
-    // Update badge with current layer name
+    // Update badge with active layer name
     var pct = Math.round(val * 100);
-    var lNames = ['Screws','Back Cover','Camera','NFC Sheet','Midframe','Battery','PCB','AMOLED','Front Glass'];
-    var curName = '';
-    for (var li = 0; li < LAYER_WINDOWS.length; li++) {
-        if (val >= LAYER_WINDOWS[li][0] && val <= LAYER_WINDOWS[li][1]) {
-            curName = ' → Removing: ' + (lNames[li] || '');
-            break;
-        }
-    }
+    var activeIdx = Math.min(n-1, Math.floor(val * n));
+    var activeName = (layers[activeIdx] && layers[activeIdx].userData.name) ? layers[activeIdx].userData.name : '';
     var badge = document.getElementById('sliderBadge');
-    if (badge) badge.textContent = 'Disassembly: ' + pct + '%' + curName;
+    if (badge) badge.textContent = 'Disassembly: ' + pct + '%' + (activeName ? ' → ' + activeName : '');
 }
 
 
@@ -1477,12 +1446,7 @@ function buildLaptopLayers() {
     var lW=5.8, lH=3.8, spread=1.5;
 
     function rBox(w,h,d,r){
-        var sh=new THREE.Shape(),rr=Math.min(r,w/2-0.01,h/2-0.01);
-        sh.moveTo(-w/2+rr,-h/2); sh.lineTo(w/2-rr,-h/2); sh.quadraticCurveTo(w/2,-h/2,w/2,-h/2+rr);
-        sh.lineTo(w/2,h/2-rr); sh.quadraticCurveTo(w/2,h/2,w/2-rr,h/2);
-        sh.lineTo(-w/2+rr,h/2); sh.quadraticCurveTo(-w/2,h/2,-w/2,h/2-rr);
-        sh.lineTo(-w/2,-h/2+rr); sh.quadraticCurveTo(-w/2,-h/2,-w/2+rr,-h/2);
-        var g=new THREE.ExtrudeGeometry(sh,{depth:d,bevelEnabled:false}); g.center(); return g;
+        return new THREE.BoxGeometry(w, h, d);
     }
 
     // Layer 0: Bottom Base Chassis
@@ -1657,12 +1621,7 @@ function buildTabletLayers() {
     var tW=3.8, tH=5.2, spread=1.4;
 
     function rBox(w,h,d,r){
-        var sh=new THREE.Shape(),rr=Math.min(r,w/2-0.01,h/2-0.01);
-        sh.moveTo(-w/2+rr,-h/2); sh.lineTo(w/2-rr,-h/2); sh.quadraticCurveTo(w/2,-h/2,w/2,-h/2+rr);
-        sh.lineTo(w/2,h/2-rr); sh.quadraticCurveTo(w/2,h/2,w/2-rr,h/2);
-        sh.lineTo(-w/2+rr,h/2); sh.quadraticCurveTo(-w/2,h/2,-w/2,h/2-rr);
-        sh.lineTo(-w/2,-h/2+rr); sh.quadraticCurveTo(-w/2,-h/2,-w/2+rr,-h/2);
-        var g=new THREE.ExtrudeGeometry(sh,{depth:d,bevelEnabled:false}); g.center(); return g;
+        return new THREE.BoxGeometry(w, h, d);
     }
 
     // Back cover (aluminum)
