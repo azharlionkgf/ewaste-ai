@@ -1,4 +1,4 @@
-"""
+﻿"""
 ⚡ E-WASTE INTELLIGENCE SYSTEM v5.0 — Professional Edition
 ============================================================
 By: Azhar Fareed Mulla (2SA25MC002) | Guide: Dr. Nisha S Amin
@@ -1525,46 +1525,14 @@ if page_id == "home":
     with m3: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(df_raw):,}</div><div class="metric-label">Dataset Rows</div></div>' if data_loaded and df_raw is not None else '<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">0</div><div class="metric-label">Dataset Rows</div></div>', unsafe_allow_html=True)
     with m4: st.markdown(f'<div class="metric-card"><div class="metric-icon">🎯</div><div class="metric-value green-value">100%</div><div class="metric-label">Accuracy</div></div>', unsafe_allow_html=True)
 
-    # ── ASTRA 3D HOLOGRAPHIC HARDWARE ANATOMY & DISASSEMBLY ENGINE ──
-    st.markdown('<div class="section-header">✨ ASTRA 3D HOLOGRAPHIC HARDWARE ANATOMY & DISASSEMBLY LAB</div>', unsafe_allow_html=True)
-    st.markdown('''<div style="background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(10,20,35,0.92));border:1px solid #00F0FF;border-radius:14px;padding:16px 20px;margin:12px 0;text-align:center;box-shadow:0 0 25px rgba(0,240,255,0.18);">
-        <div style="color:#00F0FF;font-weight:700;font-size:1.25rem;letter-spacing:1px;font-family:Orbitron,Rajdhani,sans-serif;">🔬 SCI-FI HARDWARE TEARDOWN • 360° CONTINUOUS AUTO-SPIN • STEP-BY-STEP RECYCLING MANUAL</div>
-        <p style="color:#CBD5E1;font-size:0.9rem;margin:8px 0 0 0;line-height:1.5;">
-            🖱️ <b>Rotate 360° in any angle</b> with mouse or finger • ⚡ <b>Sweeping Cyan Scanning Laser</b> • 💥 <b>Interactive Disassembly Slider</b>: Slide from 0% (Solid Assembled) to 100% (Exploded Teardown) to peel apart all internal layers down to 16 micro-screws, 200MP camera halo, Dimensity 7050 SoC & 5000mAh battery!
-        </p>
-    </div>''', unsafe_allow_html=True)
 
-    c_hdev, c_hinfo = st.columns([3, 1])
-    with c_hdev:
-        dash_device_choice = st.selectbox(
-            "📱 Select Flagship Hardware Model for Live 3D Disassembly:",
-            [
-                "📱 Realme 11 Pro+ 5G (Sunrise Beige • 200MP OIS • Dimensity 7050 • 16 Screws)",
-                "💻 Lenovo ThinkPad X1 Carbon (Intel Core i7 • 512GB NVMe SSD • Motherboard)",
-                "🍎 Apple iPhone 15 Pro (Grade 5 Titanium • A17 Pro SoC • MagSafe Coil)",
-                "🔋 High-Density Li-ion Battery Pack (5000mAh • Dual Pull Tabs • BMS Protection)"
-            ],
-            key="dash_3d_device_select"
-        )
-    with c_hinfo:
-        st.markdown("<div style='height:28px;'></div>", unsafe_allow_html=True)
-        st.markdown('<div style="text-align:center;padding:8px;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);border-radius:8px;font-size:0.8rem;color:#00F0FF;font-weight:600;">🔄 360° Continuous Spin ACTIVE</div>', unsafe_allow_html=True)
-
-    if "Realme" in dash_device_choice:
-        dash_specs = FLAGSHIP_CATALOG.get("realme_11_pro", {})
-    elif "ThinkPad" in dash_device_choice:
-        dash_specs = FLAGSHIP_CATALOG.get("thinkpad_x1_carbon", {})
-    elif "iPhone" in dash_device_choice:
-        dash_specs = FLAGSHIP_CATALOG.get("apple_iphone_15_pro", {})
-    else:
-        dash_specs = get_deep_device_specs(filename="battery.jpg")
-
-    try:
-        dash_viewer_html = generate_3d_viewer(dash_specs, height=680)
-        import streamlit.components.v1 as stc
-        stc.html(dash_viewer_html, height=1150, scrolling=True)
-    except Exception as ex_dash_3d:
-        st.warning(f"3D Viewer Engine: {ex_dash_3d}")
+    # ── Quick Launch to 3D Lab (no animation here — animation only in 3D Lab page) ──
+    st.markdown("""\u003cdiv style=\"background:linear-gradient(135deg,rgba(0,240,255,0.07),rgba(10,20,35,0.9));border:1px solid rgba(0,240,255,0.25);border-radius:14px;padding:18px 24px;margin:14px 0;text-align:center;\"\u003e
+        \u003cdiv style=\"color:#00F0FF;font-size:1.1rem;font-weight:700;letter-spacing:1px;\"\u003e🔬 3D E-Waste Hardware Lab\u003c/div\u003e
+        \u003cp style=\"color:#94A3B8;font-size:0.88rem;margin:6px 0 0 0;\"\u003eInteractive 3D teardown, cascade disassembly, all device types — Open 3D Lab to explore!\u003c/p\u003e
+    \u003c/div\u003e""", unsafe_allow_html=True)
+    if st.button("🔬 Open 3D Anatomy Lab", use_container_width=True, key="dash_quick_3d"):
+        st.session_state.current_page = "🔬 3D E-Waste Lab"; st.rerun()
 
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
@@ -1700,24 +1668,15 @@ elif page_id == "image":
                     for m in msgs:
                         st.markdown(f'<div class="chat-bot"><div class="chat-icon">🤖</div><div class="glass-card chat-msg" style="border-left:3px solid #DC143C;">{m}</div></div>', unsafe_allow_html=True)
 
-                    # ── INTERACTIVE 3D COMPONENT MODEL FOR CLASSIFIED DEVICE ──
-                    st.markdown('<div class="section-header">🎨 INTERACTIVE 3D HARDWARE MODEL & EXPLODED ANATOMY</div>', unsafe_allow_html=True)
-                    st.markdown(f'<p style="color:#888;font-size:.85rem;text-align:center;">🖱️ Rotate 360° • Zoom • Toggle Exploded/Assembled Slider • Step-by-Step Teardown Manual for <b>{final_cat}</b></p>', unsafe_allow_html=True)
-                    try:
-                        api_k = get_active_gemini_key()
-                        dev_3d_info = get_deep_device_specs(img_bytes, filename=getattr(uploaded, 'name', 'phone.jpg'), api_key=api_k)
-                        if not dev_3d_info or not isinstance(dev_3d_info, dict):
-                            dev_3d_info = get_device_info(final_cat) if KNOWLEDGE_LOADED else {}
-                        if not dev_3d_info: dev_3d_info = {"category": final_cat}
-                        dev_3d_info["category"] = final_cat
-                        if "model" not in dev_3d_info or not dev_3d_info["model"]:
-                            dev_3d_info["model"] = f"{final_cat} (Uploaded Hardware)"
-                        
-                        viewer_3d_html = generate_3d_viewer(dev_3d_info, height=680)
-                        import streamlit.components.v1 as stc
-                        stc.html(viewer_3d_html, height=1150, scrolling=True)
-                    except Exception as ex_3d:
-                        st.warning(f"3D viewer: {ex_3d}")
+                    # ── Quick 3D Lab Link after classification ──
+                    st.markdown(f"""<div style=\"background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(10,20,35,0.9));border:1px solid rgba(0,240,255,0.3);border-radius:12px;padding:16px 20px;margin:14px 0;text-align:center;\">
+                        <div style=\"color:#00F0FF;font-weight:700;font-size:1rem;\">🔬 View Full 3D Teardown in Lab</div>
+                        <p style=\"color:#94A3B8;font-size:0.85rem;margin:6px 0 0 0;\">Go to 3D E-Waste Lab to see the complete anatomy, cascade disassembly slider and recovery manual for <b>{final_cat}</b>.</p>
+                    </div>""", unsafe_allow_html=True)
+                    if st.button("🔬 Open 3D Lab for This Device", use_container_width=True, key="img_goto_3dlab"):
+                        st.session_state["lab3d_preload_cat"] = final_cat
+                        st.session_state.current_page = "🔬 3D E-Waste Lab"; st.rerun()
+
 
                     # ── NEAREST CERTIFIED RECOVERY CENTERS & DOORSTEP PICKUP ──
                     u_prof = st.session_state.get('user_profile', {})
@@ -2789,6 +2748,10 @@ elif page_id == "lab3d":
 
     with lab_tab1:
         st.markdown('<div class="section-header">🎯 DEVICE SELECTION & UPLOAD</div>', unsafe_allow_html=True)
+        # Auto-preload from Image Classify page
+        _preload = st.session_state.pop('lab3d_preload_cat', None)
+        if _preload:
+            st.success(f'✅ Loaded from Image Classifier: **{_preload}** — 3D model is ready below!')
         
         # 3 Upload/Selection options via Dropdown
         input_choice = st.selectbox(
