@@ -941,198 +941,329 @@ function buildHologramEnvironment() {
 }
 
 function buildRealisticPhoneLayers() {
-    var pWidth = 2.4;
-    var pHeight = 4.8;
-    var spread = 1.35;
+    var pW = 2.45;   // phone width
+    var pH = 5.1;    // phone height
+    var spread = 1.45;  // explode spacing multiplier
 
     var leatherTex = createLeatherTexture();
     var batteryTex = createBatteryTexture();
-    var pcbTex = createPCBTexture();
+    var pcbTex     = createPCBTexture();
 
-    // 16 Micro Screws
-    var screwGroup = new THREE.Group();
-    var screwGeo = new THREE.CylinderGeometry(0.035, 0.035, 0.08, 12);
-    var screwMat = new THREE.MeshStandardMaterial({ color: 0xDCDDE1, metalness: 0.95, roughness: 0.15 });
-    var screwPositions = [
-        [-1.0, 2.2], [1.0, 2.2], [-1.0, -2.2], [1.0, -2.2],
-        [-1.0, 1.1], [1.0, 1.1], [-1.0, -1.1], [1.0, -1.1],
-        [-0.5, 2.25], [0.5, 2.25], [-0.5, -2.25], [0.5, -2.25],
-        [-1.1, 0.0], [1.1, 0.0], [-0.4, 0.8], [0.4, 0.8]
-    ];
-    for(var s=0; s<screwPositions.length; s++) {
-        var sm = new THREE.Mesh(screwGeo, screwMat);
-        sm.rotation.x = Math.PI / 2;
-        sm.position.set(screwPositions[s][0], screwPositions[s][1], 0);
-        screwGroup.add(sm);
-        screws.push(sm);
+    // Helper: rounded-rectangle Shape
+    function roundedBox(w, h, d, r) {
+        var shape = new THREE.Shape();
+        var rr = Math.min(r, w/2-0.01, h/2-0.01);
+        shape.moveTo(-w/2+rr, -h/2);
+        shape.lineTo( w/2-rr, -h/2);
+        shape.quadraticCurveTo( w/2, -h/2,  w/2, -h/2+rr);
+        shape.lineTo( w/2,  h/2-rr);
+        shape.quadraticCurveTo( w/2,  h/2,  w/2-rr,  h/2);
+        shape.lineTo(-w/2+rr,  h/2);
+        shape.quadraticCurveTo(-w/2,  h/2, -w/2,  h/2-rr);
+        shape.lineTo(-w/2, -h/2+rr);
+        shape.quadraticCurveTo(-w/2, -h/2, -w/2+rr, -h/2);
+        var extSettings = { depth: d, bevelEnabled: false };
+        var geo = new THREE.ExtrudeGeometry(shape, extSettings);
+        geo.center();
+        return geo;
     }
-    screwGroup.userData = { closedX: -0.09, explodedX: -4.5 * spread, name: '16 Micro-Screws', id: 'c16' };
+
+    // ─── LAYER 0: 16 Micro-Screws ───
+    var screwGroup = new THREE.Group();
+    var screwGeo   = new THREE.CylinderGeometry(0.038, 0.032, 0.09, 14);
+    var screwMat   = new THREE.MeshStandardMaterial({ color: 0xCDD5D9, metalness: 0.98, roughness: 0.08 });
+    var headGeo    = new THREE.CylinderGeometry(0.055, 0.055, 0.025, 14);
+    var headMat    = new THREE.MeshStandardMaterial({ color: 0xB8BCC0, metalness: 0.99, roughness: 0.06 });
+    var screwPos = [
+        [-1.05,2.3],[ 1.05,2.3],[-1.05,-2.3],[ 1.05,-2.3],
+        [-1.05,1.2],[ 1.05,1.2],[-1.05,-1.2],[ 1.05,-1.2],
+        [-0.55,2.35],[0.55,2.35],[-0.55,-2.35],[0.55,-2.35],
+        [-1.1,0.0],[1.1,0.0],[-0.45,0.85],[0.45,0.85]
+    ];
+    for (var s=0; s<screwPos.length; s++) {
+        var sg = new THREE.Group();
+        var shaft = new THREE.Mesh(screwGeo, screwMat);
+        shaft.rotation.x = Math.PI/2;
+        sg.add(shaft);
+        var head = new THREE.Mesh(headGeo, headMat);
+        head.rotation.x = Math.PI/2;
+        head.position.z = 0.057;
+        sg.add(head);
+        // Cross-slot line on head
+        var slotGeo = new THREE.BoxGeometry(0.095, 0.012, 0.01);
+        var slotMat = new THREE.MeshBasicMaterial({ color: 0x505560 });
+        var slot1 = new THREE.Mesh(slotGeo, slotMat); slot1.position.z = 0.066; sg.add(slot1);
+        var slot2 = new THREE.Mesh(slotGeo, slotMat); slot2.rotation.z = Math.PI/2; slot2.position.z = 0.066; sg.add(slot2);
+        sg.position.set(screwPos[s][0], screwPos[s][1], 0);
+        screwGroup.add(sg);
+        screws.push(sg);
+    }
+    screwGroup.userData = { closedY: -4.2*spread, explodedY: -4.2*spread, closedZ: 0, explodedZ: 0.05, name:'16 Micro-Screws', id:'c16' };
     phoneModelGroup.add(screwGroup);
     layers.push(screwGroup);
 
-    // Layer 0: Back Cover
+    // ─── LAYER 1: Back Cover (Glass/Leather, most realistic) ───
     var backGroup = new THREE.Group();
-    var backMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth, pHeight, 0.05),
-        new THREE.MeshStandardMaterial({ map: leatherTex, roughness: 0.7, metalness: 0.1 })
-    );
+    var backGeo = roundedBox(pW, pH, 0.072, 0.28);
+    var backMesh = new THREE.Mesh(backGeo, new THREE.MeshStandardMaterial({ map: leatherTex, roughness: 0.68, metalness: 0.07 }));
     backGroup.add(backMesh);
-    var haloMesh = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.78, 0.78, 0.09, 64),
-        new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.95, roughness: 0.15 })
-    );
-    haloMesh.rotation.x = Math.PI / 2;
-    haloMesh.position.set(0, 1.1, 0.05);
-    backGroup.add(haloMesh);
-    backGroup.userData = { closedX: -0.07, explodedX: -3.6 * spread, name: 'Back Cover', id: 'c1' };
-    phoneModelGroup.add(backGroup);
-    layers.push(backGroup);
+    // Camera Island — Gold ring
+    var cIsland = new THREE.CylinderGeometry(0.82, 0.82, 0.065, 64);
+    var cIslandMesh = new THREE.Mesh(cIsland, new THREE.MeshStandardMaterial({ color:0xCBB070, metalness:0.95, roughness:0.12 }));
+    cIslandMesh.rotation.x = Math.PI/2; cIslandMesh.position.set(0, 1.15, 0.055);
+    backGroup.add(cIslandMesh);
+    // Camera island black base
+    var cBase = new THREE.Mesh(new THREE.CylinderGeometry(0.74, 0.74, 0.06, 48),
+        new THREE.MeshStandardMaterial({ color:0x08080C, roughness:0.25, metalness:0.6 }));
+    cBase.rotation.x = Math.PI/2; cBase.position.set(0, 1.15, 0.058); backGroup.add(cBase);
+    // Logo text plane
+    var logoGeo = new THREE.PlaneGeometry(0.8, 0.18);
+    var logoMat = new THREE.MeshStandardMaterial({ color:0xB8C4CC, metalness:0.9, roughness:0.2, transparent:true, opacity:0.7 });
+    var logoMesh = new THREE.Mesh(logoGeo, logoMat);
+    logoMesh.position.set(0, -0.8, 0.04); backGroup.add(logoMesh);
+    backGroup.userData = { closedY:0, explodedY:-3.5*spread, name:'Back Cover (Glass)', id:'c1' };
+    phoneModelGroup.add(backGroup); layers.push(backGroup);
 
-    // Layer 1: Camera Module
+    // ─── LAYER 2: Triple Camera Module ───
     var camGroup = new THREE.Group();
-    var camDisc = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.70, 0.70, 0.08, 36),
-        new THREE.MeshStandardMaterial({ color: 0x050508, metalness: 0.85, roughness: 0.2 })
-    );
-    camDisc.rotation.x = Math.PI / 2;
-    camGroup.add(camDisc);
-    var lens1 = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.26, 0.26, 0.12, 32),
-        new THREE.MeshPhysicalMaterial({ color: 0x001B3A, metalness: 0.9, roughness: 0.02, transmission: 0.6, ior: 1.6 })
-    );
-    lens1.rotation.x = Math.PI / 2;
-    lens1.position.set(0, 0, 0.03);
-    camGroup.add(lens1);
-    var lens2 = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.1, 20), new THREE.MeshStandardMaterial({ color: 0x001122 }));
-    lens2.rotation.x = Math.PI / 2; lens2.position.set(-0.36, -0.22, 0.03); camGroup.add(lens2);
-    var lens3 = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.1, 20), new THREE.MeshStandardMaterial({ color: 0x001122 }));
-    lens3.rotation.x = Math.PI / 2; lens3.position.set(0.36, -0.22, 0.03); camGroup.add(lens3);
-    var flashMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.09, 16), new THREE.MeshStandardMaterial({ color: 0xFFEAA7, emissive: 0xFFD700, emissiveIntensity: 0.4 }));
-    flashMesh.rotation.x = Math.PI / 2; flashMesh.position.set(0, -0.38, 0.03); camGroup.add(flashMesh);
-    camGroup.position.set(0, 1.1, 0);
-    camGroup.userData = { closedX: -0.05, explodedX: -2.7 * spread, name: 'Camera Module', id: 'c2' };
-    phoneModelGroup.add(camGroup);
-    layers.push(camGroup);
+    // Outer ring
+    var outerRing = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.73, 0.73, 0.1, 48),
+        new THREE.MeshStandardMaterial({ color:0x0A0A0F, metalness:0.85, roughness:0.18 }));
+    outerRing.rotation.x = Math.PI/2; camGroup.add(outerRing);
+    // Main lens (200MP)
+    var mainLens = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.28, 0.28, 0.14, 32),
+        new THREE.MeshPhysicalMaterial({ color:0x010A1A, metalness:0.9, roughness:0.02, transmission:0.7, ior:1.72, thickness:0.1 }));
+    mainLens.rotation.x = Math.PI/2; mainLens.position.z=0.04; camGroup.add(mainLens);
+    // Lens reflection ring
+    var lensRing = new THREE.Mesh(
+        new THREE.TorusGeometry(0.25, 0.02, 8, 32),
+        new THREE.MeshStandardMaterial({ color:0x3060A0, metalness:0.9, roughness:0.1 }));
+    lensRing.rotation.x = Math.PI/2; lensRing.position.z=0.07; camGroup.add(lensRing);
+    // Ultrawide lens
+    var lens2 = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.11, 24),
+        new THREE.MeshPhysicalMaterial({ color:0x010812, metalness:0.85, roughness:0.03, transmission:0.65, ior:1.65 }));
+    lens2.rotation.x = Math.PI/2; lens2.position.set(-0.38,-0.22,0.04); camGroup.add(lens2);
+    // Macro lens
+    var lens3 = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.09, 20),
+        new THREE.MeshPhysicalMaterial({ color:0x010812, metalness:0.85, roughness:0.03, transmission:0.6, ior:1.6 }));
+    lens3.rotation.x = Math.PI/2; lens3.position.set(0.38,-0.22,0.04); camGroup.add(lens3);
+    // Flash + IR
+    var flash = new THREE.Mesh(new THREE.CylinderGeometry(0.082, 0.082, 0.09, 16),
+        new THREE.MeshStandardMaterial({ color:0xFFE8A0, emissive:0xFFD060, emissiveIntensity:0.6 }));
+    flash.rotation.x = Math.PI/2; flash.position.set(0.38,0.22,0.04); camGroup.add(flash);
+    var ir = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.07, 12),
+        new THREE.MeshStandardMaterial({ color:0x3A1A1A }));
+    ir.rotation.x = Math.PI/2; ir.position.set(-0.38,0.22,0.04); camGroup.add(ir);
+    camGroup.position.set(0, 1.15, 0);
+    camGroup.userData = { closedY:0, explodedY:-2.6*spread, name:'Triple Camera Module', id:'c2' };
+    phoneModelGroup.add(camGroup); layers.push(camGroup);
 
-    // Layer 2: NFC & Graphite Heat Spreader
+    // ─── LAYER 3: NFC Coil + Graphite Thermal Sheet ───
     var nfcGroup = new THREE.Group();
-    var nfcSheet = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.88, pHeight * 0.7, 0.02),
-        new THREE.MeshStandardMaterial({ color: 0x1E293B, roughness: 0.6 })
-    );
-    nfcGroup.add(nfcSheet);
+    var nfcBase = new THREE.Mesh(
+        roundedBox(pW*0.9, pH*0.72, 0.018, 0.15),
+        new THREE.MeshStandardMaterial({ color:0x1A2235, roughness:0.55, metalness:0.12 }));
+    nfcGroup.add(nfcBase);
+    // NFC coil (flat copper torus)
     var nfcCoil = new THREE.Mesh(
-        new THREE.TorusGeometry(0.45, 0.04, 8, 32),
-        new THREE.MeshStandardMaterial({ color: 0xD35400, metalness: 0.95, roughness: 0.2 })
-    );
-    nfcCoil.position.set(0, 0.2, 0.015);
-    nfcGroup.add(nfcCoil);
-    nfcGroup.userData = { closedX: -0.03, explodedX: -1.8 * spread, name: 'NFC & Graphite Sheet', id: 'c14' };
-    phoneModelGroup.add(nfcGroup);
-    layers.push(nfcGroup);
+        new THREE.TorusGeometry(0.48, 0.038, 8, 48),
+        new THREE.MeshStandardMaterial({ color:0xD06010, metalness:0.97, roughness:0.14 }));
+    nfcCoil.rotation.x = Math.PI/2; nfcCoil.position.set(0.05, 0.2, 0.015); nfcGroup.add(nfcCoil);
+    // NFC chip
+    var nfcChip = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.14, 0.04),
+        new THREE.MeshStandardMaterial({ color:0x101820, metalness:0.8 }));
+    nfcChip.position.set(0.05, 0.2, 0.03); nfcGroup.add(nfcChip);
+    // Graphite stripes
+    for (var gx=-1; gx<=1; gx+=0.5) {
+        var gStrip = new THREE.Mesh(new THREE.BoxGeometry(0.04, pH*0.65, 0.008),
+            new THREE.MeshStandardMaterial({ color:0x22293A, roughness:0.4 }));
+        gStrip.position.set(gx, 0, -0.01); nfcGroup.add(gStrip);
+    }
+    nfcGroup.userData = { closedY:0, explodedY:-1.7*spread, name:'NFC Coil + Graphite Sheet', id:'c14' };
+    phoneModelGroup.add(nfcGroup); layers.push(nfcGroup);
 
-    // Layer 3: Middle Chassis / Frame
+    // ─── LAYER 4: Midframe (Aluminum Alloy) ───
     var frameGroup = new THREE.Group();
-    var frameMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.98, pHeight * 0.98, 0.08),
-        new THREE.MeshStandardMaterial({ color: 0xCBD5E1, metalness: 0.92, roughness: 0.22 })
-    );
-    frameGroup.add(frameMesh);
-    var btn1 = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.45, 0.06), new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.9 }));
-    btn1.position.set(pWidth*0.49, 0.6, 0); frameGroup.add(btn1);
-    var btn2 = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.75, 0.06), new THREE.MeshStandardMaterial({ color: 0xD4AF37, metalness: 0.9 }));
-    btn2.position.set(pWidth*0.49, 1.3, 0); frameGroup.add(btn2);
-    var usb = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.06, 0.06), new THREE.MeshStandardMaterial({ color: 0x0F172A }));
-    usb.position.set(0, -pHeight*0.49, 0); frameGroup.add(usb);
-    frameGroup.userData = { closedX: -0.01, explodedX: -0.9 * spread, name: 'Midframe Chassis', id: 'c3' };
-    phoneModelGroup.add(frameGroup);
-    layers.push(frameGroup);
+    var outerFrame = new THREE.Mesh(
+        roundedBox(pW, pH, 0.095, 0.28),
+        new THREE.MeshStandardMaterial({ color:0xCDD4DA, metalness:0.94, roughness:0.19 }));
+    frameGroup.add(outerFrame);
+    // Inner cutout (hollow look) — dark recessed area
+    var innerCut = new THREE.Mesh(
+        roundedBox(pW*0.88, pH*0.92, 0.1, 0.22),
+        new THREE.MeshStandardMaterial({ color:0x101418, roughness:0.9 }));
+    innerCut.position.z = 0.002; frameGroup.add(innerCut);
+    // Volume buttons
+    var btn = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.42, 0.07),
+        new THREE.MeshStandardMaterial({ color:0xC8AD6A, metalness:0.93 }));
+    btn.position.set(pW*0.5+0.022, 0.62, 0); frameGroup.add(btn);
+    var btn2 = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.72, 0.07),
+        new THREE.MeshStandardMaterial({ color:0xC8AD6A, metalness:0.93 }));
+    btn2.position.set(pW*0.5+0.022, 1.35, 0); frameGroup.add(btn2);
+    // Power button (opposite side)
+    var pwr = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.55, 0.07),
+        new THREE.MeshStandardMaterial({ color:0xC8AD6A, metalness:0.93 }));
+    pwr.position.set(-pW*0.5-0.022, 0.7, 0); frameGroup.add(pwr);
+    // USB port
+    var usbc = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.07, 0.08),
+        new THREE.MeshStandardMaterial({ color:0x080C10 }));
+    usbc.position.set(0, -pH*0.495, 0); frameGroup.add(usbc);
+    // SIM tray
+    var sim = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.07, 0.06),
+        new THREE.MeshStandardMaterial({ color:0xF0D070, metalness:0.9 }));
+    sim.position.set(-pW*0.5-0.022, -1.5, 0); frameGroup.add(sim);
+    frameGroup.userData = { closedY:0, explodedY:-0.8*spread, name:'Midframe (Aluminum)', id:'c3' };
+    phoneModelGroup.add(frameGroup); layers.push(frameGroup);
 
-    // Layer 4: Battery (Li-ion)
+    // ─── LAYER 5: Battery (Li-Poly Pouch Cell) ───
     var battGroup = new THREE.Group();
-    var battMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.86, pHeight * 0.48, 0.08),
-        new THREE.MeshStandardMaterial({ map: batteryTex, roughness: 0.4, metalness: 0.1 })
-    );
-    battGroup.add(battMesh);
-    var tabA = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.09, 0.02), new THREE.MeshStandardMaterial({ color: 0xFF5500 }));
-    tabA.position.set(-0.35, -pHeight*0.24, 0.04); battGroup.add(tabA);
-    var tabB = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.09, 0.02), new THREE.MeshStandardMaterial({ color: 0xFF5500 }));
-    tabB.position.set(0.35, -pHeight*0.24, 0.04); battGroup.add(tabB);
-    battGroup.position.set(0, -0.7, 0);
-    battGroup.userData = { closedX: 0.01, explodedX: 0.1 * spread, name: 'Battery (Li-ion)', id: 'c4' };
-    phoneModelGroup.add(battGroup);
-    layers.push(battGroup);
+    var battBody = new THREE.Mesh(
+        roundedBox(pW*0.87, pH*0.49, 0.085, 0.1),
+        new THREE.MeshStandardMaterial({ map: batteryTex, roughness:0.38, metalness:0.12 }));
+    battGroup.add(battBody);
+    // Electrode tabs
+    var tabA = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.09, 0.025),
+        new THREE.MeshStandardMaterial({ color:0xFF5800, metalness:0.85, roughness:0.3 }));
+    tabA.position.set(-0.38, -pH*0.245, 0.045); battGroup.add(tabA);
+    var tabB = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.09, 0.025),
+        new THREE.MeshStandardMaterial({ color:0xFF5800, metalness:0.85, roughness:0.3 }));
+    tabB.position.set(0.38, -pH*0.245, 0.045); battGroup.add(tabB);
+    // BMU circuit strip
+    var bmu = new THREE.Mesh(new THREE.BoxGeometry(pW*0.82, 0.16, 0.03),
+        new THREE.MeshStandardMaterial({ color:0x101C14, roughness:0.6 }));
+    bmu.position.set(0, -pH*0.22, 0.06); battGroup.add(bmu);
+    // Thermal adhesive stripes
+    for (var tx=-0.5; tx<=0.5; tx+=0.5) {
+        var tadhesive = new THREE.Mesh(new THREE.BoxGeometry(0.15, pH*0.45, 0.005),
+            new THREE.MeshStandardMaterial({ color:0x1E3022, transparent:true, opacity:0.7 }));
+        tadhesive.position.set(tx, 0, -0.045); battGroup.add(tadhesive);
+    }
+    battGroup.position.set(0, -0.68, 0);
+    battGroup.userData = { closedY:0, explodedY:0.12*spread, name:'Battery (5000mAh Li-Poly)', id:'c4' };
+    phoneModelGroup.add(battGroup); layers.push(battGroup);
 
-    // Layer 5: Mainboard (PCB)
+    // ─── LAYER 6: Mainboard (10-Layer PCB) ───
     var pcbGroup = new THREE.Group();
-    var pcbMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.92, pHeight * 0.44, 0.04),
-        new THREE.MeshStandardMaterial({ map: pcbTex, roughness: 0.35, metalness: 0.3 })
-    );
-    pcbGroup.add(pcbMesh);
-    var emi1 = new THREE.Mesh(new THREE.BoxGeometry(0.70, 0.60, 0.05), new THREE.MeshStandardMaterial({ color: 0xE2E8F0, metalness: 0.92 }));
-    emi1.position.set(-0.35, 0.1, 0.03); pcbGroup.add(emi1);
-    var emi2 = new THREE.Mesh(new THREE.BoxGeometry(0.60, 0.50, 0.05), new THREE.MeshStandardMaterial({ color: 0xE2E8F0, metalness: 0.92 }));
-    emi2.position.set(0.4, 0.12, 0.03); pcbGroup.add(emi2);
-    pcbGroup.position.set(0, 1.05, 0);
-    pcbGroup.userData = { closedX: 0.03, explodedX: 1.2 * spread, name: 'Mainboard (PCB)', id: 'c5' };
-    phoneModelGroup.add(pcbGroup);
-    layers.push(pcbGroup);
+    var pcbBody = new THREE.Mesh(
+        roundedBox(pW*0.9, pH*0.45, 0.045, 0.08),
+        new THREE.MeshStandardMaterial({ map: pcbTex, roughness:0.32, metalness:0.32 }));
+    pcbGroup.add(pcbBody);
+    // EMI Shield (SoC area) — matte aluminum can
+    var emiShield = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.66, 0.062),
+        new THREE.MeshStandardMaterial({ color:0xDDE2E5, metalness:0.94, roughness:0.2 }));
+    emiShield.position.set(-0.33, 0.1, 0.034); pcbGroup.add(emiShield);
+    // EMI Shield 2 (modem)
+    var emi2 = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.55, 0.062),
+        new THREE.MeshStandardMaterial({ color:0xDDE2E5, metalness:0.94, roughness:0.2 }));
+    emi2.position.set(0.42, 0.12, 0.034); pcbGroup.add(emi2);
+    // RAM chips (visible beside EMI)
+    for (var rc=0; rc<2; rc++) {
+        var ramChip = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.16, 0.04),
+            new THREE.MeshStandardMaterial({ color:0x0A0E12, metalness:0.7, roughness:0.3 }));
+        ramChip.position.set(0.1+rc*0.25, -0.3, 0.04); pcbGroup.add(ramChip);
+    }
+    // Coaxial RF cable connector (small gold dot)
+    var rfConn = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.04, 12),
+        new THREE.MeshStandardMaterial({ color:0xD4AF37, metalness:0.99, roughness:0.05 }));
+    rfConn.rotation.x = Math.PI/2; rfConn.position.set(-0.75, 0.7, 0.04); pcbGroup.add(rfConn);
+    // USB-C daughterboard connector
+    var usbConn = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.1, 0.05),
+        new THREE.MeshStandardMaterial({ color:0x182530, metalness:0.6 }));
+    usbConn.position.set(0, -0.85, 0.04); pcbGroup.add(usbConn);
+    // Gold bond-wire pattern (emissive)
+    var goldTrace = new THREE.Mesh(new THREE.BoxGeometry(pW*0.85, 0.015, 0.002),
+        new THREE.MeshStandardMaterial({ color:0xC8A020, emissive:0x8060A0, emissiveIntensity:0.25, metalness:0.99 }));
+    goldTrace.position.set(0, 0.5, 0.026); pcbGroup.add(goldTrace);
+    var goldTrace2 = goldTrace.clone(); goldTrace2.position.y = -0.15; pcbGroup.add(goldTrace2);
+    // Thermal paste blobs on EMI shield
+    var paste = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.012, 16),
+        new THREE.MeshStandardMaterial({ color:0xA8A0A0, metalness:0.1, roughness:0.95 }));
+    paste.rotation.x = Math.PI/2; paste.position.set(-0.33, 0.1, 0.068); pcbGroup.add(paste);
+    pcbGroup.position.set(0, 1.08, 0);
+    pcbGroup.userData = { closedY:0, explodedY:1.25*spread, name:'Mainboard — Dimensity 7050 SoC', id:'c5' };
+    phoneModelGroup.add(pcbGroup); layers.push(pcbGroup);
 
-    // Layer 6: Display Assembly
+    // ─── LAYER 7: AMOLED Display Assembly ───
     var dispGroup = new THREE.Group();
-    var dispMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.96, pHeight * 0.97, 0.04),
-        new THREE.MeshStandardMaterial({ color: 0x050810, roughness: 0.1, metalness: 0.85 })
-    );
-    dispGroup.add(dispMesh);
-    var cuBack = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.92, pHeight * 0.93, 0.01),
-        new THREE.MeshStandardMaterial({ color: 0xD35400, metalness: 0.95, roughness: 0.2 })
-    );
-    cuBack.position.set(0, 0, -0.02); dispGroup.add(cuBack);
-    dispGroup.userData = { closedX: 0.05, explodedX: 2.3 * spread, name: 'Display Assembly', id: 'c6' };
-    phoneModelGroup.add(dispGroup);
-    layers.push(dispGroup);
+    var dispBody = new THREE.Mesh(
+        roundedBox(pW*0.96, pH*0.97, 0.042, 0.26),
+        new THREE.MeshStandardMaterial({ color:0x04060C, roughness:0.08, metalness:0.88 }));
+    dispGroup.add(dispBody);
+    // Copper flex back (visible on OLED underside)
+    var cuFlex = new THREE.Mesh(
+        roundedBox(pW*0.93, pH*0.93, 0.01, 0.22),
+        new THREE.MeshStandardMaterial({ color:0xC06015, metalness:0.96, roughness:0.18 }));
+    cuFlex.position.z = -0.026; dispGroup.add(cuFlex);
+    // Touch IC chip
+    var touchIC = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.2, 0.04),
+        new THREE.MeshStandardMaterial({ color:0x0A1018, metalness:0.7 }));
+    touchIC.position.set(0.6, -1.8, -0.03); dispGroup.add(touchIC);
+    // Punchhole camera ring
+    var phRing = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.016, 8, 24),
+        new THREE.MeshStandardMaterial({ color:0x1A1A1F, metalness:0.7 }));
+    phRing.rotation.x = Math.PI/2; phRing.position.set(0, 2.2, 0.022); dispGroup.add(phRing);
+    dispGroup.userData = { closedY:0, explodedY:2.4*spread, name:'AMOLED Display (120Hz)', id:'c6' };
+    phoneModelGroup.add(dispGroup); layers.push(dispGroup);
 
-    // Layer 7: Front Screen (Gorilla Glass)
+    // ─── LAYER 8: Gorilla Glass Front ───
     var glassGroup = new THREE.Group();
     var glassMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(pWidth * 0.98, pHeight * 0.98, 0.02),
+        roundedBox(pW*0.985, pH*0.985, 0.025, 0.28),
         new THREE.MeshPhysicalMaterial({
-            color: 0x050C18,
-            transmission: 0.88,
+            color: 0x05090F,
+            transmission: 0.92,
             opacity: 0.95,
             transparent: true,
-            roughness: 0.02,
-            ior: 1.52
-        })
-    );
+            roughness: 0.015,
+            ior: 1.54,
+            thickness: 0.15,
+            reflectivity: 0.9
+        }));
     glassGroup.add(glassMesh);
-    var punchHole = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.03, 16), new THREE.MeshBasicMaterial({ color: 0x000000 }));
-    punchHole.rotation.x = Math.PI / 2;
-    punchHole.position.set(0, 2.15, 0.01);
+    // Punchhole camera
+    var punchHole = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.03, 16),
+        new THREE.MeshBasicMaterial({ color: 0x000000 }));
+    punchHole.rotation.x = Math.PI/2; punchHole.position.set(0, 2.2, 0.01);
     glassGroup.add(punchHole);
-    glassGroup.userData = { closedX: 0.07, explodedX: 3.5 * spread, name: 'Front Screen Glass', id: 'c8' };
-    phoneModelGroup.add(glassGroup);
-    layers.push(glassGroup);
+    // Selfie camera black circle
+    var selfieLen = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.015, 16),
+        new THREE.MeshPhysicalMaterial({ color:0x000510, transmission:0.5, roughness:0.05 }));
+    selfieLen.rotation.x = Math.PI/2; selfieLen.position.set(0, 2.2, 0.018); glassGroup.add(selfieLen);
+    glassGroup.userData = { closedY:0, explodedY:3.6*spread, name:'Gorilla Glass Victus Front', id:'c8' };
+    phoneModelGroup.add(glassGroup); layers.push(glassGroup);
+
+    // Flex ribbon cables connecting layers (decorative — emissive orange)
+    var ribbonMat = new THREE.MeshStandardMaterial({ color:0xD84C00, metalness:0.7, roughness:0.4, emissive:0x501800, emissiveIntensity:0.3 });
+    var ribbon1 = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.5, 0.012), ribbonMat);
+    ribbon1.position.set(0.65, -0.5, 0); phoneModelGroup.add(ribbon1);
+    var ribbon2 = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.4, 0.012), ribbonMat);
+    ribbon2.position.set(-0.65, 0.6, 0); phoneModelGroup.add(ribbon2);
 }
 
 function updateLayerPositions(val) {
+    // Peel layers vertically (Y-axis) like anatomy scan — more realistic
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
-        var closedX = layer.userData.closedX;
-        var explodedX = layer.userData.explodedX;
-        layer.position.x = THREE.MathUtils.lerp(closedX, explodedX, val);
-        layer.rotation.y = THREE.MathUtils.lerp(0, 0.15, val);
+        var closedY   = layer.userData.closedY   !== undefined ? layer.userData.closedY : 0;
+        var explodedY = layer.userData.explodedY  !== undefined ? layer.userData.explodedY : (i - layers.length/2)*1.5;
+        // Also slight Z offset so layers don't z-fight
+        var closedZ   = layer.userData.closedZ   !== undefined ? layer.userData.closedZ : i * 0.001;
+        var explodedZ = layer.userData.explodedZ  !== undefined ? layer.userData.explodedZ : i * 0.001;
+        layer.position.y = THREE.MathUtils.lerp(closedY, explodedY, val);
+        layer.position.z = THREE.MathUtils.lerp(closedZ, explodedZ, val);
+        // Slight tilt on explode (makes it look more dramatic / Astra-like)
+        layer.rotation.x = THREE.MathUtils.lerp(0, (i % 2 === 0 ? -0.08 : 0.08) * val, val);
     }
+    // Animate screws spinning and rising out
     for (var s = 0; s < screws.length; s++) {
         var sm = screws[s];
-        sm.position.z = THREE.MathUtils.lerp(0.05, 0.6 + (s % 3)*0.2, val);
-        sm.rotation.z = val * Math.PI * 6;
+        sm.position.z = THREE.MathUtils.lerp(0.0, 0.55 + (s % 4)*0.18, val);
+        sm.rotation.z = val * Math.PI * 7;
     }
 }
+
 
 function onSliderChange(val) {
     currentExplodeVal = parseFloat(val) / 100.0;

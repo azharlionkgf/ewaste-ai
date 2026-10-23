@@ -166,9 +166,11 @@ def init_db():
             email TEXT,
             address TEXT,
             city TEXT,
+            pincode TEXT,
             state TEXT,
             country TEXT DEFAULT 'India',
             password_hash TEXT NOT NULL,
+            login_method TEXT DEFAULT 'phone',
             created_at TEXT)''')
         conn.commit(); conn.close()
     except: pass
@@ -645,8 +647,78 @@ def model_selector():
     </div>''', unsafe_allow_html=True)
     return info["key"], sel
 
+
+# ── YouTube disassembly/recovery links per category ──
+YOUTUBE_RECOVERY_LINKS = {
+    'Mobile Phones': [
+        {"title": "📱 iPhone Full Disassembly - iFixit Step by Step", "url": "https://www.youtube.com/watch?v=NhSVhDxhTB4"},
+        {"title": "🔧 How to Recycle Old Smartphones for Gold & Silver", "url": "https://www.youtube.com/watch?v=4w9oN3K8vy0"},
+        {"title": "📲 Samsung Galaxy Teardown - Every Part Explained", "url": "https://www.youtube.com/watch?v=hQnlFGRmrxs"},
+    ],
+    'Laptops': [
+        {"title": "💻 Complete Laptop Disassembly & Teardown Guide", "url": "https://www.youtube.com/watch?v=HZ3Y_yNpYfE"},
+        {"title": "🔩 How to Recycle a Laptop - Gold Recovery from PCB", "url": "https://www.youtube.com/watch?v=LX_OiKGMgoo"},
+        {"title": "🖥️ MacBook Pro Full Teardown - All Components", "url": "https://www.youtube.com/watch?v=JzA2LDPIDCE"},
+    ],
+    'Desktop Computers': [
+        {"title": "🖥️ Desktop Computer Full Teardown & Parts Guide", "url": "https://www.youtube.com/watch?v=Y7k9MEXuK2E"},
+        {"title": "♻️ PC Recycling - What Happens to Old Computers?", "url": "https://www.youtube.com/watch?v=2qFMsTJiS7Q"},
+        {"title": "🔧 How to Disassemble a Desktop PC Step by Step", "url": "https://www.youtube.com/watch?v=XcP8qR-rKBU"},
+    ],
+    'Tablets': [
+        {"title": "📱 iPad Full Disassembly - Every Component Shown", "url": "https://www.youtube.com/watch?v=lB0JByBH-f4"},
+        {"title": "🔧 Tablet Teardown Guide - How to Open Any Tablet", "url": "https://www.youtube.com/watch?v=nNDnfDuaX80"},
+    ],
+    'Monitors/Displays': [
+        {"title": "🖥️ Monitor LCD Panel Disassembly & Parts", "url": "https://www.youtube.com/watch?v=E6sdYL9CKHY"},
+        {"title": "♻️ How to Recycle a Computer Monitor Safely", "url": "https://www.youtube.com/watch?v=pSCH9LbJt44"},
+    ],
+    'Televisions': [
+        {"title": "📺 Smart TV Full Teardown - Inside a 55 inch TV", "url": "https://www.youtube.com/watch?v=PqJLGR6SkBk"},
+        {"title": "♻️ TV Recycling Process - LED TV Disassembly", "url": "https://www.youtube.com/watch?v=W38zWq5ZRXI"},
+    ],
+    'Printers': [
+        {"title": "🖨️ Printer Full Disassembly - Every Part Shown", "url": "https://www.youtube.com/watch?v=nFjYXD3V72E"},
+        {"title": "♻️ How to Recycle Old Printers - Materials Inside", "url": "https://www.youtube.com/watch?v=cGpSXAGOJaY"},
+    ],
+    'Batteries': [
+        {"title": "🔋 Lithium Battery Teardown - What's Inside?", "url": "https://www.youtube.com/watch?v=hVQvN5YPv10"},
+        {"title": "♻️ How Batteries Are Recycled - Full Process", "url": "https://www.youtube.com/watch?v=CqD8n72I4AM"},
+        {"title": "⚠️ Safe Battery Disposal - Li-Ion Recovery", "url": "https://www.youtube.com/watch?v=0jdtFajNYAU"},
+    ],
+    'PCBs/Circuit Boards': [
+        {"title": "💎 Gold Recovery from Circuit Boards - Full Process", "url": "https://www.youtube.com/watch?v=Wr1bBCw4ibU"},
+        {"title": "🔬 PCB Disassembly - Removing Components Step by Step", "url": "https://www.youtube.com/watch?v=GGKnFPBqBiQ"},
+        {"title": "♻️ How to Recycle Motherboards for Precious Metals", "url": "https://www.youtube.com/watch?v=O7VNyIyf2bY"},
+    ],
+    'Cables & Wires': [
+        {"title": "🔌 Copper Recovery from Old Cables & Wires", "url": "https://www.youtube.com/watch?v=4mwD_pDzxsE"},
+        {"title": "♻️ Wire Stripping for Copper - Complete Guide", "url": "https://www.youtube.com/watch?v=KdEhJaR3UDM"},
+    ],
+    'Small Appliances': [
+        {"title": "🔧 Small Appliance Disassembly - What's Inside?", "url": "https://www.youtube.com/watch?v=iYc0H-RwYdI"},
+        {"title": "♻️ How to Recycle Small Electronics & Appliances", "url": "https://www.youtube.com/watch?v=LBQlf7uMwT8"},
+    ],
+    'Large Appliances': [
+        {"title": "🏠 Refrigerator Full Teardown - All Components", "url": "https://www.youtube.com/watch?v=YdamH94a5Ss"},
+        {"title": "♻️ Large Appliance Recycling - How It Works", "url": "https://www.youtube.com/watch?v=AxMYQinFgd4"},
+    ],
+    'Lighting Equipment': [
+        {"title": "💡 LED Bulb Disassembly - What's Inside?", "url": "https://www.youtube.com/watch?v=2xnU_01gHWM"},
+        {"title": "♻️ CFL Bulb Recycling - Mercury Recovery Process", "url": "https://www.youtube.com/watch?v=RfGpiPuCBzQ"},
+    ],
+    'Audio/Video Equipment': [
+        {"title": "🎧 Headphones Teardown - Every Part Shown", "url": "https://www.youtube.com/watch?v=LvVaFr-_6LY"},
+        {"title": "📷 Camera Disassembly Guide - DSLR Teardown", "url": "https://www.youtube.com/watch?v=8zWAHGTN3So"},
+    ],
+    'Networking Equipment': [
+        {"title": "📡 Router Teardown - What's Inside a WiFi Router?", "url": "https://www.youtube.com/watch?v=oOk1YJFVenE"},
+        {"title": "♻️ How to Recycle Networking Gear & Routers", "url": "https://www.youtube.com/watch?v=gRMtXDRvGOg"},
+    ],
+}
+
 def show_recovery_cards(rec, env, category):
-    """Display recovery info in beautiful cards."""
+    """Display recovery info in beautiful cards with YouTube links."""
     c1,c2,c3,c4 = st.columns(4)
     with c1: st.markdown(f'<div class="metric-card"><div class="metric-icon">💰</div><div class="metric-value green-value">${rec["estimated_value_usd"]:.2f}</div><div class="metric-label">Recovery Value</div></div>', unsafe_allow_html=True)
     with c2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🔧</div><div class="metric-value" style="font-size:1.3rem;">{rec["recovery_method"].upper()}</div><div class="metric-label">Method</div></div>', unsafe_allow_html=True)
@@ -670,6 +742,40 @@ def show_recovery_cards(rec, env, category):
             fig.update_traces(marker_color=COLORS[:len(mats)])
             st.plotly_chart(fig, use_container_width=True)
         except: st.write({m.title():f"${v.get('value_usd',0):.2f}" for m,v in list(rec['recoverable_materials'].items())[:8]})
+
+    # ── YOUTUBE TUTORIAL LINKS ──
+    yt_links = YOUTUBE_RECOVERY_LINKS.get(category, [])
+    # Also try partial match
+    if not yt_links:
+        for k in YOUTUBE_RECOVERY_LINKS:
+            if k.lower() in category.lower() or category.lower() in k.lower():
+                yt_links = YOUTUBE_RECOVERY_LINKS[k]
+                break
+    if yt_links:
+        st.markdown('<div class="section-header">🎬 HOW TO DISASSEMBLE & RECYCLE — YOUTUBE TUTORIALS</div>', unsafe_allow_html=True)
+        st.markdown(f'''<div style="background:linear-gradient(135deg,rgba(255,0,0,0.08),rgba(10,10,20,0.9));
+            border:1px solid rgba(255,80,80,0.35);border-radius:14px;padding:18px 20px;margin:10px 0;">
+            <div style="color:#FF6B6B;font-weight:700;font-size:1rem;margin-bottom:14px;letter-spacing:1px;">
+                ▶️ Watch: How to Open & Recycle — {category}
+            </div>''', unsafe_allow_html=True)
+        for lnk in yt_links:
+            st.markdown(f'''<a href="{lnk['url']}" target="_blank" style="
+                display:flex;align-items:center;gap:12px;padding:12px 16px;margin:6px 0;
+                background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+                border-radius:10px;text-decoration:none;color:#E2E8F0;
+                transition:all 0.2s;cursor:pointer;"
+                onmouseover="this.style.background='rgba(220,20,60,0.15)';this.style.borderColor='rgba(220,20,60,0.4)'"
+                onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.1)'">
+                <span style="font-size:1.6rem;">▶️</span>
+                <div>
+                    <div style="font-weight:600;font-size:0.9rem;">{lnk['title']}</div>
+                    <div style="font-size:0.75rem;color:#888;margin-top:2px;">youtube.com → Click to Watch</div>
+                </div>
+                <span style="margin-left:auto;color:#FF4444;font-size:1.2rem;">↗</span>
+            </a>''', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
 
 # ═══════════════════════════════════════════
 # CHATBOT AI ENGINE
@@ -790,16 +896,10 @@ def chatbot_respond(query):
 # ═══════════════════════════════════════════
 # SESSION STATE
 # ═══════════════════════════════════════════
-for k, v in {'logged_in':True, 'role':'user', 'chat_messages':[], 'chatbot_device':None, 'app_jurisdiction':'India', 'app_lang':'en', 'app_curr':'USD'}.items():
+for k, v in {'logged_in':False, 'role':None, 'chat_messages':[], 'chatbot_device':None, 'app_jurisdiction':'India', 'app_lang':'en', 'app_curr':'USD'}.items():
     if k not in st.session_state: st.session_state[k] = v
 if 'user_profile' not in st.session_state:
-    st.session_state.user_profile = {
-        'name': 'Azhar Mulla',
-        'phone': '+91 98765 43210',
-        'country': 'India',
-        'city': 'Bengaluru',
-        'address': 'Koramangala 4th Block, Bengaluru, Karnataka - 560034'
-    }
+    st.session_state.user_profile = {}
 if not st.session_state.chat_messages:
     st.session_state.chat_messages = [{"role":"assistant","content":"👋 **Namaste! I'm your E-Waste AI Assistant.**\n\n📸 **Upload Photos** or 🎬 **Videos** of e-waste items!\n🔍 Identify devices | 💰 Material values | ♻️ Recovery steps\n⚠️ Safety tips | 🌍 Eco impact | 📍 Find recyclers\n\n**Upload a file or type your question below!**"}]
 
@@ -997,132 +1097,406 @@ with st.sidebar:
             st.session_state.role = None; st.session_state.logged_in = False; st.rerun()
 
 # ═══════════════════════════════════════════
-# MAIN CONTENT
+# MAIN CONTENT — REQUIRE LOGIN/REGISTER FIRST
 # ═══════════════════════════════════════════
 if not st.session_state.get('logged_in', False):
-    st.session_state.logged_in = True
-    st.session_state.role = "user"
-    if 'user_profile' not in st.session_state:
-        st.session_state['user_profile'] = {
-            'name': 'Azhar Fareed Mulla',
-            'phone': '+91 9876543210',
-            'city': 'Bengaluru',
-            'country': 'India',
-            'address': 'Koramangala 4th Block'
-        }
+    # ── BEAUTIFUL FULL-SCREEN LOGIN PAGE ──
+    st.markdown('''
+    <style>
+    .auth-wrapper {
+        background: linear-gradient(135deg, #04060A 0%, #0A1020 40%, #0D0515 100%);
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+    .auth-logo {
+        text-align: center;
+        padding: 18px 0 8px 0;
+    }
+    .auth-title {
+        font-family: Orbitron, sans-serif;
+        font-size: 2.2rem;
+        color: #DC143C;
+        text-shadow: 0 0 30px rgba(220,20,60,0.6);
+        letter-spacing: 3px;
+        margin: 0;
+    }
+    .auth-subtitle {
+        color: #888;
+        font-size: 0.85rem;
+        letter-spacing: 4px;
+        margin-top: 4px;
+    }
+    .auth-card {
+        background: linear-gradient(135deg, rgba(15,20,35,0.96), rgba(8,12,22,0.96));
+        border: 1px solid rgba(220,20,60,0.3);
+        border-radius: 20px;
+        padding: 32px 36px;
+        box-shadow: 0 0 50px rgba(220,20,60,0.12), 0 20px 60px rgba(0,0,0,0.6);
+        backdrop-filter: blur(20px);
+    }
+    .auth-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 16px 0;
+    }
+    .auth-divider-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(255,255,255,0.1);
+    }
+    .auth-divider-text {
+        color: #555;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+    .gmail-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 11px 20px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 10px;
+        color: #E2E8F0;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        margin-bottom: 16px;
+    }
+    .otp-box {
+        background: rgba(0,240,255,0.06);
+        border: 1px solid rgba(0,240,255,0.25);
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin: 12px 0;
+    }
+    .step-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    .step-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(220,20,60,0.3);
+    }
+    .step-dot.active {
+        background: #DC143C;
+        box-shadow: 0 0 10px rgba(220,20,60,0.6);
+    }
+    </style>
+    ''', unsafe_allow_html=True)
 
-if not st.session_state.logged_in:
-    st.markdown('<h1 class="glow-title" style="font-size:3rem;margin-top:60px;">⚡ E-WASTE INTELLIGENCE SYSTEM</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">AI-Powered Classification & Recovery Platform</p>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#555;font-size:.9rem;letter-spacing:2px;">By <strong style="color:#DC143C;">Azhar Fareed Mulla</strong> • USN: 2SA25MC002 • Guide: <strong style="color:#FFD700;">Dr. Nisha S Amin</strong></p>', unsafe_allow_html=True)
+    st.markdown('<div class="auth-logo">', unsafe_allow_html=True)
+    st.markdown('<div style="font-size:3rem;">⚡</div>', unsafe_allow_html=True)
+    st.markdown('<div class="auth-title">E-WASTE AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="auth-subtitle">INTELLIGENCE SYSTEM</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#666;font-size:0.75rem;margin-top:4px;letter-spacing:2px;">By Azhar Fareed Mulla • MCA Final Year Project</p>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-    c1,c2,c3 = st.columns([1,2,1])
-    with c2:
-        st.markdown('''<div class="glass-card" style="text-align:center;padding:30px;">
-            <div style="font-size:4rem;margin-bottom:10px;">⚡</div>
-            <h3 style="color:#DC143C;">Welcome! Login or Register</h3>
-            <p style="color:#888;">Create an account to get personalized recovery recommendations</p>
+
+    col_l, col_c, col_r = st.columns([1, 2, 1])
+    with col_c:
+        # GMAIL quick login (simulated — using email as username)
+        st.markdown('''<div class="auth-card">
+            <div style="text-align:center;margin-bottom:18px;">
+                <div style="font-size:1.5rem;font-weight:700;color:#E2E8F0;letter-spacing:1px;">👋 Welcome Back!</div>
+                <div style="color:#888;font-size:0.85rem;margin-top:4px;">Login or create your account to continue</div>
+            </div>
         </div>''', unsafe_allow_html=True)
+
+        # Google/Gmail Login Section
+        with st.expander("🔵 Login with Gmail / Google Account", expanded=False):
+            st.markdown('''<div style="background:rgba(66,133,244,0.08);border:1px solid rgba(66,133,244,0.3);border-radius:10px;padding:14px;text-align:center;">
+                <div style="font-size:0.9rem;color:#E2E8F0;margin-bottom:8px;">Enter your Gmail address to continue with Google Login</div>
+            </div>''', unsafe_allow_html=True)
+            gmail_addr = st.text_input("📧 Gmail Address", key="gmail_login_addr", placeholder="yourname@gmail.com")
+            gmail_name = st.text_input("👤 Your Full Name", key="gmail_login_name", placeholder="e.g. Azhar Fareed Mulla")
+            gmail_city = st.text_input("🏙️ City", key="gmail_login_city", placeholder="e.g. Bengaluru")
+            if st.button("🔵 Continue with Gmail", use_container_width=True, key="btn_gmail_continue"):
+                if not gmail_addr.strip() or "@gmail.com" not in gmail_addr.lower():
+                    st.error("❌ Please enter a valid Gmail address!")
+                elif not gmail_name.strip():
+                    st.error("❌ Please enter your name!")
+                else:
+                    # Save as gmail user
+                    try:
+                        ph_fake = hashlib.sha256(gmail_addr.encode()).hexdigest()[:12]
+                        conn = sqlite3.connect(DB_PATH)
+                        try:
+                            conn.execute("INSERT INTO users (name, phone, email, address, city, pincode, state, country, password_hash, login_method, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                                (gmail_name.strip(), ph_fake, gmail_addr.strip(), '', gmail_city.strip(), '', '', 'India', hashlib.sha256(gmail_addr.encode()).hexdigest(), 'gmail', datetime.now().isoformat()))
+                            conn.commit()
+                        except sqlite3.IntegrityError:
+                            pass  # Already exists, just login
+                        finally:
+                            conn.close()
+                    except Exception: pass
+                    st.session_state.logged_in = True
+                    st.session_state.role = "user"
+                    st.session_state['user_profile'] = {
+                        'name': gmail_name.strip(),
+                        'phone': '',
+                        'email': gmail_addr.strip(),
+                        'address': '',
+                        'city': gmail_city.strip(),
+                        'pincode': '',
+                        'state': '',
+                        'country': 'India',
+                        'login_method': 'gmail'
+                    }
+                    st.success(f"✅ Welcome {gmail_name.strip()}! Logged in with Gmail!")
+                    time.sleep(0.5)
+                    st.rerun()
+
+        st.markdown('<div style="text-align:center;color:#555;font-size:0.75rem;letter-spacing:2px;margin:10px 0;">── OR CONTINUE WITH PHONE ──</div>', unsafe_allow_html=True)
 
         login_tab, register_tab, admin_tab = st.tabs(["🔑 Login", "📝 Register", "🛡️ Admin"])
 
+        # ── REGISTER TAB (Full Form with OTP) ──
         with register_tab:
-            st.markdown("##### 📝 Create Your Account")
-            reg_name = st.text_input("👤 Full Name *", key="reg_name", placeholder="e.g. Azhar Fareed Mulla")
-            reg_phone = st.text_input("📱 Phone Number *", key="reg_phone", placeholder="e.g. +91 9876543210")
-            reg_email = st.text_input("📧 Email (optional)", key="reg_email", placeholder="e.g. azhar@email.com")
-            reg_address = st.text_area("🏠 Address", key="reg_address", placeholder="Street, Area, Landmark", height=68)
-            rc1, rc2 = st.columns(2)
-            with rc1:
-                reg_city = st.text_input("🏙️ City *", key="reg_city", placeholder="e.g. Vijayapur")
-            with rc2:
-                reg_state = st.text_input("📍 State", key="reg_state", placeholder="e.g. Karnataka")
-            reg_country = st.selectbox("🌍 Country", ["India", "USA", "UK", "UAE", "Saudi Arabia", "Germany", "Japan", "China", "Australia", "Canada", "Pakistan", "Bangladesh", "Other"], key="reg_country")
-            reg_pw = st.text_input("🔒 Password *", type="password", key="reg_pw")
-            reg_pw2 = st.text_input("🔒 Confirm Password *", type="password", key="reg_pw2")
+            # Multi-step registration using session state
+            if 'reg_step' not in st.session_state:
+                st.session_state.reg_step = 1
+            if 'reg_otp_sent' not in st.session_state:
+                st.session_state.reg_otp_sent = False
+            if 'reg_otp_code' not in st.session_state:
+                st.session_state.reg_otp_code = ''
+            if 'reg_phone_temp' not in st.session_state:
+                st.session_state.reg_phone_temp = ''
 
-            if st.button("🚀 REGISTER & LOGIN", use_container_width=True, key="btn_register"):
-                if not reg_name.strip():
-                    st.error("❌ Name is required!")
-                elif not reg_phone.strip():
-                    st.error("❌ Phone number is required!")
-                elif not reg_city.strip():
-                    st.error("❌ City is required!")
-                elif not reg_pw or len(reg_pw) < 4:
-                    st.error("❌ Password must be at least 4 characters!")
-                elif reg_pw != reg_pw2:
-                    st.error("❌ Passwords don't match!")
+            # Step indicators
+            step = st.session_state.reg_step
+            step1_color = "#DC143C" if step >= 1 else "rgba(220,20,60,0.2)"
+            step2_color = "#DC143C" if step >= 2 else "rgba(220,20,60,0.2)"
+            step3_color = "#DC143C" if step >= 3 else "rgba(220,20,60,0.2)"
+            st.markdown(f'''<div style="display:flex;justify-content:center;align-items:center;gap:8px;margin:10px 0 20px 0;">
+                <div style="width:32px;height:32px;border-radius:50%;background:{step1_color};display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:white;box-shadow:0 0 10px {step1_color}88;">1</div>
+                <div style="flex:1;height:2px;background:{"#DC143C" if step>=2 else "rgba(255,255,255,0.1)"};max-width:60px;"></div>
+                <div style="width:32px;height:32px;border-radius:50%;background:{step2_color};display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:white;box-shadow:0 0 10px {step2_color}88;">2</div>
+                <div style="flex:1;height:2px;background:{"#DC143C" if step>=3 else "rgba(255,255,255,0.1)"};max-width:60px;"></div>
+                <div style="width:32px;height:32px;border-radius:50%;background:{step3_color};display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:white;box-shadow:0 0 10px {step3_color}88;">3</div>
+            </div>
+            <div style="display:flex;justify-content:space-around;margin-bottom:18px;font-size:0.68rem;color:#888;letter-spacing:1px;">
+                <span>PHONE & OTP</span><span>PROFILE</span><span>ADDRESS</span>
+            </div>''', unsafe_allow_html=True)
+
+            # ── STEP 1: Phone & OTP ──
+            if st.session_state.reg_step == 1:
+                st.markdown('<div style="background:rgba(220,20,60,0.06);border:1px solid rgba(220,20,60,0.2);border-radius:12px;padding:18px;">', unsafe_allow_html=True)
+                st.markdown("**📱 Step 1: Phone Verification**")
+                reg_phone_s1 = st.text_input("Mobile Number *", key="reg_phone_s1", placeholder="+91 9876543210",
+                    help="Enter your 10-digit mobile number with country code")
+
+                if not st.session_state.reg_otp_sent:
+                    if st.button("📲 Send OTP", use_container_width=True, key="btn_send_otp"):
+                        phone_clean = reg_phone_s1.strip().replace(" ", "").replace("-", "")
+                        if len(phone_clean) < 10:
+                            st.error("❌ Please enter a valid mobile number!")
+                        else:
+                            import random
+                            otp = str(random.randint(100000, 999999))
+                            st.session_state.reg_otp_code = otp
+                            st.session_state.reg_otp_sent = True
+                            st.session_state.reg_phone_temp = reg_phone_s1.strip()
+                            st.success(f"✅ OTP Sent to {reg_phone_s1.strip()}")
+                            st.info(f"🔐 Your OTP (for demo): **{otp}**  ← Enter this below")
                 else:
-                    try:
-                        pw_hash = hashlib.sha256(reg_pw.encode()).hexdigest()
-                        conn = sqlite3.connect(DB_PATH)
-                        conn.execute("INSERT INTO users (name, phone, email, address, city, state, country, password_hash, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
-                            (reg_name.strip(), reg_phone.strip(), reg_email.strip(), reg_address.strip(), reg_city.strip(), reg_state.strip(), reg_country, pw_hash, datetime.now().isoformat()))
-                        conn.commit(); conn.close()
-                        st.session_state.logged_in = True
-                        st.session_state.role = "user"
-                        st.session_state['user_profile'] = {
-                            'name': reg_name.strip(), 'phone': reg_phone.strip(), 'email': reg_email.strip(),
-                            'address': reg_address.strip(), 'city': reg_city.strip(), 'state': reg_state.strip(), 'country': reg_country
-                        }
-                        st.success(f"✅ Welcome {reg_name.strip()}! Account created successfully!")
-                        time.sleep(1)
+                    st.success(f"✅ OTP sent to {st.session_state.reg_phone_temp}")
+                    st.info(f"🔐 Demo OTP: **{st.session_state.reg_otp_code}**")
+                    entered_otp = st.text_input("🔐 Enter 6-digit OTP *", key="reg_otp_input",
+                        placeholder="Enter OTP sent to your phone", max_chars=6)
+
+                    col_verify, col_resend = st.columns([2,1])
+                    with col_verify:
+                        if st.button("✅ Verify OTP & Continue", use_container_width=True, key="btn_verify_otp"):
+                            if entered_otp.strip() == st.session_state.reg_otp_code:
+                                st.session_state.reg_step = 2
+                                st.success("✅ Phone Verified!")
+                                time.sleep(0.3)
+                                st.rerun()
+                            else:
+                                st.error("❌ Wrong OTP! Check again.")
+                    with col_resend:
+                        if st.button("🔄 Resend", use_container_width=True, key="btn_resend_otp"):
+                            st.session_state.reg_otp_sent = False
+                            st.session_state.reg_otp_code = ''
+                            st.rerun()
+                st.markdown('</div>', unsafe_allow_html=True)
+
+            # ── STEP 2: Profile Info ──
+            elif st.session_state.reg_step == 2:
+                st.markdown(f'<div style="color:#00FF7F;font-size:0.8rem;margin-bottom:12px;">✅ Phone verified: {st.session_state.reg_phone_temp}</div>', unsafe_allow_html=True)
+                st.markdown('<div style="background:rgba(0,255,127,0.04);border:1px solid rgba(0,255,127,0.15);border-radius:12px;padding:18px;">', unsafe_allow_html=True)
+                st.markdown("**👤 Step 2: Your Profile**")
+                reg_name_s2 = st.text_input("Full Name *", key="reg_name_s2", placeholder="e.g. Azhar Fareed Mulla")
+                reg_email_s2 = st.text_input("Email Address (optional)", key="reg_email_s2", placeholder="yourname@email.com")
+                rp1, rp2 = st.columns(2)
+                with rp1:
+                    reg_pw_s2 = st.text_input("Password *", type="password", key="reg_pw_s2", placeholder="Min 4 characters")
+                with rp2:
+                    reg_pw2_s2 = st.text_input("Confirm Password *", type="password", key="reg_pw2_s2")
+
+                col_back2, col_next2 = st.columns([1,2])
+                with col_back2:
+                    if st.button("← Back", use_container_width=True, key="btn_back_s2"):
+                        st.session_state.reg_step = 1
+                        st.session_state.reg_otp_sent = False
                         st.rerun()
-                    except sqlite3.IntegrityError:
-                        st.error("❌ This phone number is already registered! Please login instead.")
-                    except Exception as e:
-                        st.error(f"❌ Registration failed: {str(e)}")
+                with col_next2:
+                    if st.button("Continue →", use_container_width=True, key="btn_next_s2"):
+                        if not reg_name_s2.strip():
+                            st.error("❌ Name is required!")
+                        elif not reg_pw_s2 or len(reg_pw_s2) < 4:
+                            st.error("❌ Password must be at least 4 characters!")
+                        elif reg_pw_s2 != reg_pw2_s2:
+                            st.error("❌ Passwords don't match!")
+                        else:
+                            st.session_state['reg_data_s2'] = {
+                                'name': reg_name_s2.strip(),
+                                'email': reg_email_s2.strip(),
+                                'pw': reg_pw_s2
+                            }
+                            st.session_state.reg_step = 3
+                            st.rerun()
+                st.markdown('</div>', unsafe_allow_html=True)
 
+            # ── STEP 3: Address ──
+            elif st.session_state.reg_step == 3:
+                s2 = st.session_state.get('reg_data_s2', {})
+                st.markdown(f'<div style="color:#00FF7F;font-size:0.8rem;margin-bottom:12px;">✅ {s2.get("name","User")} • {st.session_state.reg_phone_temp}</div>', unsafe_allow_html=True)
+                st.markdown('<div style="background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.15);border-radius:12px;padding:18px;">', unsafe_allow_html=True)
+                st.markdown("**📍 Step 3: Your Address**")
+                reg_address_s3 = st.text_area("Street / Area / Landmark", key="reg_address_s3",
+                    placeholder="e.g. Flat 12, Koramangala 4th Block, Near Metro Station", height=65)
+                ra1, ra2 = st.columns(2)
+                with ra1:
+                    reg_city_s3 = st.text_input("City *", key="reg_city_s3", placeholder="e.g. Bengaluru")
+                with ra2:
+                    reg_pincode_s3 = st.text_input("Pincode *", key="reg_pincode_s3", placeholder="e.g. 560034", max_chars=10)
+                rb1, rb2 = st.columns(2)
+                with rb1:
+                    reg_state_s3 = st.text_input("State", key="reg_state_s3", placeholder="e.g. Karnataka")
+                with rb2:
+                    reg_country_s3 = st.selectbox("Country", ["India", "USA", "UK", "UAE", "Saudi Arabia", "Germany", "Japan", "China", "Australia", "Canada", "Pakistan", "Bangladesh", "Other"], key="reg_country_s3")
+
+                col_back3, col_finish = st.columns([1,2])
+                with col_back3:
+                    if st.button("← Back", use_container_width=True, key="btn_back_s3"):
+                        st.session_state.reg_step = 2
+                        st.rerun()
+                with col_finish:
+                    if st.button("🚀 CREATE ACCOUNT & ENTER", use_container_width=True, key="btn_finish_reg"):
+                        if not reg_city_s3.strip():
+                            st.error("❌ City is required!")
+                        elif not reg_pincode_s3.strip():
+                            st.error("❌ Pincode is required!")
+                        else:
+                            try:
+                                pw_hash = hashlib.sha256(s2.get('pw','').encode()).hexdigest()
+                                conn = sqlite3.connect(DB_PATH)
+                                try:
+                                    conn.execute("INSERT INTO users (name, phone, email, address, city, pincode, state, country, password_hash, login_method, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                                        (s2['name'], st.session_state.reg_phone_temp, s2.get('email',''),
+                                         reg_address_s3.strip(), reg_city_s3.strip(), reg_pincode_s3.strip(),
+                                         reg_state_s3.strip(), reg_country_s3, pw_hash, 'phone', datetime.now().isoformat()))
+                                    conn.commit()
+                                except sqlite3.IntegrityError:
+                                    st.error("❌ This phone number is already registered! Please login.")
+                                    conn.close()
+                                    st.stop()
+                                conn.close()
+                                st.session_state.logged_in = True
+                                st.session_state.role = "user"
+                                st.session_state['user_profile'] = {
+                                    'name': s2['name'], 'phone': st.session_state.reg_phone_temp,
+                                    'email': s2.get('email',''), 'address': reg_address_s3.strip(),
+                                    'city': reg_city_s3.strip(), 'pincode': reg_pincode_s3.strip(),
+                                    'state': reg_state_s3.strip(), 'country': reg_country_s3,
+                                    'login_method': 'phone'
+                                }
+                                # Reset reg steps
+                                for k in ['reg_step','reg_otp_sent','reg_otp_code','reg_phone_temp','reg_data_s2']:
+                                    if k in st.session_state: del st.session_state[k]
+                                st.success(f"🎉 Welcome {s2['name']}! Your account is created!")
+                                time.sleep(1)
+                                st.rerun()
+                            except Exception as ex:
+                                st.error(f"❌ Registration failed: {ex}")
+                st.markdown('</div>', unsafe_allow_html=True)
+
+        # ── LOGIN TAB ──
         with login_tab:
-            st.markdown("##### 🔑 Login to Your Account")
-            login_phone = st.text_input("📱 Phone Number", key="login_phone", placeholder="Enter your registered phone")
-            login_pw = st.text_input("🔒 Password", type="password", key="login_pw")
+            st.markdown("**🔑 Login to Your Account**")
+            login_input = st.text_input("📱 Phone Number or Email", key="login_phone_email",
+                placeholder="Phone: +91 9876543210  or  Email: you@gmail.com")
+            login_pw = st.text_input("🔒 Password", type="password", key="login_pw_main")
 
-            if st.button("🔓 LOGIN", use_container_width=True, key="btn_login"):
-                if not login_phone.strip() or not login_pw:
-                    st.error("❌ Enter phone and password!")
+            if st.button("🔓 LOGIN", use_container_width=True, key="btn_login_main"):
+                if not login_input.strip() or not login_pw:
+                    st.error("❌ Enter phone/email and password!")
                 else:
                     try:
                         pw_hash = hashlib.sha256(login_pw.encode()).hexdigest()
                         conn = sqlite3.connect(DB_PATH)
-                        cur = conn.execute("SELECT name, phone, email, address, city, state, country FROM users WHERE phone=? AND password_hash=?",
-                            (login_phone.strip(), pw_hash))
+                        # Try phone first, then email
+                        cur = conn.execute(
+                            "SELECT name, phone, email, address, city, pincode, state, country FROM users WHERE (phone=? OR email=?) AND password_hash=?",
+                            (login_input.strip(), login_input.strip(), pw_hash))
                         row = cur.fetchone()
                         conn.close()
                         if row:
                             st.session_state.logged_in = True
                             st.session_state.role = "user"
                             st.session_state['user_profile'] = {
-                                'name': row[0], 'phone': row[1], 'email': row[2],
-                                'address': row[3], 'city': row[4], 'state': row[5], 'country': row[6]
+                                'name': row[0], 'phone': row[1], 'email': row[2] or '',
+                                'address': row[3] or '', 'city': row[4] or '',
+                                'pincode': row[5] or '', 'state': row[6] or '', 'country': row[7] or 'India'
                             }
-                            st.success(f"✅ Welcome back, {row[0]}!")
+                            st.success(f"✅ Welcome back, {row[0]}! 🙌")
                             time.sleep(0.5)
                             st.rerun()
                         else:
-                            st.error("❌ Wrong phone number or password!")
+                            st.error("❌ Wrong phone/email or password. Try again or register!")
                     except Exception as e:
-                        st.error(f"❌ Login failed: {str(e)}")
+                        st.error(f"❌ Login error: {e}")
 
-            st.markdown("")
-            st.markdown('<p style="color:#666;text-align:center;font-size:.85rem;">New here? Switch to the <strong>📝 Register</strong> tab above!</p>', unsafe_allow_html=True)
+            st.markdown('<div style="text-align:center;margin:12px 0;color:#555;font-size:0.8rem;">Don\'t have an account? Click <strong style="color:#DC143C;">📝 Register</strong> tab above</div>', unsafe_allow_html=True)
 
-            st.markdown("")
-            if st.button("👤 Quick Guest Access (No Account)", use_container_width=True, key="btn_guest"):
+            st.markdown("---")
+            if st.button("👤 Continue as Guest (No Registration)", use_container_width=True, key="btn_guest_main"):
                 st.session_state.logged_in = True
                 st.session_state.role = "user"
+                st.session_state['user_profile'] = {
+                    'name': 'Guest User', 'phone': '', 'email': '',
+                    'address': '', 'city': '', 'pincode': '', 'state': '', 'country': 'India'
+                }
                 st.rerun()
 
+        # ── ADMIN TAB ──
         with admin_tab:
-            st.markdown("##### 🛡️ Admin Access")
-            admin_pw = st.text_input("Enter Admin Password", type="password", key="main_admin_pw")
-            if st.button("🔓 LOGIN AS ADMIN", use_container_width=True, key="main_admin_btn"):
-                if hashlib.sha256(admin_pw.encode()).hexdigest() == ADMIN_PASS_HASH or admin_pw == "admin@ewaste2025":
+            st.markdown("**🛡️ Admin Access**")
+            admin_pw_inp = st.text_input("Admin Password", type="password", key="main_admin_pw_inp")
+            if st.button("🔓 LOGIN AS ADMIN", use_container_width=True, key="main_admin_btn_inp"):
+                if hashlib.sha256(admin_pw_inp.encode()).hexdigest() == ADMIN_PASS_HASH or admin_pw_inp == "admin@ewaste2025":
                     st.session_state.logged_in = True
                     st.session_state.role = "admin"
+                    st.session_state['user_profile'] = {
+                        'name': 'Admin', 'phone': '', 'email': 'admin@ewaste.ai',
+                        'city': 'System', 'country': 'India'
+                    }
                     st.rerun()
                 else:
-                    st.error("❌ Wrong password!")
+                    st.error("❌ Wrong admin password!")
+
     st.stop()
 
 page_id = pages[st.session_state.current_page]
