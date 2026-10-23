@@ -1403,38 +1403,48 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
 }
+var spinVelocity = 0.0;
 
 function animate() {
     requestAnimationFrame(animate);
-
     var t = clock.getElapsedTime();
 
-    // Rotate Cyber Pedestal Rings
-    if (cyberRing1) cyberRing1.rotation.z = t * 0.3;
-    if (cyberRing2) cyberRing2.rotation.z = -t * 0.2;
-
-    // Sweeping Scanning Laser
-    if (laserPlane && isLaserActive) {
-        laserPlane.position.y = Math.sin(t * 1.8) * 2.8;
+    // Rotate Cyber Pedestal Rings with pulse
+    if (cyberRing1) cyberRing1.rotation.z = t * 0.32;
+    if (cyberRing2) cyberRing2.rotation.z = -t * 0.18;
+    if (cyberRing1 && cyberRing1.material) {
+        cyberRing1.material.opacity = 0.45 + 0.2 * Math.sin(t * 2.1);
     }
 
-    // Auto-Spin Phone 360° continuously when not manually dragging
-    if (isAutoSpinning && !isPointerDown && phoneModelGroup) {
-        phoneModelGroup.rotation.y += 0.014;
+    // Sweeping Scanning Laser with pulsing opacity
+    if (laserPlane && isLaserActive) {
+        laserPlane.position.y = Math.sin(t * 1.6) * 3.1;
+        if (laserPlane.material) laserPlane.material.opacity = 0.5 + 0.28 * Math.sin(t * 3.0);
+    }
+
+    // Auto-Spin with inertia coast after drag
+    if (phoneModelGroup) {
+        if (isAutoSpinning && !isPointerDown) {
+            phoneModelGroup.rotation.y += 0.012;
+            spinVelocity = 0;
+        } else if (!isPointerDown && Math.abs(spinVelocity) > 0.0002) {
+            phoneModelGroup.rotation.y += spinVelocity;
+            spinVelocity *= 0.92;
+        }
     }
 
     if (isAutoPlaying) {
-        currentExplodeVal += 0.005 * autoPlayDir;
+        currentExplodeVal += 0.004 * autoPlayDir;
         if (currentExplodeVal >= 1.0) { currentExplodeVal = 1.0; autoPlayDir = -1; }
         else if (currentExplodeVal <= 0.0) { currentExplodeVal = 0.0; autoPlayDir = 1; }
         var slider = document.getElementById('explodeSlider');
         if (slider) slider.value = Math.round(currentExplodeVal * 100);
-        document.getElementById('sliderBadge').textContent = 'Disassembly: ' + Math.round(currentExplodeVal * 100) + '%';
         updateLayerPositions(currentExplodeVal);
     }
 
     if (controls) controls.update();
     if (renderer && scene && camera) renderer.render(scene, camera);
+}
 }
 
 var initDone = false;
