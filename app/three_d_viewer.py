@@ -1,4 +1,4 @@
-"""
+﻿"""
 ✨ Futuristic Hologram Hardware Anatomy & 3D Disassembly Engine
 ================================================================
 Photorealistic 3D hardware breakdown with Hologram Sci-Fi Mode:
@@ -1242,26 +1242,72 @@ function buildRealisticPhoneLayers() {
     ribbon2.position.set(-0.65, 0.6, 0); phoneModelGroup.add(ribbon2);
 }
 
+// CASCADE EXPLODE — each layer peels at its own slider window
+var LAYER_WINDOWS = [
+    [0.00, 0.12],   // 0: screws
+    [0.10, 0.22],   // 1: back cover
+    [0.20, 0.30],   // 2: camera module
+    [0.28, 0.38],   // 3: NFC sheet
+    [0.36, 0.48],   // 4: midframe
+    [0.46, 0.60],   // 5: battery
+    [0.58, 0.72],   // 6: PCB mainboard
+    [0.70, 0.84],   // 7: AMOLED display
+    [0.82, 1.00]    // 8: front glass
+];
+var LAYER_Z_SPREAD = [0.3, 1.1, 1.9, 2.6, 3.2, -1.3, -2.1, -2.9, -3.8];
+
 function updateLayerPositions(val) {
-    // Peel layers vertically (Y-axis) like anatomy scan — more realistic
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
-        var closedY   = layer.userData.closedY   !== undefined ? layer.userData.closedY : 0;
-        var explodedY = layer.userData.explodedY  !== undefined ? layer.userData.explodedY : (i - layers.length/2)*1.5;
-        // Also slight Z offset so layers don't z-fight
-        var closedZ   = layer.userData.closedZ   !== undefined ? layer.userData.closedZ : i * 0.001;
-        var explodedZ = layer.userData.explodedZ  !== undefined ? layer.userData.explodedZ : i * 0.001;
-        layer.position.y = THREE.MathUtils.lerp(closedY, explodedY, val);
-        layer.position.z = THREE.MathUtils.lerp(closedZ, explodedZ, val);
-        // Slight tilt on explode (makes it look more dramatic / Astra-like)
-        layer.rotation.x = THREE.MathUtils.lerp(0, (i % 2 === 0 ? -0.08 : 0.08) * val, val);
+        var win = LAYER_WINDOWS[i] || [i/layers.length, (i+1)/layers.length];
+        var wStart = win[0], wEnd = win[1];
+        var t = (val - wStart) / (wEnd - wStart);
+        t = Math.max(0.0, Math.min(1.0, t));
+        // Ease-out cubic
+        var te = 1.0 - Math.pow(1.0 - t, 3.0);
+        var zDest = LAYER_Z_SPREAD[i] !== undefined ? LAYER_Z_SPREAD[i] : (i - layers.length/2)*1.4;
+        var closedY = layer.userData.closedY !== undefined ? layer.userData.closedY : 0;
+        var explodedY = layer.userData.explodedY !== undefined ? layer.userData.explodedY : 0;
+        layer.position.y = THREE.MathUtils.lerp(closedY, explodedY, te);
+        layer.position.z = THREE.MathUtils.lerp(0, zDest, te);
+        var tiltDir = (i % 2 === 0) ? -1 : 1;
+        layer.rotation.x = THREE.MathUtils.lerp(0, tiltDir * 0.13, te);
+        layer.rotation.y = THREE.MathUtils.lerp(0, tiltDir * 0.08, te);
+        // Cyan glow on the actively peeling layer
+        var isActive = val >= wStart && val <= wEnd;
+        layer.traverse(function(obj) {
+            if (obj.isMesh && obj.material) {
+                var mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+                mats.forEach(function(m) {
+                    if (m.emissive) {
+                        m.emissiveIntensity = isActive ? 0.4 : 0.0;
+                        if (isActive) m.emissive.set(0x00C8FF);
+                    }
+                });
+            }
+        });
     }
-    // Animate screws spinning and rising out
-    for (var s = 0; s < screws.length; s++) {
-        var sm = screws[s];
-        sm.position.z = THREE.MathUtils.lerp(0.0, 0.55 + (s % 4)*0.18, val);
-        sm.rotation.z = val * Math.PI * 7;
+    // Screws: staggered pop-out 0-12%
+    for (var s2 = 0; s2 < screws.length; s2++) {
+        var sm = screws[s2];
+        var delay = (s2 / screws.length) * 0.08;
+        var lt = Math.max(0, Math.min(1, (val - delay) / Math.max(0.001, 0.12 - delay)));
+        var lte = 1.0 - Math.pow(1.0 - lt, 2.0);
+        sm.position.z = THREE.MathUtils.lerp(0, 0.7 + (s2 % 5)*0.14, lte);
+        sm.rotation.z = lte * Math.PI * 8;
     }
+    // Update badge with current layer name
+    var pct = Math.round(val * 100);
+    var lNames = ['Screws','Back Cover','Camera','NFC Sheet','Midframe','Battery','PCB','AMOLED','Front Glass'];
+    var curName = '';
+    for (var li = 0; li < LAYER_WINDOWS.length; li++) {
+        if (val >= LAYER_WINDOWS[li][0] && val <= LAYER_WINDOWS[li][1]) {
+            curName = ' → Removing: ' + (lNames[li] || '');
+            break;
+        }
+    }
+    var badge = document.getElementById('sliderBadge');
+    if (badge) badge.textContent = 'Disassembly: ' + pct + '%' + curName;
 }
 
 
@@ -1425,3 +1471,4 @@ setTimeout(safeInit3D, 150);
     html = html.replace("__MANUAL_STEPS_JSON__", manual_steps_json)
     html = html.replace("__COMP_JSON__", comp_json)
     return html
+
