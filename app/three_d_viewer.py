@@ -171,9 +171,9 @@ def generate_3d_viewer(device_info: Dict[str, Any], height: int = 740) -> str:
 <meta charset="UTF-8">
 <title>E-Waste AI - Hologram Hardware Anatomy & 3D Teardown</title>
 <!-- Powered by Three.js 3D WebGL Engine -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -782,7 +782,8 @@ function createPCBTexture() {
     return new THREE.CanvasTexture(c);
 }
 
-function switchModelMode(mode) { return mode; }
+// (moved to bottom: switchModelMode)
+
 
 // --- 3D Scene Global Variables ---
 var scene, camera, renderer, controls;
@@ -1307,32 +1308,17 @@ function updateLayerPositions(val) {
 }
 
 
-function onSliderChange(val) {
-    currentExplodeVal = parseFloat(val) / 100.0;
-    document.getElementById('sliderBadge').textContent = 'Disassembly: ' + Math.round(currentExplodeVal * 100) + '%';
-    updateLayerPositions(currentExplodeVal);
-}
+// (moved to bottom: onSliderChange)
 
-function setSliderPercent(pct) {
-    var slider = document.getElementById('explodeSlider');
-    if (slider) {
-        slider.value = pct;
-        onSliderChange(pct);
-    }
-}
 
-function toggleAutoSpin() {
-    isAutoSpinning = !isAutoSpinning;
-    var btn = document.getElementById('btnAutoSpin');
-    if (btn) btn.textContent = isAutoSpinning ? '🔄 360° Spin: ON' : '⏸ 360° Spin: OFF';
-}
+// (moved to bottom: setSliderPercent)
 
-function toggleLaser() {
-    isLaserActive = !isLaserActive;
-    if (laserPlane) laserPlane.visible = isLaserActive;
-    var btn = document.getElementById('btnLaser');
-    if (btn) btn.textContent = isLaserActive ? '⚡ Scan Laser: ON' : '⚡ Scan Laser: OFF';
-}
+
+// (moved to bottom: toggleAutoSpin)
+
+
+// (moved to bottom: toggleLaser)
+
 
 function toggleAutoPlay() {
     isAutoPlaying = !isAutoPlaying;
@@ -1349,15 +1335,8 @@ function reset3DCamera() {
     }
 }
 
-function setCameraAngle(view) {
-    if (!phoneModelGroup) return;
-    if (view === 'front') phoneModelGroup.rotation.set(0, 0, 0);
-    else if (view === 'back') phoneModelGroup.rotation.set(0, Math.PI, 0);
-    else if (view === 'left') phoneModelGroup.rotation.set(0, Math.PI / 2, 0);
-    else if (view === 'right') phoneModelGroup.rotation.set(0, -Math.PI / 2, 0);
-    else if (view === 'top') phoneModelGroup.rotation.set(Math.PI / 2, 0, 0);
-    else if (view === 'bottom') phoneModelGroup.rotation.set(-Math.PI / 2, 0, 0);
-}
+// (moved to bottom: setCameraAngle)
+
 
 function inspectPart(partId) {
     var comp = null;
@@ -1401,12 +1380,10 @@ function onWindowResize() {
 }
 var spinVelocity = 0.0;
 
-function animate() {
-    requestAnimationFrame(animate);
-    var t = clock.getElapsedTime();
-
-    // Rotate Cyber Pedestal Rings with pulse
-    if (cyberRing1) cyberRing1.rotation.z = t * 0.32;
+// OLD animate (replaced by new version below)
+function _old_animate_unused() {
+    var t = 0; // placeholder
+    var t2 = t;
     if (cyberRing2) cyberRing2.rotation.z = -t * 0.18;
     if (cyberRing1 && cyberRing1.material) {
         cyberRing1.material.opacity = 0.45 + 0.2 * Math.sin(t * 2.1);
@@ -1850,6 +1827,174 @@ function buildPCBLayers() {
     maskG.add(new THREE.Mesh(new THREE.BoxGeometry(pW,pH,0.008),new THREE.MeshStandardMaterial({color:0x1A6620,roughness:0.5,transparent:true,opacity:0.85})));
     maskG.userData={closedY:0,explodedY:2.0*spread,name:'Solder Mask + Silkscreen',id:'c6'};
     phoneModelGroup.add(maskG); layers.push(maskG);
+}
+
+// ─── INIT CALL — THIS STARTS EVERYTHING ───────────────────────────────────────
+var scene, camera, renderer, controls, clock;
+var phoneModelGroup, cyberRing1, cyberRing2, laserPlane;
+var layers = [], screws = [];
+var isAutoSpinning = true, isPointerDown = false, isLaserActive = true;
+var currentExplodeVal = 0.0;
+var lastPointerX = 0;
+
+function init() {
+    var container = document.getElementById('canvas-3d-container');
+    if (!container) { console.error('canvas-3d-container NOT FOUND'); return; }
+
+    var width = container.clientWidth || 700;
+    var height = container.clientHeight || 520;
+
+    // Scene
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x04060A);
+    scene.fog = new THREE.FogExp2(0x04060A, 0.04);
+
+    // Camera
+    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 200);
+    camera.position.set(0, 1.5, 11);
+
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.shadowMap.enabled = false;
+    container.appendChild(renderer.domElement);
+
+    // Controls
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.enableZoom = true;
+    controls.minDistance = 4;
+    controls.maxDistance = 22;
+    controls.maxPolarAngle = Math.PI * 0.9;
+
+    // Clock
+    clock = new THREE.Clock();
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    var mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    mainLight.position.set(5, 10, 7);
+    scene.add(mainLight);
+    var cyanRim = new THREE.DirectionalLight(0x00F0FF, 0.8);
+    cyanRim.position.set(-8, -4, 6);
+    scene.add(cyanRim);
+    var goldFill = new THREE.PointLight(0xFFD700, 0.8, 20);
+    goldFill.position.set(0, 4, 6);
+    scene.add(goldFill);
+
+    // Hologram pedestal
+    buildHologramEnvironment();
+
+    // Model group
+    phoneModelGroup = new THREE.Group();
+    scene.add(phoneModelGroup);
+
+    // Route to correct device model
+    var deviceShape = '__SHAPE_TYPE__';
+    if      (deviceShape === 'laptop')  buildLaptopLayers();
+    else if (deviceShape === 'desktop') buildDesktopLayers();
+    else if (deviceShape === 'tablet')  buildTabletLayers();
+    else if (deviceShape === 'display') buildTVLayers();
+    else if (deviceShape === 'battery') buildBatteryPackLayers();
+    else if (deviceShape === 'pcb')     buildPCBLayers();
+    else                                buildRealisticPhoneLayers();
+
+    updateLayerPositions(currentExplodeVal);
+
+    // Touch / Mouse controls for spinning
+    renderer.domElement.addEventListener('pointerdown', function(e) {
+        isPointerDown = true;
+        lastPointerX = e.clientX;
+    });
+    renderer.domElement.addEventListener('pointermove', function(e) {
+        if (isPointerDown && !isAutoSpinning && phoneModelGroup) {
+            var dx = e.clientX - lastPointerX;
+            phoneModelGroup.rotation.y += dx * 0.008;
+            lastPointerX = e.clientX;
+        }
+    });
+    renderer.domElement.addEventListener('pointerup', function() { isPointerDown = false; });
+    renderer.domElement.addEventListener('pointerleave', function() { isPointerDown = false; });
+
+    window.addEventListener('resize', function() {
+        var w2 = container.clientWidth;
+        var h2 = container.clientHeight;
+        camera.aspect = w2 / h2;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w2, h2);
+    });
+
+    animate();
+}
+
+// ─── ANIMATE LOOP ────────────────────────────────────────────────────────────
+function animate() {
+    requestAnimationFrame(animate);
+    var t = clock ? clock.getElapsedTime() : 0;
+
+    if (controls) controls.update();
+
+    if (cyberRing1) cyberRing1.rotation.z = t * 0.32;
+    if (cyberRing2) cyberRing2.rotation.z = -t * 0.18;
+    if (cyberRing1 && cyberRing1.material) cyberRing1.material.opacity = 0.45 + 0.2 * Math.sin(t * 2.1);
+
+    if (laserPlane && isLaserActive) {
+        laserPlane.position.y = Math.sin(t * 1.6) * 3.1;
+        if (laserPlane.material) laserPlane.material.opacity = 0.5 + 0.28 * Math.sin(t * 3.0);
+    }
+
+    if (phoneModelGroup) {
+        if (isAutoSpinning && !isPointerDown) {
+            phoneModelGroup.rotation.y += 0.012;
+        }
+    }
+
+    if (renderer && scene && camera) renderer.render(scene, camera);
+}
+
+// ─── SLIDER CONTROLS ─────────────────────────────────────────────────────────
+function onSliderChange(val) {
+    currentExplodeVal = parseFloat(val) / 100.0;
+    updateLayerPositions(currentExplodeVal);
+    var badge = document.getElementById('sliderBadge');
+    if (badge) badge.textContent = 'Disassembly: ' + Math.round(currentExplodeVal * 100) + '%';
+}
+
+function setSliderPercent(pct) {
+    var sl = document.getElementById('explodeSlider');
+    if (sl) { sl.value = pct; onSliderChange(pct); }
+}
+
+function toggleAutoSpin() {
+    isAutoSpinning = !isAutoSpinning;
+    var btn = document.getElementById('btnAutoSpin');
+    if (btn) btn.textContent = isAutoSpinning ? '🔄 360° Spin: ON' : '⏸ 360° Spin: OFF';
+}
+
+function toggleLaser() {
+    isLaserActive = !isLaserActive;
+    if (laserPlane) laserPlane.visible = isLaserActive;
+}
+
+function switchModelMode(mode) {}
+function setCameraAngle(a) {
+    if (!camera) return;
+    if (a==='front')  { camera.position.set(0,1.5,11); }
+    else if (a==='back')   { camera.position.set(0,1.5,-11); }
+    else if (a==='left')   { camera.position.set(-11,1.5,0); }
+    else if (a==='right')  { camera.position.set(11,1.5,0); }
+    else if (a==='top')    { camera.position.set(0,12,1); }
+    else if (a==='bottom') { camera.position.set(0,-10,3); }
+    camera.lookAt(0,0,0);
+}
+
+// ─── LAUNCH ──────────────────────────────────────────────────────────────────
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
 }
 </script>
 </body>
