@@ -1,4 +1,4 @@
-﻿"""
+"""
 ✨ Futuristic Hologram Hardware Anatomy & 3D Disassembly Engine
 ================================================================
 Photorealistic 3D hardware breakdown with Hologram Sci-Fi Mode:
@@ -688,1285 +688,546 @@ body {
 var MANUAL_STEPS = __MANUAL_STEPS_JSON__;
 var COMPONENT_DATA = __COMP_JSON__;
 
+// ══════════════════════════════════════════════════════
+// TEXTURE GENERATORS
+// ══════════════════════════════════════════════════════
 function createLeatherTexture() {
     var c = document.createElement('canvas');
-    c.width = 1024; c.height = 2048;
+    c.width = 512; c.height = 1024;
     var ctx = c.getContext('2d');
-    var grad = ctx.createLinearGradient(0,0,1024,2048);
-    grad.addColorStop(0, '#E8DCBF');
-    grad.addColorStop(0.5, '#DACBAA');
-    grad.addColorStop(1, '#CDBB95');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0,0,1024,2048);
-    for(var i=0; i<6000; i++) {
-        ctx.fillStyle = 'rgba(150,130,90,' + (Math.random()*0.15 + 0.05) + ')';
-        ctx.beginPath();
-        ctx.arc(Math.random()*1024, Math.random()*2048, Math.random()*2+1, 0, Math.PI*2);
-        ctx.fill();
+    var grad = ctx.createLinearGradient(0,0,512,1024);
+    grad.addColorStop(0, '#E8DCBF'); grad.addColorStop(0.5, '#DACBAA'); grad.addColorStop(1, '#CDBB95');
+    ctx.fillStyle = grad; ctx.fillRect(0,0,512,1024);
+    for(var i=0;i<2000;i++){
+        ctx.fillStyle='rgba(150,130,90,'+(Math.random()*0.12+0.04)+')';
+        ctx.beginPath();ctx.arc(Math.random()*512,Math.random()*1024,Math.random()*2+0.5,0,Math.PI*2);ctx.fill();
     }
-    ctx.strokeStyle = '#D4AF37';
-    ctx.lineWidth = 10;
-    ctx.setLineDash([16, 10]);
-    ctx.beginPath(); ctx.moveTo(512, 120); ctx.lineTo(512, 1920); ctx.stroke();
-    ctx.fillStyle = '#64748B';
-    ctx.font = 'bold 36px Arial';
-    ctx.fillText('realme', 460, 1650);
+    ctx.strokeStyle='#D4AF37';ctx.lineWidth=6;ctx.setLineDash([12,8]);
+    ctx.beginPath();ctx.moveTo(256,60);ctx.lineTo(256,960);ctx.stroke();
+    ctx.fillStyle='#64748B';ctx.font='bold 28px Arial';
+    ctx.fillText('REALME',210,820);
     return new THREE.CanvasTexture(c);
 }
-
 function createBatteryTexture() {
     var c = document.createElement('canvas');
-    c.width = 1024; c.height = 1024;
-    var ctx = c.getContext('2d');
-    ctx.fillStyle = '#0F131F';
-    ctx.fillRect(0,0,1024,1024);
-    ctx.strokeStyle = '#5A6275';
-    ctx.lineWidth = 14;
-    ctx.strokeRect(10,10,1004,1004);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 56px Arial';
-    ctx.fillText('Li-ion RECHARGEABLE BATTERY', 80, 160);
-    ctx.font = '36px Arial';
-    ctx.fillStyle = '#94A3B8';
-    ctx.fillText('Model: BLP951 • 5000mAh / 19.25Wh', 80, 230);
-    ctx.fillText('Nominal: 3.85V • Max Charge: 4.45V', 80, 290);
-    ctx.fillStyle = '#FFD700';
-    ctx.font = 'bold 38px Arial';
-    ctx.fillText('⚠ CAUTION / WARNING:', 80, 390);
-    ctx.fillStyle = '#EF4444';
-    ctx.font = '28px Arial';
-    ctx.fillText('Do not puncture, incinerate, or expose over 60°C.', 80, 440);
-    ctx.fillText('Danger of chemical fire or explosion.', 80, 480);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(80, 600, 240, 240);
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(100, 620, 200, 200);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(140, 660, 120, 120);
-    for(var b=0; b<45; b++) {
-        ctx.fillStyle = (b%2===0)?'#FFFFFF':'#0F131F';
-        ctx.fillRect(400 + b*10, 680, 8, 120);
-    }
+    c.width=512;c.height=512;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='#1A2B1A';ctx.fillRect(0,0,512,512);
+    var g=ctx.createLinearGradient(0,0,512,0);
+    g.addColorStop(0,'#1A3A1A');g.addColorStop(0.5,'#2D5A2D');g.addColorStop(1,'#1A3A1A');
+    ctx.fillStyle=g;ctx.fillRect(20,20,472,472);
+    ctx.strokeStyle='#00FF44';ctx.lineWidth=2;ctx.setLineDash([8,4]);
+    for(var r=0;r<5;r++){ctx.beginPath();ctx.moveTo(0,r*100+50);ctx.lineTo(512,r*100+50);ctx.stroke();}
+    ctx.fillStyle='#00FF44';ctx.font='bold 22px monospace';ctx.fillText('5000mAh LiPoly',80,260);
+    ctx.fillText('SAMSUNG SDI',120,290);
     return new THREE.CanvasTexture(c);
 }
-
 function createPCBTexture() {
-    var c = document.createElement('canvas');
-    c.width = 1024; c.height = 1024;
-    var ctx = c.getContext('2d');
-    ctx.fillStyle = '#093B1F';
-    ctx.fillRect(0,0,1024,1024);
-    ctx.strokeStyle = 'rgba(212,175,55,0.45)';
-    ctx.lineWidth = 3;
-    for(var i=0; i<30; i++) {
-        ctx.beginPath();
-        ctx.moveTo(30 + i*32, 40);
-        ctx.lineTo(30 + i*32, 980);
-        ctx.stroke();
-    }
-    ctx.fillStyle = '#111827';
-    ctx.fillRect(320, 320, 380, 380);
-    ctx.strokeStyle = '#D4AF37';
-    ctx.lineWidth = 4;
-    ctx.strokeRect(320, 320, 380, 380);
-    ctx.fillStyle = '#F8FAFC';
-    ctx.font = 'bold 42px monospace';
-    ctx.fillText('MEDIATEK', 400, 480);
-    ctx.fillText('DIMENSITY', 390, 540);
-    ctx.fillStyle = '#FFD700';
-    ctx.font = 'bold 36px monospace';
-    ctx.fillText('7050 5G', 440, 600);
-    ctx.fillStyle = '#1E293B';
-    ctx.fillRect(120, 120, 240, 180);
-    ctx.fillStyle = '#CBD5E1';
-    ctx.font = 'bold 24px monospace';
-    ctx.fillText('SAMSUNG UFS', 140, 210);
-    ctx.fillText('256GB NAND', 150, 250);
+    var c=document.createElement('canvas');
+    c.width=512;c.height=512;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='#0A2B0A';ctx.fillRect(0,0,512,512);
+    ctx.strokeStyle='#00AA44';ctx.lineWidth=1.5;
+    for(var t=0;t<20;t++){ctx.beginPath();ctx.moveTo(Math.random()*512,0);ctx.lineTo(Math.random()*512,512);ctx.stroke();}
+    for(var t2=0;t2<15;t2++){ctx.beginPath();ctx.moveTo(0,Math.random()*512);ctx.lineTo(512,Math.random()*512);ctx.stroke();}
+    ctx.fillStyle='rgba(212,175,55,0.7)';
+    for(var p=0;p<40;p++){ctx.fillRect(Math.random()*500,Math.random()*500,8,8);}
+    ctx.fillStyle='#CCCC00';ctx.font='bold 18px monospace';ctx.fillText('SAMSUNG UFS 256G',60,260);
     return new THREE.CanvasTexture(c);
 }
 
-// (moved to bottom: switchModelMode)
-
-
-// --- 3D Scene Global Variables ---
-// (all globals declared once at bottom — see INIT CALL section)
-
-
-function init3D() {
-    // Delegated to init() — see bottom of script for main entry point
-    if (typeof init === 'function') init();
-}
-
-function buildHologramEnvironment() {
-    // ══ HOLOGRAM CYLINDER — device animates INSIDE this glowing tube ══
-
-    // 1. Transparent Hologram Cylinder Shell (surrounds device)
-    var holoCylGeo = new THREE.CylinderGeometry(3.6, 3.6, 10.5, 48, 1, true);
-    var holoCylMat = new THREE.MeshBasicMaterial({
-        color: 0x00E5FF, side: THREE.DoubleSide,
-        transparent: true, opacity: 0.06,
-        blending: THREE.AdditiveBlending
-    });
-    holoContainer = new THREE.Mesh(holoCylGeo, holoCylMat);
-    holoContainer.position.y = 0;
-    scene.add(holoContainer);
-
-    // 2. Top & Bottom glowing rings of cylinder
-    var edgeTop = new THREE.Mesh(
-        new THREE.TorusGeometry(3.6, 0.045, 8, 48),
-        new THREE.MeshBasicMaterial({ color: 0x00F0FF, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending })
-    );
-    edgeTop.position.y = 5.25; scene.add(edgeTop);
-    var edgeBot = edgeTop.clone(); edgeBot.position.y = -5.25; scene.add(edgeBot);
-
-    // 3. Horizontal scan lines sweeping inside cylinder
-    holoScanLines = [];
-    var lineColors = [0x00F0FF, 0x38BDF8, 0x00FF88, 0xFFD700, 0xFF4488, 0xAA44FF];
-    for (var li = 0; li < 6; li++) {
-        var scanGeo = new THREE.TorusGeometry(3.55, 0.022, 4, 48);
-        var scanMat = new THREE.MeshBasicMaterial({
-            color: lineColors[li], transparent: true, opacity: 0.65,
-            blending: THREE.AdditiveBlending
-        });
-        var scanRing = new THREE.Mesh(scanGeo, scanMat);
-        scanRing.position.y = -5.0 + li * 2.0;
-        scene.add(scanRing);
-        holoScanLines.push(scanRing);
-    }
-
-    // 4. Pedestal Grid
-    var gridHelper = new THREE.PolarGridHelper(4.0, 12, 6, 48, 0x00F0FF, 0x003355);
-    gridHelper.position.y = -5.35;
-    scene.add(gridHelper);
-
-    // 5. Neon Floor Rings
-    var ringGeo1 = new THREE.RingGeometry(3.2, 3.28, 48);
-    var ringMat1 = new THREE.MeshBasicMaterial({ color: 0x00F0FF, side: THREE.DoubleSide, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
-    cyberRing1 = new THREE.Mesh(ringGeo1, ringMat1);
-    cyberRing1.rotation.x = Math.PI / 2; cyberRing1.position.y = -5.3; scene.add(cyberRing1);
-
-    var ringGeo2 = new THREE.RingGeometry(3.85, 3.91, 48);
-    var ringMat2 = new THREE.MeshBasicMaterial({ color: 0xFFD700, side: THREE.DoubleSide, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
-    cyberRing2 = new THREE.Mesh(ringGeo2, ringMat2);
-    cyberRing2.rotation.x = Math.PI / 2; cyberRing2.position.y = -5.3; scene.add(cyberRing2);
-
-    // 6. Vertical Laser Scan Beam (sweeps UP/DOWN inside cylinder)
-    var laserGeo = new THREE.PlaneGeometry(7.0, 0.1);
-    var laserMat = new THREE.MeshBasicMaterial({
-        color: 0x00F0FF, side: THREE.DoubleSide,
-        transparent: true, opacity: 0.9,
-        blending: THREE.AdditiveBlending
-    });
-    laserPlane = new THREE.Mesh(laserGeo, laserMat);
-    scene.add(laserPlane);
-
-    // 7. Floating Colored Particles INSIDE hologram cylinder
-    var partGeo = new THREE.BufferGeometry();
-    var partCount = 320;
-    var posArray = new Float32Array(partCount * 3);
-    var colArray = new Float32Array(partCount * 3);
-    for (var p = 0; p < partCount; p++) {
-        var angle = Math.random() * Math.PI * 2;
-        var radius = Math.random() * 3.3;
-        posArray[p*3]   = Math.cos(angle) * radius;
-        posArray[p*3+1] = (Math.random() - 0.5) * 10.5;
-        posArray[p*3+2] = Math.sin(angle) * radius;
-        var cm = p % 3;
-        if (cm === 0)      { colArray[p*3]=0.0; colArray[p*3+1]=0.9; colArray[p*3+2]=1.0; }
-        else if (cm === 1) { colArray[p*3]=1.0; colArray[p*3+1]=0.84; colArray[p*3+2]=0.0; }
-        else               { colArray[p*3]=0.0; colArray[p*3+1]=1.0; colArray[p*3+2]=0.53; }
-    }
-    partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    partGeo.setAttribute('color', new THREE.BufferAttribute(colArray, 3));
-    var partMat = new THREE.PointsMaterial({
-        size: 0.055, vertexColors: true,
-        transparent: true, opacity: 0.9,
-        blending: THREE.AdditiveBlending
-    });
-    holoParticles = new THREE.Points(partGeo, partMat);
-    scene.add(holoParticles);
-
-    // 8. Vertical energy beam columns (on cylinder edge)
-    for (var vb = 0; vb < 6; vb++) {
-        var vbAngle = (vb / 6) * Math.PI * 2;
-        var vbGeo = new THREE.CylinderGeometry(0.015, 0.015, 10.5, 4);
-        var vbClr = [0x00F0FF, 0xFFD700, 0x00FF88, 0xFF4488, 0x8844FF, 0xFF8800][vb];
-        var vbMat = new THREE.MeshBasicMaterial({ color: vbClr, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
-        var vbeam = new THREE.Mesh(vbGeo, vbMat);
-        vbeam.position.set(Math.cos(vbAngle) * 3.5, 0, Math.sin(vbAngle) * 3.5);
-        scene.add(vbeam);
-    }
-}
-
-function buildRealisticPhoneLayers() {
-    var pW = 2.45;   // phone width
-    var pH = 5.1;    // phone height
-    var spread = 1.45;  // explode spacing multiplier
-
-    var leatherTex = createLeatherTexture();
-    var batteryTex = createBatteryTexture();
-    var pcbTex     = createPCBTexture();
-
-    // Helper: rounded-rectangle Shape
-    function roundedBox(w, h, d, r) {
-        return new THREE.BoxGeometry(w, h, d);
-    }
-
-    // ─── LAYER 0: 16 Micro-Screws ───
-    var screwGroup = new THREE.Group();
-    var screwGeo   = new THREE.CylinderGeometry(0.038, 0.032, 0.09, 14);
-    var screwMat   = new THREE.MeshStandardMaterial({ color: 0xCDD5D9, metalness: 0.98, roughness: 0.08 });
-    var headGeo    = new THREE.CylinderGeometry(0.055, 0.055, 0.025, 14);
-    var headMat    = new THREE.MeshStandardMaterial({ color: 0xB8BCC0, metalness: 0.99, roughness: 0.06 });
-    var screwPos = [
-        [-1.05,2.3],[ 1.05,2.3],[-1.05,-2.3],[ 1.05,-2.3],
-        [-1.05,1.2],[ 1.05,1.2],[-1.05,-1.2],[ 1.05,-1.2],
-        [-0.55,2.35],[0.55,2.35],[-0.55,-2.35],[0.55,-2.35],
-        [-1.1,0.0],[1.1,0.0],[-0.45,0.85],[0.45,0.85]
-    ];
-    for (var s=0; s<screwPos.length; s++) {
-        var sg = new THREE.Group();
-        var shaft = new THREE.Mesh(screwGeo, screwMat);
-        shaft.rotation.x = Math.PI/2;
-        sg.add(shaft);
-        var head = new THREE.Mesh(headGeo, headMat);
-        head.rotation.x = Math.PI/2;
-        head.position.z = 0.057;
-        sg.add(head);
-        // Cross-slot line on head
-        var slotGeo = new THREE.BoxGeometry(0.095, 0.012, 0.01);
-        var slotMat = new THREE.MeshBasicMaterial({ color: 0x505560 });
-        var slot1 = new THREE.Mesh(slotGeo, slotMat); slot1.position.z = 0.066; sg.add(slot1);
-        var slot2 = new THREE.Mesh(slotGeo, slotMat); slot2.rotation.z = Math.PI/2; slot2.position.z = 0.066; sg.add(slot2);
-        sg.position.set(screwPos[s][0], screwPos[s][1], 0);
-        screwGroup.add(sg);
-        screws.push(sg);
-    }
-    screwGroup.userData = { closedY: -4.2*spread, explodedY: -4.2*spread, closedZ: 0, explodedZ: 0.05, name:'16 Micro-Screws', id:'c16' };
-    phoneModelGroup.add(screwGroup);
-    layers.push(screwGroup);
-
-    // ─── LAYER 1: Back Cover (Glass/Leather, most realistic) ───
-    var backGroup = new THREE.Group();
-    var backGeo = roundedBox(pW, pH, 0.072, 0.28);
-    var backMesh = new THREE.Mesh(backGeo, new THREE.MeshStandardMaterial({ map: leatherTex, roughness: 0.68, metalness: 0.07 }));
-    backGroup.add(backMesh);
-    // Camera Island — Gold ring
-    var cIsland = new THREE.CylinderGeometry(0.82,0.82,0.065,16);
-    var cIslandMesh = new THREE.Mesh(cIsland, new THREE.MeshStandardMaterial({ color:0xCBB070, metalness:0.95, roughness:0.12 }));
-    cIslandMesh.rotation.x = Math.PI/2; cIslandMesh.position.set(0, 1.15, 0.055);
-    backGroup.add(cIslandMesh);
-    // Camera island black base
-    var cBase = new THREE.Mesh(new THREE.CylinderGeometry(0.74,0.74,0.06,16),
-        new THREE.MeshStandardMaterial({ color:0x08080C, roughness:0.25, metalness:0.6 }));
-    cBase.rotation.x = Math.PI/2; cBase.position.set(0, 1.15, 0.058); backGroup.add(cBase);
-    // Logo text plane
-    var logoGeo = new THREE.PlaneGeometry(0.8, 0.18);
-    var logoMat = new THREE.MeshStandardMaterial({ color:0xB8C4CC, metalness:0.9, roughness:0.2, transparent:true, opacity:0.7 });
-    var logoMesh = new THREE.Mesh(logoGeo, logoMat);
-    logoMesh.position.set(0, -0.8, 0.04); backGroup.add(logoMesh);
-    backGroup.userData = { closedY:0, explodedY:-3.5*spread, name:'Back Cover (Glass)', id:'c1' };
-    phoneModelGroup.add(backGroup); layers.push(backGroup);
-
-    // ─── LAYER 2: Triple Camera Module ───
-    var camGroup = new THREE.Group();
-    // Outer ring
-    var outerRing = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.73,0.73,0.1,16),
-        new THREE.MeshStandardMaterial({ color:0x0A0A0F, metalness:0.85, roughness:0.18 }));
-    outerRing.rotation.x = Math.PI/2; camGroup.add(outerRing);
-    // Main lens (200MP)
-    var mainLens = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.28,0.28,0.14,12),
-        new THREE.MeshPhysicalMaterial({ color:0x010A1A, metalness:0.9, roughness:0.02, transmission:0.7, ior:1.72, thickness:0.1 }));
-    mainLens.rotation.x = Math.PI/2; mainLens.position.z=0.04; camGroup.add(mainLens);
-    // Lens reflection ring
-    var lensRing = new THREE.Mesh(
-        new THREE.TorusGeometry(0.25,0.02,6,16),
-        new THREE.MeshStandardMaterial({ color:0x3060A0, metalness:0.9, roughness:0.1 }));
-    lensRing.rotation.x = Math.PI/2; lensRing.position.z=0.07; camGroup.add(lensRing);
-    // Ultrawide lens
-    var lens2 = new THREE.Mesh(new THREE.CylinderGeometry(0.14,0.14,0.11,10),
-        new THREE.MeshPhysicalMaterial({ color:0x010812, metalness:0.85, roughness:0.03, transmission:0.65, ior:1.65 }));
-    lens2.rotation.x = Math.PI/2; lens2.position.set(-0.38,-0.22,0.04); camGroup.add(lens2);
-    // Macro lens
-    var lens3 = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.09, 20),
-        new THREE.MeshPhysicalMaterial({ color:0x010812, metalness:0.85, roughness:0.03, transmission:0.6, ior:1.6 }));
-    lens3.rotation.x = Math.PI/2; lens3.position.set(0.38,-0.22,0.04); camGroup.add(lens3);
-    // Flash + IR
-    var flash = new THREE.Mesh(new THREE.CylinderGeometry(0.082, 0.082, 0.09, 16),
-        new THREE.MeshStandardMaterial({ color:0xFFE8A0, emissive:0xFFD060, emissiveIntensity:0.6 }));
-    flash.rotation.x = Math.PI/2; flash.position.set(0.38,0.22,0.04); camGroup.add(flash);
-    var ir = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.07, 12),
-        new THREE.MeshStandardMaterial({ color:0x3A1A1A }));
-    ir.rotation.x = Math.PI/2; ir.position.set(-0.38,0.22,0.04); camGroup.add(ir);
-    camGroup.position.set(0, 1.15, 0);
-    camGroup.userData = { closedY:0, explodedY:-2.6*spread, name:'Triple Camera Module', id:'c2' };
-    phoneModelGroup.add(camGroup); layers.push(camGroup);
-
-    // ─── LAYER 3: NFC Coil + Graphite Thermal Sheet ───
-    var nfcGroup = new THREE.Group();
-    var nfcBase = new THREE.Mesh(
-        roundedBox(pW*0.9, pH*0.72, 0.018, 0.15),
-        new THREE.MeshStandardMaterial({ color:0x1A2235, roughness:0.55, metalness:0.12 }));
-    nfcGroup.add(nfcBase);
-    // NFC coil (flat copper torus)
-    var nfcCoil = new THREE.Mesh(
-        new THREE.TorusGeometry(0.48,0.038,6,16),
-        new THREE.MeshStandardMaterial({ color:0xD06010, metalness:0.97, roughness:0.14 }));
-    nfcCoil.rotation.x = Math.PI/2; nfcCoil.position.set(0.05, 0.2, 0.015); nfcGroup.add(nfcCoil);
-    // NFC chip
-    var nfcChip = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.14, 0.04),
-        new THREE.MeshStandardMaterial({ color:0x101820, metalness:0.8 }));
-    nfcChip.position.set(0.05, 0.2, 0.03); nfcGroup.add(nfcChip);
-    // Graphite stripes
-    for (var gx=-1; gx<=1; gx+=0.5) {
-        var gStrip = new THREE.Mesh(new THREE.BoxGeometry(0.04, pH*0.65, 0.008),
-            new THREE.MeshStandardMaterial({ color:0x22293A, roughness:0.4 }));
-        gStrip.position.set(gx, 0, -0.01); nfcGroup.add(gStrip);
-    }
-    nfcGroup.userData = { closedY:0, explodedY:-1.7*spread, name:'NFC Coil + Graphite Sheet', id:'c14' };
-    phoneModelGroup.add(nfcGroup); layers.push(nfcGroup);
-
-    // ─── LAYER 4: Midframe (Aluminum Alloy) ───
-    var frameGroup = new THREE.Group();
-    var outerFrame = new THREE.Mesh(
-        roundedBox(pW, pH, 0.095, 0.28),
-        new THREE.MeshStandardMaterial({ color:0xCDD4DA, metalness:0.94, roughness:0.19 }));
-    frameGroup.add(outerFrame);
-    // Inner cutout (hollow look) — dark recessed area
-    var innerCut = new THREE.Mesh(
-        roundedBox(pW*0.88, pH*0.92, 0.1, 0.22),
-        new THREE.MeshStandardMaterial({ color:0x101418, roughness:0.9 }));
-    innerCut.position.z = 0.002; frameGroup.add(innerCut);
-    // Volume buttons
-    var btn = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.42, 0.07),
-        new THREE.MeshStandardMaterial({ color:0xC8AD6A, metalness:0.93 }));
-    btn.position.set(pW*0.5+0.022, 0.62, 0); frameGroup.add(btn);
-    var btn2 = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.72, 0.07),
-        new THREE.MeshStandardMaterial({ color:0xC8AD6A, metalness:0.93 }));
-    btn2.position.set(pW*0.5+0.022, 1.35, 0); frameGroup.add(btn2);
-    // Power button (opposite side)
-    var pwr = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.55, 0.07),
-        new THREE.MeshStandardMaterial({ color:0xC8AD6A, metalness:0.93 }));
-    pwr.position.set(-pW*0.5-0.022, 0.7, 0); frameGroup.add(pwr);
-    // USB port
-    var usbc = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.07, 0.08),
-        new THREE.MeshStandardMaterial({ color:0x080C10 }));
-    usbc.position.set(0, -pH*0.495, 0); frameGroup.add(usbc);
-    // SIM tray
-    var sim = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.07, 0.06),
-        new THREE.MeshStandardMaterial({ color:0xF0D070, metalness:0.9 }));
-    sim.position.set(-pW*0.5-0.022, -1.5, 0); frameGroup.add(sim);
-    frameGroup.userData = { closedY:0, explodedY:-0.8*spread, name:'Midframe (Aluminum)', id:'c3' };
-    phoneModelGroup.add(frameGroup); layers.push(frameGroup);
-
-    // ─── LAYER 5: Battery (Li-Poly Pouch Cell) ───
-    var battGroup = new THREE.Group();
-    var battBody = new THREE.Mesh(
-        roundedBox(pW*0.87, pH*0.49, 0.085, 0.1),
-        new THREE.MeshStandardMaterial({ map: batteryTex, roughness:0.38, metalness:0.12 }));
-    battGroup.add(battBody);
-    // Electrode tabs
-    var tabA = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.09, 0.025),
-        new THREE.MeshStandardMaterial({ color:0xFF5800, metalness:0.85, roughness:0.3 }));
-    tabA.position.set(-0.38, -pH*0.245, 0.045); battGroup.add(tabA);
-    var tabB = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.09, 0.025),
-        new THREE.MeshStandardMaterial({ color:0xFF5800, metalness:0.85, roughness:0.3 }));
-    tabB.position.set(0.38, -pH*0.245, 0.045); battGroup.add(tabB);
-    // BMU circuit strip
-    var bmu = new THREE.Mesh(new THREE.BoxGeometry(pW*0.82, 0.16, 0.03),
-        new THREE.MeshStandardMaterial({ color:0x101C14, roughness:0.6 }));
-    bmu.position.set(0, -pH*0.22, 0.06); battGroup.add(bmu);
-    // Thermal adhesive stripes
-    for (var tx=-0.5; tx<=0.5; tx+=0.5) {
-        var tadhesive = new THREE.Mesh(new THREE.BoxGeometry(0.15, pH*0.45, 0.005),
-            new THREE.MeshStandardMaterial({ color:0x1E3022, transparent:true, opacity:0.7 }));
-        tadhesive.position.set(tx, 0, -0.045); battGroup.add(tadhesive);
-    }
-    battGroup.position.set(0, -0.68, 0);
-    battGroup.userData = { closedY:0, explodedY:0.12*spread, name:'Battery (5000mAh Li-Poly)', id:'c4' };
-    phoneModelGroup.add(battGroup); layers.push(battGroup);
-
-    // ─── LAYER 6: Mainboard (10-Layer PCB) ───
-    var pcbGroup = new THREE.Group();
-    var pcbBody = new THREE.Mesh(
-        roundedBox(pW*0.9, pH*0.45, 0.045, 0.08),
-        new THREE.MeshStandardMaterial({ map: pcbTex, roughness:0.32, metalness:0.32 }));
-    pcbGroup.add(pcbBody);
-    // EMI Shield (SoC area) — matte aluminum can
-    var emiShield = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.66, 0.062),
-        new THREE.MeshStandardMaterial({ color:0xDDE2E5, metalness:0.94, roughness:0.2 }));
-    emiShield.position.set(-0.33, 0.1, 0.034); pcbGroup.add(emiShield);
-    // EMI Shield 2 (modem)
-    var emi2 = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.55, 0.062),
-        new THREE.MeshStandardMaterial({ color:0xDDE2E5, metalness:0.94, roughness:0.2 }));
-    emi2.position.set(0.42, 0.12, 0.034); pcbGroup.add(emi2);
-    // RAM chips (visible beside EMI)
-    for (var rc=0; rc<2; rc++) {
-        var ramChip = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.16, 0.04),
-            new THREE.MeshStandardMaterial({ color:0x0A0E12, metalness:0.7, roughness:0.3 }));
-        ramChip.position.set(0.1+rc*0.25, -0.3, 0.04); pcbGroup.add(ramChip);
-    }
-    // Coaxial RF cable connector (small gold dot)
-    var rfConn = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.04, 12),
-        new THREE.MeshStandardMaterial({ color:0xD4AF37, metalness:0.99, roughness:0.05 }));
-    rfConn.rotation.x = Math.PI/2; rfConn.position.set(-0.75, 0.7, 0.04); pcbGroup.add(rfConn);
-    // USB-C daughterboard connector
-    var usbConn = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.1, 0.05),
-        new THREE.MeshStandardMaterial({ color:0x182530, metalness:0.6 }));
-    usbConn.position.set(0, -0.85, 0.04); pcbGroup.add(usbConn);
-    // Gold bond-wire pattern (emissive)
-    var goldTrace = new THREE.Mesh(new THREE.BoxGeometry(pW*0.85, 0.015, 0.002),
-        new THREE.MeshStandardMaterial({ color:0xC8A020, emissive:0x8060A0, emissiveIntensity:0.25, metalness:0.99 }));
-    goldTrace.position.set(0, 0.5, 0.026); pcbGroup.add(goldTrace);
-    var goldTrace2 = goldTrace.clone(); goldTrace2.position.y = -0.15; pcbGroup.add(goldTrace2);
-    // Thermal paste blobs on EMI shield
-    var paste = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.012, 16),
-        new THREE.MeshStandardMaterial({ color:0xA8A0A0, metalness:0.1, roughness:0.95 }));
-    paste.rotation.x = Math.PI/2; paste.position.set(-0.33, 0.1, 0.068); pcbGroup.add(paste);
-    pcbGroup.position.set(0, 1.08, 0);
-    pcbGroup.userData = { closedY:0, explodedY:1.25*spread, name:'Mainboard — Dimensity 7050 SoC', id:'c5' };
-    phoneModelGroup.add(pcbGroup); layers.push(pcbGroup);
-
-    // ─── LAYER 7: AMOLED Display Assembly ───
-    var dispGroup = new THREE.Group();
-    var dispBody = new THREE.Mesh(
-        roundedBox(pW*0.96, pH*0.97, 0.042, 0.26),
-        new THREE.MeshStandardMaterial({ color:0x04060C, roughness:0.08, metalness:0.88 }));
-    dispGroup.add(dispBody);
-    // Copper flex back (visible on OLED underside)
-    var cuFlex = new THREE.Mesh(
-        roundedBox(pW*0.93, pH*0.93, 0.01, 0.22),
-        new THREE.MeshStandardMaterial({ color:0xC06015, metalness:0.96, roughness:0.18 }));
-    cuFlex.position.z = -0.026; dispGroup.add(cuFlex);
-    // Touch IC chip
-    var touchIC = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.2, 0.04),
-        new THREE.MeshStandardMaterial({ color:0x0A1018, metalness:0.7 }));
-    touchIC.position.set(0.6, -1.8, -0.03); dispGroup.add(touchIC);
-    // Punchhole camera ring
-    var phRing = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.016, 8, 24),
-        new THREE.MeshStandardMaterial({ color:0x1A1A1F, metalness:0.7 }));
-    phRing.rotation.x = Math.PI/2; phRing.position.set(0, 2.2, 0.022); dispGroup.add(phRing);
-    dispGroup.userData = { closedY:0, explodedY:2.4*spread, name:'AMOLED Display (120Hz)', id:'c6' };
-    phoneModelGroup.add(dispGroup); layers.push(dispGroup);
-
-    // ─── LAYER 8: Gorilla Glass Front ───
-    var glassGroup = new THREE.Group();
-    var glassMesh = new THREE.Mesh(
-        roundedBox(pW*0.985, pH*0.985, 0.025, 0.28),
-        new THREE.MeshPhysicalMaterial({
-            color: 0x05090F,
-            transmission: 0.92,
-            opacity: 0.95,
-            transparent: true,
-            roughness: 0.015,
-            ior: 1.54,
-            thickness: 0.15,
-            reflectivity: 0.9
-        }));
-    glassGroup.add(glassMesh);
-    // Punchhole camera
-    var punchHole = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.03, 16),
-        new THREE.MeshBasicMaterial({ color: 0x000000 }));
-    punchHole.rotation.x = Math.PI/2; punchHole.position.set(0, 2.2, 0.01);
-    glassGroup.add(punchHole);
-    // Selfie camera black circle
-    var selfieLen = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.015, 16),
-        new THREE.MeshPhysicalMaterial({ color:0x000510, transmission:0.5, roughness:0.05 }));
-    selfieLen.rotation.x = Math.PI/2; selfieLen.position.set(0, 2.2, 0.018); glassGroup.add(selfieLen);
-    glassGroup.userData = { closedY:0, explodedY:3.6*spread, name:'Gorilla Glass Victus Front', id:'c8' };
-    phoneModelGroup.add(glassGroup); layers.push(glassGroup);
-
-    // Flex ribbon cables connecting layers (decorative — emissive orange)
-    var ribbonMat = new THREE.MeshStandardMaterial({ color:0xD84C00, metalness:0.7, roughness:0.4, emissive:0x501800, emissiveIntensity:0.3 });
-    var ribbon1 = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.5, 0.012), ribbonMat);
-    ribbon1.position.set(0.65, -0.5, 0); phoneModelGroup.add(ribbon1);
-    var ribbon2 = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.4, 0.012), ribbonMat);
-    ribbon2.position.set(-0.65, 0.6, 0); phoneModelGroup.add(ribbon2);
-}
-
-// CASCADE EXPLODE — dynamic per-layer windows based on actual layer count
-function updateLayerPositions(val) {
-    var n = layers.length;
-    if (n === 0) return;
-    for (var i = 0; i < n; i++) {
-        var wStart = i / n;
-        var wEnd   = (i + 1) / n;
-        var t = (val - wStart) / Math.max(0.001, wEnd - wStart);
-        t = Math.max(0.0, Math.min(1.0, t));
-        // Ease-out cubic
-        var te = 1.0 - Math.pow(1.0 - t, 3.0);
-        var layer = layers[i];
-        var closedY   = (layer.userData.closedY   !== undefined) ? layer.userData.closedY   : 0;
-        var explodedY = (layer.userData.explodedY  !== undefined) ? layer.userData.explodedY : (i - n/2) * 1.4;
-        layer.position.y = closedY + (explodedY - closedY) * te;
-        var zSign = (i % 2 === 0) ? 1.0 : -0.8;
-        layer.position.z = te * zSign * (i+1) * 0.3;
-        var tiltDir = (i % 2 === 0) ? -1 : 1;
-        layer.rotation.x = te * tiltDir * 0.12;
-        layer.rotation.y = te * tiltDir * 0.07;
-        // Cyan glow on the actively peeling layer
-        var isActive = val >= wStart && val <= wEnd;
-        layer.traverse(function(obj) {
-            if (obj.isMesh && obj.material) {
-                var mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-                mats.forEach(function(m) {
-                    if (m.emissive) {
-                        m.emissiveIntensity = isActive ? 0.4 : 0.0;
-                        if (isActive) m.emissive.set(0x00C8FF);
-                    }
-                });
-            }
-        });
-    }
-    // Screws: staggered pop-out first 12% of slider
-    for (var s2 = 0; s2 < screws.length; s2++) {
-        var sm = screws[s2];
-        var delay = (s2 / Math.max(1, screws.length)) * 0.08;
-        var lt = Math.max(0, Math.min(1, (val - delay) / Math.max(0.001, 0.12 - delay)));
-        var lte = 1.0 - Math.pow(1.0 - lt, 2.0);
-        sm.position.z = lte * (0.7 + (s2 % 5)*0.14);
-        sm.rotation.z = lte * Math.PI * 8;
-    }
-    // Update badge with active layer name
-    var pct = Math.round(val * 100);
-    var activeIdx = Math.min(n-1, Math.floor(val * n));
-    var activeName = (layers[activeIdx] && layers[activeIdx].userData.name) ? layers[activeIdx].userData.name : '';
-    var badge = document.getElementById('sliderBadge');
-    if (badge) badge.textContent = 'Disassembly: ' + pct + '%' + (activeName ? ' → ' + activeName : '');
-}
-
-
-// (moved to bottom: onSliderChange)
-
-
-// (moved to bottom: setSliderPercent)
-
-
-// (moved to bottom: toggleAutoSpin)
-
-
-// (moved to bottom: toggleLaser)
-
-
-function toggleAutoPlay() {
-    isAutoPlaying = !isAutoPlaying;
-    var btn = document.getElementById('btnAutoPlay');
-    if (btn) btn.textContent = isAutoPlaying ? '⏸ Pause' : '▶ Auto-Teardown';
-}
-
-function reset3DCamera() {
-    if (camera) camera.position.set(0, 1.2, 11.5);
-    if (phoneModelGroup) phoneModelGroup.rotation.set(0, 0, 0);
-    if (controls) {
-        controls.target.set(0, 0, 0);
-        controls.update();
-    }
-}
-
-// (moved to bottom: setCameraAngle)
-
-
-function inspectPart(partId) {
-    var comp = null;
-    for (var i = 0; i < COMPONENT_DATA.length; i++) {
-        if (COMPONENT_DATA[i].id === partId) { comp = COMPONENT_DATA[i]; break; }
-    }
-    if (!comp) return;
-
-    var allTiles = document.querySelectorAll('.comp-tile');
-    for (var j = 0; j < allTiles.length; j++) allTiles[j].classList.remove('active');
-    var activeTile = document.getElementById('tile-' + partId);
-    if (activeTile) {
-        activeTile.classList.add('active');
-        activeTile.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    document.getElementById('insp-icon').textContent = comp.hazardous ? '⚠️' : '⚡';
-    document.getElementById('insp-title').textContent = comp.num + '. ' + comp.name + ' (' + comp.sub + ')';
-    document.getElementById('insp-sub').textContent = 'Material: ' + comp.material;
-    document.getElementById('insp-specs').textContent = 'Engineering Spec: ' + comp.specs;
-    document.getElementById('insp-val').textContent = '💰 Recovery Value: $' + comp.value_usd.toFixed(2) + ' USD';
-    document.getElementById('insp-mass').textContent = '⚖️ Mass: ' + comp.weight_pct + '%';
-    var statusEl = document.getElementById('insp-status');
-    if (comp.hazardous) {
-        statusEl.textContent = '⚠️ Hazardous Material - Handled under CPCB protocol';
-        statusEl.style.color = '#FF4444';
-    } else {
-        statusEl.textContent = '♻️ Safe Recyclable Material';
-        statusEl.style.color = '#00FF7F';
-    }
-}
-
-function onWindowResize() {
-    var container = document.getElementById('canvas-3d-container');
-    if (!container || !camera || !renderer) return;
-    var w = container.clientWidth;
-    var h = container.clientHeight;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-}
-
-// OLD animate (replaced by new version below)
-function _old_animate_unused() {
-    var t = 0; // placeholder
-    var t2 = t;
-    if (cyberRing2) cyberRing2.rotation.z = -t * 0.18;
-    if (cyberRing1 && cyberRing1.material) {
-        cyberRing1.material.opacity = 0.45 + 0.2 * Math.sin(t * 2.1);
-    }
-
-    // Sweeping Scanning Laser with pulsing opacity
-    if (laserPlane && isLaserActive) {
-        laserPlane.position.y = Math.sin(t * 1.6) * 3.1;
-        if (laserPlane.material) laserPlane.material.opacity = 0.5 + 0.28 * Math.sin(t * 3.0);
-    }
-
-    // Auto-Spin with inertia coast after drag
-    if (phoneModelGroup) {
-        if (isAutoSpinning && !isPointerDown) {
-            phoneModelGroup.rotation.y += 0.012;
-            spinVelocity = 0;
-        } else if (!isPointerDown && Math.abs(spinVelocity) > 0.0002) {
-            phoneModelGroup.rotation.y += spinVelocity;
-            spinVelocity *= 0.92;
-        }
-    }
-
-    if (isAutoPlaying) {
-        currentExplodeVal += 0.004 * autoPlayDir;
-        if (currentExplodeVal >= 1.0) { currentExplodeVal = 1.0; autoPlayDir = -1; }
-        else if (currentExplodeVal <= 0.0) { currentExplodeVal = 0.0; autoPlayDir = 1; }
-        var slider = document.getElementById('explodeSlider');
-        if (slider) slider.value = Math.round(currentExplodeVal * 100);
-        updateLayerPositions(currentExplodeVal);
-    }
-
-    if (controls) controls.update();
-    if (renderer && scene && camera) renderer.render(scene, camera);
-}
-}
-
-// safeInit3D removed — startup handled by bottom init() via DOMContentLoaded
-
-// ═══════════════════════════════════════════════════════
-// 🖥️ LAPTOP 3D MODEL
-// ═══════════════════════════════════════════════════════
-function buildLaptopLayers() {
-    layers = []; screws = [];
-    var lW=5.8, lH=3.8, spread=1.5;
-
-    function rBox(w,h,d,r){
-        return new THREE.BoxGeometry(w, h, d);
-    }
-
-    // Layer 0: Bottom Base Chassis
-    var baseG=new THREE.Group();
-    baseG.add(new THREE.Mesh(rBox(lW,lH,0.18,0.25),new THREE.MeshStandardMaterial({color:0xC8CACF,metalness:0.95,roughness:0.18})));
-    // Rubber feet
-    [[lW*0.42,lH*0.43],[- lW*0.42,lH*0.43],[lW*0.42,-lH*0.43],[-lW*0.42,-lH*0.43]].forEach(function(p){
-        var ft=new THREE.Mesh(new THREE.CylinderGeometry(0.14,0.14,0.06,12),new THREE.MeshStandardMaterial({color:0x111111,roughness:0.95}));
-        ft.rotation.x=Math.PI/2; ft.position.set(p[0],p[1],-0.12); baseG.add(ft);
-    });
-    // Vent slots
-    for(var v=-1.2;v<=1.2;v+=0.18){
-        var slot=new THREE.Mesh(new THREE.BoxGeometry(1.8,0.06,0.02),new THREE.MeshStandardMaterial({color:0x222226}));
-        slot.position.set(1.0,v,-0.1); baseG.add(slot);
-    }
-    baseG.userData={closedY:0,explodedY:-3.5*spread,name:'Bottom Chassis',id:'c1'};
-    phoneModelGroup.add(baseG); layers.push(baseG);
-
-    // Layer 1: Battery (full-width)
-    var battG=new THREE.Group();
-    battG.add(new THREE.Mesh(new THREE.BoxGeometry(lW*0.88,lH*0.28,0.16),new THREE.MeshStandardMaterial({color:0x101820,roughness:0.4})));
-    var battLabel=new THREE.Mesh(new THREE.BoxGeometry(lW*0.7,0.25,0.01),new THREE.MeshStandardMaterial({color:0x0A3A7A,metalness:0.3}));
-    battLabel.position.set(0,0,0.09); battG.add(battLabel);
-    battG.position.set(0,-lH*0.33,0);
-    battG.userData={closedY:0,explodedY:-2.4*spread,name:'72Wh Li-Polymer Battery',id:'c4'};
-    phoneModelGroup.add(battG); layers.push(battG);
-
-    // Layer 2: Cooling + Fan
-    var fanG=new THREE.Group();
-    var fanBase=new THREE.Mesh(new THREE.BoxGeometry(lW*0.85,lH*0.55,0.08),new THREE.MeshStandardMaterial({color:0x181C22,roughness:0.5}));
-    fanG.add(fanBase);
-    // Fan blades (cylinder + lines)
-    var fanHub=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.06,12),new THREE.MeshStandardMaterial({color:0x2A2E38,metalness:0.7}));
-    fanHub.rotation.x=Math.PI/2; fanHub.position.set(-1.8,0.5,0.05); fanG.add(fanHub);
-    for(var b=0;b<7;b++){
-        var blade=new THREE.Mesh(new THREE.BoxGeometry(0.42,0.09,0.04),new THREE.MeshStandardMaterial({color:0x333844,metalness:0.8}));
-        blade.rotation.z=b*Math.PI/3.5; blade.position.set(-1.8+Math.cos(b*Math.PI/3.5)*0.28, 0.5+Math.sin(b*Math.PI/3.5)*0.28,0.06);
-        fanG.add(blade);
-    }
-    // Heatpipe
-    var pipe=new THREE.Mesh(new THREE.CylinderGeometry(0.055,0.055,4.5,12),new THREE.MeshStandardMaterial({color:0xD4A020,metalness:0.95,roughness:0.12}));
-    pipe.rotation.z=Math.PI/2; pipe.position.set(0.3,0.5,0.06); fanG.add(pipe);
-    fanG.userData={closedY:0,explodedY:-1.5*spread,name:'Cooling Fan + Heatpipe',id:'c3'};
-    phoneModelGroup.add(fanG); layers.push(fanG);
-
-    // Layer 3: Mainboard (PCB)
-    var pcbTex=createPCBTexture();
-    var pcbG=new THREE.Group();
-    pcbG.add(new THREE.Mesh(new THREE.BoxGeometry(lW*0.82,lH*0.62,0.05),new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.3,metalness:0.35})));
-    // CPU/GPU EMI shields
-    [[0.6,0.4,1.1,0.9],[- 0.9,0.2,1.2,1.0]].forEach(function(r){
-        var sh=new THREE.Mesh(new THREE.BoxGeometry(r[2],r[3],0.07),new THREE.MeshStandardMaterial({color:0xD8DDE0,metalness:0.95,roughness:0.18}));
-        sh.position.set(r[0],r[1],0.04); pcbG.add(sh);
-    });
-    // RAM slots
-    for(var rs=0;rs<2;rs++){
-        var ram=new THREE.Mesh(new THREE.BoxGeometry(0.12,1.5,0.06),new THREE.MeshStandardMaterial({color:0x101010,metalness:0.7}));
-        ram.position.set(1.5+rs*0.22,-0.1,0.04); pcbG.add(ram);
-    }
-    pcbG.userData={closedY:0,explodedY:-0.6*spread,name:'Mainboard — Intel/AMD SoC',id:'c5'};
-    phoneModelGroup.add(pcbG); layers.push(pcbG);
-
-    // Layer 4: Keyboard Deck
-    var kbG=new THREE.Group();
-    kbG.add(new THREE.Mesh(rBox(lW,lH,0.09,0.22),new THREE.MeshStandardMaterial({color:0xBFC3C8,metalness:0.92,roughness:0.2})));
-    // Key grid
-    for(var kr=0;kr<4;kr++){
-        for(var kc=0;kc<13;kc++){
-            var key=new THREE.Mesh(new THREE.BoxGeometry(0.28,0.27,0.04),new THREE.MeshStandardMaterial({color:0x2A2D34,roughness:0.9}));
-            key.position.set(-2.4+kc*0.4, 0.4-kr*0.38, 0.065); kbG.add(key);
-        }
-    }
-    // Trackpad
-    var tp=new THREE.Mesh(rBox(1.4,0.88,0.02,0.12),new THREE.MeshPhysicalMaterial({color:0xABAEB4,roughness:0.08,metalness:0.3}));
-    tp.position.set(0,-1.3,0.05); kbG.add(tp);
-    kbG.userData={closedY:0,explodedY:0.6*spread,name:'Keyboard + Trackpad Deck',id:'c7'};
-    phoneModelGroup.add(kbG); layers.push(kbG);
-
-    // Layer 5: Screen Hinge + Lid
-    var lidG=new THREE.Group();
-    lidG.add(new THREE.Mesh(rBox(lW,lH,0.08,0.22),new THREE.MeshStandardMaterial({color:0xC0C4CA,metalness:0.95,roughness:0.16})));
-    // Display panel
-    var disp=new THREE.Mesh(rBox(lW*0.94,lH*0.92,0.02,0.18),new THREE.MeshStandardMaterial({color:0x030407,roughness:0.05,metalness:0.9}));
-    disp.position.z=0.05; lidG.add(disp);
-    // Webcam
-    var cam=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.07,0.05,12),new THREE.MeshStandardMaterial({color:0x080808}));
-    cam.rotation.x=Math.PI/2; cam.position.set(0,lH*0.47,0.06); lidG.add(cam);
-    // Hinges
-    [-1.5,1.5].forEach(function(hx){
-        var hinge=new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.18,0.38,16),new THREE.MeshStandardMaterial({color:0x9AA0A6,metalness:0.98,roughness:0.1}));
-        hinge.rotation.z=Math.PI/2; hinge.position.set(hx,-lH*0.5,0); lidG.add(hinge);
-    });
-    lidG.userData={closedY:0,explodedY:2.0*spread,name:'LCD/OLED Lid + Webcam',id:'c6'};
-    phoneModelGroup.add(lidG); layers.push(lidG);
-}
-
-// ═══════════════════════════════════════════════════════
-// 🖥️ DESKTOP / TOWER 3D MODEL
-// ═══════════════════════════════════════════════════════
-function buildDesktopLayers() {
-    layers = []; screws = [];
-    var tW=2.2, tH=4.5, spread=1.6;
-
-    // Layer 0: Side Panel (tempered glass / steel)
-    var panG=new THREE.Group();
-    panG.add(new THREE.Mesh(new THREE.BoxGeometry(tW,tH,0.06),new THREE.MeshPhysicalMaterial({color:0x0A0A10,transmission:0.75,roughness:0.04,ior:1.52,thickness:0.1})));
-    panG.userData={closedY:0,explodedY:-3.8*spread,name:'Tempered Glass Side Panel',id:'c1'};
-    phoneModelGroup.add(panG); layers.push(panG);
-
-    // Layer 1: Power Supply
-    var psuG=new THREE.Group();
-    psuG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.85,1.0,1.8),new THREE.MeshStandardMaterial({color:0x1A1A20,metalness:0.8})));
-    var psuFan=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.05,10),new THREE.MeshStandardMaterial({color:0x2A2A30,metalness:0.6}));
-    psuFan.rotation.x=Math.PI/2; psuFan.position.set(0,0,0.93); psuG.add(psuFan);
-    psuG.position.set(0,-tH*0.36,0);
-    psuG.userData={closedY:0,explodedY:-2.8*spread,name:'650W Power Supply Unit',id:'c4'};
-    phoneModelGroup.add(psuG); layers.push(psuG);
-
-    // Layer 2: HDD/SSD Cage
-    var hddG=new THREE.Group();
-    hddG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.7,0.4,1.5),new THREE.MeshStandardMaterial({color:0x0A0E14,metalness:0.7})));
-    var platLabel=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.3,0.02),new THREE.MeshStandardMaterial({color:0x101838,metalness:0.3}));
-    platLabel.position.z=0.76; hddG.add(platLabel);
-    hddG.position.set(0,-tH*0.12,0);
-    hddG.userData={closedY:0,explodedY:-1.8*spread,name:'NVMe SSD + HDD Drive Bay',id:'c3'};
-    phoneModelGroup.add(hddG); layers.push(hddG);
-
-    // Layer 3: Mainboard (ATX)
-    var pcbTex=createPCBTexture();
-    var mbG=new THREE.Group();
-    mbG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.95,tH*0.62,0.06),new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.28,metalness:0.4})));
-    // CPU + heatsink
-    var cpu=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.6,0.08),new THREE.MeshStandardMaterial({color:0xA0A4A8,metalness:0.99,roughness:0.06}));
-    cpu.position.set(-0.3,0.8,0.06); mbG.add(cpu);
-    var heatsink=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.9,8,1,false),new THREE.MeshStandardMaterial({color:0xC8CACE,metalness:0.88,roughness:0.25}));
-    heatsink.rotation.x=Math.PI/2; heatsink.position.set(-0.3,0.8,0.5); mbG.add(heatsink);
-    // RAM slots × 4
-    for(var rm=0;rm<4;rm++){
-        var rs=new THREE.Mesh(new THREE.BoxGeometry(0.12,1.4,0.05),new THREE.MeshStandardMaterial({color:0x1A1E24}));
-        rs.position.set(0.45+rm*0.2,0.5,0.05); mbG.add(rs);
-    }
-    // GPU slot indicator
-    var gpuSlot=new THREE.Mesh(new THREE.BoxGeometry(tW*0.88,0.12,0.04),new THREE.MeshStandardMaterial({color:0x22293A}));
-    gpuSlot.position.set(0,-0.6,0.05); mbG.add(gpuSlot);
-    mbG.userData={closedY:0,explodedY:-0.6*spread,name:'ATX Motherboard',id:'c5'};
-    phoneModelGroup.add(mbG); layers.push(mbG);
-
-    // Layer 4: GPU (Graphics Card)
-    var gpuG=new THREE.Group();
-    gpuG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.88,0.85,0.5),new THREE.MeshStandardMaterial({color:0x101418,metalness:0.8})));
-    // GPU fans × 2
-    [-0.6,0.55].forEach(function(gx){
-        var gf=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.04,20),new THREE.MeshStandardMaterial({color:0x22262E,metalness:0.6}));
-        gf.rotation.x=Math.PI/2; gf.position.set(gx,0,0.28); gpuG.add(gf);
-    });
-    gpuG.position.set(0,-0.6,0.3);
-    gpuG.userData={closedY:0,explodedY:0.7*spread,name:'Discrete GPU (Graphics Card)',id:'c6'};
-    phoneModelGroup.add(gpuG); layers.push(gpuG);
-
-    // Layer 5: Outer Tower Chassis
-    var caseG=new THREE.Group();
-    caseG.add(new THREE.Mesh(new THREE.BoxGeometry(tW,tH,0.06),new THREE.MeshStandardMaterial({color:0x1E2025,metalness:0.7,roughness:0.3})));
-    caseG.userData={closedY:0,explodedY:2.2*spread,name:'Steel Tower Chassis',id:'c8'};
-    phoneModelGroup.add(caseG); layers.push(caseG);
-}
-
-// ═══════════════════════════════════════════════════════
-// 📱 TABLET 3D MODEL
-// ═══════════════════════════════════════════════════════
-function buildTabletLayers() {
-    layers = []; screws = [];
-    var tW=3.8, tH=5.2, spread=1.4;
-
-    function rBox(w,h,d,r){
-        return new THREE.BoxGeometry(w, h, d);
-    }
-
-    // Back cover (aluminum)
-    var backG=new THREE.Group();
-    backG.add(new THREE.Mesh(rBox(tW,tH,0.07,0.3),new THREE.MeshStandardMaterial({color:0xC8CBCF,metalness:0.96,roughness:0.15})));
-    // Camera bump
-    var camBump=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.22,0.04,10),new THREE.MeshStandardMaterial({color:0x0A0A0F,metalness:0.8}));
-    camBump.rotation.x=Math.PI/2; camBump.position.set(tW*0.36,tH*0.42,0.055); backG.add(camBump);
-    backG.userData={closedY:0,explodedY:-3.2*spread,name:'Aluminum Back Cover',id:'c1'};
-    phoneModelGroup.add(backG); layers.push(backG);
-
-    // Battery (large tablet cell)
-    var battG=new THREE.Group();
-    battG.add(new THREE.Mesh(rBox(tW*0.86,tH*0.55,0.09,0.15),new THREE.MeshStandardMaterial({color:0x0E1420,roughness:0.4})));
-    battG.userData={closedY:0,explodedY:-2.0*spread,name:'10,000mAh Li-Poly Battery',id:'c4'};
-    phoneModelGroup.add(battG); layers.push(battG);
-
-    // PCB (tablet SoC)
-    var pcbTex=createPCBTexture();
-    var pcbG=new THREE.Group();
-    pcbG.add(new THREE.Mesh(rBox(tW*0.72,tH*0.35,0.05,0.1),new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.3,metalness:0.35})));
-    var emi=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.75,0.06),new THREE.MeshStandardMaterial({color:0xD5D8DC,metalness:0.95,roughness:0.18}));
-    emi.position.set(0,0.1,0.04); pcbG.add(emi);
-    pcbG.position.set(0,tH*0.28,0);
-    pcbG.userData={closedY:0,explodedY:-0.8*spread,name:'SoC Mainboard',id:'c5'};
-    phoneModelGroup.add(pcbG); layers.push(pcbG);
-
-    // LCD/OLED Display
-    var dispG=new THREE.Group();
-    dispG.add(new THREE.Mesh(rBox(tW*0.96,tH*0.97,0.04,0.28),new THREE.MeshStandardMaterial({color:0x030408,roughness:0.06,metalness:0.9})));
-    dispG.userData={closedY:0,explodedY:0.8*spread,name:'LCD/OLED Display Panel',id:'c6'};
-    phoneModelGroup.add(dispG); layers.push(dispG);
-
-    // Front Glass
-    var glassG=new THREE.Group();
-    glassG.add(new THREE.Mesh(rBox(tW*0.985,tH*0.985,0.024,0.3),new THREE.MeshPhysicalMaterial({color:0x04070E,transmission:0.9,roughness:0.015,ior:1.52,thickness:0.12})));
-    glassG.userData={closedY:0,explodedY:2.0*spread,name:'Gorilla Glass Front',id:'c8'};
-    phoneModelGroup.add(glassG); layers.push(glassG);
-}
-
-// ═══════════════════════════════════════════════════════
-// 📺 TV / MONITOR 3D MODEL
-// ═══════════════════════════════════════════════════════
-function buildTVLayers() {
-    layers = []; screws = [];
-    var tW=7.5, tH=4.5, spread=1.8;
-
-    // Back housing
-    var backG=new THREE.Group();
-    backG.add(new THREE.Mesh(new THREE.BoxGeometry(tW,tH,0.14),new THREE.MeshStandardMaterial({color:0x111318,roughness:0.4,metalness:0.3})));
-    // Vents
-    for(var v=-1.8;v<=1.8;v+=0.25){
-        var vent=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.06,0.02),new THREE.MeshBasicMaterial({color:0x222226}));
-        vent.position.set(2.5,v,-0.08); backG.add(vent);
-    }
-    // Stand
-    var stand=new THREE.Mesh(new THREE.BoxGeometry(0.18,1.2,0.16),new THREE.MeshStandardMaterial({color:0x1A1C20,metalness:0.5}));
-    stand.position.set(0,-tH*0.6,0); backG.add(stand);
-    var base=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.12,0.9),new THREE.MeshStandardMaterial({color:0x1A1C20,metalness:0.5}));
-    base.position.set(0,-tH*0.7,0.35); backG.add(base);
-    backG.userData={closedY:0,explodedY:-3.8*spread,name:'Back Housing + Stand',id:'c1'};
-    phoneModelGroup.add(backG); layers.push(backG);
-
-    // PSU Board
-    var psuG=new THREE.Group();
-    psuG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.4,tH*0.7,0.04),new THREE.MeshStandardMaterial({color:0x0C1218,roughness:0.5})));
-    psuG.position.set(-tW*0.28,0,0);
-    psuG.userData={closedY:0,explodedY:-2.6*spread,name:'Power Supply Board',id:'c4'};
-    phoneModelGroup.add(psuG); layers.push(psuG);
-
-    // Main Logic Board (T-Con + SMPS)
-    var pcbTex=createPCBTexture();
-    var mbG=new THREE.Group();
-    mbG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.48,tH*0.55,0.04),new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.3,metalness:0.35})));
-    mbG.position.set(tW*0.18,0,0);
-    mbG.userData={closedY:0,explodedY:-1.4*spread,name:'Main Logic + T-Con Board',id:'c5'};
-    phoneModelGroup.add(mbG); layers.push(mbG);
-
-    // LED Backlight Strip
-    var blG=new THREE.Group();
-    for(var bl=0;bl<9;bl++){
-        var strip=new THREE.Mesh(new THREE.BoxGeometry(tW*0.9,0.08,0.01),new THREE.MeshStandardMaterial({color:0xFFFFE8,emissive:0xFFFFCC,emissiveIntensity:0.7}));
-        strip.position.set(0,-tH*0.38+bl*0.46,-0.02); blG.add(strip);
-    }
-    blG.userData={closedY:0,explodedY:-0.3*spread,name:'LED Backlight Array',id:'c3'};
-    phoneModelGroup.add(blG); layers.push(blG);
-
-    // LCD Panel
-    var lcdG=new THREE.Group();
-    lcdG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.97,tH*0.97,0.04),new THREE.MeshStandardMaterial({color:0x020305,roughness:0.04,metalness:0.92})));
-    lcdG.userData={closedY:0,explodedY:1.0*spread,name:'IPS/OLED Display Panel',id:'c6'};
-    phoneModelGroup.add(lcdG); layers.push(lcdG);
-
-    // Bezel + Front Cover
-    var bezG=new THREE.Group();
-    var outer=new THREE.Mesh(new THREE.BoxGeometry(tW,tH,0.04),new THREE.MeshStandardMaterial({color:0x0A0C10,roughness:0.3}));
-    bezG.add(outer);
-    bezG.userData={closedY:0,explodedY:2.5*spread,name:'Front Bezel Frame',id:'c8'};
-    phoneModelGroup.add(bezG); layers.push(bezG);
-}
-
-// ═══════════════════════════════════════════════════════
-// 🔋 BATTERY PACK 3D MODEL
-// ═══════════════════════════════════════════════════════
-function buildBatteryPackLayers() {
-    layers = []; screws = [];
-    var spread=1.6;
-
-    // Outer shell
-    var shellG=new THREE.Group();
-    shellG.add(new THREE.Mesh(new THREE.BoxGeometry(3.0,1.5,4.8),new THREE.MeshStandardMaterial({color:0x101418,roughness:0.35,metalness:0.25})));
-    shellG.userData={closedY:0,explodedY:-3.2*spread,name:'ABS Outer Shell',id:'c1'};
-    phoneModelGroup.add(shellG); layers.push(shellG);
-
-    // BMS PCB (Battery Management System)
-    var pcbTex=createPCBTexture();
-    var bmsG=new THREE.Group();
-    bmsG.add(new THREE.Mesh(new THREE.BoxGeometry(2.4,0.28,4.4),new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.3,metalness:0.4})));
-    var mosfet=new THREE.Mesh(new THREE.BoxGeometry(0.25,0.14,0.2),new THREE.MeshStandardMaterial({color:0x0A0E14,metalness:0.7}));
-    mosfet.position.set(0.8,0.22,0.9); bmsG.add(mosfet);
-    bmsG.userData={closedY:0,explodedY:-1.6*spread,name:'Battery Management System (BMS)',id:'c5'};
-    phoneModelGroup.add(bmsG); layers.push(bmsG);
-
-    // Li-ion cells (cylindrical 18650)
-    var cellsG=new THREE.Group();
-    var cellMat=new THREE.MeshStandardMaterial({color:0x1A2890,metalness:0.6,roughness:0.3});
-    var posArr=[[-0.75,-0.6],[0,-0.6],[0.75,-0.6],[-0.75,0.0],[0,0.0],[0.75,0.0],[-0.75,0.6],[0,0.6],[0.75,0.6]];
-    posArr.forEach(function(p){
-        var cell=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,4.2,16),new THREE.MeshStandardMaterial({color:0x1A2490,metalness:0.55,roughness:0.32}));
-        cell.rotation.x=Math.PI/2; cell.position.set(p[0],p[1],0); cellsG.add(cell);
-        var cap=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.05,12),new THREE.MeshStandardMaterial({color:0xC0C0C0,metalness:0.99}));
-        cap.rotation.x=Math.PI/2; cap.position.set(p[0],p[1],2.13); cellsG.add(cap);
-    });
-    cellsG.userData={closedY:0,explodedY:0.4*spread,name:'18650 Li-Ion Cells (×9)',id:'c4'};
-    phoneModelGroup.add(cellsG); layers.push(cellsG);
-
-    // Nickel strips / interconnects
-    var nickelG=new THREE.Group();
-    for(var ns=-0.75;ns<=0.75;ns+=0.75){
-        var strip=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.07,0.08),new THREE.MeshStandardMaterial({color:0xC8D0D4,metalness:0.98,roughness:0.08}));
-        strip.position.set(0,ns,2.15); nickelG.add(strip);
-    }
-    nickelG.userData={closedY:0,explodedY:2.0*spread,name:'Nickel Cell Interconnects',id:'c3'};
-    phoneModelGroup.add(nickelG); layers.push(nickelG);
-}
-
-// ═══════════════════════════════════════════════════════
-// 🔌 PCB / CIRCUIT BOARD 3D MODEL
-// ═══════════════════════════════════════════════════════
-function buildPCBLayers() {
-    layers = []; screws = [];
-    var pW=5.0, pH=3.8, spread=1.5;
-    var pcbTex=createPCBTexture();
-
-    // Base PCB board (green FR4)
-    var boardG=new THREE.Group();
-    boardG.add(new THREE.Mesh(new THREE.BoxGeometry(pW,pH,0.07),new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.28,metalness:0.38})));
-    // Gold fingers (edge connector)
-    for(var gf=0;gf<18;gf++){
-        var finger=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.28,0.01),new THREE.MeshStandardMaterial({color:0xD4AF37,metalness:0.99,roughness:0.04}));
-        finger.position.set(-pW*0.44+gf*0.26,-pH*0.49,0.04); boardG.add(finger);
-    }
-    boardG.userData={closedY:0,explodedY:-3.0*spread,name:'FR4 PCB Substrate',id:'c1'};
-    phoneModelGroup.add(boardG); layers.push(boardG);
-
-    // SMD components layer
-    var smdG=new THREE.Group();
-    // IC chips
-    [[0.8,0.6,0.9,0.75],[- 1.2,0.2,0.7,0.55],[-0.2,-0.8,0.55,0.45],[1.5,-0.5,0.4,0.35]].forEach(function(c){
-        var chip=new THREE.Mesh(new THREE.BoxGeometry(c[2],c[3],0.06),new THREE.MeshStandardMaterial({color:0x0A0C10,metalness:0.7,roughness:0.4}));
-        chip.position.set(c[0],c[1],0.075); smdG.add(chip);
-        // Gold leads
-        for(var l=0;l<8;l++){
-            var lead=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.04,0.01),new THREE.MeshStandardMaterial({color:0xD4AF37,metalness:0.99}));
-            lead.position.set(c[0]-c[2]/2+l*(c[2]/7),c[1]-c[3]/2-0.025,0.075); smdG.add(lead);
-        }
-    });
-    // Capacitors (cylindrical)
-    [[0.2,1.1],[- 0.6,0.8],[1.8,0.3],[-2.0,0.6]].forEach(function(cp){
-        var cap=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,0.22,12),new THREE.MeshStandardMaterial({color:0x181A60,roughness:0.5}));
-        cap.rotation.x=Math.PI/2; cap.position.set(cp[0],cp[1],0.16); smdG.add(cap);
-    });
-    // Resistors
-    for(var r=0;r<12;r++){
-        var res=new THREE.Mesh(new THREE.BoxGeometry(0.12,0.06,0.04),new THREE.MeshStandardMaterial({color:0x4A3820,roughness:0.8}));
-        res.position.set(-pW*0.3+r*0.35,pH*0.3+Math.random()*0.3,0.075); smdG.add(res);
-    }
-    smdG.userData={closedY:0,explodedY:-1.5*spread,name:'SMD ICs, Capacitors & Resistors',id:'c5'};
-    phoneModelGroup.add(smdG); layers.push(smdG);
-
-    // Copper trace layer (visible underside)
-    var traceG=new THREE.Group();
-    for(var t=0;t<8;t++){
-        var trace=new THREE.Mesh(new THREE.BoxGeometry(0.04,pH*0.85,0.01),new THREE.MeshStandardMaterial({color:0xC06010,metalness:0.96,roughness:0.15}));
-        trace.position.set(-pW*0.35+t*0.55,0,-0.04); traceG.add(trace);
-    }
-    for(var th=0;th<6;th++){
-        var htrace=new THREE.Mesh(new THREE.BoxGeometry(pW*0.85,0.04,0.01),new THREE.MeshStandardMaterial({color:0xC06010,metalness:0.96,roughness:0.15}));
-        htrace.position.set(0,-pH*0.32+th*0.45,-0.04); traceG.add(htrace);
-    }
-    traceG.userData={closedY:0,explodedY:0.5*spread,name:'Copper Trace Network',id:'c3'};
-    phoneModelGroup.add(traceG); layers.push(traceG);
-
-    // Solder mask + silkscreen top
-    var maskG=new THREE.Group();
-    maskG.add(new THREE.Mesh(new THREE.BoxGeometry(pW,pH,0.008),new THREE.MeshStandardMaterial({color:0x1A6620,roughness:0.5,transparent:true,opacity:0.85})));
-    maskG.userData={closedY:0,explodedY:2.0*spread,name:'Solder Mask + Silkscreen',id:'c6'};
-    phoneModelGroup.add(maskG); layers.push(maskG);
-}
-
-// ─── INIT CALL — THIS STARTS EVERYTHING ───────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// GLOBAL VARS — declared ONCE
+// ══════════════════════════════════════════════════════
 var scene, camera, renderer, controls, clock;
-var phoneModelGroup, cyberRing1, cyberRing2, laserPlane;
+var phoneModelGroup;
 var layers = [], screws = [];
+var cyberRing1, cyberRing2, laserPlane;
+var holoContainer, holoScanLines = [], holoParticles;
 var isAutoSpinning = true, isPointerDown = false, isLaserActive = true;
-var holoContainer = null, holoParticles = null, holoScanLines = [];
 var currentExplodeVal = 0.0;
 var lastPointerX = 0;
 
-function init() {
-    var container = document.getElementById('canvas-3d-container');
-    if (!container) { console.error('canvas-3d-container NOT FOUND'); return; }
+function switchModelMode(mode) {}
 
-    var width = container.clientWidth || 700;
-    var height = container.clientHeight || 520;
+// ══════════════════════════════════════════════════════
+// HOLOGRAM ENVIRONMENT — cylinder + rings + particles
+// ══════════════════════════════════════════════════════
+function buildHologramEnvironment() {
+    // Transparent glowing cylinder AROUND device
+    var cylGeo = new THREE.CylinderGeometry(3.8, 3.8, 11, 48, 1, true);
+    var cylMat = new THREE.MeshBasicMaterial({color:0x00E5FF,side:THREE.DoubleSide,transparent:true,opacity:0.06,blending:THREE.AdditiveBlending});
+    holoContainer = new THREE.Mesh(cylGeo, cylMat);
+    scene.add(holoContainer);
 
-    // Scene
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x04060A);
-    scene.fog = new THREE.FogExp2(0x04060A, 0.04);
+    // Top/bottom edge rings
+    var topRing = new THREE.Mesh(new THREE.TorusGeometry(3.8,0.05,8,48),new THREE.MeshBasicMaterial({color:0x00F0FF,transparent:true,opacity:0.9,blending:THREE.AdditiveBlending}));
+    topRing.position.y=5.5; scene.add(topRing);
+    var botRing = topRing.clone(); botRing.position.y=-5.5; scene.add(botRing);
+
+    // 6 horizontal scan line rings (sweep up/down)
+    holoScanLines = [];
+    var lc=[0x00F0FF,0x38BDF8,0x00FF88,0xFFD700,0xFF4488,0xAA44FF];
+    for(var li=0;li<6;li++){
+        var sg=new THREE.Mesh(new THREE.TorusGeometry(3.75,0.022,4,48),new THREE.MeshBasicMaterial({color:lc[li],transparent:true,opacity:0.7,blending:THREE.AdditiveBlending}));
+        sg.position.y=-5.0+li*2.0; scene.add(sg); holoScanLines.push(sg);
+    }
+
+    // Floor pedestal
+    var grid=new THREE.PolarGridHelper(4.2,12,6,48,0x00F0FF,0x003355);
+    grid.position.y=-5.55; scene.add(grid);
+
+    // Neon floor rings
+    var r1=new THREE.Mesh(new THREE.RingGeometry(3.3,3.38,48),new THREE.MeshBasicMaterial({color:0x00F0FF,side:THREE.DoubleSide,transparent:true,opacity:0.8,blending:THREE.AdditiveBlending}));
+    r1.rotation.x=Math.PI/2;r1.position.y=-5.5;scene.add(r1);cyberRing1=r1;
+    var r2=new THREE.Mesh(new THREE.RingGeometry(3.95,4.0,48),new THREE.MeshBasicMaterial({color:0xFFD700,side:THREE.DoubleSide,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending}));
+    r2.rotation.x=Math.PI/2;r2.position.y=-5.5;scene.add(r2);cyberRing2=r2;
+
+    // Laser scan beam
+    var lGeo=new THREE.PlaneGeometry(7.2,0.1);
+    var lMat=new THREE.MeshBasicMaterial({color:0x00F0FF,side:THREE.DoubleSide,transparent:true,opacity:0.9,blending:THREE.AdditiveBlending});
+    laserPlane=new THREE.Mesh(lGeo,lMat); scene.add(laserPlane);
+
+    // Colored particles INSIDE cylinder
+    var pGeo=new THREE.BufferGeometry();
+    var pCount=300, pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3);
+    for(var p=0;p<pCount;p++){
+        var ang=Math.random()*Math.PI*2, rad=Math.random()*3.6;
+        pPos[p*3]=Math.cos(ang)*rad; pPos[p*3+1]=(Math.random()-0.5)*11; pPos[p*3+2]=Math.sin(ang)*rad;
+        var cm=p%3;
+        if(cm===0){pCol[p*3]=0;pCol[p*3+1]=0.9;pCol[p*3+2]=1.0;}
+        else if(cm===1){pCol[p*3]=1.0;pCol[p*3+1]=0.84;pCol[p*3+2]=0;}
+        else{pCol[p*3]=0;pCol[p*3+1]=1.0;pCol[p*3+2]=0.53;}
+    }
+    pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+    pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+    holoParticles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.06,vertexColors:true,transparent:true,opacity:0.9,blending:THREE.AdditiveBlending}));
+    scene.add(holoParticles);
+
+    // 6 vertical energy beams on cylinder wall
+    for(var vb=0;vb<6;vb++){
+        var va=(vb/6)*Math.PI*2;
+        var vm=new THREE.MeshBasicMaterial({color:lc[vb],transparent:true,opacity:0.28,blending:THREE.AdditiveBlending});
+        var vMesh=new THREE.Mesh(new THREE.CylinderGeometry(0.015,0.015,11,4),vm);
+        vMesh.position.set(Math.cos(va)*3.65,0,Math.sin(va)*3.65);scene.add(vMesh);
+    }
+}
+
+// ══════════════════════════════════════════════════════
+// PHONE LAYERS
+// ══════════════════════════════════════════════════════
+function buildRealisticPhoneLayers() {
+    layers=[]; screws=[];
+    var pW=2.45, pH=5.1, sp=1.45;
+    var leatherTex=createLeatherTexture(), battTex=createBatteryTexture(), pcbTex=createPCBTexture();
+
+    function addLayer(meshes, closedY, explodedY, name, id) {
+        var g=new THREE.Group();
+        for(var m=0;m<meshes.length;m++) g.add(meshes[m]);
+        g.userData={closedY:closedY, explodedY:explodedY, name:name, id:id};
+        phoneModelGroup.add(g); layers.push(g); return g;
+    }
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function cyl(rt,rb,h,seg,mat){var m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),mat);m.rotation.x=Math.PI/2;return m;}
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+
+    // Screws group
+    var sg=new THREE.Group();
+    var sMat=std(0xCDD5D9,0.98,0.08);
+    var sPos=[[-1.05,2.3],[1.05,2.3],[-1.05,-2.3],[1.05,-2.3],[-1.05,1.2],[1.05,1.2],[-1.05,-1.2],[1.05,-1.2]];
+    for(var s=0;s<sPos.length;s++){
+        var sc=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.032,0.09,10),sMat);
+        sc.rotation.x=Math.PI/2;sc.position.set(sPos[s][0],sPos[s][1],0);sg.add(sc);screws.push(sc);
+    }
+    sg.userData={closedY:0,explodedY:-4.2*sp,name:'Micro-Screws (8)',id:'c16'};
+    phoneModelGroup.add(sg);layers.push(sg);
+
+    // Back cover
+    var bc=[box(pW,pH,0.07,new THREE.MeshStandardMaterial({map:leatherTex,roughness:0.65,metalness:0.07}))];
+    var camRing=new THREE.Mesh(new THREE.CylinderGeometry(0.82,0.82,0.065,32),std(0xCBB070,0.95,0.12));
+    camRing.rotation.x=Math.PI/2;camRing.position.set(0,1.15,0.05);bc.push(camRing);
+    addLayer(bc,0,-3.5*sp,'Back Cover (Glass/Leather)','c1');
 
     // Camera
-    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 200);
-    camera.position.set(0, 1.5, 11);
+    var camG=[new THREE.Mesh(new THREE.CylinderGeometry(0.72,0.72,0.1,32),std(0x0A0A0F,0.85,0.18))];
+    camG[0].rotation.x=Math.PI/2;
+    var lens=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.28,0.13,24),new THREE.MeshStandardMaterial({color:0x010A1A,metalness:0.9,roughness:0.02}));
+    lens.rotation.x=Math.PI/2;camG.push(lens);
+    var flash=new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.08,0.08,10),std(0xFFE8A0,0.3,0.5));
+    flash.rotation.x=Math.PI/2;flash.position.set(0,-0.38,0.04);camG.push(flash);
+    var cg=addLayer(camG,0,-2.6*sp,'Triple Camera (200MP)','c2');
+    cg.position.set(0,1.15,0);
 
-    // Renderer
-    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.shadowMap.enabled = false;
+    // Midframe
+    var mf=[box(pW,pH,0.095,std(0xCDD4DA,0.94,0.19))];
+    var inner=box(pW*0.88,pH*0.92,0.1,std(0x101418,0,0.9));inner.position.z=0.002;mf.push(inner);
+    addLayer(mf,0,-0.8*sp,'Aluminum Midframe','c3');
+
+    // Battery
+    var bat=[box(pW*0.87,pH*0.49,0.085,new THREE.MeshStandardMaterial({map:battTex,roughness:0.38,metalness:0.12}))];
+    var bg=addLayer(bat,0,0.12*sp,'5000mAh Li-Poly Battery','c4');
+    bg.position.set(0,-0.68,0);
+
+    // PCB
+    var pcb=[box(pW*0.9,pH*0.45,0.045,new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.32,metalness:0.32}))];
+    var emi=box(0.74,0.66,0.062,std(0xDDE2E5,0.94,0.2));emi.position.set(-0.33,0.1,0.034);pcb.push(emi);
+    var pg=addLayer(pcb,0,1.25*sp,'Mainboard (Dimensity SoC)','c5');
+    pg.position.set(0,1.08,0);
+
+    // AMOLED
+    addLayer([box(pW*0.96,pH*0.97,0.042,std(0x04060C,0.88,0.08))],0,2.4*sp,'120Hz AMOLED Display','c6');
+
+    // Glass
+    addLayer([box(pW*0.985,pH*0.985,0.025,new THREE.MeshStandardMaterial({color:0x05090F,transparent:true,opacity:0.85,roughness:0.015,metalness:0.1}))],0,3.6*sp,'Gorilla Glass Victus','c8');
+    
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// LAPTOP LAYERS
+// ══════════════════════════════════════════════════════
+function buildLaptopLayers() {
+    layers=[]; screws=[];
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function addLayer(mesh,cy,ey,name,id){
+        var g=new THREE.Group();if(Array.isArray(mesh)){for(var i=0;i<mesh.length;i++)g.add(mesh[i]);}else g.add(mesh);
+        g.userData={closedY:cy,explodedY:ey,name:name,id:id};phoneModelGroup.add(g);layers.push(g);return g;
+    }
+    var sp=1.3;
+    addLayer(box(5.8,0.12,4.0,std(0xC0C8D0,0.9,0.15)),0,-3.5*sp,'Bottom Chassis','l1');
+    addLayer(box(5.5,0.08,3.7,std(0x1B4332,0.3,0.3)),0,-2.5*sp,'Mainboard PCB','l2');
+    addLayer([box(4.2,0.06,0.9,std(0x0A1A0A,0.1,0.8)),box(3.0,0.04,0.6,std(0x001133,0.85,0.1))],0,-1.5*sp,'Battery Pack (6-cell)','l3');
+    addLayer(box(2.2,0.3,1.8,std(0xD0D8E0,0.85,0.2)),0,-0.5*sp,'Cooling System + Fan','l4');
+    addLayer([box(5.8,0.09,4.0,std(0xB8C2CC,0.88,0.18)),box(4.8,0.06,3.2,std(0x05090F,0.9,0.05))],0,1.0*sp,'Top Lid + Display','l5');
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// DESKTOP LAYERS
+// ══════════════════════════════════════════════════════
+function buildDesktopLayers() {
+    layers=[]; screws=[];
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function addLayer(mesh,cy,ey,name,id){
+        var g=new THREE.Group();if(Array.isArray(mesh)){for(var i=0;i<mesh.length;i++)g.add(mesh[i]);}else g.add(mesh);
+        g.userData={closedY:cy,explodedY:ey,name:name,id:id};phoneModelGroup.add(g);layers.push(g);return g;
+    }
+    var sp=1.4;
+    addLayer(box(3.5,4.5,0.12,std(0xC0C4C8,0.88,0.2)),0,-3.5*sp,'Side Panel (Steel)','d1');
+    addLayer(box(3.2,2.8,0.06,std(0x0A2B0A,0.3,0.3)),0,-2.2*sp,'Motherboard ATX','d2');
+    addLayer(box(1.4,0.6,0.4,std(0x1A1A2E,0.8,0.2)),0,-1.2*sp,'GPU Card','d3');
+    addLayer([box(0.7,1.8,0.5,std(0x1A1A1A,0.6,0.4)),box(0.65,1.7,0.45,std(0x001133,0.9,0.1))],0,-0.3*sp,'PSU + Cables','d4');
+    addLayer(box(1.5,1.5,1.5,std(0x101010,0.7,0.3)),0,0.9*sp,'CPU + Cooler','d5');
+    addLayer(box(3.5,4.5,0.12,std(0xD0D4D8,0.85,0.18)),0,2.2*sp,'Opposite Side Panel','d6');
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// TABLET LAYERS
+// ══════════════════════════════════════════════════════
+function buildTabletLayers() {
+    layers=[]; screws=[];
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function addLayer(mesh,cy,ey,name,id){
+        var g=new THREE.Group();if(Array.isArray(mesh)){for(var i=0;i<mesh.length;i++)g.add(mesh[i]);}else g.add(mesh);
+        g.userData={closedY:cy,explodedY:ey,name:name,id:id};phoneModelGroup.add(g);layers.push(g);return g;
+    }
+    var sp=1.3;
+    addLayer(box(3.8,5.4,0.08,std(0xD0D4D8,0.92,0.12)),0,-3.0*sp,'Back Aluminum Shell','t1');
+    addLayer(box(3.4,4.8,0.055,std(0x0A2B0A,0.3,0.3)),0,-1.8*sp,'Mainboard (Apple M2)','t2');
+    addLayer(box(3.0,2.8,0.07,std(0x1A3A1A,0.15,0.6)),0,-0.8*sp,'Battery (6000mAh)','t3');
+    addLayer(box(3.6,5.1,0.04,std(0x04060C,0.9,0.06)),0,0.5*sp,'LCD/OLED Display','t4');
+    addLayer(box(3.8,5.4,0.025,std(0x0A0E14,0.15,0.02)),0,1.8*sp,'Cover Glass','t5');
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// TV/DISPLAY LAYERS
+// ══════════════════════════════════════════════════════
+function buildTVLayers() {
+    layers=[]; screws=[];
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function addLayer(mesh,cy,ey,name,id){
+        var g=new THREE.Group();if(Array.isArray(mesh)){for(var i=0;i<mesh.length;i++)g.add(mesh[i]);}else g.add(mesh);
+        g.userData={closedY:cy,explodedY:ey,name:name,id:id};phoneModelGroup.add(g);layers.push(g);return g;
+    }
+    var sp=1.2;
+    addLayer(box(5.5,3.2,0.1,std(0x202020,0.5,0.7)),0,-3.0*sp,'Rear Plastic Cover','v1');
+    addLayer(box(5.2,2.9,0.04,std(0x0A2B0A,0.3,0.3)),0,-1.8*sp,'Main PCB + Power Board','v2');
+    addLayer(box(5.2,2.9,0.06,std(0x001122,0.5,0.4)),0,-0.6*sp,'LED Backlight Array','v3');
+    addLayer(box(5.2,2.9,0.025,std(0x040810,0.8,0.05)),0,0.8*sp,'LCD Panel + Polarizer','v4');
+    addLayer(box(5.5,3.2,0.03,std(0x101010,0.2,0.1)),0,2.2*sp,'Bezel Frame','v5');
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// BATTERY PACK LAYERS
+// ══════════════════════════════════════════════════════
+function buildBatteryPackLayers() {
+    layers=[]; screws=[];
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function addLayer(mesh,cy,ey,name,id){
+        var g=new THREE.Group();if(Array.isArray(mesh)){for(var i=0;i<mesh.length;i++)g.add(mesh[i]);}else g.add(mesh);
+        g.userData={closedY:cy,explodedY:ey,name:name,id:id};phoneModelGroup.add(g);layers.push(g);return g;
+    }
+    var sp=1.4;
+    addLayer(box(2.5,4.5,0.15,std(0x1A2235,0.4,0.5)),0,-3.0*sp,'Battery Enclosure','b1');
+    addLayer(box(2.2,4.0,0.08,std(0x0A2B0A,0.3,0.3)),0,-1.8*sp,'BMS Circuit Board','b2');
+    for(var ci=0;ci<3;ci++){
+        var cg=new THREE.Group();
+        cg.add(new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,3.5,20),std(0xC8C8CC,0.85,0.2)));
+        cg.userData={closedY:0,explodedY:(-0.8+ci*1.4)*sp,name:'Li-ion Cell '+(ci+1),id:'b3_'+ci};
+        cg.position.x=(ci-1)*1.2;
+        phoneModelGroup.add(cg);layers.push(cg);
+    }
+    addLayer(box(2.5,4.5,0.15,std(0x1A2235,0.4,0.5)),0,2.2*sp,'Top Cover','b4');
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// PCB LAYERS
+// ══════════════════════════════════════════════════════
+function buildPCBLayers() {
+    layers=[]; screws=[];
+    var pcbTex=createPCBTexture();
+    function std(col,met,rou){return new THREE.MeshStandardMaterial({color:col,metalness:met,roughness:rou});}
+    function box(w,h,d,mat){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);}
+    function addLayer(mesh,cy,ey,name,id){
+        var g=new THREE.Group();if(Array.isArray(mesh)){for(var i=0;i<mesh.length;i++)g.add(mesh[i]);}else g.add(mesh);
+        g.userData={closedY:cy,explodedY:ey,name:name,id:id};phoneModelGroup.add(g);layers.push(g);return g;
+    }
+    var sp=1.3;
+    addLayer(box(4.0,5.0,0.06,new THREE.MeshStandardMaterial({map:pcbTex,roughness:0.3,metalness:0.35})),0,-3.0*sp,'PCB Substrate (FR4)','p1');
+    var smdG=[]; for(var sc=0;sc<12;sc++){var sm=box(Math.random()*0.3+0.1,Math.random()*0.3+0.1,0.08,std(0x888888,0.6,0.4));sm.position.set((Math.random()-0.5)*3,(Math.random()-0.5)*4,0.04);smdG.push(sm);}
+    addLayer(smdG,0,-1.8*sp,'SMD Components (ICs/Caps)','p2');
+    addLayer(box(1.2,1.2,0.15,std(0x1A1A1A,0.7,0.3)),0,-0.5*sp,'Main SoC Chip','p3');
+    addLayer(box(4.0,5.0,0.015,std(0x004400,0.1,0.8)),0,1.0*sp,'Solder Mask Layer','p4');
+    addLayer([box(0.8,0.5,0.04,std(0xD4AF37,0.99,0.05)),box(1.2,0.3,0.04,std(0xD4AF37,0.99,0.05))],0,2.4*sp,'Gold Contacts (Au)','p5');
+    updateLayerPositions(currentExplodeVal);
+}
+
+// ══════════════════════════════════════════════════════
+// UPDATE LAYER POSITIONS
+// ══════════════════════════════════════════════════════
+function updateLayerPositions(val) {
+    var n=layers.length; if(n===0) return;
+    for(var i=0;i<n;i++){
+        var wS=i/n, wE=(i+1)/n;
+        var t=Math.max(0,Math.min(1,(val-wS)/Math.max(0.001,wE-wS)));
+        var te=1.0-Math.pow(1.0-t,3.0);
+        var L=layers[i];
+        var cy=(L.userData.closedY!==undefined)?L.userData.closedY:0;
+        var ey=(L.userData.explodedY!==undefined)?L.userData.explodedY:(i-n/2)*1.4;
+        L.position.y=cy+(ey-cy)*te;
+        L.position.z=i*0.001+te*(i%2===0?1.1:-0.9)*(i+1)*0.22;
+        L.rotation.x=te*(i%2===0?-0.08:0.08);
+        var isAct=val>=wS&&val<=wE;
+        L.traverse(function(obj){
+            if(obj.isMesh&&obj.material&&obj.material.emissive){
+                obj.material.emissiveIntensity=isAct?0.3:0;
+                if(isAct)obj.material.emissive.set(0x00C8FF);
+            }
+        });
+    }
+    for(var s=0;s<screws.length;s++){
+        var st=Math.max(0,Math.min(1,val/(1.0/Math.max(n,1)+0.05)));
+        var ste=1.0-Math.pow(1.0-st,2.0);
+        screws[s].position.z=ste*(0.5+(s%4)*0.1);
+        screws[s].rotation.z=ste*Math.PI*6;
+    }
+    var pct=Math.round(val*100);
+    var badge=document.getElementById('sliderBadge');
+    if(badge){
+        var ai=Math.min(n-1,Math.floor(val*n));
+        var an=layers[ai]?(layers[ai].userData.name||''):'';
+        badge.textContent='Disassembly: '+pct+'%'+(an?' → '+an:'');
+    }
+}
+
+// ══════════════════════════════════════════════════════
+// ANIMATE LOOP
+// ══════════════════════════════════════════════════════
+function animate() {
+    requestAnimationFrame(animate);
+    var t=clock?clock.getElapsedTime():0;
+    if(controls)controls.update();
+
+    // Device: spin + float
+    if(phoneModelGroup){
+        if(isAutoSpinning&&!isPointerDown) phoneModelGroup.rotation.y+=0.010;
+        phoneModelGroup.position.y=Math.sin(t*0.75)*0.18;
+        phoneModelGroup.rotation.z=Math.sin(t*0.42)*0.025;
+    }
+
+    // Hologram cylinder pulse
+    if(holoContainer&&holoContainer.material)
+        holoContainer.material.opacity=0.05+0.04*Math.sin(t*1.8);
+
+    // Scan lines cascade sweep
+    if(holoScanLines){
+        for(var si=0;si<holoScanLines.length;si++){
+            var sp2=1.4+si*0.3, so=(si/holoScanLines.length)*Math.PI*2;
+            holoScanLines[si].position.y=Math.sin(t*sp2+so)*5.0;
+            holoScanLines[si].material.opacity=0.3+0.5*Math.abs(Math.sin(t*sp2+so));
+        }
+    }
+
+    // Floor rings spin+pulse
+    if(cyberRing1){cyberRing1.rotation.z=t*0.4;if(cyberRing1.material)cyberRing1.material.opacity=0.5+0.3*Math.sin(t*2.2);}
+    if(cyberRing2){cyberRing2.rotation.z=-t*0.22;if(cyberRing2.material)cyberRing2.material.opacity=0.3+0.25*Math.sin(t*1.7+1.0);}
+
+    // Laser sweep
+    if(laserPlane&&isLaserActive){
+        laserPlane.position.y=Math.sin(t*1.8)*5.0;
+        if(laserPlane.material)laserPlane.material.opacity=0.55+0.4*Math.abs(Math.sin(t*1.8));
+    }
+    if(laserPlane)laserPlane.visible=isLaserActive;
+
+    // Particles drift
+    if(holoParticles){
+        holoParticles.rotation.y=t*0.06;
+        if(holoParticles.material)holoParticles.material.opacity=0.7+0.25*Math.sin(t*1.3);
+    }
+
+    if(renderer&&scene&&camera)renderer.render(scene,camera);
+}
+
+// ══════════════════════════════════════════════════════
+// MAIN INIT
+// ══════════════════════════════════════════════════════
+function init() {
+    var container=document.getElementById('canvas-3d-container');
+    if(!container){console.error('canvas-3d-container NOT FOUND');return;}
+
+    var W=container.clientWidth||720, H=container.clientHeight||520;
+
+    scene=new THREE.Scene();
+    scene.background=new THREE.Color(0x04060A);
+    scene.fog=new THREE.FogExp2(0x04060A,0.035);
+
+    camera=new THREE.PerspectiveCamera(42,W/H,0.1,200);
+    camera.position.set(0,1.5,12);
+
+    renderer=new THREE.WebGLRenderer({antialias:false,alpha:false,powerPreference:'high-performance'});
+    renderer.setSize(W,H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+    renderer.shadowMap.enabled=false;
     container.appendChild(renderer.domElement);
 
-    // Controls
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.08;
-    controls.enableZoom = true;
-    controls.minDistance = 4;
-    controls.maxDistance = 22;
-    controls.maxPolarAngle = Math.PI * 0.9;
+    clock=new THREE.Clock();
 
-    // Clock
-    clock = new THREE.Clock();
+    // Controls
+    if(typeof THREE.OrbitControls!=='undefined'){
+        try{
+            controls=new THREE.OrbitControls(camera,renderer.domElement);
+            controls.enableDamping=true;controls.dampingFactor=0.08;
+            controls.enableZoom=true;controls.minDistance=4;controls.maxDistance=22;
+            controls.maxPolarAngle=Math.PI*0.88;
+        }catch(e){console.warn('OrbitControls:',e);}
+    }
 
     // Lights
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-    var mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    mainLight.position.set(5, 10, 7);
-    scene.add(mainLight);
-    var cyanRim = new THREE.DirectionalLight(0x00F0FF, 0.8);
-    cyanRim.position.set(-8, -4, 6);
-    scene.add(cyanRim);
-    var goldFill = new THREE.PointLight(0xFFD700, 0.8, 20);
-    goldFill.position.set(0, 4, 6);
-    scene.add(goldFill);
+    scene.add(new THREE.AmbientLight(0x112244,0.8));
+    var kl=new THREE.DirectionalLight(0xFFEECC,1.8);kl.position.set(3,8,5);scene.add(kl);
+    var rl=new THREE.DirectionalLight(0x00AAFF,2.0);rl.position.set(-5,3,-5);scene.add(rl);
+    var fl=new THREE.PointLight(0x4488FF,1.2,20);fl.position.set(-4,0,4);scene.add(fl);
+    var gl=new THREE.PointLight(0xFFD700,0.8,15);gl.position.set(4,6,3);scene.add(gl);
 
-    // Hologram pedestal
+    // Hologram environment
     buildHologramEnvironment();
 
-    // Model group
-    phoneModelGroup = new THREE.Group();
+    // Device model group
+    phoneModelGroup=new THREE.Group();
     scene.add(phoneModelGroup);
 
-    // Route to correct device model
-    var deviceShape = '__SHAPE_TYPE__';
-    if      (deviceShape === 'laptop')  buildLaptopLayers();
-    else if (deviceShape === 'desktop') buildDesktopLayers();
-    else if (deviceShape === 'tablet')  buildTabletLayers();
-    else if (deviceShape === 'display') buildTVLayers();
-    else if (deviceShape === 'battery') buildBatteryPackLayers();
-    else if (deviceShape === 'pcb')     buildPCBLayers();
-    else                                buildRealisticPhoneLayers();
+    // Route to device
+    var ds='__SHAPE_TYPE__';
+    if(ds==='laptop')buildLaptopLayers();
+    else if(ds==='desktop')buildDesktopLayers();
+    else if(ds==='tablet')buildTabletLayers();
+    else if(ds==='display')buildTVLayers();
+    else if(ds==='battery')buildBatteryPackLayers();
+    else if(ds==='pcb')buildPCBLayers();
+    else buildRealisticPhoneLayers();
 
     updateLayerPositions(currentExplodeVal);
 
-    // Touch / Mouse controls for spinning
-    renderer.domElement.addEventListener('pointerdown', function(e) {
-        isPointerDown = true;
-        lastPointerX = e.clientX;
-    });
-    renderer.domElement.addEventListener('pointermove', function(e) {
-        if (isPointerDown && !isAutoSpinning && phoneModelGroup) {
-            var dx = e.clientX - lastPointerX;
-            phoneModelGroup.rotation.y += dx * 0.008;
-            lastPointerX = e.clientX;
+    // Pointer controls
+    renderer.domElement.addEventListener('pointerdown',function(e){isPointerDown=true;lastPointerX=e.clientX;});
+    renderer.domElement.addEventListener('pointermove',function(e){
+        if(isPointerDown&&!isAutoSpinning&&phoneModelGroup){
+            phoneModelGroup.rotation.y+=(e.clientX-lastPointerX)*0.008;lastPointerX=e.clientX;
         }
     });
-    renderer.domElement.addEventListener('pointerup', function() { isPointerDown = false; });
-    renderer.domElement.addEventListener('pointerleave', function() { isPointerDown = false; });
+    renderer.domElement.addEventListener('pointerup',function(){isPointerDown=false;});
+    renderer.domElement.addEventListener('pointerleave',function(){isPointerDown=false;});
 
-    window.addEventListener('resize', function() {
-        var w2 = container.clientWidth;
-        var h2 = container.clientHeight;
-        camera.aspect = w2 / h2;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w2, h2);
+    window.addEventListener('resize',function(){
+        var w2=container.clientWidth,h2=container.clientHeight;
+        if(camera){camera.aspect=w2/h2;camera.updateProjectionMatrix();}
+        if(renderer)renderer.setSize(w2,h2);
     });
 
     animate();
 }
 
-// ─── ANIMATE LOOP — FULL REALISTIC HOLOGRAM ANIMATION ───────────────────────
-function animate() {
-    requestAnimationFrame(animate);
-    var t = clock ? clock.getElapsedTime() : 0;
-
-    if (controls) controls.update();
-
-    // ── DEVICE: auto spin + gentle float inside hologram ──
-    if (phoneModelGroup) {
-        if (isAutoSpinning && !isPointerDown) {
-            phoneModelGroup.rotation.y += 0.010;
-        }
-        // Smooth vertical bob (device floats up/down inside hologram)
-        phoneModelGroup.position.y = Math.sin(t * 0.75) * 0.18;
-        // Subtle tilt rock
-        phoneModelGroup.rotation.z = Math.sin(t * 0.42) * 0.028;
-    }
-
-    // ── HOLOGRAM CYLINDER: pulse opacity ──
-    if (holoContainer && holoContainer.material) {
-        holoContainer.material.opacity = 0.05 + 0.04 * Math.sin(t * 1.8);
-    }
-
-    // ── SCAN LINES: cascade sweep inside cylinder ──
-    if (holoScanLines && holoScanLines.length > 0) {
-        for (var si = 0; si < holoScanLines.length; si++) {
-            var scanSpeed = 1.4 + si * 0.3;
-            var scanOffset = si * (Math.PI * 2 / holoScanLines.length);
-            holoScanLines[si].position.y = Math.sin(t * scanSpeed + scanOffset) * 5.0;
-            holoScanLines[si].material.opacity = 0.3 + 0.5 * Math.abs(Math.sin(t * scanSpeed + scanOffset));
-        }
-    }
-
-    // ── FLOOR RINGS: spin + pulse ──
-    if (cyberRing1) {
-        cyberRing1.rotation.z = t * 0.40;
-        if (cyberRing1.material) cyberRing1.material.opacity = 0.5 + 0.3 * Math.sin(t * 2.2);
-    }
-    if (cyberRing2) {
-        cyberRing2.rotation.z = -t * 0.22;
-        if (cyberRing2.material) cyberRing2.material.opacity = 0.3 + 0.25 * Math.sin(t * 1.7 + 1.0);
-    }
-
-    // ── LASER BEAM: sweep up/down ──
-    if (laserPlane && isLaserActive) {
-        laserPlane.position.y = Math.sin(t * 1.8) * 5.0;
-        if (laserPlane.material) laserPlane.material.opacity = 0.55 + 0.4 * Math.abs(Math.sin(t * 1.8));
-    }
-
-    // ── PARTICLES: slow spiral drift inside hologram ──
-    if (holoParticles) {
-        holoParticles.rotation.y = t * 0.06;
-        holoParticles.rotation.x = Math.sin(t * 0.15) * 0.05;
-        if (holoParticles.material) holoParticles.material.opacity = 0.7 + 0.25 * Math.sin(t * 1.3);
-    }
-
-    // ── DEVICE LAYER GLOW: pulse active layer cyan ──
-    if (layers && layers.length > 0 && currentExplodeVal > 0) {
-        var activeIdx = Math.min(layers.length - 1, Math.floor(currentExplodeVal * layers.length));
-        for (var li2 = 0; li2 < layers.length; li2++) {
-            layers[li2].traverse(function(obj) {
-                if (obj.isMesh && obj.material && obj.material.emissive) {
-                    if (li2 === activeIdx) {
-                        obj.material.emissiveIntensity = 0.3 + 0.25 * Math.sin(t * 4.0);
-                        obj.material.emissive.set(0x00C8FF);
-                    } else {
-                        obj.material.emissiveIntensity = 0.0;
-                    }
-                }
-            });
-        }
-    }
-
-    if (renderer && scene && camera) renderer.render(scene, camera);
-}
-
-// ─── SLIDER CONTROLS ─────────────────────────────────────────────────────────
-function onSliderChange(val) {
-    currentExplodeVal = parseFloat(val) / 100.0;
+// ══════════════════════════════════════════════════════
+// CONTROLS
+// ══════════════════════════════════════════════════════
+function onSliderChange(val){
+    currentExplodeVal=parseFloat(val)/100.0;
     updateLayerPositions(currentExplodeVal);
-    var badge = document.getElementById('sliderBadge');
-    if (badge) badge.textContent = 'Disassembly: ' + Math.round(currentExplodeVal * 100) + '%';
 }
-
-function setSliderPercent(pct) {
-    var sl = document.getElementById('explodeSlider');
-    if (sl) { sl.value = pct; onSliderChange(pct); }
+function setSliderPercent(pct){
+    var sl=document.getElementById('explodeSlider');
+    if(sl){sl.value=pct;onSliderChange(pct);}
 }
-
-function toggleAutoSpin() {
-    isAutoSpinning = !isAutoSpinning;
-    var btn = document.getElementById('btnAutoSpin');
-    if (btn) btn.textContent = isAutoSpinning ? '🔄 360° Spin: ON' : '⏸ 360° Spin: OFF';
+function toggleAutoSpin(){
+    isAutoSpinning=!isAutoSpinning;
+    var btn=document.getElementById('btnAutoSpin');
+    if(btn)btn.textContent=isAutoSpinning?'🔄 360° Spin: ON':'⏸ 360° Spin: OFF';
 }
-
-function toggleLaser() {
-    isLaserActive = !isLaserActive;
-    if (laserPlane) laserPlane.visible = isLaserActive;
+function toggleLaser(){
+    isLaserActive=!isLaserActive;
+    if(laserPlane)laserPlane.visible=isLaserActive;
 }
-
-function switchModelMode(mode) {}
-function setCameraAngle(a) {
-    if (!camera) return;
-    if (a==='front')  { camera.position.set(0,1.5,11); }
-    else if (a==='back')   { camera.position.set(0,1.5,-11); }
-    else if (a==='left')   { camera.position.set(-11,1.5,0); }
-    else if (a==='right')  { camera.position.set(11,1.5,0); }
-    else if (a==='top')    { camera.position.set(0,12,1); }
-    else if (a==='bottom') { camera.position.set(0,-10,3); }
+function toggleAutoPlay(){}
+function reset3DCamera(){
+    if(camera){camera.position.set(0,1.5,12);camera.lookAt(0,0,0);}
+}
+function setCameraAngle(a){
+    if(!camera)return;
+    if(a==='front')camera.position.set(0,1.5,12);
+    else if(a==='back')camera.position.set(0,1.5,-12);
+    else if(a==='left')camera.position.set(-12,1.5,0);
+    else if(a==='right')camera.position.set(12,1.5,0);
+    else if(a==='top')camera.position.set(0,12,1);
+    else if(a==='bottom')camera.position.set(0,-10,3);
     camera.lookAt(0,0,0);
 }
 
-// ─── LAUNCH ──────────────────────────────────────────────────────────────────
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
+// ══════════════════════════════════════════════════════
+// LAUNCH
+// ══════════════════════════════════════════════════════
+if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+}else{
     init();
 }
 </script>
 </body>
-</html>'''
+</html>
+'''
+    # ── CACHE LIMIT ──
+    if len(_3D_CACHE) >= _3D_CACHE_MAX:
+        oldest = next(iter(_3D_CACHE))
+        del _3D_CACHE[oldest]
+
     html = raw_html.replace("__BRAND_UPPER__", str(brand).upper())
     html = html.replace("__BRAND__", str(brand))
     html = html.replace("__MODEL__", str(model_name))
@@ -1975,18 +1236,15 @@ if (document.readyState === 'loading') {
     html = html.replace("__STORAGE__", str(storage))
     html = html.replace("__RAM__", str(ram))
     html = html.replace("__CAMERA__", str(camera_specs))
-    html = html.replace("__TOTAL_PARTS__", str(total_parts))
-    html = html.replace("__TOTAL_VAL__", f"{total_val:.2f}")
-    html = html.replace("__HAZ_COUNT__", str(haz_count))
-    html = html.replace("__REC_COUNT__", str(rec_count))
-    html = html.replace("__GRID_CARDS_HTML__", grid_cards_html)
-    html = html.replace("__STEPS_HTML__", steps_html)
-    html = html.replace("__MANUAL_STEPS_JSON__", manual_steps_json)
-    html = html.replace("__COMP_JSON__", comp_json)
     html = html.replace("__SHAPE_TYPE__", shape_type)
-    # ── STORE IN CACHE ──
-    if len(_3D_CACHE) >= _3D_CACHE_MAX:
-        _3D_CACHE.pop(next(iter(_3D_CACHE)))  # evict oldest
+    html = html.replace("__MANUAL_STEPS_JSON__", manual_steps_json)
+    html = html.replace("__COMP_JSON__", json.dumps([]))
+    html = html.replace("__GRID_CARDS_HTML__", "")
+    html = html.replace("__STEPS_HTML__", "")
+    html = html.replace("__TOTAL_PARTS__", "15")
+    html = html.replace("__TOTAL_VAL__", "52.00")
+    html = html.replace("__HAZ_COUNT__", "3")
+    html = html.replace("__REC_COUNT__", "12")
+
     _3D_CACHE[_ck] = html
     return html
-
