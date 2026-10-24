@@ -916,52 +916,104 @@ function init3D() {
 }
 
 function buildHologramEnvironment() {
-    // 1. Hologram Circular Grid Pedestal
-    var gridHelper = new THREE.PolarGridHelper(5.5, 16, 8, 64, 0x00F0FF, 0x004466);
-    gridHelper.position.y = -3.2;
+    // ══ HOLOGRAM CYLINDER — device animates INSIDE this glowing tube ══
+
+    // 1. Transparent Hologram Cylinder Shell (surrounds device)
+    var holoCylGeo = new THREE.CylinderGeometry(3.6, 3.6, 10.5, 48, 1, true);
+    var holoCylMat = new THREE.MeshBasicMaterial({
+        color: 0x00E5FF, side: THREE.DoubleSide,
+        transparent: true, opacity: 0.06,
+        blending: THREE.AdditiveBlending
+    });
+    holoContainer = new THREE.Mesh(holoCylGeo, holoCylMat);
+    holoContainer.position.y = 0;
+    scene.add(holoContainer);
+
+    // 2. Top & Bottom glowing rings of cylinder
+    var edgeTop = new THREE.Mesh(
+        new THREE.TorusGeometry(3.6, 0.045, 8, 48),
+        new THREE.MeshBasicMaterial({ color: 0x00F0FF, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending })
+    );
+    edgeTop.position.y = 5.25; scene.add(edgeTop);
+    var edgeBot = edgeTop.clone(); edgeBot.position.y = -5.25; scene.add(edgeBot);
+
+    // 3. Horizontal scan lines sweeping inside cylinder
+    holoScanLines = [];
+    var lineColors = [0x00F0FF, 0x38BDF8, 0x00FF88, 0xFFD700, 0xFF4488, 0xAA44FF];
+    for (var li = 0; li < 6; li++) {
+        var scanGeo = new THREE.TorusGeometry(3.55, 0.022, 4, 48);
+        var scanMat = new THREE.MeshBasicMaterial({
+            color: lineColors[li], transparent: true, opacity: 0.65,
+            blending: THREE.AdditiveBlending
+        });
+        var scanRing = new THREE.Mesh(scanGeo, scanMat);
+        scanRing.position.y = -5.0 + li * 2.0;
+        scene.add(scanRing);
+        holoScanLines.push(scanRing);
+    }
+
+    // 4. Pedestal Grid
+    var gridHelper = new THREE.PolarGridHelper(4.0, 12, 6, 48, 0x00F0FF, 0x003355);
+    gridHelper.position.y = -5.35;
     scene.add(gridHelper);
 
-    // 2. Concentric Neon Cyber Rings
-    var ringGeo1 = new THREE.RingGeometry(4.2, 4.28, 32);
-    var ringMat1 = new THREE.MeshBasicMaterial({ color: 0x00F0FF, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+    // 5. Neon Floor Rings
+    var ringGeo1 = new THREE.RingGeometry(3.2, 3.28, 48);
+    var ringMat1 = new THREE.MeshBasicMaterial({ color: 0x00F0FF, side: THREE.DoubleSide, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending });
     cyberRing1 = new THREE.Mesh(ringGeo1, ringMat1);
-    cyberRing1.rotation.x = Math.PI / 2;
-    cyberRing1.position.y = -3.15;
-    scene.add(cyberRing1);
+    cyberRing1.rotation.x = Math.PI / 2; cyberRing1.position.y = -5.3; scene.add(cyberRing1);
 
-    var ringGeo2 = new THREE.RingGeometry(5.2, 5.25, 48);
-    var ringMat2 = new THREE.MeshBasicMaterial({ color: 0x38BDF8, side: THREE.DoubleSide, transparent: true, opacity: 0.4 });
+    var ringGeo2 = new THREE.RingGeometry(3.85, 3.91, 48);
+    var ringMat2 = new THREE.MeshBasicMaterial({ color: 0xFFD700, side: THREE.DoubleSide, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
     cyberRing2 = new THREE.Mesh(ringGeo2, ringMat2);
-    cyberRing2.rotation.x = Math.PI / 2;
-    cyberRing2.position.y = -3.18;
-    scene.add(cyberRing2);
+    cyberRing2.rotation.x = Math.PI / 2; cyberRing2.position.y = -5.3; scene.add(cyberRing2);
 
-    // 3. Sweeping Holographic Laser Beam
-    var laserGeo = new THREE.PlaneGeometry(8.5, 0.12);
+    // 6. Vertical Laser Scan Beam (sweeps UP/DOWN inside cylinder)
+    var laserGeo = new THREE.PlaneGeometry(7.0, 0.1);
     var laserMat = new THREE.MeshBasicMaterial({
-        color: 0x00F0FF,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.75,
+        color: 0x00F0FF, side: THREE.DoubleSide,
+        transparent: true, opacity: 0.9,
         blending: THREE.AdditiveBlending
     });
     laserPlane = new THREE.Mesh(laserGeo, laserMat);
-    laserPlane.rotation.x = Math.PI / 2;
     scene.add(laserPlane);
 
-    // 4. Floating Holographic Particles
+    // 7. Floating Colored Particles INSIDE hologram cylinder
     var partGeo = new THREE.BufferGeometry();
-    var partCount = 180;
+    var partCount = 320;
     var posArray = new Float32Array(partCount * 3);
-    for(var p=0; p<partCount*3; p+=3) {
-        posArray[p] = (Math.random() - 0.5) * 9;
-        posArray[p+1] = (Math.random() - 0.5) * 6;
-        posArray[p+2] = (Math.random() - 0.5) * 9;
+    var colArray = new Float32Array(partCount * 3);
+    for (var p = 0; p < partCount; p++) {
+        var angle = Math.random() * Math.PI * 2;
+        var radius = Math.random() * 3.3;
+        posArray[p*3]   = Math.cos(angle) * radius;
+        posArray[p*3+1] = (Math.random() - 0.5) * 10.5;
+        posArray[p*3+2] = Math.sin(angle) * radius;
+        var cm = p % 3;
+        if (cm === 0)      { colArray[p*3]=0.0; colArray[p*3+1]=0.9; colArray[p*3+2]=1.0; }
+        else if (cm === 1) { colArray[p*3]=1.0; colArray[p*3+1]=0.84; colArray[p*3+2]=0.0; }
+        else               { colArray[p*3]=0.0; colArray[p*3+1]=1.0; colArray[p*3+2]=0.53; }
     }
     partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    var partMat = new THREE.PointsMaterial({ size: 0.05, color: 0x00F0FF, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
-    var particles = new THREE.Points(partGeo, partMat);
-    scene.add(particles);
+    partGeo.setAttribute('color', new THREE.BufferAttribute(colArray, 3));
+    var partMat = new THREE.PointsMaterial({
+        size: 0.055, vertexColors: true,
+        transparent: true, opacity: 0.9,
+        blending: THREE.AdditiveBlending
+    });
+    holoParticles = new THREE.Points(partGeo, partMat);
+    scene.add(holoParticles);
+
+    // 8. Vertical energy beam columns (on cylinder edge)
+    for (var vb = 0; vb < 6; vb++) {
+        var vbAngle = (vb / 6) * Math.PI * 2;
+        var vbGeo = new THREE.CylinderGeometry(0.015, 0.015, 10.5, 4);
+        var vbClr = [0x00F0FF, 0xFFD700, 0x00FF88, 0xFF4488, 0x8844FF, 0xFF8800][vb];
+        var vbMat = new THREE.MeshBasicMaterial({ color: vbClr, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+        var vbeam = new THREE.Mesh(vbGeo, vbMat);
+        vbeam.position.set(Math.cos(vbAngle) * 3.5, 0, Math.sin(vbAngle) * 3.5);
+        scene.add(vbeam);
+    }
 }
 
 function buildRealisticPhoneLayers() {
@@ -1829,8 +1881,10 @@ var scene, camera, renderer, controls, clock;
 var phoneModelGroup, cyberRing1, cyberRing2, laserPlane;
 var layers = [], screws = [];
 var isAutoSpinning = true, isPointerDown = false, isLaserActive = true;
+var holoContainer = null, holoParticles = null, holoScanLines = [];
 var currentExplodeVal = 0.0;
 var lastPointerX = 0;
+var holoContainer = null, holoParticles = null, holoScanLines = [];
 
 function init() {
     var container = document.getElementById('canvas-3d-container');
@@ -1924,25 +1978,76 @@ function init() {
     animate();
 }
 
-// ─── ANIMATE LOOP ────────────────────────────────────────────────────────────
+// ─── ANIMATE LOOP — FULL REALISTIC HOLOGRAM ANIMATION ───────────────────────
 function animate() {
     requestAnimationFrame(animate);
     var t = clock ? clock.getElapsedTime() : 0;
 
     if (controls) controls.update();
 
-    if (cyberRing1) cyberRing1.rotation.z = t * 0.32;
-    if (cyberRing2) cyberRing2.rotation.z = -t * 0.18;
-    if (cyberRing1 && cyberRing1.material) cyberRing1.material.opacity = 0.45 + 0.2 * Math.sin(t * 2.1);
-
-    if (laserPlane && isLaserActive) {
-        laserPlane.position.y = Math.sin(t * 1.6) * 3.1;
-        if (laserPlane.material) laserPlane.material.opacity = 0.5 + 0.28 * Math.sin(t * 3.0);
-    }
-
+    // ── DEVICE: auto spin + gentle float inside hologram ──
     if (phoneModelGroup) {
         if (isAutoSpinning && !isPointerDown) {
-            phoneModelGroup.rotation.y += 0.012;
+            phoneModelGroup.rotation.y += 0.010;
+        }
+        // Smooth vertical bob (device floats up/down inside hologram)
+        phoneModelGroup.position.y = Math.sin(t * 0.75) * 0.18;
+        // Subtle tilt rock
+        phoneModelGroup.rotation.z = Math.sin(t * 0.42) * 0.028;
+    }
+
+    // ── HOLOGRAM CYLINDER: pulse opacity ──
+    if (holoContainer && holoContainer.material) {
+        holoContainer.material.opacity = 0.05 + 0.04 * Math.sin(t * 1.8);
+    }
+
+    // ── SCAN LINES: cascade sweep inside cylinder ──
+    if (holoScanLines && holoScanLines.length > 0) {
+        for (var si = 0; si < holoScanLines.length; si++) {
+            var scanSpeed = 1.4 + si * 0.3;
+            var scanOffset = si * (Math.PI * 2 / holoScanLines.length);
+            holoScanLines[si].position.y = Math.sin(t * scanSpeed + scanOffset) * 5.0;
+            holoScanLines[si].material.opacity = 0.3 + 0.5 * Math.abs(Math.sin(t * scanSpeed + scanOffset));
+        }
+    }
+
+    // ── FLOOR RINGS: spin + pulse ──
+    if (cyberRing1) {
+        cyberRing1.rotation.z = t * 0.40;
+        if (cyberRing1.material) cyberRing1.material.opacity = 0.5 + 0.3 * Math.sin(t * 2.2);
+    }
+    if (cyberRing2) {
+        cyberRing2.rotation.z = -t * 0.22;
+        if (cyberRing2.material) cyberRing2.material.opacity = 0.3 + 0.25 * Math.sin(t * 1.7 + 1.0);
+    }
+
+    // ── LASER BEAM: sweep up/down ──
+    if (laserPlane && isLaserActive) {
+        laserPlane.position.y = Math.sin(t * 1.8) * 5.0;
+        if (laserPlane.material) laserPlane.material.opacity = 0.55 + 0.4 * Math.abs(Math.sin(t * 1.8));
+    }
+
+    // ── PARTICLES: slow spiral drift inside hologram ──
+    if (holoParticles) {
+        holoParticles.rotation.y = t * 0.06;
+        holoParticles.rotation.x = Math.sin(t * 0.15) * 0.05;
+        if (holoParticles.material) holoParticles.material.opacity = 0.7 + 0.25 * Math.sin(t * 1.3);
+    }
+
+    // ── DEVICE LAYER GLOW: pulse active layer cyan ──
+    if (layers && layers.length > 0 && currentExplodeVal > 0) {
+        var activeIdx = Math.min(layers.length - 1, Math.floor(currentExplodeVal * layers.length));
+        for (var li2 = 0; li2 < layers.length; li2++) {
+            layers[li2].traverse(function(obj) {
+                if (obj.isMesh && obj.material && obj.material.emissive) {
+                    if (li2 === activeIdx) {
+                        obj.material.emissiveIntensity = 0.3 + 0.25 * Math.sin(t * 4.0);
+                        obj.material.emissive.set(0x00C8FF);
+                    } else {
+                        obj.material.emissiveIntensity = 0.0;
+                    }
+                }
+            });
         }
     }
 
