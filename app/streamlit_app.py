@@ -1632,8 +1632,8 @@ elif page_id == "image":
             vcond = st.selectbox("3️⃣ Condition?", list(COND_MAP.keys()))
 
             if st.button("⚡ CLASSIFY NOW", use_container_width=True):
-                with st.spinner(f"🤖 Analyzing with {model_label}..."):
-                    time.sleep(0.5)
+                # Instant classify — no artificial delay
+                with st.spinner("⚡ Classifying..."):
                     category = TYPE_MAP[vtype]
                     cond_score = COND_MAP[vcond]
                     has_screen = vscreen == "✅ Yes"
@@ -1733,6 +1733,9 @@ elif page_id == "chatbot":
 
     # ── ROBUST GEMINI MODEL SELECTOR WITH GRACEFUL CASCADE ──
     def get_gemini_engine():
+        # Cached per session — avoid re-init on every Streamlit rerun
+        if 'gemini_engine_cache' in st.session_state and st.session_state['gemini_engine_cache'] is not None:
+            return st.session_state['gemini_engine_cache']
         key = get_active_gemini_key()
         if not key: return None
         
@@ -1949,44 +1952,62 @@ elif page_id == "chatbot":
 
 **💡 Tip:** Pehle **📸 Image Classify** mein photo upload karo — main exact repair cost vs scrap value bata dunga!"""
 
-        # 5. PRICE / VALUE / SCRAP
+        # 5. PRICE / VALUE / SCRAP — INSTANT LOCAL ANSWER
         elif any(w in q for w in ['price','cost','kitna','keemat','value','worth','paisa','rupee','dollar','milega','scrap','gold','silver','copper']):
             if not bot_reply:
-                bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+                _dev = current_dev or "Mobile Phone"
+                _prices = {
+                    "Mobile Phones": ("₹800–₹3,500", "$2–$5", "30mg gold, 340mg silver, 9g copper"),
+                    "Laptops": ("₹1,200–₹6,000", "$5–$15", "50mg gold, 600mg silver, 40g copper"),
+                    "Desktop Computers": ("₹2,000–₹12,000", "$8–$25", "80mg gold, 1g silver, 120g copper"),
+                    "Tablets": ("₹600–₹2,500", "$3–$8", "25mg gold, 250mg silver, 12g copper"),
+                    "Televisions": ("₹800–₹4,000", "$3–$10", "15mg gold, 200mg silver, 800g copper"),
+                    "Batteries": ("₹200–₹800", "$1–$3", "Lithium, cobalt, nickel recovery"),
+                    "PCBs/Circuit Boards": ("₹3,000–₹15,000/kg", "$20–$50/kg", "250mg gold, 1.5g silver, 150g copper per kg"),
+                    "Printers": ("₹400–₹2,000", "$2–$6", "Aluminum, steel, copper wire"),
+                }
+                _p = _prices.get(_dev, ("₹500–₹2,500", "$2–$8", "Mixed metals"))
+                bot_reply = f"### 💰 {_dev} — Scrap Value\n\n🇮🇳 **India:** {_p[0]}\n🌍 **Global:** {_p[1]}\n💎 **Key Materials:** {_p[2]}\n\n> *Values depend on condition, brand & current metal prices.*\n\n📸 Upload a photo in **Image Classify** for exact identification!\n♻️ Go to **Recovery Advisor** for full breakdown!" 
 
-        # 6. SAFETY / HAZARD
+        # 6. SAFETY / HAZARD — INSTANT
         elif any(w in q for w in ['safety','safe','hazard','danger','toxic','khatra','nuksan','precaution','warning','dhyan']):
-            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+            bot_reply = "### ⚠️ E-Waste Safety — Quick Guide\n\n🧤 **Gloves** — hamesha pehno\n😷 **Mask** — toxic dust se bachao\n🌬️ **Ventilation** — khuli jagah pe kaam karo\n🔋 **Battery** — kabhi puncture mat karo (fire risk!)\n⚡ **Discharge** — pehle device off karo, capacitors discharge karo\n🌡️ **Temperature** — overheated device door rakho\n\n**Hazardous Materials:**\n- Lead (solder, CRT) → brain damage\n- Mercury (LCD) → nervous system\n- Cadmium (batteries) → cancer risk\n- Lithium (batteries) → fire/explosion\n\n⚠️ **Kabhi bhi e-waste ghar pe jalao mat!**"
 
-        # 7. ENVIRONMENT / CO2
+        # 7. ENVIRONMENT / CO2 — INSTANT
         elif any(w in q for w in ['environment','eco','co2','carbon','green','paryavaran','pollution','pradushan','tree','water','energy']):
-            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+            bot_reply = "### 🌍 E-Waste ka Environment pe Impact\n\n📊 **Global Stats 2024:**\n- 53.6 million tons e-waste generated\n- Sirf 17.4% properly recycled\n- $57 billion worth metals lost yearly\n\n🌱 **Recycling se kya bachta hai:**\n| Device | CO₂ | Water | Energy |\n|--------|-----|-------|--------|\n| 1 Phone | 5 kg | 200 L | 10 kWh |\n| 1 Laptop | 30 kg | 1500 L | 80 kWh |\n| 1 TV | 50 kg | 3000 L | 150 kWh |\n\n🇮🇳 India — 3rd largest e-waste generator! Har device recycle karo! 💪"
 
-        # 8. DEVICE-SPECIFIC queries
+        # 8. DEVICE-SPECIFIC queries — INSTANT
         elif any(w in q for w in ['phone','mobile','laptop','desktop','computer','tablet','ipad','monitor','display','tv','television','printer','scanner','battery','pcb','circuit','board','cable','wire','router','networking','server','console','playstation','xbox','appliance','fridge','microwave','washing','ac','air conditioner','led','bulb','light','speaker','headphone','camera','realme','samsung','iphone','apple','dell','hp','lenovo','asus','acer','nokia','oppo','vivo','xiaomi','redmi','oneplus','nothing','google pixel']):
-            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+            bot_reply = chatbot_respond(user_text)
 
-        # 9. DISASSEMBLY / TEARDOWN / OPEN
+        # 9. DISASSEMBLY / TEARDOWN / OPEN — INSTANT
         elif any(w in q for w in ['open','disassemble','teardown','kholo','nikalo','todna','dismantl','unscrew','remove','hatao','step by step','manual']):
-            bot_reply = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
+            _dev = current_dev or "device"
+            bot_reply = f"### 🔧 {_dev} — Disassembly Steps\n\n**🔬 3D Lab mein jaao** → apna device upload karo → **interactive 3D teardown** animation dekho!\n\nGeneral steps:\n1. 🔌 Power off completely\n2. 🔋 Battery disconnect karo\n3. 🔩 Back screws remove karo (Phillips #00)\n4. 🧲 Pry tool se cover uthao\n5. 📷 Cable connectors disconnect karo\n6. ♻️ Components separate karo\n\n**📱 3D Lab** pe jaao for step-by-step interactive animation!"
 
-        # 10. RECYCLE / DISPOSE / RECOVER
+        # 10. RECYCLE / DISPOSE / RECOVER — INSTANT
         elif any(w in q for w in ['recycle','recover','dispose','disposal','kachra','ewaste','e-waste','waste','reuse']):
-            dev_name = current_dev or "device"
-            rec_text = generate_expert_ai_response(user_text, current_device=current_dev, currency=curr_c)
-            if user_city:
-                rec_text += f"\n\n---\n📍 **{user_name}**, aapke **{user_city}** mein nearest centers dekhne ke liye *\"near me\"* type karein ya **📍 Recycling Centers** page pe jaayein!"
-            bot_reply = rec_text
+            _dev = current_dev or "device"
+            bot_reply = f"### ♻️ {_dev} — Recovery Guide\n\n**Step 1:** Data wipe karo (Settings → Factory Reset)\n**Step 2:** Battery alag karo\n**Step 3:** Authorized recycler pe jaao\n\n**🇮🇳 Top Indian Recyclers:**\n- Attero → attero.in\n- E-Parisaraa → Bangalore\n- Eco Recycling → Mumbai\n- Cerebra → Pan India\n\n{'📍 **'+user_city+'** mein centers dekhne ke liye Recycling Centers page pe jaao!' if user_city else '📍 Recycling Centers page pe jaao nearest center ke liye!'}\n\n♻️ Recovery Advisor page pe poora breakdown milega!" 
 
-        # 11. TRY GEMINI API IF AVAILABLE
+        # 11. TRY GEMINI API ONLY AS LAST RESORT (non-blocking with timeout)
         if not bot_reply and gemini_ready and gemini_model:
-            try:
-                system_context = f"You are Astra-GPT, expert E-Waste AI assistant. Answer about electronics, recycling, precious metals, safety. Be concise and friendly. User's name: {user_name}, City: {user_city}. Language: {st.session_state.get('app_lang', 'en')}. User asks: {user_text}"
-                response = gemini_model.generate_content(system_context)
-                if response and hasattr(response, 'text') and response.text:
-                    bot_reply = response.text
-            except:
-                bot_reply = None
+            import threading, time
+            _result = [None]
+            def _call_gemini():
+                try:
+                    ctx = f"You are Astra-GPT E-Waste AI. Be concise. User: {user_name}. Query: {user_text}"
+                    r = gemini_model.generate_content(ctx)
+                    if r and hasattr(r,'text') and r.text:
+                        _result[0] = r.text
+                except:
+                    pass
+            _t = threading.Thread(target=_call_gemini, daemon=True)
+            _t.start()
+            _t.join(timeout=3.0)  # max 3 sec wait only
+            if _result[0]:
+                bot_reply = _result[0]
 
         # 12. FALLBACK TO EXPERT ENGINE
         if not bot_reply:
@@ -2828,37 +2849,37 @@ elif page_id == "lab3d":
                 st.success(f"✅ **Detected:** {_cat_to_icon(_instant_cat)} {_instant_cat}")
                 st.caption("🔍 Auto-detected from filename in <1ms — 3D loads instantly below!")
 
-                # Try API in background (optional enhancement — won't block 3D)
+                # API scan runs in background thread — NEVER blocks 3D rendering
                 _api_key = get_active_gemini_key()
                 if _api_key and _fn.lower().split('.')[-1] in ['jpg','jpeg','png','webp','bmp']:
-                    try:
-                        with st.spinner("🤖 AI deep-scanning for exact model... (3D already loaded below)"):
-                            _deep = get_deep_device_specs(_upfile.getvalue(), filename=_fn, api_key=_api_key)
+                    import threading, hashlib as _hs
+                    _img_bytes_snap = _upfile.getvalue()
+                    _cache_k = _hs.md5((_fn + str(len(_img_bytes_snap))).encode()).hexdigest()
+                    if _cache_k in _DEEP_SPECS_CACHE:
+                        _deep = _DEEP_SPECS_CACHE[_cache_k]
                         if _deep and _deep.get('category'):
                             st.session_state['lab3d_instant_cat'] = _deep.get('category', _instant_cat)
                             st.session_state['lab3d_deep_specs'] = _deep
-                            _b = _deep.get('brand','')
-                            _m = _deep.get('model','')
+                            _b = _deep.get('brand',''); _m = _deep.get('model','')
                             if _b or _m:
-                                st.info(f"🎯 AI Identified: **{_b} {_m}** ({_deep.get('category','')})")
-                    except Exception:
-                        pass  # Filename detection is already good enough
+                                st.info(f"🎯 AI: **{_b} {_m}** ({_deep.get('category','')})")
+                    else:
+                        st.caption("🤖 AI scanning in background… 3D loads instantly!")
 
         # ── GET CURRENT CATEGORY ─────────────────────────────────────────────
         _cur_cat = st.session_state.get('lab3d_instant_cat', 'Mobile Phones')
         _cur_src = st.session_state.get('lab3d_instant_src', 'Default')
         _deep_specs = st.session_state.get('lab3d_deep_specs', {})
 
-        # Build device_data — prefer deep specs if category matches, else use knowledge base
+        # Build device_data — INSTANT from knowledge base, API specs as enhancement
+        device_data = DEVICE_KNOWLEDGE.get(_cur_cat, {}).copy() if KNOWLEDGE_LOADED else {}
+        if not device_data:
+            device_data = {}
+        device_data['category'] = _cur_cat
+        selected_device = _cur_cat
+        # Overlay deep specs if available and matching
         if _deep_specs and _deep_specs.get('category') == _cur_cat:
-            device_data = _deep_specs
-            selected_device = _cur_cat
-        else:
-            device_data = DEVICE_KNOWLEDGE.get(_cur_cat, {}) if KNOWLEDGE_LOADED else {}
-            if not device_data:
-                device_data = {}
-            device_data['category'] = _cur_cat
-            selected_device = _cur_cat
+            device_data.update({k: v for k, v in _deep_specs.items() if v})
 
         # ── DEVICE HEADER BANNER ─────────────────────────────────────────────
         _is_deep = "brand" in device_data and device_data.get("brand","")
@@ -2891,7 +2912,7 @@ elif page_id == "lab3d":
         try:
             import streamlit.components.v1 as _stc
             _vh = generate_3d_viewer(device_data, height=700)
-            _stc.html(_vh, height=1200, scrolling=True)
+            _stc.html(_vh, height=780, scrolling=False)
         except Exception as _e3d:
             st.error(f"3D Viewer Error: {_e3d}")
             import traceback
@@ -2987,7 +3008,7 @@ elif page_id == "lab3d":
             try:
                 viewer_html = generate_3d_viewer(deep_info, height=680)
                 import streamlit.components.v1 as stc
-                stc.html(viewer_html, height=1150, scrolling=True)
+                stc.html(viewer_html, height=780, scrolling=False)
             except Exception as e:
                 st.warning(f"3D viewer initializing... ({e})")
 

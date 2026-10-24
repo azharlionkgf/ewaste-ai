@@ -11,13 +11,33 @@ Photorealistic 3D hardware breakdown with Hologram Sci-Fi Mode:
 
 import os
 import json
+import hashlib
 from typing import Dict, Any, Optional
+
+def _make_cache_key(device_info: Dict[str, Any]) -> str:
+    """Stable cache key from device_info dict."""
+    key_parts = [
+        str(device_info.get("category", "")),
+        str(device_info.get("brand", "")),
+        str(device_info.get("model", "")),
+    ]
+    return hashlib.md5("|".join(key_parts).encode()).hexdigest()
+
+# In-memory LRU cache for 3D HTML — avoids regenerating same device
+_3D_CACHE: dict = {}
+_3D_CACHE_MAX = 12
 
 def generate_3d_viewer(device_info: Dict[str, Any], height: int = 740) -> str:
     """
     Generate a futuristic Hologram 3D hardware anatomy viewer with scanning laser,
     glowing cyber pedestal, particle aura, 360° auto-spin, and disassembly slider.
+    CACHED: same category+brand+model returns instantly from memory.
     """
+    # ── INSTANT CACHE CHECK ──
+    _ck = _make_cache_key(device_info)
+    if _ck in _3D_CACHE:
+        return _3D_CACHE[_ck]
+
     brand = device_info.get("brand", "Electronic Device")
     model_name = device_info.get("model", device_info.get("category", "Device Model"))
     category = device_info.get("category", "Mobile Phones")
@@ -795,10 +815,10 @@ function init3D() {
     camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
     camera.position.set(0, 1.2, 11.5);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = false;  // Disabled for performance
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     while (container.firstChild && container.firstChild.tagName === 'CANVAS') {
@@ -905,7 +925,7 @@ function buildHologramEnvironment() {
     scene.add(gridHelper);
 
     // 2. Concentric Neon Cyber Rings
-    var ringGeo1 = new THREE.RingGeometry(4.2, 4.28, 64);
+    var ringGeo1 = new THREE.RingGeometry(4.2, 4.28, 32);
     var ringMat1 = new THREE.MeshBasicMaterial({ color: 0x00F0FF, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
     cyberRing1 = new THREE.Mesh(ringGeo1, ringMat1);
     cyberRing1.rotation.x = Math.PI / 2;
@@ -1001,12 +1021,12 @@ function buildRealisticPhoneLayers() {
     var backMesh = new THREE.Mesh(backGeo, new THREE.MeshStandardMaterial({ map: leatherTex, roughness: 0.68, metalness: 0.07 }));
     backGroup.add(backMesh);
     // Camera Island — Gold ring
-    var cIsland = new THREE.CylinderGeometry(0.82, 0.82, 0.065, 64);
+    var cIsland = new THREE.CylinderGeometry(0.82,0.82,0.065,16);
     var cIslandMesh = new THREE.Mesh(cIsland, new THREE.MeshStandardMaterial({ color:0xCBB070, metalness:0.95, roughness:0.12 }));
     cIslandMesh.rotation.x = Math.PI/2; cIslandMesh.position.set(0, 1.15, 0.055);
     backGroup.add(cIslandMesh);
     // Camera island black base
-    var cBase = new THREE.Mesh(new THREE.CylinderGeometry(0.74, 0.74, 0.06, 48),
+    var cBase = new THREE.Mesh(new THREE.CylinderGeometry(0.74,0.74,0.06,16),
         new THREE.MeshStandardMaterial({ color:0x08080C, roughness:0.25, metalness:0.6 }));
     cBase.rotation.x = Math.PI/2; cBase.position.set(0, 1.15, 0.058); backGroup.add(cBase);
     // Logo text plane
@@ -1021,21 +1041,21 @@ function buildRealisticPhoneLayers() {
     var camGroup = new THREE.Group();
     // Outer ring
     var outerRing = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.73, 0.73, 0.1, 48),
+        new THREE.CylinderGeometry(0.73,0.73,0.1,16),
         new THREE.MeshStandardMaterial({ color:0x0A0A0F, metalness:0.85, roughness:0.18 }));
     outerRing.rotation.x = Math.PI/2; camGroup.add(outerRing);
     // Main lens (200MP)
     var mainLens = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.28, 0.28, 0.14, 32),
+        new THREE.CylinderGeometry(0.28,0.28,0.14,12),
         new THREE.MeshPhysicalMaterial({ color:0x010A1A, metalness:0.9, roughness:0.02, transmission:0.7, ior:1.72, thickness:0.1 }));
     mainLens.rotation.x = Math.PI/2; mainLens.position.z=0.04; camGroup.add(mainLens);
     // Lens reflection ring
     var lensRing = new THREE.Mesh(
-        new THREE.TorusGeometry(0.25, 0.02, 8, 32),
+        new THREE.TorusGeometry(0.25,0.02,6,16),
         new THREE.MeshStandardMaterial({ color:0x3060A0, metalness:0.9, roughness:0.1 }));
     lensRing.rotation.x = Math.PI/2; lensRing.position.z=0.07; camGroup.add(lensRing);
     // Ultrawide lens
-    var lens2 = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.11, 24),
+    var lens2 = new THREE.Mesh(new THREE.CylinderGeometry(0.14,0.14,0.11,10),
         new THREE.MeshPhysicalMaterial({ color:0x010812, metalness:0.85, roughness:0.03, transmission:0.65, ior:1.65 }));
     lens2.rotation.x = Math.PI/2; lens2.position.set(-0.38,-0.22,0.04); camGroup.add(lens2);
     // Macro lens
@@ -1061,7 +1081,7 @@ function buildRealisticPhoneLayers() {
     nfcGroup.add(nfcBase);
     // NFC coil (flat copper torus)
     var nfcCoil = new THREE.Mesh(
-        new THREE.TorusGeometry(0.48, 0.038, 8, 48),
+        new THREE.TorusGeometry(0.48,0.038,6,16),
         new THREE.MeshStandardMaterial({ color:0xD06010, metalness:0.97, roughness:0.14 }));
     nfcCoil.rotation.x = Math.PI/2; nfcCoil.position.set(0.05, 0.2, 0.015); nfcGroup.add(nfcCoil);
     // NFC chip
@@ -1479,7 +1499,7 @@ function buildLaptopLayers() {
     var fanBase=new THREE.Mesh(new THREE.BoxGeometry(lW*0.85,lH*0.55,0.08),new THREE.MeshStandardMaterial({color:0x181C22,roughness:0.5}));
     fanG.add(fanBase);
     // Fan blades (cylinder + lines)
-    var fanHub=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.06,32),new THREE.MeshStandardMaterial({color:0x2A2E38,metalness:0.7}));
+    var fanHub=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.55,0.06,12),new THREE.MeshStandardMaterial({color:0x2A2E38,metalness:0.7}));
     fanHub.rotation.x=Math.PI/2; fanHub.position.set(-1.8,0.5,0.05); fanG.add(fanHub);
     for(var b=0;b<7;b++){
         var blade=new THREE.Mesh(new THREE.BoxGeometry(0.42,0.09,0.04),new THREE.MeshStandardMaterial({color:0x333844,metalness:0.8}));
@@ -1559,7 +1579,7 @@ function buildDesktopLayers() {
     // Layer 1: Power Supply
     var psuG=new THREE.Group();
     psuG.add(new THREE.Mesh(new THREE.BoxGeometry(tW*0.85,1.0,1.8),new THREE.MeshStandardMaterial({color:0x1A1A20,metalness:0.8})));
-    var psuFan=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.05,24),new THREE.MeshStandardMaterial({color:0x2A2A30,metalness:0.6}));
+    var psuFan=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.05,10),new THREE.MeshStandardMaterial({color:0x2A2A30,metalness:0.6}));
     psuFan.rotation.x=Math.PI/2; psuFan.position.set(0,0,0.93); psuG.add(psuFan);
     psuG.position.set(0,-tH*0.36,0);
     psuG.userData={closedY:0,explodedY:-2.8*spread,name:'650W Power Supply Unit',id:'c4'};
@@ -1628,7 +1648,7 @@ function buildTabletLayers() {
     var backG=new THREE.Group();
     backG.add(new THREE.Mesh(rBox(tW,tH,0.07,0.3),new THREE.MeshStandardMaterial({color:0xC8CBCF,metalness:0.96,roughness:0.15})));
     // Camera bump
-    var camBump=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.22,0.04,24),new THREE.MeshStandardMaterial({color:0x0A0A0F,metalness:0.8}));
+    var camBump=new THREE.Mesh(new THREE.CylinderGeometry(0.22,0.22,0.04,10),new THREE.MeshStandardMaterial({color:0x0A0A0F,metalness:0.8}));
     camBump.rotation.x=Math.PI/2; camBump.position.set(tW*0.36,tH*0.42,0.055); backG.add(camBump);
     backG.userData={closedY:0,explodedY:-3.2*spread,name:'Aluminum Back Cover',id:'c1'};
     phoneModelGroup.add(backG); layers.push(backG);
@@ -1851,5 +1871,9 @@ function buildPCBLayers() {
     html = html.replace("__MANUAL_STEPS_JSON__", manual_steps_json)
     html = html.replace("__COMP_JSON__", comp_json)
     html = html.replace("__SHAPE_TYPE__", shape_type)
+    # ── STORE IN CACHE ──
+    if len(_3D_CACHE) >= _3D_CACHE_MAX:
+        _3D_CACHE.pop(next(iter(_3D_CACHE)))  # evict oldest
+    _3D_CACHE[_ck] = html
     return html
 
