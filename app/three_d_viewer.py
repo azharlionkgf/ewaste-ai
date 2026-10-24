@@ -786,21 +786,17 @@ function createPCBTexture() {
 
 
 // --- 3D Scene Global Variables ---
-var scene, camera, renderer, controls;
-var phoneModelGroup = null;
-var layers = [];
+// (moved: phoneModelGroup)
+// (moved: layers)
 var screws = [];
 var laserPlane = null;
 var cyberRing1, cyberRing2;
-var currentExplodeVal = 0.55;
 var isAutoPlaying = false;
 var autoPlayDir = 1;
-var isAutoSpinning = true;
-var isLaserActive = true;
+// removed: var isLaserActive = true;
 var clock = new THREE.Clock();
 
-var isPointerDown = false;
-var lastPointerX = 0;
+// removed: var isPointerDown = false;
 var lastPointerY = 0;
 
 function init3D() {
@@ -1378,7 +1374,6 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
 }
-var spinVelocity = 0.0;
 
 // OLD animate (replaced by new version below)
 function _old_animate_unused() {
