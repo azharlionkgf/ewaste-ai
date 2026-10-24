@@ -14,9 +14,12 @@ import json
 import hashlib
 from typing import Dict, Any, Optional
 
+_VIEWER_VERSION = "v4_single_init_fix"  # bump to bust cache
+
 def _make_cache_key(device_info: Dict[str, Any]) -> str:
     """Stable cache key from device_info dict."""
     key_parts = [
+        _VIEWER_VERSION,
         str(device_info.get("category", "")),
         str(device_info.get("brand", "")),
         str(device_info.get("model", "")),
@@ -24,7 +27,7 @@ def _make_cache_key(device_info: Dict[str, Any]) -> str:
     return hashlib.md5("|".join(key_parts).encode()).hexdigest()
 
 # In-memory LRU cache for 3D HTML — avoids regenerating same device
-_3D_CACHE: dict = {}
+_3D_CACHE: dict = {}  # cleared on each module reload
 _3D_CACHE_MAX = 12
 
 def generate_3d_viewer(device_info: Dict[str, Any], height: int = 740) -> str:
@@ -786,133 +789,12 @@ function createPCBTexture() {
 
 
 // --- 3D Scene Global Variables ---
-// (moved: phoneModelGroup)
-// (moved: layers)
-var screws = [];
-var laserPlane = null;
-var cyberRing1, cyberRing2;
-var isAutoPlaying = false;
-var autoPlayDir = 1;
-// removed: var isLaserActive = true;
-var clock = new THREE.Clock();
+// (all globals declared once at bottom — see INIT CALL section)
 
-// removed: var isPointerDown = false;
-var lastPointerY = 0;
 
 function init3D() {
-    var container = document.getElementById('canvas-3d-container');
-    if (!container) return;
-
-    var width = container.clientWidth || 900;
-    var height = container.clientHeight || 520;
-
-    scene = new THREE.Scene();
-    scene.background = null;
-
-    camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-    camera.position.set(0, 1.2, 11.5);
-
-    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = false;  // Disabled for performance
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    while (container.firstChild && container.firstChild.tagName === 'CANVAS') {
-        container.removeChild(container.firstChild);
-    }
-    container.appendChild(renderer.domElement);
-
-    // Master Phone Group for seamless 360° continuous rotation
-    phoneModelGroup = new THREE.Group();
-    scene.add(phoneModelGroup);
-
-    // OrbitControls for smooth camera zoom
-    if (typeof THREE.OrbitControls !== 'undefined') {
-        try {
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.08;
-            controls.maxDistance = 26;
-            controls.minDistance = 3.5;
-            controls.enableZoom = true;
-            controls.enableRotate = false; // direct pointer rotates phoneModelGroup directly
-            controls.enablePan = false;
-        } catch (e) {
-            console.warn('OrbitControls optional init:', e);
-        }
-    }
-
-    // Direct touch & mouse drag to rotate the phone in 3D from any angle
-    container.addEventListener('pointerdown', function(e) {
-        isPointerDown = true;
-        lastPointerX = e.clientX;
-        lastPointerY = e.clientY;
-        container.style.cursor = 'grabbing';
-    });
-
-    window.addEventListener('pointermove', function(e) {
-        if (!isPointerDown || !phoneModelGroup) return;
-        var dx = e.clientX - lastPointerX;
-        var dy = e.clientY - lastPointerY;
-        lastPointerX = e.clientX;
-        lastPointerY = e.clientY;
-        phoneModelGroup.rotation.y += dx * 0.012;
-        phoneModelGroup.rotation.x += dy * 0.012;
-        phoneModelGroup.rotation.x = Math.max(-1.15, Math.min(1.15, phoneModelGroup.rotation.x));
-    });
-
-    window.addEventListener('pointerup', function() {
-        isPointerDown = false;
-        if (container) container.style.cursor = 'grab';
-    });
-
-    window.addEventListener('pointercancel', function() {
-        isPointerDown = false;
-        if (container) container.style.cursor = 'grab';
-    });
-
-    container.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        if (camera) {
-            camera.position.z += e.deltaY * 0.005;
-            camera.position.z = Math.max(3.8, Math.min(24.0, camera.position.z));
-        }
-    }, { passive: false });
-
-    // Lighting
-    var amb = new THREE.AmbientLight(0xffffff, 0.7);
-    scene.add(amb);
-
-    var keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    keyLight.position.set(8, 12, 10);
-    scene.add(keyLight);
-
-    // Cyan & Gold Hologram Rim Lights
-    var cyanRim = new THREE.DirectionalLight(0x00F0FF, 1.2);
-    cyanRim.position.set(-8, -4, 6);
-    scene.add(cyanRim);
-
-    var goldFill = new THREE.PointLight(0xFFD700, 1.0, 20);
-    goldFill.position.set(0, 4, 6);
-    scene.add(goldFill);
-
-    // --- Build Hologram Scenery ---
-    buildHologramEnvironment();
-    // --- Build Device-Specific 3D Model Based on Category ---
-    var deviceShape = '__SHAPE_TYPE__';
-    if      (deviceShape === 'laptop')  buildLaptopLayers();
-    else if (deviceShape === 'desktop') buildDesktopLayers();
-    else if (deviceShape === 'tablet')  buildTabletLayers();
-    else if (deviceShape === 'display') buildTVLayers();
-    else if (deviceShape === 'battery') buildBatteryPackLayers();
-    else if (deviceShape === 'pcb')     buildPCBLayers();
-    else                                buildRealisticPhoneLayers();
-    updateLayerPositions(currentExplodeVal);
-    updateLayerPositions(currentExplodeVal);
-
-    window.addEventListener('resize', onWindowResize, false);
-    animate();
+    // Delegated to init() — see bottom of script for main entry point
+    if (typeof init === 'function') init();
 }
 
 function buildHologramEnvironment() {
@@ -1467,20 +1349,7 @@ function _old_animate_unused() {
 }
 }
 
-var initDone = false;
-function safeInit3D() {
-    if (initDone) return;
-    if (typeof THREE === 'undefined') {
-        setTimeout(safeInit3D, 100);
-        return;
-    }
-    initDone = true;
-    init3D();
-}
-
-window.addEventListener('DOMContentLoaded', safeInit3D);
-window.addEventListener('load', safeInit3D);
-setTimeout(safeInit3D, 150);
+// safeInit3D removed — startup handled by bottom init() via DOMContentLoaded
 
 // ═══════════════════════════════════════════════════════
 // 🖥️ LAPTOP 3D MODEL
@@ -1884,7 +1753,6 @@ var isAutoSpinning = true, isPointerDown = false, isLaserActive = true;
 var holoContainer = null, holoParticles = null, holoScanLines = [];
 var currentExplodeVal = 0.0;
 var lastPointerX = 0;
-var holoContainer = null, holoParticles = null, holoScanLines = [];
 
 function init() {
     var container = document.getElementById('canvas-3d-container');
