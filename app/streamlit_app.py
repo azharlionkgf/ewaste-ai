@@ -956,7 +956,7 @@ with st.sidebar:
                 "📍 Recycling Centers": "centers",
                 "⚠️ Safety & Hazards": "safety",
                 "📜 Green Certificate": "certificate",
-                "📤 Dataset Upload": "upload_data",
+                "🔬 PCB Scanner": "upload_data",
                 "📋 Smart Analyzer": "analyzer",
                 "📊 EDA Explorer": "eda",
                 "🤖 Model Performance": "model_perf",
@@ -964,7 +964,7 @@ with st.sidebar:
                 "🌍 Environmental Impact": "impact",
                 "📦 Batch Processing": "batch",
                 "📋 History": "history",
-                "📂 Dataset Manager": "datasets",
+                "📂 Dataset Explorer": "datasets",
                 "ℹ️ About": "about"
             }
         else:
@@ -976,7 +976,7 @@ with st.sidebar:
                 "📍 Recycling Centers": "centers",
                 "⚠️ Safety & Hazards": "safety",
                 "📜 Green Certificate": "certificate",
-                "📤 Dataset Upload": "upload_data",
+                "🔬 PCB Scanner": "upload_data",
                 "📋 Smart Analyzer": "analyzer",
                 "♻️ Recovery Advisor": "recovery",
                 "🌍 Environmental Impact": "impact",
@@ -2420,128 +2420,227 @@ elif page_id == "history":
 
 # ═══ DATASET MANAGER (Admin) ═══
 elif page_id == "datasets":
-    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📂 DATASET MANAGER</h1>', unsafe_allow_html=True)
-    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-header">📤 UPLOAD DATASET</div>', unsafe_allow_html=True)
-    up = st.file_uploader("📄 Upload CSV Dataset", type=['csv'])
-    if up:
-        try:
-            new_df = pd.read_csv(up)
-            st.success(f"✅ {up.name}: {len(new_df)} rows × {len(new_df.columns)} columns")
-            st.dataframe(new_df.head(), use_container_width=True, hide_index=True)
-            if st.button("💾 SAVE DATASET", use_container_width=True):
-                save_path = os.path.join(PROJECT_ROOT, 'data', 'raw', up.name)
-                new_df.to_csv(save_path, index=False)
-                save_dataset_record(up.name, len(new_df), len(new_df.columns), save_path)
-                st.success(f"✅ Saved: {up.name}")
-        except Exception as e: st.error(f"Error: {e}")
-
-    st.markdown('<div class="section-header">📋 SAVED DATASETS</div>', unsafe_allow_html=True)
-    ds = get_datasets()
-    if not ds.empty:
-        for _, row in ds.iterrows():
-            dc1,dc2 = st.columns([4,1])
-            with dc1: st.markdown(f'<div class="glass-card"><strong>{row["name"]}</strong> — {row["rows"]:,} rows × {row["columns"]} cols — {row["uploaded_at"][:10]}</div>', unsafe_allow_html=True)
-            with dc2:
-                if st.button(f"🗑️ Delete", key=f"del_{row['id']}"):
-                    delete_dataset(row['id']); st.rerun()
-    else: st.info("No additional datasets uploaded.")
-
-# ═══ DATASET UPLOAD ═══
-elif page_id == "upload_data":
-    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📤 DATASET UPLOAD</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center;color:#888;">Upload your e-waste CSV dataset for analysis & recovery recommendations</p>', unsafe_allow_html=True)
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">📂 E-WASTE DATASET EXPLORER — 4,200 ENTRIES</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Enterprise Dataset • 15 Categories • 45 Columns • Gold/Silver/Copper Recovery Data • PCB Identification</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    # Upload area
-    st.markdown('''<div class="glass-card" style="text-align:center;padding:30px;">
-        <div style="font-size:3rem;margin-bottom:10px;">📤</div>
-        <h3 style="color:#DC143C;">Upload E-Waste Dataset</h3>
-        <p style="color:#888;">Supported: CSV files • Max 200MB • Any e-waste data</p>
-    </div>''', unsafe_allow_html=True)
+    # Load the 4200-row CSV
+    _csv_path = os.path.join(PROJECT_ROOT, 'data', 'ewaste_dataset_4000.csv')
+    try:
+        _edf = pd.read_csv(_csv_path)
+    except Exception:
+        _edf = pd.DataFrame()
 
-    uploaded_ds = st.file_uploader("📄 Drop your CSV file here", type=['csv'], key="ds_upload_main")
+    if not _edf.empty:
+        # Top metrics
+        _m1, _m2, _m3, _m4, _m5 = st.columns(5)
+        with _m1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(_edf):,}</div><div class="metric-label">Total Records</div></div>', unsafe_allow_html=True)
+        with _m2: st.markdown(f'<div class="metric-card"><div class="metric-icon">🏷️</div><div class="metric-value">{_edf["device_category"].nunique()}</div><div class="metric-label">Categories</div></div>', unsafe_allow_html=True)
+        with _m3: st.markdown(f'<div class="metric-card"><div class="metric-icon">🏭</div><div class="metric-value">{_edf["brand"].nunique()}</div><div class="metric-label">Brands</div></div>', unsafe_allow_html=True)
+        with _m4:
+            _total_gold = _edf["gold_content_mg"].sum()
+            st.markdown(f'<div class="metric-card"><div class="metric-icon">🥇</div><div class="metric-value">{_total_gold:,.0f} mg</div><div class="metric-label">Total Gold</div></div>', unsafe_allow_html=True)
+        with _m5:
+            _total_val = _edf["total_recovery_value_usd"].sum()
+            st.markdown(f'<div class="metric-card"><div class="metric-icon">💰</div><div class="metric-value">${_total_val:,.0f}</div><div class="metric-label">Total Recovery Value</div></div>', unsafe_allow_html=True)
 
-    if uploaded_ds:
-        try:
-            udf = pd.read_csv(uploaded_ds)
-            st.success(f"✅ **{uploaded_ds.name}** uploaded — **{len(udf):,} rows × {len(udf.columns)} columns**")
+        # Filters
+        st.markdown('<div class="section-header">🔍 FILTER DATA</div>', unsafe_allow_html=True)
+        _fc1, _fc2, _fc3 = st.columns(3)
+        with _fc1:
+            _cat_sel = st.multiselect("🏷️ Category", _edf["device_category"].unique().tolist(), default=[], key="ds_cat_f")
+        with _fc2:
+            _brand_sel = st.multiselect("🏭 Brand", sorted(_edf["brand"].unique().tolist()), default=[], key="ds_brand_f")
+        with _fc3:
+            _country_sel = st.multiselect("🌍 Country", sorted(_edf["country"].unique().tolist()), default=[], key="ds_country_f")
 
-            # Quick stats
-            q1,q2,q3,q4 = st.columns(4)
-            with q1: st.markdown(f'<div class="metric-card"><div class="metric-icon">📊</div><div class="metric-value">{len(udf):,}</div><div class="metric-label">Rows</div></div>', unsafe_allow_html=True)
-            with q2: st.markdown(f'<div class="metric-card"><div class="metric-icon">📋</div><div class="metric-value">{len(udf.columns)}</div><div class="metric-label">Columns</div></div>', unsafe_allow_html=True)
-            with q3:
-                nulls = udf.isnull().sum().sum()
-                st.markdown(f'<div class="metric-card"><div class="metric-icon">{"🟢" if nulls==0 else "⚠️"}</div><div class="metric-value">{nulls:,}</div><div class="metric-label">Missing Values</div></div>', unsafe_allow_html=True)
-            with q4:
-                cats = udf['device_type'].nunique() if 'device_type' in udf.columns else 0
-                st.markdown(f'<div class="metric-card"><div class="metric-icon">🏷️</div><div class="metric-value">{cats}</div><div class="metric-label">Device Types</div></div>', unsafe_allow_html=True)
+        _fdf = _edf.copy()
+        if _cat_sel: _fdf = _fdf[_fdf["device_category"].isin(_cat_sel)]
+        if _brand_sel: _fdf = _fdf[_fdf["brand"].isin(_brand_sel)]
+        if _country_sel: _fdf = _fdf[_fdf["country"].isin(_country_sel)]
 
-            # Preview
-            st.markdown('<div class="section-header">📋 DATASET PREVIEW</div>', unsafe_allow_html=True)
-            st.dataframe(udf.head(25), use_container_width=True, hide_index=True)
+        st.markdown(f'<div class="glass-card" style="text-align:center;">Showing <strong style="color:#00FF7F;">{len(_fdf):,}</strong> of {len(_edf):,} records</div>', unsafe_allow_html=True)
 
-            # Column info
-            st.markdown('<div class="section-header">🔤 COLUMN INFORMATION</div>', unsafe_allow_html=True)
-            col_info = pd.DataFrame({
-                'Column': udf.columns, 'Data Type': [str(t) for t in udf.dtypes],
-                'Non-Null': [udf[c].notna().sum() for c in udf.columns],
-                'Nulls': [udf[c].isnull().sum() for c in udf.columns],
-                'Unique': [udf[c].nunique() for c in udf.columns]
-            })
-            st.dataframe(col_info, use_container_width=True, hide_index=True)
+        # Charts
+        _ch1, _ch2 = st.columns(2)
+        with _ch1:
+            st.markdown('<div class="section-header">📊 DEVICES BY CATEGORY</div>', unsafe_allow_html=True)
+            _cat_counts = _fdf["device_category"].value_counts().reset_index()
+            _cat_counts.columns = ["Category", "Count"]
+            import plotly.express as px
+            _fig1 = px.bar(_cat_counts, x="Count", y="Category", orientation="h", color="Count", color_continuous_scale="Viridis")
+            _fig1.update_layout(template="plotly_dark", height=400, margin=dict(l=0,r=0,t=10,b=0), showlegend=False, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+            st.plotly_chart(_fig1, use_container_width=True)
+        with _ch2:
+            st.markdown('<div class="section-header">💰 RECOVERY VALUE BY CATEGORY</div>', unsafe_allow_html=True)
+            _val_by_cat = _fdf.groupby("device_category")["total_recovery_value_usd"].mean().reset_index()
+            _val_by_cat.columns = ["Category", "Avg Recovery ($)"]
+            _fig2 = px.bar(_val_by_cat.sort_values("Avg Recovery ($)"), x="Avg Recovery ($)", y="Category", orientation="h", color="Avg Recovery ($)", color_continuous_scale="RdYlGn")
+            _fig2.update_layout(template="plotly_dark", height=400, margin=dict(l=0,r=0,t=10,b=0), showlegend=False, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+            st.plotly_chart(_fig2, use_container_width=True)
 
-            # Category distribution if device_type exists
-            if 'device_type' in udf.columns:
-                st.markdown('<div class="section-header">🏷️ DEVICE CATEGORIES FOUND</div>', unsafe_allow_html=True)
-                vc = udf['device_type'].value_counts()
-                for dev, cnt in vc.items():
-                    pct = cnt/len(udf)*100
-                    bar_color = "#00FF7F" if pct > 7 else "#FFD700" if pct > 4 else "#DC143C"
-                    st.markdown(f'''<div style="display:flex;align-items:center;gap:12px;margin:6px 0;padding:8px 12px;background:rgba(255,255,255,.02);border-radius:10px;">
-                        <div style="min-width:180px;"><strong style="color:#ccc;">{dev}</strong></div>
-                        <div style="flex:1;background:rgba(255,255,255,.05);border-radius:8px;height:22px;overflow:hidden;">
-                            <div style="width:{pct}%;min-width:40px;height:100%;background:{bar_color};border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">
-                                <span style="color:#000;font-weight:700;font-size:.75rem;">{cnt}</span>
-                            </div>
-                        </div>
-                        <div style="min-width:50px;text-align:right;color:#888;">{pct:.1f}%</div>
-                    </div>''', unsafe_allow_html=True)
+        # Material breakdown
+        st.markdown('<div class="section-header">⚗️ MATERIAL RECOVERY BREAKDOWN</div>', unsafe_allow_html=True)
+        _mat1, _mat2, _mat3, _mat4 = st.columns(4)
+        with _mat1:
+            _tg = _fdf["gold_content_mg"].sum()
+            st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#FFD700;"><h3 style="color:#FFD700;">🥇 Gold</h3><h2 style="color:#FFD700;">{_tg:,.1f} mg</h2><p style="color:#888;">${_tg*0.001*62:,.2f} USD</p></div>', unsafe_allow_html=True)
+        with _mat2:
+            _ts = _fdf["silver_content_mg"].sum()
+            st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#C0C0C0;"><h3 style="color:#C0C0C0;">🥈 Silver</h3><h2 style="color:#C0C0C0;">{_ts:,.1f} mg</h2><p style="color:#888;">${_ts*0.001*0.78:,.2f} USD</p></div>', unsafe_allow_html=True)
+        with _mat3:
+            _tc = _fdf["copper_content_g"].sum()
+            st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#B87333;"><h3 style="color:#B87333;">🔶 Copper</h3><h2 style="color:#B87333;">{_tc:,.0f} g</h2><p style="color:#888;">${_tc*0.0085:,.2f} USD</p></div>', unsafe_allow_html=True)
+        with _mat4:
+            _tp = _fdf["palladium_mg"].sum()
+            st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#00CED1;"><h3 style="color:#00CED1;">💎 Palladium</h3><h2 style="color:#00CED1;">{_tp:,.2f} mg</h2><p style="color:#888;">${_tp*0.001*48:,.2f} USD</p></div>', unsafe_allow_html=True)
 
-                st.markdown(f'''<div class="glass-card" style="text-align:center;padding:20px;margin-top:20px;">
-                    <p style="color:#00FF7F;font-family:Orbitron;font-size:1.2rem;">✅ Dataset ready for analysis!</p>
-                    <p style="color:#888;">Go to <strong style="color:#DC143C;">📋 Smart Analyzer</strong> page for full recovery recommendations & environmental impact report</p>
-                </div>''', unsafe_allow_html=True)
-            else:
-                st.markdown('''<div class="warning-card">
-                    <strong>⚠️ No 'device_type' column found.</strong><br>
-                    For full analysis, your dataset should have a <code>device_type</code> column with categories like: Mobile Phones, Laptops, Tablets, etc.
-                </div>''', unsafe_allow_html=True)
+        # Data table
+        st.markdown('<div class="section-header">📋 RAW DATA TABLE</div>', unsafe_allow_html=True)
+        _show_cols = ["uid","device_category","brand","model","condition","weight_grams","gold_content_mg","silver_content_mg","copper_content_g","total_recovery_value_usd","recyclable_percentage","primary_hazardous_material","country","recycling_method"]
+        _show_cols = [c for c in _show_cols if c in _fdf.columns]
+        st.dataframe(_fdf[_show_cols].head(100), use_container_width=True, hide_index=True)
 
-            # Download sample template
-            st.markdown('<div class="section-header">📥 NEED A TEMPLATE?</div>', unsafe_allow_html=True)
-            sample = "device_type,weight_kg,condition_score,age_years,gold_mg,silver_mg,copper_g\nMobile Phones,0.18,7,2,30,300,15\nLaptops,2.5,5,4,50,500,80\nTablets,0.5,8,1,20,200,10\n"
-            st.download_button("📥 Download Sample CSV Template", sample, "ewaste_template.csv", "text/csv", use_container_width=True)
-
-        except Exception as e:
-            st.error(f"❌ Error reading file: {e}")
+        # Download
+        st.markdown('<div class="section-header">📥 DOWNLOAD</div>', unsafe_allow_html=True)
+        _csv_dl = _fdf.to_csv(index=False).encode("utf-8")
+        st.download_button("📥 Download Filtered Dataset (CSV)", _csv_dl, "ewaste_filtered_dataset.csv", "text/csv", use_container_width=True)
     else:
-        # Show built-in dataset info
-        if data_loaded and df_raw is not None:
-            st.markdown(f'''<div class="glass-card" style="padding:20px;">
-                <h4 style="color:#DC143C;">📊 Built-in Dataset Available</h4>
-                <p style="color:#888;">We have a <strong>{len(df_raw):,} sample</strong> built-in dataset ready. You can use it directly in <strong>📋 Smart Analyzer</strong>.</p>
-                <p style="color:#666;">Or upload your own CSV above for custom analysis.</p>
+        st.warning("⚠️ Dataset file not found at data/ewaste_dataset_4000.csv")
+
+# ═══ PCB / MOTHERBOARD SCANNER ═══
+elif page_id == "upload_data":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🔬 PCB / MOTHERBOARD SCANNER</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;">Upload a motherboard / PCB image → AI identifies components → Instant recovery value estimation</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    _pcb_img = st.file_uploader("📸 Upload PCB / Motherboard Image", type=["jpg","jpeg","png","webp","bmp"], key="pcb_scanner_upload")
+
+    if _pcb_img:
+        _pc1, _pc2 = st.columns([1, 1])
+        with _pc1:
+            st.image(_pcb_img, caption=f"📸 {_pcb_img.name}", use_container_width=True)
+
+        # Instant detection from filename + CSV lookup
+        _pcb_fn = _pcb_img.name.lower()
+        _pcb_cat = "PCB/Circuit Board"
+        _pcb_brand = "Generic"
+        _pcb_model = "Circuit Board"
+
+        if any(w in _pcb_fn for w in ["motherboard","mobo","z790","b660","x670","b550","lga","am5","am4"]):
+            _pcb_cat = "PCB/Circuit Board"
+            if "asus" in _pcb_fn: _pcb_brand = "ASUS"
+            elif "msi" in _pcb_fn: _pcb_brand = "MSI"
+            elif "gigabyte" in _pcb_fn: _pcb_brand = "Gigabyte"
+            elif "intel" in _pcb_fn: _pcb_brand = "Intel"
+            else: _pcb_brand = "Generic PCB"
+        elif any(w in _pcb_fn for w in ["phone","mobile","iphone","samsung","galaxy","redmi","realme"]):
+            _pcb_cat = "Mobile Phone"
+        elif any(w in _pcb_fn for w in ["laptop","macbook","thinkpad","xps","dell"]):
+            _pcb_cat = "Laptop"
+        elif any(w in _pcb_fn for w in ["gpu","graphics","rtx","gtx","radeon"]):
+            _pcb_cat = "PCB/Circuit Board"; _pcb_brand = "GPU Card"
+
+        # Try Gemini AI for deeper analysis
+        _ai_result = None
+        try:
+            _api_key = get_active_gemini_key()
+            if _api_key:
+                from src.device_specs_engine import get_deep_device_specs
+                _ai_result = get_deep_device_specs(_pcb_img.getvalue(), filename=_pcb_img.name, api_key=_api_key)
+                if _ai_result and isinstance(_ai_result, dict):
+                    if _ai_result.get("category"): _pcb_cat = _ai_result["category"]
+                    if _ai_result.get("brand"): _pcb_brand = _ai_result["brand"]
+                    if _ai_result.get("model"): _pcb_model = _ai_result["model"]
+        except Exception:
+            pass
+
+        # Load CSV and match
+        _csv_path2 = os.path.join(PROJECT_ROOT, 'data', 'ewaste_dataset_4000.csv')
+        try:
+            _pcb_df = pd.read_csv(_csv_path2)
+            _match = _pcb_df[_pcb_df["device_category"].str.contains(_pcb_cat.split("/")[0].split(" ")[0], case=False, na=False)]
+            if _pcb_brand != "Generic" and _pcb_brand != "Generic PCB":
+                _brand_match = _match[_match["brand"].str.contains(_pcb_brand.split(" ")[0], case=False, na=False)]
+                if len(_brand_match) > 0: _match = _brand_match
+        except Exception:
+            _match = pd.DataFrame()
+
+        with _pc2:
+            st.markdown(f'<div class="glass-card" style="border-color:#00FF7F;"><h3 style="color:#00FF7F;">🎯 IDENTIFIED</h3><h2 style="color:#fff;">{_pcb_brand} — {_pcb_model}</h2><p style="color:#888;">Category: {_pcb_cat}</p></div>', unsafe_allow_html=True)
+
+            if not _match.empty:
+                _avg_gold = _match["gold_content_mg"].mean()
+                _avg_silver = _match["silver_content_mg"].mean()
+                _avg_copper = _match["copper_content_g"].mean()
+                _avg_palladium = _match["palladium_mg"].mean()
+                _avg_val = _match["total_recovery_value_usd"].mean()
+                _avg_recycle = _match["recyclable_percentage"].mean()
+                _avg_pcb = _match["pcb_layers"].mean()
+                _common_soc = _match["main_soc_chip"].mode().iloc[0] if len(_match) > 0 else "N/A"
+                _common_haz = _match["primary_hazardous_material"].mode().iloc[0] if len(_match) > 0 else "N/A"
+
+                st.markdown(f'<div class="glass-card" style="border-color:#FFD700;"><h4 style="color:#FFD700;">💰 RECOVERY VALUE ESTIMATE</h4><h1 style="color:#00FF7F;font-family:Orbitron;">${_avg_val:,.2f}</h1><p style="color:#888;">Based on {len(_match)} similar devices in database</p></div>', unsafe_allow_html=True)
+            else:
+                _avg_gold = 1.5; _avg_silver = 3.0; _avg_copper = 80; _avg_palladium = 0.3; _avg_val = 35; _avg_recycle = 78; _avg_pcb = 8; _common_soc = "Unknown"; _common_haz = "Lead Solder"
+                st.markdown(f'<div class="glass-card" style="border-color:#FFD700;"><h4 style="color:#FFD700;">💰 EST. RECOVERY VALUE</h4><h1 style="color:#00FF7F;font-family:Orbitron;">~${_avg_val:,.2f}</h1><p style="color:#888;">Estimated (no exact match in DB)</p></div>', unsafe_allow_html=True)
+
+        # Material breakdown
+        st.markdown('<div class="section-header">⚗️ MATERIAL RECOVERY ANALYSIS</div>', unsafe_allow_html=True)
+        _rm1, _rm2, _rm3, _rm4 = st.columns(4)
+        with _rm1: st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#FFD700;"><h4 style="color:#FFD700;">🥇 Gold</h4><h2>{_avg_gold:,.2f} mg</h2><p style="color:#888;">${_avg_gold*0.001*62:,.3f}</p></div>', unsafe_allow_html=True)
+        with _rm2: st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#C0C0C0;"><h4 style="color:#C0C0C0;">🥈 Silver</h4><h2>{_avg_silver:,.2f} mg</h2><p style="color:#888;">${_avg_silver*0.001*0.78:,.4f}</p></div>', unsafe_allow_html=True)
+        with _rm3: st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#B87333;"><h4 style="color:#B87333;">🔶 Copper</h4><h2>{_avg_copper:,.1f} g</h2><p style="color:#888;">${_avg_copper*0.0085:,.3f}</p></div>', unsafe_allow_html=True)
+        with _rm4: st.markdown(f'<div class="glass-card" style="text-align:center;border-color:#00CED1;"><h4 style="color:#00CED1;">💎 Palladium</h4><h2>{_avg_palladium:,.3f} mg</h2><p style="color:#888;">${_avg_palladium*0.001*48:,.4f}</p></div>', unsafe_allow_html=True)
+
+        # Technical details
+        st.markdown('<div class="section-header">🔧 TECHNICAL IDENTIFICATION</div>', unsafe_allow_html=True)
+        _td1, _td2 = st.columns(2)
+        with _td1:
+            st.markdown(f'''<div class="glass-card">
+                <h4 style="color:#00F0FF;">🔬 PCB Specifications</h4>
+                <p>• <strong>PCB Layers:</strong> {_avg_pcb:.0f} layers</p>
+                <p>• <strong>Main SoC:</strong> {_common_soc}</p>
+                <p>• <strong>Recyclable:</strong> {_avg_recycle:.1f}%</p>
+                <p>• <strong>Category:</strong> {_pcb_cat}</p>
+            </div>''', unsafe_allow_html=True)
+        with _td2:
+            st.markdown(f'''<div class="glass-card" style="border-color:#FF4444;">
+                <h4 style="color:#FF4444;">⚠️ Hazardous Materials</h4>
+                <p>• <strong>Primary:</strong> {_common_haz}</p>
+                <p>• <strong>Safety:</strong> Use ESD strap, lead-free solder station</p>
+                <p>• <strong>Disposal:</strong> CPCB/R2 certified facility only</p>
+                <p>• <strong>PPE:</strong> Anti-static gloves, safety goggles</p>
             </div>''', unsafe_allow_html=True)
 
-        st.markdown('''<div class="glass-card" style="padding:20px;">
-            <h4 style="color:#FFD700;">📋 Required CSV Format</h4>
-            <p style="color:#888;">Your CSV should have these columns:</p>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
-                <span class="tag">device_type</span><span class="tag">weight_kg</span><span class="tag">condition_score</span>
-                <span class="tag">age_years</span><span class="tag">gold_mg</span><span class="tag">silver_mg</span>
-                <span class="tag">copper_g</span><span class="tag">plastic_pct</span><span class="tag">metal_pct</span>
+        # Show 3D viewer for this PCB
+        st.markdown('<div class="section-header">🔬 3D HOLOGRAM VIEW</div>', unsafe_allow_html=True)
+        try:
+            import streamlit.components.v1 as _stc2
+            _pcb_data = {"category": _pcb_cat, "brand": _pcb_brand, "model": _pcb_model}
+            from app.three_d_viewer import generate_3d_viewer as _g3d
+            _pcb_html = _g3d(_pcb_data, height=700)
+            _stc2.html(_pcb_html, height=780, scrolling=False)
+        except Exception:
+            pass
+
+        # Similar devices from DB
+        if not _match.empty:
+            st.markdown('<div class="section-header">📋 SIMILAR DEVICES IN DATABASE</div>', unsafe_allow_html=True)
+            _show = ["uid","brand","model","condition","weight_grams","gold_content_mg","copper_content_g","total_recovery_value_usd","main_soc_chip","recycling_method"]
+            _show = [c for c in _show if c in _match.columns]
+            st.dataframe(_match[_show].head(20), use_container_width=True, hide_index=True)
+    else:
+        st.markdown('''<div class="glass-card" style="text-align:center;padding:40px;">
+            <div style="font-size:4rem;margin-bottom:15px;">🔬</div>
+            <h3 style="color:#00F0FF;">Upload any PCB / Motherboard image</h3>
+            <p style="color:#888;">The AI will identify components, SoC chips, and calculate precious metal recovery value</p>
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap;">
+                <span style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:6px 14px;border-radius:20px;color:#38BDF8;font-size:0.85rem;">📱 Phone Mainboard</span>
+                <span style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:6px 14px;border-radius:20px;color:#38BDF8;font-size:0.85rem;">🖥️ Desktop Motherboard</span>
+                <span style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:6px 14px;border-radius:20px;color:#38BDF8;font-size:0.85rem;">💻 Laptop PCB</span>
+                <span style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:6px 14px;border-radius:20px;color:#38BDF8;font-size:0.85rem;">🎮 GPU Card</span>
+                <span style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:6px 14px;border-radius:20px;color:#38BDF8;font-size:0.85rem;">🔌 Server Board</span>
             </div>
         </div>''', unsafe_allow_html=True)
 
@@ -2551,9 +2650,9 @@ elif page_id == "analyzer":
     st.markdown('<p style="text-align:center;color:#888;">Works with ANY CSV • Auto-Detection • Recovery Recommendations • Full Report</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    data_src = st.radio("📂 Data Source", ["📊 Built-in Dataset (10K)","📤 Upload CSV"], horizontal=True)
+    data_src = st.radio("📂 Data Source", ["📊 Enterprise Dataset (4,200)","📤 Upload CSV"], horizontal=True)
     analyze_df = None
-    if data_src == "📊 Built-in Dataset (10K)":
+    if data_src == "📊 Enterprise Dataset (4,200)":
         if data_loaded and df_raw is not None:
             analyze_df = df_raw.copy()
             st.success(f"✅ Built-in: **{len(analyze_df):,} rows × {len(analyze_df.columns)} cols**")
