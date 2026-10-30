@@ -977,9 +977,18 @@ with st.sidebar:
                     st.session_state.role = "admin"; st.session_state.logged_in = True; st.rerun()
                 else: st.error("❌ Wrong password!")
     else:
-        ri = "🔑" if st.session_state.role == "admin" else "👤"
-        rn = "ADMIN" if st.session_state.role == "admin" else "USER"
-        st.markdown(f'<div style="text-align:center;color:#DC143C;font-family:Orbitron;font-size:.8rem;letter-spacing:2px;">{ri} {rn} MODE</div>', unsafe_allow_html=True)
+        _is_admin = st.session_state.role == "admin"
+        _badge_col = "#DC143C" if _is_admin else "#00BFFF"
+        _badge_bg = "rgba(220,20,60,0.08)" if _is_admin else "rgba(0,191,255,0.08)"
+        _badge_border = "rgba(220,20,60,0.3)" if _is_admin else "rgba(0,191,255,0.3)"
+        _badge_icon = "🔑" if _is_admin else "👤"
+        _badge_title = "ADMINISTRATOR" if _is_admin else "ENTERPRISE USER"
+        _badge_perms = "Full Access · All Modules · DB Control" if _is_admin else "Analysis · Reports · Intake · Compliance"
+        st.markdown(f'''<div style="background:{_badge_bg};border:1px solid {_badge_border};border-radius:10px;padding:10px 14px;margin:8px 0;text-align:center;">
+            <div style="font-size:1.5rem;">{_badge_icon}</div>
+            <div style="color:{_badge_col};font-family:Orbitron;font-size:.72rem;letter-spacing:2px;margin-top:3px;">{_badge_title}</div>
+            <div style="color:#555;font-size:.6rem;margin-top:3px;letter-spacing:.5px;">{_badge_perms}</div>
+        </div>''', unsafe_allow_html=True)
         st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
         # ── USER PROFILE & LOCATION WIDGET ──
