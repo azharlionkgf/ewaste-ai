@@ -2198,7 +2198,7 @@ elif page_id == "history":
     st.markdown('<p style="text-align:center;color:#888;">Industrial Throughput Logs • Real-time Scan Audit • Recovery History Tracking</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    hist_tab1, hist_tab2 = st.tabs(["🏭 Enterprise Processing Logs (500 Records)", "👤 User Classification History"])
+    hist_tab1, hist_tab2, hist_tab3 = st.tabs(["🏭 Enterprise Processing Logs (500 Records)", "🔍 Audit Trail (200 Records)", "👤 User Classification History"])
 
     with hist_tab1:
         try:
@@ -2258,6 +2258,28 @@ elif page_id == "history":
             st.info("No industrial logs found in ewaste_enterprise.db")
 
     with hist_tab2:
+        st.markdown('<div class="section-header">ENTERPRISE AUDIT TRAIL</div>', unsafe_allow_html=True)
+        try:
+            _aconn = sqlite3.connect(ENTERPRISE_DB_PATH)
+            _audit_df = pd.read_sql_query("SELECT timestamp, user_role, action, module, details, ip_address, session_id FROM audit_trail ORDER BY timestamp DESC LIMIT 100", _aconn)
+            _aconn.close()
+        except Exception:
+            _audit_df = pd.DataFrame()
+        if not _audit_df.empty:
+            _af1, _af2 = st.columns(2)
+            with _af1:
+                _aud_action = st.selectbox("Filter Action", ["All"] + sorted(_audit_df["action"].unique().tolist()), key="aud_act")
+            with _af2:
+                _aud_role = st.selectbox("Filter Role", ["All"] + sorted(_audit_df["user_role"].unique().tolist()), key="aud_role")
+            _adf = _audit_df.copy()
+            if _aud_action != "All": _adf = _adf[_adf["action"] == _aud_action]
+            if _aud_role != "All": _adf = _adf[_adf["user_role"] == _aud_role]
+            st.dataframe(_adf, use_container_width=True, height=400)
+            st.caption(f"Showing {len(_adf)} of {len(_audit_df)} entries")
+        else:
+            st.info("No audit trail data.")
+
+    with hist_tab3:
         hist = get_history(200)
         if not hist.empty:
             st.markdown(f'<div class="glass-card"><h4>📊 Total User Scans: {len(hist)}</h4></div>', unsafe_allow_html=True)
@@ -2281,7 +2303,7 @@ elif page_id == "datasets":
     st.markdown('<p style="text-align:center;color:#888;">4,200 Inventory Items • 10 Relational SQLite Schemas • Live SQL Terminal • Certified Industrial Data</p>', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
-    ds_tab1, ds_tab2 = st.tabs(["📊 Inventory Dataset (4,200 Records)", "🗄️ Enterprise SQLite Database Console (10 Tables)"])
+    ds_tab1, ds_tab2, ds_tab3 = st.tabs(["📊 Inventory Dataset (4,200 Records)", "📈 KPI Dashboard (90 Days)", "🗄️ Enterprise SQLite Database Console (10 Tables)"])
 
     with ds_tab1:
         _csv_path = os.path.join(PROJECT_ROOT, 'data', 'ewaste_dataset_4000.csv')
@@ -2353,6 +2375,30 @@ elif page_id == "datasets":
             st.download_button("📥 DOWNLOAD FILTERED DATASET (CSV)", _csv_export, "ewaste_filtered_dataset.csv", "text/csv", use_container_width=True)
 
     with ds_tab2:
+        st.markdown('<div class="section-header">DAILY KPI METRICS (90 Days)</div>', unsafe_allow_html=True)
+        try:
+            _kconn = sqlite3.connect(ENTERPRISE_DB_PATH)
+            _kpi_df = pd.read_sql_query("SELECT * FROM kpi_metrics ORDER BY date DESC", _kconn)
+            _kconn.close()
+        except Exception:
+            _kpi_df = pd.DataFrame()
+        if not _kpi_df.empty:
+            import plotly.graph_objects as go
+            _k1, _k2, _k3, _k4 = st.columns(4)
+            with _k1: st.metric("Avg Devices/Day", f"{_kpi_df['devices_processed'].mean():.0f}")
+            with _k2: st.metric("Avg Revenue/Day", f"${_kpi_df['revenue_usd'].mean():,.0f}")
+            with _k3: st.metric("Avg CO2/Day", f"{_kpi_df['co2_prevented_kg'].mean():,.0f}kg")
+            with _k4: st.metric("Avg Recovery", f"{_kpi_df['recovery_rate'].mean():.1f}%")
+            _kfig = go.Figure()
+            _kfig.add_trace(go.Bar(x=_kpi_df["date"], y=_kpi_df["devices_processed"], name="Devices", marker_color="#DC143C", opacity=0.7))
+            _kfig.add_trace(go.Scatter(x=_kpi_df["date"], y=_kpi_df["revenue_usd"], name="Revenue", yaxis="y2", line=dict(color="#00FF7F", width=2)))
+            _kfig.update_layout(title="Devices & Revenue (90 Days)", template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=350, yaxis2=dict(overlaying="y", side="right"), legend=dict(orientation="h", y=1.1))
+            st.plotly_chart(_kfig, use_container_width=True)
+            st.dataframe(_kpi_df, use_container_width=True, height=250)
+        else:
+            st.info("KPI data not available.")
+
+    with ds_tab3:
         st.markdown('<div class="section-header">🗄️ LIVE SQLITE DATABASE EXPLORER & TERMINAL</div>', unsafe_allow_html=True)
         try:
             conn_ent = sqlite3.connect(ENTERPRISE_DB_PATH)
