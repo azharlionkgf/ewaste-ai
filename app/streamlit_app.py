@@ -4065,6 +4065,9 @@ elif page_id == "ml_train":
                 "Global Recycling Centers (500 rows)": "global_recycling_centers.csv",
                 "Material Recovery & Pricing (800 rows)": "material_recovery_pricing.csv",
                 "Environmental Impact (600 rows)": "environmental_impact_data.csv",
+                "Image Features + Classification (3,000 rows)": "ewaste_image_features.csv",
+                "Toxicity Classification (2,500 rows)": "ewaste_classification_data.csv",
+                "Recycling Analytics (2,000 rows)": "ewaste_recycling_analytics.csv",
             }
             _sel_ds = st.selectbox("Select Dataset", list(_builtin.keys()), key="ml_builtin_sel")
             if st.button("LOAD DATASET", use_container_width=True, key="btn_load_builtin"):
