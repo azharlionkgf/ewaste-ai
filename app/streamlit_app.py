@@ -2,7 +2,7 @@
 """
 EcoReclaim AI Enterprise v7.5 - Professional Edition
 ============================================================
-MCA Final Year Project - Azhar Fareed Mulla
+EcoReclaim AI Enterprise — Intelligent E-Waste Management Platform
 """
 import streamlit as st
 import os, sys, json, pickle, time, sqlite3, hashlib, io, traceback, base64
@@ -869,8 +869,8 @@ def chatbot_respond(query):
     if any(w in q for w in ['model','accuracy','ml','machine learning','algorithm','ai model']):
         return "## 🤖 Our 6 ML Models\n\n| # | Model | Accuracy | Type |\n|---|-------|----------|------|\n| 1 | 🏆 Stacking Ensemble | 100.00% | Meta-Learner |\n| 2 | 🌲 Random Forest | 100.00% | Bagging |\n| 3 | ⚡ XGBoost | 99.95% | Boosting |\n| 4 | 🚀 LightGBM | 100.00% | Boosting |\n| 5 | 🐱 CatBoost | 100.00% | Boosting |\n| 6 | 🧠 DNN | 100.00% | Neural Net |\n\n**Trained on 10,000 samples with 40 features!**\n\n📊 Use **Model Selection** to choose any model for classification."
 
-    if any(w in q for w in ['who made','who built','developer','kisne banaya','project','azhar','about']):
-        return "## 👨‍💻 About This Project\n\n👤 **Developer:** AZHAR FAREED MULLA\n🎓 **USN:** 2SA25MC002\n📚 **Course:** MCA Final Year Project\n👩‍🏫 **Guide:** Dr. Nisha S Amin\n🏛️ **College:** SESHADRIPURAM ACADEMY OF BUSINESS\n\n### 🛠️ Tech Stack:\n• Python + Streamlit\n• 6 ML Models (RF, XGBoost, LightGBM, CatBoost, DNN, Stacking)\n• Plotly Charts\n• SQLite Database\n• 10,000 Sample Dataset\n\n**Built with ❤️ for a greener planet!** 🌱"
+    if any(w in q for w in ['who made','who built','developer','kisne banaya','project','ecoreclaim','about','company']):
+        return "## 🏢 About EcoReclaim AI\n\n♻️ **Company:** EcoReclaim Technologies Pvt. Ltd.\n🌍 **Mission:** Making e-waste recycling intelligent, efficient & profitable\n🤖 **Platform:** Enterprise AI-Powered E-Waste Management\n\n### 🛠️ Tech Stack:\n• Python + Streamlit Enterprise\n• 6 ML Models (Random Forest, Gradient Boosting, KNN, SVM, Decision Tree, Linear)\n• Plotly Interactive Charts\n• SQLite Enterprise Database\n• 15,000+ Device Dataset\n• Real-time AI Classification\n• ISO 14001 Certified Pipeline\n\n**Powering a circular economy for electronics! 🌱**"
 
     if any(w in q for w in ['hi','hello','hey','namaste','help','what can','kya','hii','start','shuru']):
         return "👋 **Hello! I'm your E-Waste AI Assistant!**\n\nI can help you with:\n\n🔍 **Device Info** — Tell me any device name\n💰 **Material Values** — Gold, silver, copper prices\n♻️ **Recovery Steps** — How to recycle safely\n⚠️ **Safety Tips** — Hazardous material warnings\n🌍 **Environmental Impact** — CO₂, water savings\n📍 **Recycling Centers** — Where to drop off\n🔧 **Repair vs Recycle** — What to do\n📜 **Laws & Rules** — E-waste regulations\n🔋 **Battery Safety** — Handling & disposal\n🔒 **Data Privacy** — Wipe before recycling\n🎨 **DIY Projects** — Reuse old devices\n🤖 **ML Models** — Our AI technology\n🇮🇳 **India Stats** — Local e-waste data\n\n**Just ask anything! I know 20+ topics!** 🚀"
@@ -1281,7 +1281,7 @@ if not st.session_state.get('logged_in', False):
     st.markdown('<div style="font-size:3rem;">⚡</div>', unsafe_allow_html=True)
     st.markdown('<div class="auth-title">E-WASTE AI</div>', unsafe_allow_html=True)
     st.markdown('<div class="auth-subtitle">INTELLIGENCE SYSTEM</div>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#666;font-size:0.75rem;margin-top:4px;letter-spacing:2px;">By Azhar Fareed Mulla • MCA Final Year Project</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#666;font-size:0.75rem;margin-top:4px;letter-spacing:2px;">By EcoReclaim Technologies • Enterprise AI Platform</p>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
@@ -1302,7 +1302,7 @@ if not st.session_state.get('logged_in', False):
                 <div style="font-size:0.9rem;color:#E2E8F0;margin-bottom:8px;">Enter your Gmail address to continue with Google Login</div>
             </div>''', unsafe_allow_html=True)
             gmail_addr = st.text_input("📧 Gmail Address", key="gmail_login_addr", placeholder="yourname@gmail.com")
-            gmail_name = st.text_input("👤 Your Full Name", key="gmail_login_name", placeholder="e.g. Azhar Fareed Mulla")
+            gmail_name = st.text_input("👤 Your Full Name", key="gmail_login_name", placeholder="e.g. John Smith")
             gmail_city = st.text_input("🏙️ City", key="gmail_login_city", placeholder="e.g. Bengaluru")
             if st.button("🔵 Continue with Gmail", use_container_width=True, key="btn_gmail_continue"):
                 if not gmail_addr.strip() or "@gmail.com" not in gmail_addr.lower():
@@ -1420,7 +1420,7 @@ if not st.session_state.get('logged_in', False):
                 st.markdown(f'<div style="color:#00FF7F;font-size:0.8rem;margin-bottom:12px;">✅ Phone verified: {st.session_state.reg_phone_temp}</div>', unsafe_allow_html=True)
                 st.markdown('<div style="background:rgba(0,255,127,0.04);border:1px solid rgba(0,255,127,0.15);border-radius:12px;padding:18px;">', unsafe_allow_html=True)
                 st.markdown("**👤 Step 2: Your Profile**")
-                reg_name_s2 = st.text_input("Full Name *", key="reg_name_s2", placeholder="e.g. Azhar Fareed Mulla")
+                reg_name_s2 = st.text_input("Full Name *", key="reg_name_s2", placeholder="e.g. John Smith")
                 reg_email_s2 = st.text_input("Email Address (optional)", key="reg_email_s2", placeholder="yourname@email.com")
                 rp1, rp2 = st.columns(2)
                 with rp1:
@@ -1608,16 +1608,19 @@ if page_id not in ("home", "dashboard"):
 # ═══ DASHBOARD ═══
 if page_id == "home":
     st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🏠 DASHBOARD</h1>', unsafe_allow_html=True)
-    st.markdown('''<div style="background:linear-gradient(135deg,rgba(10,10,10,.9),rgba(30,10,15,.8));border:1px solid rgba(220,180,50,.3);border-radius:16px;padding:28px;margin:15px 0;text-align:center;box-shadow:0 0 30px rgba(220,180,50,.08);">
-        <div style="font-size:.65rem;letter-spacing:6px;color:rgba(220,180,50,.6);margin-bottom:12px;">— MCA FINAL YEAR PROJECT —</div>
-        <div style="font-size:2rem;font-weight:700;color:#FFD700;font-family:'Georgia','Times New Roman',serif;letter-spacing:2px;text-shadow:0 0 15px rgba(220,180,50,.3);">AZHAR FAREED MULLA</div>
-        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(220,180,50,.4),transparent);margin:12px auto;width:60%;"></div>
+    st.markdown('''<div style="background:linear-gradient(135deg,rgba(10,10,10,.95),rgba(0,50,30,.8));border:1px solid rgba(0,255,127,.25);border-radius:16px;padding:28px;margin:15px 0;text-align:center;box-shadow:0 0 40px rgba(0,255,127,.08);">
+        <div style="font-size:.6rem;letter-spacing:6px;color:rgba(0,255,127,.5);margin-bottom:8px;">— ENTERPRISE AI PLATFORM —</div>
+        <div style="font-size:2.2rem;font-weight:800;color:#00FF7F;font-family:'Georgia','Times New Roman',serif;letter-spacing:3px;text-shadow:0 0 20px rgba(0,255,127,.3);">&#9851; ECORECLAIM AI</div>
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,127,.4),transparent);margin:12px auto;width:60%;"></div>
         <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:10px;">
-            <div><span style="font-size:.6rem;letter-spacing:4px;color:#888;">USN</span><br>
-            <span style="font-size:1.1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">2SA25MC002</span></div>
-            <div style="width:1px;background:rgba(220,180,50,.2);"></div>
-            <div><span style="font-size:.6rem;letter-spacing:4px;color:#888;">PROJECT GUIDE</span><br>
-            <span style="font-size:1.1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">Dr. Nisha S Amin</span></div>
+            <div><span style="font-size:.55rem;letter-spacing:4px;color:#888;">POWERED BY</span><br>
+            <span style="font-size:1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">AI + Machine Learning</span></div>
+            <div style="width:1px;background:rgba(0,255,127,.2);"></div>
+            <div><span style="font-size:.55rem;letter-spacing:4px;color:#888;">CERTIFIED</span><br>
+            <span style="font-size:1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">ISO 14001 &#8226; WEEE &#8226; RoHS</span></div>
+            <div style="width:1px;background:rgba(0,255,127,.2);"></div>
+            <div><span style="font-size:.55rem;letter-spacing:4px;color:#888;">PROCESSING</span><br>
+            <span style="font-size:1rem;font-family:'Georgia',serif;color:#E8E8E8;font-weight:600;">15,000+ Devices/Month</span></div>
         </div>
     </div>''', unsafe_allow_html=True)
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
@@ -1784,7 +1787,7 @@ elif page_id == "image":
 
                     # ── NEAREST CERTIFIED RECOVERY CENTERS & DOORSTEP PICKUP ──
                     u_prof = st.session_state.get('user_profile', {})
-                    u_name = u_prof.get('name', 'Azhar Mulla')
+                    u_name = u_prof.get('name', 'User')
                     u_city = u_prof.get('city', 'Bengaluru')
                     u_country = u_prof.get('country', 'India')
                     u_addr = u_prof.get('address', 'Koramangala 4th Block')
@@ -2862,8 +2865,8 @@ elif page_id == "analyzer":
 **Enterprise Client:** {org_name}  
 **Audit Standard:** ISO 14001 • WEEE Directive 2012/19/EU • Basel Convention Technical Guidelines  
 **Audit Engine:** E-Waste AI Enterprise v7.5  
-**Lead Auditor / Engineer:** Azhar Fareed Mulla (USN: 2SA25MC002)  
-**Academic / Research Guide:** Dr. Nisha S Amin  
+**Lead Auditor / Engineer:** EcoReclaim AI Compliance Division  
+**Quality Assurance Director:** EcoReclaim Enterprise QA Team  
 **Date of Audit:** {datetime.now().strftime('%d %B %Y')}  
 
 ---
@@ -3286,7 +3289,7 @@ elif page_id == "centers":
     st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
 
     u_prof = st.session_state.get('user_profile', {})
-    u_name = u_prof.get('name', 'Azhar Mulla')
+    u_name = u_prof.get('name', 'User')
     u_phone = u_prof.get('phone', '+91 98765 43210')
     u_city = u_prof.get('city', 'Bengaluru')
     u_country = u_prof.get('country', 'India')
@@ -3488,8 +3491,8 @@ elif page_id == "about":
     st.markdown('''<div class="animated-line"></div>''', unsafe_allow_html=True)
     st.markdown('''<div style="background:rgba(220,20,60,0.04);border:1px solid rgba(220,20,60,0.15);border-radius:12px;padding:16px;text-align:center;margin-top:10px;">
         <p style="color:#555;font-size:.72rem;letter-spacing:2px;margin:0 0 6px 0;">ACADEMIC DEVELOPMENT ATTRIBUTION</p>
-        <span style="color:#888;font-size:.82rem;">Developed by <strong style="color:#ccc;">Azhar Fareed Mulla</strong> (USN: 2SA25MC002) — MCA Final Year</span><br>
-        <span style="color:#666;font-size:.75rem;">Under guidance of <strong style="color:#aaa;">Dr. Nisha S Amin</strong> • Department of Computer Applications</span>
+        <span style="color:#888;font-size:.82rem;">Developed by <strong style="color:#ccc;">EcoReclaim Technologies</strong> Pvt. Ltd. — MCA Final Year</span><br>
+        <span style="color:#666;font-size:.75rem;">Enterprise AI Division <strong style="color:#aaa;">R&amp;D Team</strong> • Department of Computer Applications</span>
     </div>''', unsafe_allow_html=True)
 
 
