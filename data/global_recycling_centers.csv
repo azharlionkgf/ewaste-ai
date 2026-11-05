@@ -1,0 +1,501 @@
+center_id,name,city,country,certification,monthly_capacity_units,phone,accepted_categories,doorstep_pickup,rating,latitude,longitude
+RC_0001,SafeMetal Pvt Ltd,Leeds,UK,EPA Registered,2723,+46 971 7008606,"Printer, Washing Machine, Laptop, Router/Modem, Gaming Console, Television",Yes,3.9,24.4428,-34.4501
+RC_0002,EcoCircuit Industries,Birmingham,UK,ISO 14001:2015,14809,+30 712 3946863,"Washing Machine, Printer, Refrigerator, Monitor, Router/Modem, Desktop PC, Gaming Console, Microwave",Yes,4.6,46.9038,30.8637
+RC_0003,GreenMine Technologies,Boston,USA,Basel Convention,30523,+69 368 4546051,"Camera, Washing Machine, Tablet, Headphones, Monitor, Laptop, Refrigerator",Yes,3.9,19.7803,-1.8054
+RC_0004,SmartCycle Recyclers,Abu Dhabi,UAE,WEEE Compliant,41205,+46 734 3387117,"Desktop PC, Washing Machine, Smartwatch, Tablet",Yes,4.0,-3.5431,-31.5774
+RC_0005,UrbanWaste Recyclers,Brisbane,Australia,ISO 14001:2015,13257,+34 558 2120847,"Refrigerator, Headphones, Gaming Console",Yes,3.8,53.8349,7.3307
+RC_0006,SafeEarth Pvt Ltd,Austin,USA,Zero Landfill Certified,19642,+80 726 9003128,"Headphones, Smartwatch, Router/Modem, Desktop PC, Monitor, Gaming Console",Yes,4.5,-19.5972,48.111
+RC_0007,CoreEarth Recyclers,London,UK,Basel Convention,38283,+95 675 4401812,"Headphones, Router/Modem, Smartphone, Microwave, Refrigerator",No,4.2,1.6795,36.2702
+RC_0008,EcoWaste Inc,Ahmedabad,India,CPCB Authorized,32851,+20 936 1549946,"Refrigerator, Laptop, Smartwatch, Microwave, Camera, Printer, Television",No,3.6,-20.3176,-10.5762
+RC_0009,GreenGreen Corp,Dubai,UAE,Zero Landfill Certified,13551,+57 363 3513308,"Tablet, Microwave, Camera, Gaming Console, Washing Machine, Smartwatch, Refrigerator, Printer",No,4.7,39.4447,-101.7025
+RC_0010,SafeNova GmbH,Sydney,Australia,ISO 14001:2015,14922,+50 228 6709499,"Monitor, Desktop PC, Television, Smartwatch, Laptop",Yes,4.4,-22.0712,18.9584
+RC_0011,UrbanReclaim Pvt Ltd,Dubai,UAE,e-Stewards,35492,+97 692 1920299,"Router/Modem, Television, Printer, Refrigerator, Monitor, Headphones",Yes,5.0,34.0539,113.4221
+RC_0012,MetroCycle GmbH,New York,USA,Zero Landfill Certified,9957,+31 778 2612482,"Smartphone, Smartwatch, Router/Modem, Gaming Console",No,4.6,-3.4438,32.2534
+RC_0013,SafeCircuit Recyclers,San Jose,USA,R2 Certified,49419,+48 597 1674055,"Tablet, Washing Machine, Refrigerator, Router/Modem",Yes,3.7,-38.7479,-6.4278
+RC_0014,EliteMine Recyclers,Adelaide,Australia,EPA Registered,42924,+19 993 9631713,"Router/Modem, Smartphone, Television, Washing Machine, Camera, Laptop",Yes,4.3,-21.8277,-40.9176
+RC_0015,GreenNova Solutions,Canberra,Australia,e-Stewards,26587,+71 557 6981707,"Router/Modem, Printer, Monitor",Yes,4.6,-11.7248,-56.0018
+RC_0016,SmartNova Industries,Berlin,Germany,R2 Certified,38534,+58 647 4967062,"Headphones, Microwave, Refrigerator, Tablet, Printer, Router/Modem, Gaming Console, Desktop PC",Yes,3.8,-5.9762,-38.322
+RC_0017,SmartCircuit Recyclers,Sharjah,UAE,WEEE Compliant,8103,+27 840 7141529,"Printer, Laptop, Smartwatch, Smartphone, Router/Modem, Tablet, Desktop PC",Yes,3.5,46.6778,136.653
+RC_0018,SafeTech Solutions,Kyoto,Japan,e-Stewards,41559,+1 149 3683645,"Television, Tablet, Refrigerator",Yes,3.6,42.6415,78.5034
+RC_0019,EcoMetal Industries,San Jose,USA,ISO 14001:2015,29196,+62 779 5835744,"Gaming Console, Smartwatch, Router/Modem, Laptop",No,3.5,36.8369,-20.9445
+RC_0020,SmartTech Solutions,Cologne,Germany,Zero Landfill Certified,11840,+65 278 3479262,"Printer, Desktop PC, Headphones, Router/Modem, Refrigerator, Television, Smartphone, Smartwatch",Yes,4.9,-22.8836,118.9513
+RC_0021,SmartCycle GmbH,Dubai,UAE,e-Stewards,21184,+82 220 2408911,"Gaming Console, Monitor, Smartphone",Yes,4.4,1.9145,23.9353
+RC_0022,SafeCycle Technologies,Bengaluru,India,WEEE Compliant,32871,+80 771 3918418,"Camera, Printer, Desktop PC, Washing Machine, Laptop",Yes,3.9,15.7938,57.536
+RC_0023,SafeCircuit Solutions,Phoenix,USA,Zero Landfill Certified,33889,+69 958 3668508,"Desktop PC, Monitor, Refrigerator, Smartwatch",Yes,3.7,27.1881,-113.8085
+RC_0024,PrimeMetal Pvt Ltd,Adelaide,Australia,Basel Convention,32408,+13 557 6078454,"Desktop PC, Camera, Smartwatch, Headphones",Yes,4.8,19.0182,-99.8379
+RC_0025,GreenEarth Solutions,Sheffield,UK,ISO 14001:2015,13438,+30 364 2768840,"Router/Modem, Laptop, Refrigerator, Television",No,4.3,49.8287,59.2673
+RC_0026,UrbanCycle Pvt Ltd,Abu Dhabi,UAE,R2 Certified,18911,+98 679 4506346,"Refrigerator, Smartwatch, Desktop PC, Headphones, Monitor",Yes,4.1,27.3159,139.9173
+RC_0027,MetroMetal Corp,Abu Dhabi,UAE,e-Stewards,49607,+49 248 9999919,"Tablet, Smartwatch, Laptop, Desktop PC",Yes,3.8,46.3605,17.2148
+RC_0028,SafeReclaim Inc,Chicago,USA,R2 Certified,24075,+31 680 8464013,"Headphones, Gaming Console, Desktop PC, Smartwatch, Microwave, Laptop, Tablet",Yes,3.7,19.7381,-4.4145
+RC_0029,SmartTech Solutions,Tokyo,Japan,ISO 14001:2015,23347,+89 648 8023258,"Smartphone, Router/Modem, Refrigerator, Washing Machine, Smartwatch, Printer",Yes,4.6,30.0935,87.8431
+RC_0030,SafeMine Corp,Sapporo,Japan,EPA Registered,1817,+51 808 4758107,"Camera, Laptop, Smartphone",No,3.9,-12.0558,49.43
+RC_0031,UrbanEarth Recyclers,London,UK,WEEE Compliant,40051,+39 366 4845591,"Smartwatch, Monitor, Router/Modem, Television, Camera, Washing Machine",No,4.1,46.8056,119.2313
+RC_0032,SafeMine Solutions,Adelaide,Australia,CPCB Authorized,950,+97 543 7955165,"Tablet, Desktop PC, Washing Machine",No,3.7,44.1104,77.8843
+RC_0033,SafeTech Corp,Fukuoka,Japan,CPCB Authorized,12227,+72 989 5891338,"Microwave, Monitor, Smartwatch, Television",Yes,4.2,22.0907,84.1354
+RC_0034,MetroEarth Pvt Ltd,Jaipur,India,WEEE Compliant,8848,+15 780 9671998,"Desktop PC, Smartphone, Headphones, Smartwatch, Washing Machine",No,4.2,-13.9115,-2.3617
+RC_0035,MetroTech Solutions,Frankfurt,Germany,Basel Convention,1068,+50 467 6264830,"Router/Modem, Printer, Headphones, Desktop PC, Television",Yes,4.2,-5.7935,-0.5518
+RC_0036,EliteCircuit Corp,Sharjah,UAE,e-Stewards,23108,+87 117 1934410,"Monitor, Router/Modem, Refrigerator, Headphones, Tablet, Washing Machine, Desktop PC, Camera",Yes,4.4,24.4806,-5.5554
+RC_0037,UrbanMine Solutions,Perth,Australia,WEEE Compliant,8728,+6 851 3689703,"Headphones, Washing Machine, Router/Modem, Monitor, Smartwatch, Refrigerator",Yes,4.5,-6.4643,-113.2901
+RC_0038,MetroCircuit Corp,Denver,USA,ISO 14001:2015,20617,+82 885 4902143,"Smartphone, Microwave, Washing Machine, Tablet, Desktop PC",Yes,4.4,-0.978,2.5714
+RC_0039,PrimeCircuit Corp,Sharjah,UAE,WEEE Compliant,39528,+87 615 4725469,"Laptop, Microwave, Smartphone",Yes,4.9,10.7101,-54.5027
+RC_0040,MetroMine Inc,Canberra,Australia,EPA Registered,42389,+83 993 6723265,"Camera, Smartphone, Washing Machine, Laptop, Router/Modem, Headphones, Desktop PC, Refrigerator",Yes,4.1,30.7835,133.0391
+RC_0041,CoreCircuit Pvt Ltd,Houston,USA,R2 Certified,25796,+66 727 7287264,"Smartwatch, Refrigerator, Tablet",Yes,4.7,13.0932,20.7984
+RC_0042,EcoNova Solutions,London,UK,e-Stewards,44679,+66 615 6989438,"Camera, Desktop PC, Printer, Headphones, Tablet, Laptop, Smartwatch, Television",No,3.8,-38.2943,-30.421
+RC_0043,SmartWaste Recyclers,Bristol,UK,CPCB Authorized,27474,+18 603 8522376,"Headphones, Monitor, Laptop",Yes,5.0,-17.9956,85.2274
+RC_0044,GreenMine Recyclers,Dubai,UAE,ISO 14001:2015,23570,+69 178 1447322,"Smartwatch, Router/Modem, Printer",No,3.6,5.5571,-90.617
+RC_0045,SafeMine Industries,Adelaide,Australia,e-Stewards,27304,+78 277 8167892,"Laptop, Smartwatch, Headphones, Refrigerator, Washing Machine, Desktop PC",Yes,4.5,43.9897,133.7267
+RC_0046,EliteMetal Recyclers,Bremen,Germany,R2 Certified,1803,+13 217 3632946,"Router/Modem, Monitor, Printer",Yes,4.6,36.1544,-53.8454
+RC_0047,PrimeMine Pvt Ltd,New York,USA,e-Stewards,3712,+29 961 1759393,"Headphones, Tablet, Laptop, Refrigerator, Router/Modem",Yes,3.9,32.4425,-62.8215
+RC_0048,EliteWaste Pvt Ltd,Canberra,Australia,e-Stewards,15570,+60 186 2368191,"Desktop PC, Monitor, Printer, Gaming Console, Washing Machine, Headphones, Router/Modem",No,4.5,22.5283,-74.9556
+RC_0049,GreenNova Pvt Ltd,Perth,Australia,EPA Registered,9110,+81 284 2352475,"Smartwatch, Printer, Smartphone, Washing Machine, Router/Modem",No,4.3,-38.4208,-116.0624
+RC_0050,EcoCircuit Industries,Austin,USA,EPA Registered,33949,+26 899 7687843,"Laptop, Router/Modem, Smartphone, Headphones",Yes,4.6,47.2375,66.5364
+RC_0051,MetroEarth GmbH,Phoenix,USA,e-Stewards,41615,+41 889 1499744,"Monitor, Microwave, Laptop, Desktop PC, Washing Machine",Yes,4.2,8.7783,134.6922
+RC_0052,CleanReclaim Inc,Yokohama,Japan,e-Stewards,42407,+62 749 4844441,"Router/Modem, Monitor, Headphones, Smartphone",Yes,3.8,-22.2462,119.9677
+RC_0053,PrimeCircuit Inc,Sharjah,UAE,e-Stewards,8409,+83 757 7155493,"Monitor, Gaming Console, Router/Modem, Camera, Smartwatch, Washing Machine",Yes,4.3,-27.7649,-20.5376
+RC_0054,EcoWaste Industries,Bengaluru,India,WEEE Compliant,13701,+84 812 8261137,"Router/Modem, Microwave, Camera",Yes,4.1,22.1622,-73.5427
+RC_0055,CleanMetal Inc,Birmingham,UK,Zero Landfill Certified,49661,+45 995 8717669,"Camera, Smartwatch, Washing Machine, Microwave, Television",No,4.5,34.4913,127.4308
+RC_0056,SmartCircuit Industries,Edinburgh,UK,EPA Registered,42747,+1 388 3300876,"Laptop, Gaming Console, Refrigerator",Yes,5.0,36.5033,-89.3136
+RC_0057,MetroCycle Inc,Perth,Australia,e-Stewards,16191,+78 812 9381438,"Washing Machine, Laptop, Headphones, Tablet, Smartphone, Camera, Smartwatch",Yes,4.5,-12.4127,-6.9071
+RC_0058,UrbanGreen Pvt Ltd,Canberra,Australia,ISO 14001:2015,10561,+88 356 1235287,"Smartphone, Smartwatch, Desktop PC",No,4.2,38.7644,-50.9012
+RC_0059,EcoCycle GmbH,Austin,USA,EPA Registered,909,+68 744 5387448,"Refrigerator, Microwave, Printer, Camera, Television, Laptop",No,4.4,5.1582,-12.739
+RC_0060,CleanMetal Technologies,Canberra,Australia,ISO 14001:2015,22540,+41 259 5006382,"Smartphone, Monitor, Smartwatch",Yes,4.3,31.4872,-17.11
+RC_0061,CleanCycle Corp,Dubai,UAE,EPA Registered,26247,+85 773 9098336,"Desktop PC, Laptop, Tablet, Router/Modem, Refrigerator, Washing Machine, Camera",Yes,3.6,7.0198,76.8559
+RC_0062,EcoWaste Pvt Ltd,Adelaide,Australia,Zero Landfill Certified,12007,+96 369 5748316,"Headphones, Desktop PC, Monitor, Microwave, Laptop",No,3.6,-14.6326,-81.9182
+RC_0063,MetroReclaim Corp,Perth,Australia,Zero Landfill Certified,30715,+30 293 4189360,"Printer, Smartwatch, Laptop, Refrigerator, Smartphone, Desktop PC",Yes,4.1,42.5345,-4.7689
+RC_0064,CoreTech Technologies,Denver,USA,ISO 14001:2015,25576,+99 819 3442662,"Headphones, Gaming Console, Smartwatch, Smartphone, Laptop, Camera, Router/Modem",Yes,4.3,4.9344,18.7743
+RC_0065,CleanMetal GmbH,Adelaide,Australia,R2 Certified,24163,+69 777 1388489,"Smartwatch, Gaming Console, Headphones, Laptop, Monitor, Camera, Printer",Yes,4.7,4.9339,83.063
+RC_0066,CleanWaste Industries,Leeds,UK,CPCB Authorized,9879,+16 625 1221180,"Laptop, Monitor, Microwave, Camera, Desktop PC",No,4.2,54.4997,21.2301
+RC_0067,SmartMetal Recyclers,Ahmedabad,India,ISO 14001:2015,3879,+88 404 9685057,"Microwave, Washing Machine, Television, Printer, Smartphone, Headphones",Yes,4.8,46.511,130.4474
+RC_0068,GreenReclaim Industries,Kobe,Japan,R2 Certified,11460,+62 879 2792867,"Laptop, Microwave, Camera, Tablet, Smartphone",No,4.0,49.4063,-53.1441
+RC_0069,CoreEarth Inc,Birmingham,UK,WEEE Compliant,45166,+16 873 4452537,"Smartphone, Television, Washing Machine, Printer, Camera, Refrigerator, Monitor, Headphones",No,4.1,31.2097,-60.8695
+RC_0070,EliteMine Recyclers,New York,USA,WEEE Compliant,5844,+4 820 7169189,"Headphones, Smartwatch, Router/Modem, Printer, Microwave, Smartphone, Camera, Washing Machine",No,4.6,21.26,-100.1468
+RC_0071,EcoCircuit Corp,Ahmedabad,India,EPA Registered,34427,+85 731 6468107,"Camera, Smartphone, Refrigerator",No,4.5,11.9531,84.7206
+RC_0072,GreenMetal Industries,Ajman,UAE,Zero Landfill Certified,20923,+41 476 8465590,"Refrigerator, Router/Modem, Gaming Console, Smartphone, Television",No,3.9,40.3792,79.4613
+RC_0073,SmartEarth Inc,Los Angeles,USA,e-Stewards,49245,+50 658 1504857,"Headphones, Television, Gaming Console, Washing Machine, Microwave, Router/Modem",Yes,3.8,51.2788,135.7444
+RC_0074,GreenCircuit Industries,Dubai,UAE,Zero Landfill Certified,19628,+18 619 6296819,"Smartwatch, Microwave, Television, Monitor, Camera, Router/Modem, Gaming Console, Laptop",Yes,4.1,7.7947,96.1207
+RC_0075,PrimeWaste Recyclers,Osaka,Japan,R2 Certified,12461,+66 684 6828835,"Headphones, Router/Modem, Television",Yes,4.2,34.661,-25.3945
+RC_0076,MetroCircuit Corp,Manchester,UK,Zero Landfill Certified,34213,+56 962 8522031,"Refrigerator, Smartphone, Desktop PC, Headphones, Smartwatch, Camera",Yes,3.6,-27.7435,-80.6637
+RC_0077,GreenNova GmbH,Perth,Australia,R2 Certified,10050,+81 497 3174053,"Gaming Console, Laptop, Refrigerator, Desktop PC, Camera",Yes,4.8,-23.6077,-46.1571
+RC_0078,MetroNova Industries,Phoenix,USA,Zero Landfill Certified,44822,+76 457 7635080,"Refrigerator, Gaming Console, Television, Smartwatch, Laptop, Router/Modem",Yes,4.6,33.1344,136.4437
+RC_0079,CleanGreen Recyclers,Liverpool,UK,R2 Certified,35380,+80 497 5517284,"Printer, Television, Gaming Console",Yes,4.6,26.0912,124.2845
+RC_0080,SafeNova Corp,Pune,India,WEEE Compliant,21080,+80 671 5806939,"Smartwatch, Laptop, Smartphone, Camera, Washing Machine, Gaming Console, Router/Modem",Yes,3.7,-25.7098,15.1772
+RC_0081,GreenCycle Corp,Jaipur,India,CPCB Authorized,4779,+94 647 2149891,"Camera, Headphones, Printer, Television, Laptop, Monitor",No,4.3,-15.1185,-35.2576
+RC_0082,CleanMine Pvt Ltd,Austin,USA,Zero Landfill Certified,45046,+33 563 5752128,"Laptop, Refrigerator, Desktop PC, Tablet, Monitor, Smartwatch, Television, Router/Modem",Yes,4.9,-5.4324,12.5852
+RC_0083,CoreMine Pvt Ltd,Hyderabad,India,ISO 14001:2015,35241,+14 526 5587258,"Tablet, Refrigerator, Desktop PC, Printer, Monitor",Yes,4.1,-28.6074,111.4086
+RC_0084,CoreReclaim GmbH,Leeds,UK,Basel Convention,24167,+14 610 3270220,"Tablet, Router/Modem, Smartwatch, Gaming Console, Laptop, Monitor, Printer, Smartphone",Yes,4.5,-30.1765,-65.0428
+RC_0085,PrimeGreen GmbH,Canberra,Australia,Zero Landfill Certified,26372,+22 758 5011525,"Washing Machine, Headphones, Laptop, Microwave, Monitor, Desktop PC, Television",Yes,3.7,-10.2625,-73.335
+RC_0086,SafeCircuit Corp,Birmingham,UK,EPA Registered,18969,+78 515 7715473,"Printer, Refrigerator, Television",No,3.9,-22.4755,-19.9234
+RC_0087,CleanGreen Solutions,Kyoto,Japan,R2 Certified,1249,+70 172 7074364,"Smartphone, Refrigerator, Printer",Yes,4.7,26.7921,-102.426
+RC_0088,PrimeReclaim Technologies,Ras Al Khaimah,UAE,WEEE Compliant,49996,+33 616 2468920,"Refrigerator, Microwave, Monitor, Printer, Smartphone, Laptop",Yes,4.6,41.759,51.9403
+RC_0089,EcoMine Industries,Bengaluru,India,EPA Registered,14022,+52 279 2661275,"Headphones, Microwave, Printer, Television, Gaming Console, Smartwatch, Tablet",Yes,4.7,14.4018,45.7498
+RC_0090,SmartWaste Pvt Ltd,Ajman,UAE,ISO 14001:2015,8735,+50 634 5693591,"Router/Modem, Television, Headphones, Desktop PC, Printer, Tablet, Microwave, Washing Machine",No,4.1,-14.7415,-47.8586
+RC_0091,CleanCircuit Recyclers,Birmingham,UK,CPCB Authorized,44633,+43 699 8312106,"Desktop PC, Tablet, Refrigerator, Headphones, Gaming Console",Yes,3.8,19.6063,-96.164
+RC_0092,PrimeTech Inc,Adelaide,Australia,CPCB Authorized,29217,+19 437 7878100,"Refrigerator, Washing Machine, Television, Printer, Monitor, Gaming Console",Yes,4.7,40.9331,-86.2496
+RC_0093,EcoNova Corp,Dusseldorf,Germany,EPA Registered,29812,+72 742 9175307,"Tablet, Refrigerator, Headphones, Smartwatch, Microwave, Router/Modem, Washing Machine",Yes,3.7,30.7203,8.4757
+RC_0094,UrbanCircuit Inc,Munich,Germany,EPA Registered,912,+85 744 8490992,"Television, Laptop, Gaming Console, Monitor, Tablet, Smartphone",Yes,3.7,-37.9424,123.2513
+RC_0095,GreenMine Corp,Sydney,Australia,WEEE Compliant,38562,+43 636 6391738,"Camera, Gaming Console, Smartphone, Refrigerator, Printer, Television, Laptop, Router/Modem",Yes,4.8,-18.5088,134.2896
+RC_0096,CoreEarth Technologies,Edinburgh,UK,Zero Landfill Certified,9463,+69 369 2547516,"Microwave, Desktop PC, Printer, Tablet, Monitor, Refrigerator",Yes,3.5,1.6649,101.7506
+RC_0097,MetroCycle Recyclers,Dusseldorf,Germany,Zero Landfill Certified,20601,+42 132 5054814,"Television, Smartwatch, Laptop, Washing Machine",Yes,4.7,4.6919,129.1404
+RC_0098,SmartGreen Industries,Sapporo,Japan,Basel Convention,25032,+32 282 8320932,"Router/Modem, Printer, Monitor, Television, Laptop, Refrigerator, Gaming Console, Tablet",No,4.0,-30.6889,-86.6345
+RC_0099,SafeMetal Industries,London,UK,Basel Convention,18688,+47 673 9150574,"Tablet, Refrigerator, Gaming Console, Desktop PC, Headphones, Laptop, Camera, Television",No,4.9,40.5693,-11.9505
+RC_0100,SmartReclaim GmbH,Leeds,UK,Zero Landfill Certified,37259,+79 443 3684658,"Washing Machine, Tablet, Smartphone, Refrigerator, Microwave",Yes,3.6,2.583,28.8419
+RC_0101,GreenTech Industries,Ajman,UAE,EPA Registered,18976,+12 555 1459588,"Monitor, Microwave, Camera, Router/Modem, Headphones, Desktop PC, Washing Machine, Gaming Console",Yes,4.1,2.7168,56.8377
+RC_0102,SafeCircuit Technologies,Manchester,UK,e-Stewards,43350,+38 169 4586448,"Refrigerator, Headphones, Washing Machine, Laptop, Television, Smartphone, Camera, Router/Modem",No,4.4,8.5075,92.0379
+RC_0103,CleanEarth Technologies,Kolkata,India,Zero Landfill Certified,37018,+37 381 8632221,"Gaming Console, Router/Modem, Printer, Microwave",No,5.0,19.2312,98.8806
+RC_0104,SmartWaste Inc,Leipzig,Germany,Zero Landfill Certified,15681,+92 123 1581818,"Gaming Console, Headphones, Printer",Yes,3.9,25.1485,-61.4014
+RC_0105,EliteNova Pvt Ltd,Munich,Germany,Basel Convention,33725,+2 959 3525218,"Washing Machine, Gaming Console, Smartwatch",Yes,4.8,28.1342,-44.7585
+RC_0106,MetroCycle Industries,Perth,Australia,WEEE Compliant,36116,+54 243 8203973,"Camera, Laptop, Microwave, Smartwatch, Television, Printer, Headphones",No,3.9,9.1345,-30.0451
+RC_0107,GreenGreen Pvt Ltd,Pune,India,EPA Registered,39069,+53 910 2257314,"Refrigerator, Smartphone, Headphones, Smartwatch",Yes,3.7,-5.4498,-75.3245
+RC_0108,SmartMetal Industries,Tokyo,Japan,EPA Registered,11262,+73 189 5902191,"Smartphone, Refrigerator, Television, Desktop PC, Washing Machine, Microwave, Printer, Camera",Yes,4.8,-39.7106,40.4611
+RC_0109,EliteReclaim Solutions,Kobe,Japan,CPCB Authorized,8985,+75 981 9589642,"Refrigerator, Laptop, Washing Machine, Gaming Console, Tablet, Printer, Router/Modem",Yes,4.3,9.4827,117.4945
+RC_0110,MetroGreen Recyclers,Abu Dhabi,UAE,Zero Landfill Certified,24250,+76 833 7600778,"Smartwatch, Gaming Console, Laptop, Printer, Washing Machine, Refrigerator, Desktop PC, Camera",Yes,4.8,0.2541,132.8927
+RC_0111,UrbanMine Technologies,Hyderabad,India,Zero Landfill Certified,47727,+17 883 6658691,"Router/Modem, Laptop, Desktop PC, Refrigerator, Smartphone",No,3.7,34.47,-8.5047
+RC_0112,PrimeCycle Inc,Fukuoka,Japan,CPCB Authorized,9392,+56 427 3558231,"Gaming Console, Headphones, Smartwatch, Camera, Monitor",No,3.8,-19.7106,-94.2644
+RC_0113,GreenCircuit Recyclers,Sapporo,Japan,Basel Convention,46546,+6 400 3730293,"Monitor, Refrigerator, Television, Printer",No,3.8,50.9171,135.7372
+RC_0114,MetroCircuit GmbH,Nagoya,Japan,R2 Certified,14066,+79 499 9726453,"Headphones, Monitor, Camera, Tablet, Smartwatch",Yes,4.3,9.1849,109.9183
+RC_0115,UrbanTech Solutions,Bengaluru,India,WEEE Compliant,27712,+34 184 3493168,"Gaming Console, Smartphone, Microwave, Tablet, Camera, Router/Modem, Smartwatch, Laptop",No,4.3,30.113,132.0723
+RC_0116,CleanNova GmbH,Glasgow,UK,ISO 14001:2015,31609,+12 439 9046496,"Refrigerator, Headphones, Laptop, Router/Modem, Washing Machine, Printer, Smartwatch",Yes,4.6,24.9473,40.6558
+RC_0117,EcoTech Inc,Brisbane,Australia,e-Stewards,3175,+50 106 6373295,"Printer, Tablet, Monitor, Laptop, Desktop PC, Gaming Console, Headphones, Smartwatch",No,4.7,-9.9141,-91.633
+RC_0118,PrimeReclaim Solutions,Leeds,UK,WEEE Compliant,41141,+10 937 8911520,"Smartwatch, Headphones, Router/Modem, Microwave, Tablet",Yes,4.3,-38.5849,-20.6683
+RC_0119,CoreWaste Technologies,Ajman,UAE,ISO 14001:2015,14384,+80 985 9406076,"Tablet, Headphones, Printer, Television, Monitor, Camera",Yes,3.5,1.8468,-60.4412
+RC_0120,EliteEarth GmbH,Kobe,Japan,ISO 14001:2015,5455,+22 908 8559762,"Gaming Console, Router/Modem, Microwave, Camera, Tablet, Printer, Television, Desktop PC",Yes,4.7,3.3114,25.0513
+RC_0121,CleanGreen Recyclers,Sharjah,UAE,EPA Registered,19340,+1 107 7904132,"Printer, Gaming Console, Microwave, Refrigerator, Washing Machine, Router/Modem",Yes,3.9,-9.3916,44.4899
+RC_0122,CoreReclaim Technologies,Kolkata,India,WEEE Compliant,1490,+77 387 5992384,"Printer, Monitor, Desktop PC, Smartwatch, Gaming Console",Yes,4.1,-14.1589,116.147
+RC_0123,PrimeMine GmbH,Frankfurt,Germany,WEEE Compliant,24346,+67 677 6558546,"Smartphone, Laptop, Tablet",Yes,3.6,28.7569,-42.0595
+RC_0124,SmartMine Pvt Ltd,Ajman,UAE,CPCB Authorized,15861,+91 491 1473112,"Refrigerator, Tablet, Smartphone, Television",No,3.5,0.0201,-10.0184
+RC_0125,EcoMetal Industries,Sydney,Australia,ISO 14001:2015,16220,+24 793 5369756,"Gaming Console, Television, Smartwatch, Printer",No,4.5,29.544,-12.271
+RC_0126,CleanNova Corp,Hyderabad,India,ISO 14001:2015,26574,+33 768 2252043,"Desktop PC, Tablet, Refrigerator, Printer, Camera, Smartwatch, Laptop, Router/Modem",No,4.1,49.0382,65.3364
+RC_0127,EliteEarth Corp,Chennai,India,e-Stewards,24654,+76 500 9638052,"Smartwatch, Laptop, Desktop PC, Printer, Monitor",No,4.5,-21.269,9.1997
+RC_0128,MetroMine Inc,Sharjah,UAE,EPA Registered,14542,+43 600 8490004,"Router/Modem, Refrigerator, Washing Machine, Microwave",Yes,4.3,-33.4575,-23.5053
+RC_0129,CleanCycle Industries,Edinburgh,UK,WEEE Compliant,11088,+58 936 7933297,"Smartwatch, Camera, Microwave, Headphones, Desktop PC",Yes,3.9,33.2475,130.7346
+RC_0130,EcoTech GmbH,Sydney,Australia,Zero Landfill Certified,30062,+65 876 8212073,"Washing Machine, Tablet, Refrigerator",Yes,4.3,8.8322,88.1155
+RC_0131,UrbanMetal Corp,Ras Al Khaimah,UAE,Basel Convention,20068,+85 479 8336932,"Refrigerator, Router/Modem, Television, Microwave, Gaming Console",Yes,4.6,-1.351,-99.3268
+RC_0132,SmartGreen Technologies,Bremen,Germany,WEEE Compliant,11014,+4 204 4033730,"Refrigerator, Monitor, Smartphone, Tablet, Laptop, Television, Gaming Console, Router/Modem",Yes,4.7,50.2642,4.374
+RC_0133,EliteCircuit Industries,Glasgow,UK,WEEE Compliant,12387,+54 507 4353985,"Smartphone, Microwave, Printer, Refrigerator, Washing Machine, Tablet, Monitor",Yes,3.8,39.7773,112.0597
+RC_0134,UrbanWaste Pvt Ltd,Leeds,UK,Basel Convention,4950,+32 193 1828890,"Smartphone, Smartwatch, Desktop PC, Television, Tablet, Gaming Console, Printer, Laptop",Yes,4.7,-36.1689,-40.3274
+RC_0135,CoreEarth Industries,Los Angeles,USA,Zero Landfill Certified,2236,+25 305 4549058,"Washing Machine, Tablet, Desktop PC, Router/Modem",Yes,3.7,41.6449,17.3992
+RC_0136,MetroWaste Solutions,Boston,USA,Zero Landfill Certified,50000,+19 946 5403224,"Tablet, Refrigerator, Microwave",Yes,3.7,-23.23,102.4686
+RC_0137,MetroReclaim Corp,Sheffield,UK,CPCB Authorized,21221,+40 248 1484934,"Gaming Console, Laptop, Smartwatch, Television, Camera",Yes,3.8,-34.8992,-107.1843
+RC_0138,CoreTech Inc,Canberra,Australia,CPCB Authorized,31564,+41 514 8160966,"Monitor, Headphones, Printer, Tablet, Television, Smartwatch",Yes,3.8,-12.382,38.8035
+RC_0139,GreenReclaim Solutions,Perth,Australia,Basel Convention,44360,+79 641 3085890,"Washing Machine, Desktop PC, Smartphone, Microwave, Monitor",No,4.0,27.1637,-14.6765
+RC_0140,PrimeReclaim Corp,Sydney,Australia,CPCB Authorized,49415,+90 200 5342422,"Headphones, Microwave, Smartwatch, Camera",No,3.5,-26.2289,91.165
+RC_0141,EliteTech Corp,Austin,USA,WEEE Compliant,11275,+38 127 3457782,"Microwave, Refrigerator, Laptop, Printer",No,3.8,53.5203,-113.5243
+RC_0142,EcoGreen Technologies,Boston,USA,Zero Landfill Certified,6394,+21 567 5259497,"Monitor, Laptop, Washing Machine, Smartwatch",Yes,4.6,12.7644,-81.9726
+RC_0143,EcoTech Industries,Bengaluru,India,R2 Certified,17687,+26 305 2273775,"Laptop, Gaming Console, Monitor",Yes,4.3,9.5963,-49.9913
+RC_0144,GreenTech Inc,Kyoto,Japan,Zero Landfill Certified,48213,+71 919 2650606,"Desktop PC, Smartwatch, Monitor, Television, Printer, Refrigerator, Camera",Yes,4.6,29.7105,63.6775
+RC_0145,GreenGreen Inc,Brisbane,Australia,Basel Convention,14577,+8 692 2571268,"Smartphone, Washing Machine, Smartwatch",Yes,3.6,-17.2632,-96.3916
+RC_0146,PrimeCircuit Corp,Liverpool,UK,Zero Landfill Certified,26234,+62 650 5930232,"Printer, Smartwatch, Smartphone, Washing Machine, Gaming Console, Refrigerator",Yes,4.1,20.9538,58.6425
+RC_0147,MetroEarth Solutions,Delhi,India,CPCB Authorized,39704,+59 861 5339168,"Tablet, Smartwatch, Monitor, Television, Headphones, Printer, Laptop",Yes,3.8,3.0962,7.6272
+RC_0148,MetroNova Corp,Ajman,UAE,CPCB Authorized,35492,+25 594 4452998,"Television, Laptop, Microwave, Monitor, Desktop PC, Router/Modem",Yes,4.5,11.1173,124.5719
+RC_0149,UrbanWaste Technologies,Sharjah,UAE,EPA Registered,3605,+18 759 1227720,"Printer, Microwave, Gaming Console, Smartphone, Monitor, Tablet, Television",Yes,4.1,26.4448,-60.4589
+RC_0150,SafeCircuit Industries,Kolkata,India,R2 Certified,38776,+55 101 6552888,"Washing Machine, Laptop, Microwave, Camera, Smartphone, Monitor, Smartwatch, Headphones",No,4.8,20.2891,-109.6525
+RC_0151,PrimeTech Corp,Chicago,USA,EPA Registered,29604,+63 292 3414286,"Tablet, Washing Machine, Headphones, Microwave",Yes,3.8,-16.3147,-31.6454
+RC_0152,PrimeMetal Pvt Ltd,Tokyo,Japan,ISO 14001:2015,45497,+45 638 7829010,"Smartwatch, Refrigerator, Smartphone, Camera, Laptop",Yes,4.5,35.3979,62.5366
+RC_0153,UrbanTech Corp,Tokyo,Japan,e-Stewards,24268,+51 507 6151899,"Camera, Desktop PC, Router/Modem, Laptop, Washing Machine, Smartwatch, Printer, Monitor",No,4.5,-12.0364,103.2373
+RC_0154,SafeWaste Pvt Ltd,Dubai,UAE,ISO 14001:2015,1658,+59 298 5619421,"Desktop PC, Washing Machine, Headphones, Camera, Laptop, Microwave, Tablet, Printer",Yes,3.5,-35.6766,98.2785
+RC_0155,MetroMine GmbH,Berlin,Germany,R2 Certified,42119,+14 220 7376468,"Tablet, Smartphone, Smartwatch, Laptop, Printer, Desktop PC",Yes,4.3,-24.5025,-42.3689
+RC_0156,GreenMine GmbH,Sharjah,UAE,WEEE Compliant,25824,+99 859 7947538,"Desktop PC, Smartphone, Microwave, Television, Printer, Tablet",Yes,4.8,53.3534,72.7461
+RC_0157,EcoWaste Industries,Abu Dhabi,UAE,Zero Landfill Certified,34050,+38 684 8098062,"Router/Modem, Monitor, Refrigerator",Yes,4.2,12.1595,-50.8923
+RC_0158,EliteTech Solutions,Boston,USA,CPCB Authorized,1396,+80 332 5227774,"Camera, Refrigerator, Desktop PC",Yes,4.4,42.7356,-84.1563
+RC_0159,UrbanWaste Technologies,Bristol,UK,Zero Landfill Certified,25371,+45 789 4395061,"Monitor, Tablet, Printer, Washing Machine, Gaming Console",Yes,3.8,53.8013,-11.8641
+RC_0160,CoreWaste Corp,Sydney,Australia,Basel Convention,43713,+55 752 2289433,"Camera, Microwave, Smartwatch, Laptop",Yes,3.7,-9.8119,-90.2485
+RC_0161,UrbanGreen Technologies,Perth,Australia,Basel Convention,37653,+69 417 9173712,"Microwave, Headphones, Laptop",Yes,4.9,33.4788,65.3024
+RC_0162,PrimeCycle GmbH,Perth,Australia,CPCB Authorized,37178,+48 350 6678950,"Headphones, Microwave, Television, Smartwatch, Gaming Console, Camera, Desktop PC, Printer",Yes,4.3,-15.2931,-18.8925
+RC_0163,PrimeCircuit Solutions,Canberra,Australia,CPCB Authorized,26431,+65 549 6638236,"Smartwatch, Monitor, Headphones, Tablet, Laptop, Gaming Console",No,4.6,-6.5182,-110.1296
+RC_0164,EcoCycle Technologies,Austin,USA,Basel Convention,9479,+2 667 6642400,"Gaming Console, Desktop PC, Printer, Smartphone, Washing Machine, Camera, Router/Modem, Headphones",No,5.0,0.4844,41.3482
+RC_0165,EliteWaste GmbH,Melbourne,Australia,CPCB Authorized,25479,+24 303 7713066,"Camera, Washing Machine, Refrigerator, Smartphone, Microwave, Headphones",No,3.6,-36.708,68.9037
+RC_0166,SmartCircuit Inc,Osaka,Japan,EPA Registered,24019,+23 122 4412668,"Television, Microwave, Tablet, Washing Machine, Monitor, Headphones",Yes,3.9,16.6694,-15.195
+RC_0167,MetroMetal Pvt Ltd,Canberra,Australia,WEEE Compliant,21303,+3 297 1150184,"Microwave, Desktop PC, Router/Modem, Monitor, Television, Printer, Gaming Console",Yes,3.9,-15.8716,75.5511
+RC_0168,PrimeEarth Corp,Austin,USA,EPA Registered,43284,+65 482 4278178,"Television, Headphones, Camera, Microwave, Laptop, Printer, Gaming Console",Yes,4.6,22.3316,133.916
+RC_0169,EcoReclaim GmbH,Jaipur,India,CPCB Authorized,1847,+36 918 3077426,"Refrigerator, Printer, Desktop PC, Washing Machine, Router/Modem, Headphones, Microwave, Smartwatch",Yes,4.6,-6.8396,-99.7691
+RC_0170,SmartGreen Inc,Boston,USA,EPA Registered,5118,+24 681 7618759,"Camera, Desktop PC, Microwave",Yes,4.3,38.0799,121.8751
+RC_0171,SafeGreen Industries,Perth,Australia,WEEE Compliant,18295,+44 331 2599762,"Refrigerator, Desktop PC, Tablet, Headphones, Camera",No,4.0,24.9592,17.4517
+RC_0172,SafeCircuit Inc,Ahmedabad,India,Basel Convention,5810,+99 973 5242758,"Washing Machine, Gaming Console, Desktop PC",No,4.1,-36.0333,56.998
+RC_0173,GreenWaste Recyclers,Kyoto,Japan,e-Stewards,30387,+33 378 9792981,"Monitor, Television, Camera",No,4.1,18.8233,42.2534
+RC_0174,UrbanMine Pvt Ltd,Mumbai,India,e-Stewards,13405,+12 103 6397859,"Camera, Router/Modem, Washing Machine, Printer, Headphones, Laptop",Yes,4.9,-31.3573,-52.8027
+RC_0175,CoreTech Solutions,Leeds,UK,Zero Landfill Certified,42805,+65 103 7437128,"Gaming Console, Refrigerator, Monitor, Microwave, Printer, Headphones, Washing Machine",Yes,4.4,47.0639,-102.3365
+RC_0176,PrimeCycle GmbH,Osaka,Japan,WEEE Compliant,35745,+22 627 9105121,"Camera, Smartphone, Microwave, Monitor, Tablet, Router/Modem, Desktop PC",Yes,4.1,53.9779,-109.831
+RC_0177,SmartMetal Industries,Ahmedabad,India,R2 Certified,5485,+95 772 3625834,"Refrigerator, Washing Machine, Laptop, Microwave, Desktop PC, Tablet",Yes,4.9,-33.7679,58.426
+RC_0178,GreenEarth Recyclers,Kolkata,India,Basel Convention,28470,+20 694 4562565,"Printer, Smartphone, Headphones, Smartwatch",Yes,4.3,48.0163,35.4429
+RC_0179,CoreWaste Solutions,Yokohama,Japan,WEEE Compliant,45888,+37 766 3065522,"Microwave, Laptop, Gaming Console, Television, Camera",Yes,4.5,9.4393,-29.2694
+RC_0180,SmartMetal Corp,Ras Al Khaimah,UAE,WEEE Compliant,44406,+65 912 1648171,"Headphones, Monitor, Refrigerator, Smartwatch",No,4.4,41.6064,-54.6146
+RC_0181,PrimeNova Technologies,Mumbai,India,e-Stewards,39654,+99 760 2977286,"Camera, Desktop PC, Gaming Console, Microwave, Laptop",Yes,4.7,36.427,111.6509
+RC_0182,PrimeMetal GmbH,Yokohama,Japan,Basel Convention,33574,+66 567 6109717,"Laptop, Monitor, Camera, Smartphone, Refrigerator, Smartwatch, Microwave",Yes,3.6,-20.876,93.0579
+RC_0183,MetroTech Inc,Mumbai,India,R2 Certified,16321,+96 484 9140074,"Desktop PC, Headphones, Camera, Smartphone, Refrigerator, Laptop, Smartwatch",Yes,4.9,30.4535,43.612
+RC_0184,CoreNova Technologies,Manchester,UK,R2 Certified,3955,+28 707 4829119,"Smartphone, Microwave, Television, Smartwatch",Yes,4.0,-3.292,-88.2249
+RC_0185,EcoMine Industries,Bristol,UK,Basel Convention,22657,+25 674 2364481,"Smartphone, Headphones, Smartwatch, Monitor, Camera, Gaming Console, Television, Printer",Yes,3.5,-20.5393,39.1159
+RC_0186,SmartReclaim Recyclers,Ras Al Khaimah,UAE,WEEE Compliant,41037,+28 205 3427380,"Monitor, Gaming Console, Headphones, Smartphone",No,3.7,-27.394,120.0011
+RC_0187,EcoGreen GmbH,New York,USA,ISO 14001:2015,8397,+73 661 9992630,"Refrigerator, Smartwatch, Desktop PC, Monitor",Yes,4.4,13.2373,49.6217
+RC_0188,EcoGreen GmbH,Mumbai,India,e-Stewards,27327,+52 367 3378803,"Television, Microwave, Printer",No,4.1,-23.8524,-104.2838
+RC_0189,EcoEarth Solutions,Chicago,USA,R2 Certified,36245,+99 879 8083859,"Headphones, Desktop PC, Smartphone, Microwave",Yes,4.4,52.1756,-14.7713
+RC_0190,CoreEarth Technologies,Yokohama,Japan,EPA Registered,14947,+89 473 3538599,"Laptop, Microwave, Router/Modem, Headphones, Washing Machine, Smartphone, Desktop PC, Refrigerator",Yes,4.2,3.0235,44.4539
+RC_0191,SmartCircuit GmbH,Dubai,UAE,CPCB Authorized,49566,+25 113 9221542,"Printer, Tablet, Gaming Console, Smartwatch, Television, Headphones",No,3.7,7.1334,103.0925
+RC_0192,UrbanGreen Technologies,Nagoya,Japan,CPCB Authorized,2503,+49 112 8472868,"Television, Tablet, Desktop PC, Microwave, Washing Machine, Gaming Console, Smartphone",Yes,3.7,-9.293,-115.5232
+RC_0193,MetroNova Pvt Ltd,Liverpool,UK,Zero Landfill Certified,4819,+38 579 7663079,"Television, Laptop, Tablet, Washing Machine",Yes,4.4,21.9369,33.2302
+RC_0194,EcoCycle Technologies,Adelaide,Australia,ISO 14001:2015,19376,+78 914 7984052,"Desktop PC, Refrigerator, Tablet, Gaming Console",Yes,3.5,39.7401,41.7768
+RC_0195,EliteNova Solutions,Los Angeles,USA,Basel Convention,8178,+21 700 5709561,"Router/Modem, Camera, Smartphone, Laptop, Refrigerator, Tablet, Headphones, Washing Machine",Yes,4.6,-4.6365,137.0131
+RC_0196,UrbanEarth Solutions,Cardiff,UK,Zero Landfill Certified,44105,+72 371 9501123,"Television, Headphones, Refrigerator, Laptop, Desktop PC, Tablet, Microwave",Yes,4.6,5.1767,-43.7421
+RC_0197,CleanNova Technologies,Kobe,Japan,e-Stewards,22777,+95 363 4556566,"Desktop PC, Washing Machine, Microwave, Smartwatch, Refrigerator, Headphones, Gaming Console",No,4.7,-35.6384,36.0113
+RC_0198,MetroGreen Recyclers,Leipzig,Germany,CPCB Authorized,11699,+48 169 3870248,"Tablet, Printer, Desktop PC, Smartwatch, Router/Modem",Yes,3.9,-25.3575,31.3026
+RC_0199,UrbanCircuit GmbH,Chennai,India,e-Stewards,38495,+15 324 4276110,"Smartphone, Microwave, Desktop PC, Television",Yes,5.0,-5.2994,2.052
+RC_0200,CoreCircuit Solutions,Frankfurt,Germany,CPCB Authorized,10140,+61 102 6241852,"Printer, Refrigerator, Microwave, Headphones, Camera",No,4.5,-30.205,87.3443
+RC_0201,UrbanTech Inc,Bristol,UK,ISO 14001:2015,17367,+7 204 1836952,"Monitor, Tablet, Television, Laptop",Yes,4.8,-20.6107,-8.7653
+RC_0202,GreenNova Inc,Abu Dhabi,UAE,ISO 14001:2015,2568,+94 961 7261394,"Tablet, Monitor, Washing Machine, Headphones, Refrigerator, Smartphone, Desktop PC, Television",Yes,4.1,0.4963,102.1227
+RC_0203,GreenCircuit Technologies,Glasgow,UK,ISO 14001:2015,16025,+9 627 7229974,"Router/Modem, Tablet, Microwave",Yes,3.9,-37.7444,-17.0092
+RC_0204,UrbanCycle Inc,Kyoto,Japan,e-Stewards,47477,+14 230 8314402,"Tablet, Refrigerator, Smartwatch, Microwave, Laptop, Camera, Printer, Smartphone",No,3.5,-8.196,57.2141
+RC_0205,UrbanReclaim Corp,Adelaide,Australia,WEEE Compliant,21384,+47 806 9999540,"Printer, Smartphone, Desktop PC",No,3.5,44.7484,98.9152
+RC_0206,SmartMine Corp,Delhi,India,CPCB Authorized,18976,+53 164 9163863,"Refrigerator, Smartwatch, Washing Machine",Yes,3.7,30.1428,96.4389
+RC_0207,MetroMine Recyclers,Frankfurt,Germany,e-Stewards,6161,+66 933 5402536,"Monitor, Headphones, Desktop PC, Smartphone, Camera",No,3.9,-24.5316,90.5111
+RC_0208,EcoTech GmbH,Sharjah,UAE,ISO 14001:2015,30309,+48 642 2004340,"Printer, Camera, Smartphone, Desktop PC, Refrigerator, Washing Machine, Monitor",Yes,4.5,-13.4602,50.3702
+RC_0209,MetroGreen Pvt Ltd,Chicago,USA,ISO 14001:2015,48996,+43 508 9474101,"Television, Desktop PC, Washing Machine, Refrigerator",Yes,4.0,-16.3291,107.2546
+RC_0210,SmartMine Pvt Ltd,Sapporo,Japan,EPA Registered,22199,+65 600 8976851,"Smartphone, Microwave, Camera, Printer, Washing Machine",Yes,4.6,7.8825,-104.9891
+RC_0211,CleanMetal Solutions,Perth,Australia,WEEE Compliant,6138,+56 323 4022475,"Television, Refrigerator, Washing Machine, Smartphone",No,5.0,-21.6172,-15.6408
+RC_0212,GreenTech Technologies,Cologne,Germany,CPCB Authorized,22086,+96 687 9339493,"Smartphone, Laptop, Television, Headphones, Printer, Gaming Console",Yes,4.7,-26.2592,-61.394
+RC_0213,EcoNova Industries,Seattle,USA,Zero Landfill Certified,14424,+81 486 2132836,"Tablet, Television, Desktop PC, Printer, Smartphone, Router/Modem, Refrigerator",No,3.7,-15.7888,123.69
+RC_0214,CleanMetal Technologies,Jaipur,India,Basel Convention,11895,+16 486 6262640,"Gaming Console, Washing Machine, Laptop, Printer, Smartwatch, Microwave, Television, Monitor",No,5.0,-25.9085,74.8141
+RC_0215,SmartMine Corp,Liverpool,UK,CPCB Authorized,9564,+91 893 2381447,"Headphones, Television, Smartwatch, Monitor, Printer, Washing Machine, Microwave, Desktop PC",Yes,4.6,31.0045,103.484
+RC_0216,SmartEarth Corp,Pune,India,Zero Landfill Certified,8092,+81 974 4917479,"Camera, Tablet, Router/Modem, Headphones",Yes,3.9,-4.2248,52.0643
+RC_0217,SafeCircuit GmbH,Berlin,Germany,Basel Convention,42166,+4 641 4272574,"Camera, Microwave, Gaming Console",Yes,4.9,-27.6933,-58.4089
+RC_0218,CoreTech Industries,Delhi,India,e-Stewards,8240,+87 843 1950516,"Printer, Smartphone, Television, Headphones, Monitor, Tablet, Washing Machine",Yes,4.4,-23.8523,-34.5405
+RC_0219,CleanWaste Pvt Ltd,Phoenix,USA,CPCB Authorized,35170,+4 199 7205808,"Television, Desktop PC, Gaming Console, Headphones, Microwave, Refrigerator, Smartphone",Yes,4.3,-17.1482,133.3028
+RC_0220,UrbanWaste Pvt Ltd,Adelaide,Australia,R2 Certified,28656,+30 492 1659918,"Router/Modem, Laptop, Smartwatch, Tablet, Smartphone",Yes,3.7,-34.3982,-105.3432
+RC_0221,PrimeGreen Industries,Denver,USA,Basel Convention,753,+71 905 6654457,"Gaming Console, Monitor, Washing Machine, Television, Headphones, Desktop PC",Yes,4.8,19.6737,16.4528
+RC_0222,EliteCycle Recyclers,Sheffield,UK,ISO 14001:2015,26684,+78 593 8633067,"Desktop PC, Router/Modem, Television",No,4.8,-17.4527,-75.0199
+RC_0223,GreenMine GmbH,New York,USA,EPA Registered,24066,+17 880 5762031,"Smartphone, Refrigerator, Television, Router/Modem, Tablet",Yes,4.4,-39.1362,-94.4312
+RC_0224,UrbanEarth GmbH,Delhi,India,Basel Convention,21320,+19 576 9538134,"Camera, Printer, Router/Modem, Smartphone",Yes,4.4,-36.564,-2.6262
+RC_0225,SmartCircuit Solutions,Abu Dhabi,UAE,EPA Registered,6315,+80 628 3158559,"Microwave, Laptop, Smartwatch, Router/Modem, Headphones, Tablet",Yes,3.5,8.1664,58.8724
+RC_0226,EcoEarth Recyclers,Canberra,Australia,R2 Certified,6507,+56 850 6724639,"Laptop, Gaming Console, Washing Machine, Smartwatch, Monitor",Yes,4.3,-33.5792,24.9305
+RC_0227,EliteMine Recyclers,Chicago,USA,WEEE Compliant,20314,+79 235 9928590,"Gaming Console, Camera, Smartwatch, Router/Modem, Laptop, Monitor",Yes,4.1,-17.654,-108.4622
+RC_0228,PrimeReclaim Inc,Chicago,USA,WEEE Compliant,31966,+48 318 6366582,"Washing Machine, Monitor, Refrigerator, Television, Desktop PC, Router/Modem, Smartwatch, Camera",No,3.6,-3.3367,-65.0747
+RC_0229,SmartTech Corp,Pune,India,ISO 14001:2015,4956,+79 806 1427660,"Gaming Console, Desktop PC, Television, Microwave, Washing Machine, Smartwatch, Router/Modem, Camera",Yes,4.4,-25.9517,81.2644
+RC_0230,EliteWaste Recyclers,Stuttgart,Germany,Zero Landfill Certified,43216,+17 695 7714053,"Microwave, Printer, Camera, Monitor, Gaming Console, Refrigerator, Tablet",No,4.8,-25.1416,4.0527
+RC_0231,CleanNova GmbH,Ras Al Khaimah,UAE,R2 Certified,27530,+97 644 2284362,"Camera, Microwave, Printer",Yes,4.8,-16.3282,128.1723
+RC_0232,SafeMetal GmbH,Phoenix,USA,ISO 14001:2015,1062,+49 375 2790525,"Monitor, Smartwatch, Camera, Microwave, Refrigerator, Router/Modem, Gaming Console, Television",No,3.7,40.5241,63.8895
+RC_0233,PrimeWaste Inc,Dubai,UAE,Zero Landfill Certified,46010,+17 298 7171190,"Smartwatch, Monitor, Microwave, Smartphone, Washing Machine",No,4.0,-34.3906,-27.2173
+RC_0234,GreenMetal Technologies,Phoenix,USA,Zero Landfill Certified,12537,+35 731 7178063,"Camera, Router/Modem, Printer, Laptop, Refrigerator, Desktop PC, Washing Machine",Yes,4.8,-20.7441,29.6903
+RC_0235,CleanGreen GmbH,Kochi,India,WEEE Compliant,29858,+44 809 3125805,"Gaming Console, Desktop PC, Microwave, Television, Headphones, Router/Modem, Smartwatch",Yes,4.8,7.3569,-111.9118
+RC_0236,SmartMetal Inc,Fukuoka,Japan,R2 Certified,31659,+86 230 7840757,"Desktop PC, Smartphone, Headphones, Camera",Yes,3.6,-24.4853,121.0729
+RC_0237,SafeCycle Industries,Birmingham,UK,Zero Landfill Certified,5215,+36 843 3323172,"Laptop, Washing Machine, Smartwatch, Router/Modem, Camera",No,4.7,15.8227,-38.5561
+RC_0238,EliteMetal Industries,Melbourne,Australia,CPCB Authorized,6458,+7 863 8621858,"Refrigerator, Microwave, Television, Smartwatch, Camera",Yes,4.8,-8.6627,90.0531
+RC_0239,UrbanGreen Technologies,Liverpool,UK,EPA Registered,16993,+90 487 9828697,"Printer, Monitor, Gaming Console, Smartphone, Microwave, Laptop, Camera, Television",Yes,4.7,-23.1555,-5.4426
+RC_0240,SmartReclaim Inc,Adelaide,Australia,CPCB Authorized,8083,+70 566 2156195,"Tablet, Desktop PC, Camera, Smartwatch, Monitor, Washing Machine, Smartphone",No,4.1,50.5255,10.966
+RC_0241,PrimeGreen Technologies,Sapporo,Japan,Basel Convention,20982,+65 453 6500946,"Gaming Console, Camera, Refrigerator, Headphones, Washing Machine",Yes,4.7,24.7892,-70.9097
+RC_0242,SmartMetal Industries,Hyderabad,India,R2 Certified,17548,+90 813 3032596,"Tablet, Desktop PC, Television, Printer",Yes,4.0,-17.1201,-31.8653
+RC_0243,MetroEarth Technologies,New York,USA,Zero Landfill Certified,46659,+3 696 8049725,"Refrigerator, Washing Machine, Camera",Yes,4.9,-16.0802,-19.9532
+RC_0244,SafeReclaim Technologies,Ahmedabad,India,WEEE Compliant,16450,+5 160 3526080,"Smartwatch, Monitor, Washing Machine, Camera, Television",Yes,3.7,-23.8048,89.4646
+RC_0245,MetroWaste Corp,Leipzig,Germany,CPCB Authorized,49906,+74 596 5610427,"Tablet, Printer, Smartwatch, Microwave, Camera",No,5.0,-20.1134,-46.1748
+RC_0246,PrimeNova Recyclers,Kyoto,Japan,ISO 14001:2015,5729,+83 170 5836801,"Tablet, Router/Modem, Television, Gaming Console",Yes,4.6,9.4334,1.0128
+RC_0247,CleanWaste GmbH,Phoenix,USA,e-Stewards,9172,+71 433 6232342,"Gaming Console, Desktop PC, Tablet, Smartwatch, Washing Machine, Microwave",Yes,4.2,-14.6528,-87.7743
+RC_0248,UrbanMetal Corp,Brisbane,Australia,WEEE Compliant,18964,+22 516 6846212,"Headphones, Laptop, Refrigerator",Yes,4.5,39.1963,22.7437
+RC_0249,MetroReclaim Recyclers,Los Angeles,USA,Zero Landfill Certified,48057,+98 577 7520023,"Refrigerator, Microwave, Smartwatch, Printer, Monitor",Yes,3.7,-22.5025,45.7676
+RC_0250,GreenNova Technologies,Cologne,Germany,e-Stewards,16831,+94 236 4814492,"Laptop, Gaming Console, Smartphone, Washing Machine",No,3.6,4.8235,-104.545
+RC_0251,GreenGreen Industries,Hyderabad,India,WEEE Compliant,16141,+25 284 8007270,"Smartphone, Washing Machine, Tablet, Desktop PC, Microwave, Camera",Yes,3.9,37.2801,-108.5123
+RC_0252,GreenNova Technologies,Sapporo,Japan,Basel Convention,16664,+90 612 8313082,"Headphones, Printer, Tablet",Yes,4.8,-17.7662,-87.6934
+RC_0253,CoreReclaim Industries,Canberra,Australia,e-Stewards,35743,+76 612 8796769,"Refrigerator, Desktop PC, Washing Machine, Smartwatch, Microwave",Yes,4.6,-26.2111,25.6585
+RC_0254,EliteNova Solutions,Ajman,UAE,CPCB Authorized,2602,+21 977 7672125,"Camera, Router/Modem, Gaming Console, Refrigerator, Headphones, Microwave, Monitor",Yes,3.6,-22.8951,61.3128
+RC_0255,SafeNova Recyclers,Kochi,India,e-Stewards,21788,+13 781 4584237,"Desktop PC, Refrigerator, Gaming Console",No,3.6,36.3411,107.6461
+RC_0256,SmartCircuit Inc,Glasgow,UK,EPA Registered,20895,+5 516 3186056,"Router/Modem, Monitor, Camera, Refrigerator, Printer",Yes,4.7,22.2822,-83.2298
+RC_0257,SafeGreen Industries,Dubai,UAE,EPA Registered,30359,+57 520 8177047,"Camera, Headphones, Gaming Console, Monitor, Microwave",Yes,3.9,-17.4261,34.528
+RC_0258,CleanNova Pvt Ltd,Canberra,Australia,ISO 14001:2015,35385,+27 816 3595515,"Tablet, Desktop PC, Gaming Console, Microwave, Smartphone, Monitor, Camera",Yes,3.5,53.763,-0.9264
+RC_0259,UrbanWaste Solutions,Frankfurt,Germany,CPCB Authorized,35992,+21 336 9080654,"Gaming Console, Smartwatch, Laptop, Desktop PC, Monitor",No,3.8,-16.7568,116.2507
+RC_0260,EliteEarth Recyclers,Melbourne,Australia,WEEE Compliant,6084,+5 829 9635442,"Camera, Printer, Desktop PC, Refrigerator, Smartphone, Tablet",Yes,4.2,6.9474,6.0622
+RC_0261,CleanGreen Inc,Osaka,Japan,WEEE Compliant,27705,+71 924 3018884,"Smartwatch, Laptop, Headphones, Washing Machine, Microwave",Yes,4.4,24.041,1.4358
+RC_0262,SafeMetal Technologies,Melbourne,Australia,WEEE Compliant,1252,+57 166 1642311,"Desktop PC, Laptop, Smartwatch, Refrigerator, Monitor, Gaming Console, Tablet, Printer",Yes,4.0,-0.0548,136.5785
+RC_0263,PrimeNova GmbH,Nagoya,Japan,e-Stewards,33589,+60 943 8890462,"Tablet, Headphones, Printer, Television, Camera, Refrigerator, Laptop, Microwave",Yes,3.9,39.857,-24.2011
+RC_0264,CoreWaste Solutions,New York,USA,e-Stewards,46354,+24 697 8589323,"Laptop, Monitor, Smartphone, Desktop PC",Yes,4.3,24.5338,125.7572
+RC_0265,PrimeTech Corp,Ajman,UAE,WEEE Compliant,41371,+71 214 8337232,"Washing Machine, Laptop, Camera, Monitor, Microwave, Smartphone, Television, Printer",Yes,3.9,12.0549,-24.0273
+RC_0266,PrimeCircuit Corp,London,UK,R2 Certified,14280,+19 460 9846265,"Gaming Console, Refrigerator, Tablet",Yes,4.3,50.4413,36.3957
+RC_0267,MetroTech Industries,Ras Al Khaimah,UAE,EPA Registered,3637,+32 370 3044283,"Printer, Refrigerator, Camera, Washing Machine, Microwave, Desktop PC",Yes,4.5,-0.8958,70.1187
+RC_0268,GreenReclaim GmbH,Bremen,Germany,Basel Convention,29817,+12 199 7181763,"Router/Modem, Gaming Console, Smartphone",Yes,4.8,11.8349,-110.3735
+RC_0269,SmartReclaim Industries,Cardiff,UK,ISO 14001:2015,14910,+3 997 7501284,"Router/Modem, Camera, Smartphone, Monitor, Desktop PC",Yes,4.1,-11.2022,13.5015
+RC_0270,SafeMetal Industries,Nagoya,Japan,ISO 14001:2015,15024,+43 329 7117938,"Desktop PC, Washing Machine, Gaming Console, Television, Monitor",Yes,3.5,31.1791,-119.6901
+RC_0271,SafeWaste GmbH,Stuttgart,Germany,EPA Registered,43029,+92 195 6933378,"Gaming Console, Television, Tablet, Printer",No,3.9,31.0445,121.0947
+RC_0272,CoreCycle Technologies,Ajman,UAE,R2 Certified,48779,+3 319 6815353,"Laptop, Monitor, Camera, Refrigerator, Headphones, Router/Modem, Tablet",Yes,3.5,37.2756,132.527
+RC_0273,CleanCircuit GmbH,Canberra,Australia,Zero Landfill Certified,3798,+28 373 8812213,"Router/Modem, Monitor, Camera, Smartphone, Washing Machine, Television, Refrigerator",No,3.5,-29.9391,-105.6735
+RC_0274,GreenGreen Pvt Ltd,Dusseldorf,Germany,WEEE Compliant,12301,+77 265 4033995,"Laptop, Camera, Smartphone, Television, Printer, Desktop PC",Yes,3.5,-23.0641,-27.4902
+RC_0275,CoreEarth Industries,Brisbane,Australia,Zero Landfill Certified,11317,+91 887 4667972,"Camera, Desktop PC, Tablet, Gaming Console",Yes,4.6,14.1967,39.7237
+RC_0276,GreenTech Recyclers,San Jose,USA,Zero Landfill Certified,32403,+1 296 3805023,"Laptop, Printer, Headphones, Camera, Gaming Console",Yes,5.0,-3.0285,38.6993
+RC_0277,SafeReclaim Corp,Frankfurt,Germany,ISO 14001:2015,44337,+23 238 1634301,"Smartwatch, Laptop, Desktop PC",No,3.8,9.381,67.9198
+RC_0278,PrimeCircuit Industries,Ras Al Khaimah,UAE,R2 Certified,23004,+16 933 6273047,"Camera, Headphones, Gaming Console, Tablet, Laptop, Router/Modem",Yes,4.0,-23.5267,46.7018
+RC_0279,SafeCycle Technologies,New York,USA,e-Stewards,16631,+70 881 5368802,"Television, Camera, Smartwatch, Smartphone, Router/Modem, Microwave, Printer",Yes,4.2,36.135,113.1141
+RC_0280,GreenReclaim Corp,Sharjah,UAE,Zero Landfill Certified,13482,+31 745 4944989,"Gaming Console, Refrigerator, Smartphone",Yes,4.1,2.4684,-113.8764
+RC_0281,EliteCycle Pvt Ltd,London,UK,CPCB Authorized,34456,+42 906 1874599,"Router/Modem, Refrigerator, Gaming Console, Television",Yes,3.7,38.7448,34.3053
+RC_0282,MetroGreen Pvt Ltd,London,UK,Zero Landfill Certified,12991,+80 685 9155100,"Tablet, Smartphone, Smartwatch, Laptop, Washing Machine",Yes,4.7,5.7733,95.9397
+RC_0283,UrbanGreen Pvt Ltd,San Jose,USA,WEEE Compliant,32159,+16 778 6872235,"Printer, Desktop PC, Television, Smartwatch, Microwave, Washing Machine, Smartphone",No,4.7,-24.6804,12.44
+RC_0284,PrimeTech Solutions,Liverpool,UK,R2 Certified,22159,+48 588 5065792,"Laptop, Television, Desktop PC, Microwave, Gaming Console",Yes,4.5,1.5939,26.6084
+RC_0285,CleanCircuit GmbH,Cardiff,UK,EPA Registered,27146,+48 397 9526618,"Refrigerator, Router/Modem, Desktop PC, Tablet, Laptop",Yes,4.1,-17.0739,-58.5704
+RC_0286,EliteWaste Recyclers,Chicago,USA,e-Stewards,21574,+95 770 5866073,"Television, Refrigerator, Smartwatch, Camera, Headphones, Gaming Console, Desktop PC, Router/Modem",Yes,3.6,13.0411,-57.1921
+RC_0287,EliteWaste Recyclers,Fukuoka,Japan,e-Stewards,26415,+47 654 8993308,"Microwave, Laptop, Headphones, Desktop PC, Washing Machine",Yes,3.9,19.2599,49.8165
+RC_0288,CleanCircuit GmbH,Boston,USA,ISO 14001:2015,31514,+73 978 8041494,"Smartphone, Tablet, Desktop PC, Printer, Gaming Console, Smartwatch, Microwave, Television",Yes,3.8,-4.6471,-20.1689
+RC_0289,GreenNova Solutions,Sharjah,UAE,e-Stewards,17891,+49 919 2166173,"Router/Modem, Tablet, Desktop PC, Refrigerator, Gaming Console",Yes,4.2,-0.2311,111.6081
+RC_0290,EcoWaste Corp,Hamburg,Germany,R2 Certified,33401,+92 571 7329505,"Washing Machine, Monitor, Gaming Console, Router/Modem, Headphones, Tablet",Yes,3.9,-15.5043,26.5173
+RC_0291,CoreGreen Inc,Kochi,India,WEEE Compliant,28466,+65 651 9575526,"Headphones, Washing Machine, Smartwatch, Smartphone, Laptop, Monitor",Yes,4.8,43.3091,49.1069
+RC_0292,MetroGreen Inc,Fukuoka,Japan,R2 Certified,15087,+18 701 9512240,"Smartphone, Tablet, Monitor, Refrigerator, Printer, Gaming Console, Smartwatch",Yes,4.9,20.6183,92.2003
+RC_0293,SafeReclaim Solutions,Kobe,Japan,CPCB Authorized,22395,+64 269 4433039,"Microwave, Desktop PC, Router/Modem, Refrigerator, Smartwatch, Laptop",No,4.5,47.1676,125.6351
+RC_0294,UrbanEarth Corp,San Jose,USA,e-Stewards,28304,+88 935 8894510,"Desktop PC, Microwave, Headphones",Yes,4.5,50.966,73.7234
+RC_0295,CleanNova Pvt Ltd,Glasgow,UK,EPA Registered,49394,+55 290 9111891,"Laptop, Desktop PC, Microwave, Smartwatch",Yes,4.9,-37.8986,-87.0664
+RC_0296,EcoCycle Pvt Ltd,Sydney,Australia,CPCB Authorized,7390,+99 200 2258594,"Smartphone, Tablet, Headphones, Printer, Router/Modem, Washing Machine, Microwave",Yes,3.9,33.3472,-101.1427
+RC_0297,PrimeMine Technologies,Ajman,UAE,Zero Landfill Certified,19767,+41 344 9930309,"Router/Modem, Headphones, Laptop",No,4.8,-34.3804,-66.3763
+RC_0298,EcoEarth Industries,Cologne,Germany,R2 Certified,35193,+79 318 1195323,"Refrigerator, Smartwatch, Television, Washing Machine, Printer, Smartphone, Laptop, Headphones",No,3.8,-6.8836,101.5604
+RC_0299,CoreCycle Corp,Perth,Australia,e-Stewards,6334,+91 817 7736913,"Camera, Refrigerator, Monitor, Gaming Console, Television",No,5.0,51.5933,-115.5889
+RC_0300,SmartReclaim Pvt Ltd,Birmingham,UK,ISO 14001:2015,25686,+19 277 3914179,"Tablet, Smartwatch, Camera, Desktop PC",No,4.2,-36.4157,57.2738
+RC_0301,SafeReclaim GmbH,Manchester,UK,EPA Registered,26794,+21 470 9868588,"Headphones, Printer, Camera",Yes,3.7,22.8117,-42.7795
+RC_0302,SafeMetal Solutions,Abu Dhabi,UAE,e-Stewards,20461,+28 720 9944113,"Gaming Console, Smartphone, Desktop PC, Refrigerator, Camera, Smartwatch",No,4.7,-19.7453,100.2537
+RC_0303,MetroEarth Corp,Jaipur,India,Zero Landfill Certified,6983,+57 975 1337596,"Tablet, Microwave, Monitor, Smartwatch, Desktop PC, Camera",Yes,4.8,13.823,-80.932
+RC_0304,CleanCycle GmbH,Edinburgh,UK,R2 Certified,26539,+34 568 9413498,"Headphones, Desktop PC, Tablet, Router/Modem, Microwave, Monitor",No,5.0,13.9719,40.5785
+RC_0305,CoreWaste Pvt Ltd,London,UK,e-Stewards,11189,+26 332 9761940,"Microwave, Smartphone, Television",Yes,4.8,-23.9967,101.4582
+RC_0306,EcoGreen Technologies,Frankfurt,Germany,ISO 14001:2015,23193,+12 647 2441964,"Refrigerator, Router/Modem, Camera, Desktop PC",Yes,4.5,-30.2464,76.31
+RC_0307,GreenGreen Corp,Kyoto,Japan,e-Stewards,10269,+54 189 1473123,"Washing Machine, Microwave, Laptop, Gaming Console, Refrigerator, Smartwatch",Yes,3.8,-24.3937,-40.9477
+RC_0308,SafeReclaim Inc,Phoenix,USA,Basel Convention,14452,+43 315 1762617,"Headphones, Tablet, Desktop PC, Laptop, Smartphone",Yes,4.8,30.207,-14.5532
+RC_0309,PrimeReclaim Corp,Phoenix,USA,Zero Landfill Certified,33009,+46 284 1737044,"Smartphone, Headphones, Desktop PC",Yes,5.0,-4.9358,61.725
+RC_0310,EliteCircuit Recyclers,New York,USA,ISO 14001:2015,34929,+87 996 6871643,"Router/Modem, Tablet, Monitor",Yes,3.6,42.5122,-93.9922
+RC_0311,CoreWaste GmbH,Kolkata,India,R2 Certified,29196,+64 945 2271270,"Gaming Console, Tablet, Smartphone",Yes,4.7,27.2534,-21.8804
+RC_0312,CoreWaste Technologies,Delhi,India,WEEE Compliant,35380,+70 961 4838294,"Tablet, Desktop PC, Monitor, Smartphone",No,4.1,-30.7728,-23.3151
+RC_0313,EcoReclaim Inc,Delhi,India,ISO 14001:2015,12094,+88 508 9187672,"Laptop, Gaming Console, Printer, Camera, Router/Modem, Refrigerator, Television, Headphones",Yes,4.4,-24.3731,114.11
+RC_0314,SmartWaste Recyclers,Sydney,Australia,Basel Convention,31619,+48 563 4960514,"Gaming Console, Desktop PC, Washing Machine, Monitor",Yes,4.2,44.1108,28.6065
+RC_0315,GreenReclaim Pvt Ltd,Sapporo,Japan,e-Stewards,24820,+17 707 2584971,"Monitor, Gaming Console, Router/Modem",No,4.6,5.0039,68.4861
+RC_0316,CleanNova GmbH,Melbourne,Australia,WEEE Compliant,41181,+21 187 4457146,"Tablet, Desktop PC, Monitor, Smartwatch, Router/Modem, Smartphone, Microwave, Television",No,5.0,42.6129,68.7109
+RC_0317,GreenMine GmbH,Adelaide,Australia,Zero Landfill Certified,21610,+44 100 4611154,"Television, Gaming Console, Printer, Camera",Yes,3.9,8.0111,79.6162
+RC_0318,CleanEarth Corp,Brisbane,Australia,Basel Convention,8698,+59 840 3275144,"Television, Refrigerator, Washing Machine, Laptop, Camera, Smartphone, Desktop PC, Monitor",Yes,3.5,53.0574,-50.6091
+RC_0319,MetroGreen GmbH,San Jose,USA,CPCB Authorized,26440,+96 903 6455758,"Refrigerator, Laptop, Monitor",No,3.7,41.4643,108.2078
+RC_0320,GreenGreen Recyclers,Melbourne,Australia,Basel Convention,29851,+88 596 8568715,"Washing Machine, Microwave, Monitor, Camera, Printer",Yes,3.6,-29.4014,96.7594
+RC_0321,GreenReclaim Inc,Ajman,UAE,EPA Registered,14569,+32 667 1375017,"Refrigerator, Smartwatch, Television",Yes,4.9,-6.6268,-8.6308
+RC_0322,EcoMine Technologies,Brisbane,Australia,e-Stewards,48596,+69 880 9488208,"Smartphone, Camera, Router/Modem, Washing Machine, Tablet, Desktop PC, Laptop, Headphones",Yes,4.3,-30.2615,100.3991
+RC_0323,EcoWaste Corp,New York,USA,WEEE Compliant,12849,+8 991 5632311,"Smartwatch, Refrigerator, Microwave, Camera, Monitor, Tablet, Router/Modem, Gaming Console",Yes,4.7,2.2992,60.3049
+RC_0324,UrbanWaste Technologies,Houston,USA,Zero Landfill Certified,3364,+11 243 2491618,"Camera, Television, Gaming Console, Headphones, Smartwatch, Smartphone, Tablet",Yes,5.0,-2.8724,138.6634
+RC_0325,UrbanTech Pvt Ltd,Pune,India,CPCB Authorized,6825,+16 661 9609235,"Washing Machine, Tablet, Headphones",No,4.3,-35.5723,125.8355
+RC_0326,PrimeCircuit Inc,Sydney,Australia,WEEE Compliant,22392,+70 790 8922266,"Refrigerator, Desktop PC, Smartwatch, Printer, Gaming Console",Yes,4.6,41.4659,-111.6805
+RC_0327,SmartCycle Technologies,Kochi,India,WEEE Compliant,4328,+98 631 7910474,"Headphones, Monitor, Printer, Tablet, Smartphone",No,4.8,21.4329,-39.0209
+RC_0328,CleanNova Pvt Ltd,Nagoya,Japan,WEEE Compliant,29598,+83 731 7748847,"Laptop, Monitor, Headphones, Smartphone, Microwave, Smartwatch",Yes,4.7,46.8412,85.2837
+RC_0329,UrbanNova Industries,Abu Dhabi,UAE,EPA Registered,38682,+24 666 8193190,"Microwave, Headphones, Gaming Console, Camera, Refrigerator, Desktop PC, Washing Machine",No,4.0,-11.9464,-94.7721
+RC_0330,UrbanCycle Technologies,Yokohama,Japan,R2 Certified,12537,+28 979 8024140,"Printer, Refrigerator, Tablet, Smartwatch, Television, Monitor, Camera, Microwave",Yes,4.4,0.6549,-17.2609
+RC_0331,MetroEarth Pvt Ltd,Osaka,Japan,ISO 14001:2015,37412,+14 842 6131308,"Smartwatch, Gaming Console, Printer, Camera",Yes,4.9,20.6756,-30.5278
+RC_0332,UrbanWaste Solutions,Chennai,India,CPCB Authorized,44217,+46 131 1600983,"Gaming Console, Television, Router/Modem, Tablet, Smartwatch, Microwave, Desktop PC",Yes,5.0,44.4212,120.1809
+RC_0333,SafeGreen Solutions,Boston,USA,EPA Registered,24479,+90 499 5980251,"Headphones, Gaming Console, Tablet",No,3.5,-21.9051,-95.392
+RC_0334,SafeGreen Inc,Glasgow,UK,EPA Registered,45160,+83 261 7333293,"Laptop, Smartphone, Refrigerator, Washing Machine, Tablet, Router/Modem, Printer",No,4.6,29.6114,-6.0634
+RC_0335,UrbanWaste Inc,Bengaluru,India,WEEE Compliant,8472,+82 267 3577000,"Desktop PC, Smartphone, Refrigerator",Yes,4.5,39.1456,-44.9282
+RC_0336,PrimeEarth Recyclers,Berlin,Germany,WEEE Compliant,36597,+27 924 1127674,"Smartphone, Smartwatch, Router/Modem, Gaming Console, Desktop PC, Laptop, Tablet, Printer",Yes,4.7,-20.3576,105.4522
+RC_0337,CleanGreen Technologies,Kolkata,India,EPA Registered,42953,+31 421 5441867,"Monitor, Tablet, Headphones, Desktop PC, Washing Machine",No,4.4,25.3645,-118.4646
+RC_0338,SmartMetal Recyclers,Ras Al Khaimah,UAE,WEEE Compliant,44588,+26 807 6982194,"Router/Modem, Refrigerator, Smartphone, Microwave, Monitor, Headphones, Gaming Console, Washing Machine",Yes,4.7,50.0208,129.2282
+RC_0339,GreenGreen Solutions,Jaipur,India,WEEE Compliant,723,+38 845 4569191,"Smartphone, Desktop PC, Router/Modem, Television, Laptop, Tablet, Headphones",Yes,4.1,0.2697,-89.1593
+RC_0340,MetroGreen Pvt Ltd,Sapporo,Japan,Basel Convention,27310,+26 237 4187459,"Camera, Television, Desktop PC, Refrigerator, Washing Machine, Smartwatch",Yes,3.8,41.652,137.5494
+RC_0341,CleanTech Recyclers,London,UK,EPA Registered,22010,+31 265 8486101,"Tablet, Smartwatch, Washing Machine, Router/Modem, Headphones, Smartphone",Yes,5.0,-16.6126,-3.687
+RC_0342,SafeGreen Pvt Ltd,Dubai,UAE,CPCB Authorized,20475,+42 185 4853765,"Microwave, Desktop PC, Laptop, Router/Modem, Television, Washing Machine",Yes,4.1,-11.8949,-101.1592
+RC_0343,MetroWaste Recyclers,Houston,USA,e-Stewards,43794,+98 950 5330912,"Tablet, Gaming Console, Television, Washing Machine",No,4.6,29.2274,12.0327
+RC_0344,UrbanGreen Pvt Ltd,Birmingham,UK,CPCB Authorized,28421,+56 749 7959479,"Washing Machine, Camera, Monitor, Desktop PC, Laptop, Headphones, Printer, Microwave",Yes,3.8,20.4996,-1.7159
+RC_0345,PrimeCycle Industries,Leipzig,Germany,e-Stewards,22666,+79 395 8578577,"Monitor, Headphones, Gaming Console, Television",Yes,4.0,-1.6945,-8.8233
+RC_0346,GreenNova Pvt Ltd,Ras Al Khaimah,UAE,Zero Landfill Certified,22785,+98 163 7113490,"Laptop, Microwave, Smartwatch",Yes,3.6,3.114,129.9397
+RC_0347,CoreGreen Solutions,Sharjah,UAE,R2 Certified,40639,+74 690 7855097,"Camera, Tablet, Router/Modem, Washing Machine",Yes,4.9,-23.7955,60.0324
+RC_0348,CleanGreen Corp,Sapporo,Japan,e-Stewards,7970,+7 589 5169694,"Headphones, Refrigerator, Camera, Tablet, Router/Modem",Yes,3.8,14.0867,0.128
+RC_0349,PrimeMetal Industries,Ajman,UAE,Basel Convention,30874,+19 598 2082536,"Refrigerator, Headphones, Washing Machine, Gaming Console, Television",Yes,4.3,-36.6417,-59.2266
+RC_0350,UrbanWaste Recyclers,Kochi,India,WEEE Compliant,38045,+75 171 5231611,"Smartwatch, Monitor, Gaming Console, Television",No,4.3,-0.5879,-92.0184
+RC_0351,MetroMetal Solutions,Delhi,India,Basel Convention,15330,+50 798 8127699,"Smartwatch, Camera, Refrigerator",Yes,4.1,18.5633,91.086
+RC_0352,CoreReclaim Corp,Kobe,Japan,EPA Registered,19613,+9 701 7290259,"Television, Washing Machine, Monitor, Tablet",Yes,4.8,4.8996,-115.3018
+RC_0353,SmartReclaim Recyclers,Abu Dhabi,UAE,EPA Registered,28705,+35 184 7422505,"Desktop PC, Monitor, Microwave, Camera",Yes,4.9,-24.3671,118.045
+RC_0354,SafeCircuit Technologies,Dusseldorf,Germany,WEEE Compliant,45130,+92 212 3151071,"Printer, Monitor, Smartphone, Smartwatch, Washing Machine, Tablet, Gaming Console, Laptop",Yes,4.0,-9.3587,85.3459
+RC_0355,EcoMine Industries,Mumbai,India,WEEE Compliant,20842,+63 575 2302270,"Microwave, Refrigerator, Television, Desktop PC, Tablet",No,4.1,32.6449,106.285
+RC_0356,SmartMine GmbH,Jaipur,India,R2 Certified,23656,+28 528 8782666,"Printer, Television, Monitor, Refrigerator",Yes,4.6,24.7923,136.9671
+RC_0357,CoreMine Recyclers,Abu Dhabi,UAE,R2 Certified,42783,+12 476 9703172,"Television, Monitor, Tablet, Washing Machine, Smartphone, Smartwatch, Desktop PC, Laptop",Yes,3.9,11.0366,102.8799
+RC_0358,EcoReclaim Pvt Ltd,Sharjah,UAE,WEEE Compliant,28293,+11 710 8616397,"Microwave, Desktop PC, Printer, Router/Modem, Headphones, Television",Yes,4.6,-5.7642,-59.8579
+RC_0359,SmartCircuit GmbH,Sapporo,Japan,WEEE Compliant,7093,+60 929 9229791,"Router/Modem, Printer, Laptop, Smartwatch",Yes,3.7,53.4115,68.2166
+RC_0360,CoreMine Inc,Kolkata,India,Zero Landfill Certified,15121,+54 873 1828337,"Camera, Laptop, Smartphone, Microwave, Washing Machine",No,4.8,-27.3898,-39.3346
+RC_0361,SafeCircuit Inc,Houston,USA,EPA Registered,1605,+32 434 2373669,"Camera, Headphones, Microwave",Yes,4.0,-12.2009,-73.5549
+RC_0362,EcoReclaim Technologies,Hyderabad,India,e-Stewards,49994,+99 622 9528665,"Printer, Camera, Smartphone, Television",Yes,4.5,-24.7646,-90.0597
+RC_0363,CoreMine Pvt Ltd,Los Angeles,USA,Zero Landfill Certified,38492,+25 879 9787797,"Smartwatch, Gaming Console, Washing Machine, Smartphone, Television, Tablet, Router/Modem, Desktop PC",Yes,4.1,42.7423,-71.7053
+RC_0364,EcoNova GmbH,Nagoya,Japan,e-Stewards,28732,+68 356 4042436,"Refrigerator, Tablet, Laptop, Television, Gaming Console",Yes,4.3,22.2741,95.5836
+RC_0365,UrbanGreen Industries,Austin,USA,ISO 14001:2015,21350,+72 311 2892574,"Tablet, Monitor, Smartwatch, Printer, Headphones, Microwave, Desktop PC, Router/Modem",Yes,4.6,-32.4778,-72.7242
+RC_0366,SafeMine Technologies,Kyoto,Japan,e-Stewards,2555,+68 152 7552969,"Camera, Router/Modem, Tablet, Monitor, Smartphone, Printer, Desktop PC",No,4.3,18.3741,40.0612
+RC_0367,UrbanWaste Recyclers,Bristol,UK,ISO 14001:2015,5108,+36 820 3486195,"Desktop PC, Headphones, Laptop, Tablet, Printer, Television, Smartphone, Washing Machine",Yes,4.5,11.6603,105.9995
+RC_0368,UrbanReclaim Industries,Birmingham,UK,R2 Certified,20634,+55 792 6486681,"Refrigerator, Monitor, Headphones, Desktop PC",No,4.5,20.8687,106.9281
+RC_0369,MetroReclaim Inc,New York,USA,Zero Landfill Certified,36914,+62 397 5575935,"Refrigerator, Desktop PC, Monitor, Printer, Smartphone, Gaming Console, Headphones, Tablet",No,3.5,43.2732,-45.2841
+RC_0370,EcoWaste Industries,Brisbane,Australia,WEEE Compliant,30382,+83 528 8185962,"Microwave, Washing Machine, Smartwatch",Yes,3.8,-24.1773,107.9953
+RC_0371,CleanGreen Technologies,Ras Al Khaimah,UAE,ISO 14001:2015,42951,+26 590 2859246,"Printer, Television, Laptop, Tablet, Desktop PC",Yes,4.4,15.686,60.482
+RC_0372,MetroGreen GmbH,New York,USA,CPCB Authorized,6111,+23 376 5511105,"Television, Monitor, Camera",Yes,4.2,-22.4125,37.5505
+RC_0373,GreenEarth Pvt Ltd,Mumbai,India,ISO 14001:2015,31498,+52 515 4341814,"Printer, Gaming Console, Camera, Smartwatch, Refrigerator",Yes,4.7,42.3811,-10.7238
+RC_0374,EcoWaste Pvt Ltd,Cologne,Germany,Zero Landfill Certified,43307,+81 901 7511564,"Printer, Desktop PC, Smartwatch, Router/Modem, Headphones, Tablet",Yes,4.8,15.4884,-67.0882
+RC_0375,EcoCircuit Inc,Leeds,UK,R2 Certified,16371,+17 499 8698064,"Laptop, Washing Machine, Tablet, Printer",Yes,3.5,-28.8066,-60.8289
+RC_0376,GreenCircuit GmbH,Leeds,UK,Basel Convention,39325,+46 436 5555830,"Monitor, Camera, Gaming Console, Router/Modem, Washing Machine, Microwave, Television, Tablet",Yes,4.8,-17.4532,-67.3123
+RC_0377,SmartMetal Inc,Bengaluru,India,e-Stewards,42336,+64 315 5507264,"Smartwatch, Tablet, Refrigerator, Smartphone, Desktop PC",Yes,3.6,40.771,69.7843
+RC_0378,SafeMetal Pvt Ltd,Fukuoka,Japan,Basel Convention,13828,+74 301 4504353,"Washing Machine, Smartwatch, Refrigerator, Desktop PC",Yes,4.3,26.2065,-102.4994
+RC_0379,CleanGreen Solutions,Brisbane,Australia,Basel Convention,13743,+82 798 9418395,"Microwave, Desktop PC, Smartwatch, Camera, Gaming Console, Router/Modem",Yes,3.5,27.7635,59.134
+RC_0380,SmartGreen Industries,Berlin,Germany,Zero Landfill Certified,39669,+52 146 1879012,"Smartphone, Router/Modem, Printer, Washing Machine, Tablet, Headphones, Refrigerator, Camera",No,4.2,4.9546,-98.1553
+RC_0381,CoreMine Solutions,Ras Al Khaimah,UAE,EPA Registered,9072,+1 565 2500453,"Monitor, Refrigerator, Gaming Console, Microwave, Television",Yes,3.7,-4.793,0.001
+RC_0382,PrimeMine Industries,Osaka,Japan,ISO 14001:2015,43180,+54 193 2616047,"Camera, Headphones, Microwave, Router/Modem",Yes,4.7,-8.221,-77.4914
+RC_0383,SafeEarth Solutions,Bengaluru,India,EPA Registered,40140,+72 179 6322306,"Monitor, Refrigerator, Television, Gaming Console, Microwave",Yes,4.6,54.2041,94.7433
+RC_0384,MetroMetal Pvt Ltd,Bristol,UK,WEEE Compliant,36038,+24 362 1097938,"Headphones, Gaming Console, Router/Modem, Television, Washing Machine, Desktop PC",Yes,4.5,41.1538,94.0158
+RC_0385,EcoWaste Recyclers,Fukuoka,Japan,Basel Convention,28537,+37 466 6297575,"Printer, Microwave, Laptop, Router/Modem",Yes,3.8,-32.0609,22.2107
+RC_0386,EcoMetal Industries,Kochi,India,e-Stewards,42207,+79 518 9219540,"Desktop PC, Headphones, Tablet, Gaming Console, Smartphone, Microwave",Yes,4.6,7.1731,-104.8836
+RC_0387,CoreTech Pvt Ltd,Sydney,Australia,ISO 14001:2015,34806,+74 510 5567524,"Television, Refrigerator, Desktop PC, Router/Modem",No,4.9,-4.4542,36.2347
+RC_0388,EliteGreen Industries,Melbourne,Australia,R2 Certified,17134,+52 697 9323830,"Printer, Microwave, Desktop PC, Tablet, Television",No,4.0,26.9058,105.0664
+RC_0389,EcoEarth Inc,Sharjah,UAE,Basel Convention,29823,+12 433 3697783,"Headphones, Smartwatch, Desktop PC, Laptop, Gaming Console",Yes,4.9,-25.7945,71.5305
+RC_0390,PrimeMine Solutions,Perth,Australia,EPA Registered,49166,+71 508 2837948,"Monitor, Tablet, Smartphone, Microwave, Laptop, Washing Machine, Smartwatch",Yes,4.4,-7.535,78.1555
+RC_0391,UrbanNova Industries,Austin,USA,EPA Registered,22653,+58 635 7591312,"Gaming Console, Printer, Tablet, Smartphone, Camera, Smartwatch, Refrigerator, Router/Modem",Yes,4.8,-2.6087,-97.6979
+RC_0392,CleanCircuit Inc,Houston,USA,Basel Convention,38182,+58 899 9975199,"Television, Washing Machine, Tablet, Headphones, Camera, Printer",Yes,4.2,-19.3224,18.8704
+RC_0393,PrimeGreen Solutions,Fukuoka,Japan,e-Stewards,31677,+5 959 7111810,"Router/Modem, Television, Camera, Headphones, Washing Machine",No,4.3,10.781,-11.4038
+RC_0394,GreenWaste Pvt Ltd,Abu Dhabi,UAE,R2 Certified,21877,+51 529 6206543,"Tablet, Camera, Printer, Desktop PC, Refrigerator",Yes,3.9,-24.13,-100.3342
+RC_0395,CoreCircuit Pvt Ltd,Seattle,USA,ISO 14001:2015,14968,+85 748 9471365,"Television, Router/Modem, Laptop, Smartwatch, Smartphone",Yes,4.2,-0.0847,-12.1953
+RC_0396,CoreNova Recyclers,Osaka,Japan,R2 Certified,24035,+57 516 4772208,"Washing Machine, Desktop PC, Camera, Monitor, Television",Yes,4.6,-34.3874,-48.1838
+RC_0397,GreenCircuit Technologies,Bristol,UK,ISO 14001:2015,42745,+28 258 9121254,"Gaming Console, Tablet, Smartphone, Monitor, Refrigerator",Yes,3.6,-28.524,-38.8121
+RC_0398,MetroCircuit Corp,Sapporo,Japan,ISO 14001:2015,28578,+64 914 4922472,"Camera, Monitor, Washing Machine, Headphones, Smartphone",No,3.7,43.934,1.2552
+RC_0399,PrimeEarth Solutions,New York,USA,WEEE Compliant,46432,+36 942 8182438,"Microwave, Headphones, Printer, Camera, Tablet, Laptop, Smartwatch, Refrigerator",Yes,4.9,48.7191,-65.6061
+RC_0400,SmartWaste Inc,Sheffield,UK,R2 Certified,4756,+7 682 4518374,"Smartwatch, Tablet, Router/Modem",Yes,4.0,35.4699,-46.9992
+RC_0401,EcoCircuit Technologies,Adelaide,Australia,CPCB Authorized,19064,+93 975 4509291,"Smartwatch, Tablet, Desktop PC, Microwave, Monitor",Yes,4.6,-13.5848,101.1222
+RC_0402,MetroTech Solutions,Dubai,UAE,Basel Convention,27863,+15 688 2312921,"Router/Modem, Smartphone, Washing Machine, Refrigerator, Printer, Laptop, Desktop PC",Yes,5.0,-34.93,132.6756
+RC_0403,EcoWaste Recyclers,Dusseldorf,Germany,WEEE Compliant,22262,+40 729 4849010,"Television, Washing Machine, Desktop PC, Printer, Laptop",Yes,4.4,50.5481,-38.68
+RC_0404,CleanNova Inc,Ahmedabad,India,R2 Certified,37953,+52 351 4077076,"Printer, Desktop PC, Smartwatch",Yes,3.6,17.6206,99.8348
+RC_0405,SafeNova Technologies,Boston,USA,CPCB Authorized,32019,+7 790 5337394,"Tablet, Monitor, Washing Machine, Smartwatch, Laptop, Headphones, Gaming Console",No,4.5,-32.3261,11.2973
+RC_0406,CleanCircuit Recyclers,Cardiff,UK,Basel Convention,3269,+49 589 3415140,"Camera, Gaming Console, Printer, Laptop, Refrigerator, Router/Modem, Washing Machine, Microwave",Yes,4.3,-26.1557,112.0211
+RC_0407,UrbanMine Inc,San Jose,USA,Basel Convention,48535,+19 955 1058645,"Desktop PC, Printer, Television, Tablet, Laptop, Monitor, Washing Machine",Yes,3.6,47.2626,-62.7654
+RC_0408,GreenGreen Pvt Ltd,Melbourne,Australia,CPCB Authorized,24295,+53 469 7028209,"Gaming Console, Monitor, Washing Machine, Television, Router/Modem, Headphones",Yes,4.2,-36.2254,94.8783
+RC_0409,GreenEarth Corp,Ajman,UAE,Zero Landfill Certified,41811,+56 443 8012333,"Refrigerator, Smartphone, Smartwatch",Yes,4.0,2.4089,16.5209
+RC_0410,GreenEarth Technologies,Cologne,Germany,Zero Landfill Certified,40254,+57 897 7633224,"Television, Microwave, Refrigerator, Printer, Washing Machine, Smartphone, Headphones",Yes,4.9,-16.7455,10.2117
+RC_0411,GreenCircuit Inc,Cologne,Germany,WEEE Compliant,16739,+96 297 1841631,"Router/Modem, Camera, Desktop PC, Microwave, Tablet, Monitor, Smartphone",Yes,4.0,-14.5139,-92.8195
+RC_0412,PrimeTech Industries,Tokyo,Japan,EPA Registered,35517,+21 586 9945411,"Smartwatch, Washing Machine, Microwave, Router/Modem",Yes,3.9,-10.9189,-107.1694
+RC_0413,PrimeWaste Inc,Fukuoka,Japan,Basel Convention,3075,+13 596 5620837,"Camera, Monitor, Washing Machine, Gaming Console, Printer, Microwave, Desktop PC, Smartphone",Yes,4.1,10.4259,11.9156
+RC_0414,EcoCircuit GmbH,Bremen,Germany,EPA Registered,41033,+78 143 5944710,"Tablet, Smartwatch, Laptop",No,4.4,-23.9584,107.6136
+RC_0415,UrbanEarth Pvt Ltd,Dusseldorf,Germany,EPA Registered,21256,+88 643 1768750,"Smartphone, Television, Printer, Gaming Console, Router/Modem, Camera, Smartwatch",No,4.8,-30.7938,52.017
+RC_0416,SafeWaste Recyclers,Osaka,Japan,ISO 14001:2015,9220,+34 577 7529454,"Smartphone, Washing Machine, Headphones, Desktop PC, Refrigerator",Yes,4.0,-26.4484,8.6049
+RC_0417,CleanMine Solutions,Sapporo,Japan,e-Stewards,44485,+42 258 6052006,"Printer, Television, Gaming Console, Camera",Yes,4.3,12.3322,62.3749
+RC_0418,PrimeCircuit Solutions,San Jose,USA,R2 Certified,27835,+60 833 2985525,"Smartphone, Tablet, Refrigerator, Desktop PC, Headphones",Yes,4.1,-8.8071,44.5842
+RC_0419,EliteReclaim Pvt Ltd,Abu Dhabi,UAE,CPCB Authorized,27923,+80 796 2984296,"Tablet, Refrigerator, Television, Router/Modem, Desktop PC, Gaming Console",Yes,4.6,-9.182,91.9094
+RC_0420,SafeMetal Solutions,Sydney,Australia,CPCB Authorized,21240,+96 910 8859283,"Laptop, Printer, Headphones, Microwave",Yes,4.1,40.4881,31.3377
+RC_0421,GreenCircuit Inc,Dubai,UAE,CPCB Authorized,2671,+99 518 4130330,"Camera, Television, Microwave",Yes,3.9,30.738,-22.3717
+RC_0422,CoreReclaim GmbH,Dusseldorf,Germany,WEEE Compliant,10106,+36 645 6857428,"Tablet, Gaming Console, Laptop, Washing Machine, Smartphone, Monitor, Smartwatch, Microwave",Yes,4.4,17.5134,27.6837
+RC_0423,CleanMine Inc,Berlin,Germany,CPCB Authorized,11413,+31 978 4239939,"Camera, Smartphone, Headphones, Gaming Console",Yes,4.0,4.234,136.5759
+RC_0424,PrimeWaste Corp,Hyderabad,India,Basel Convention,9453,+1 522 9328774,"Camera, Router/Modem, Washing Machine",Yes,4.8,-16.3262,134.9291
+RC_0425,SmartTech Recyclers,Ras Al Khaimah,UAE,ISO 14001:2015,6929,+58 230 6717229,"Router/Modem, Desktop PC, Camera, Monitor",Yes,4.9,12.8942,90.275
+RC_0426,EcoGreen Technologies,Manchester,UK,e-Stewards,41925,+54 226 8507847,"Microwave, Smartphone, Monitor, Desktop PC, Tablet, Headphones, Camera",Yes,4.8,-19.8232,60.4794
+RC_0427,SmartWaste GmbH,New York,USA,EPA Registered,48510,+98 455 8384462,"Washing Machine, Gaming Console, Tablet",Yes,4.9,36.2448,64.5745
+RC_0428,GreenReclaim Inc,Nagoya,Japan,WEEE Compliant,9514,+21 147 9283773,"Television, Refrigerator, Camera, Headphones",Yes,3.8,-10.0815,9.5352
+RC_0429,SmartNova Technologies,Dubai,UAE,e-Stewards,13451,+28 328 6448842,"Refrigerator, Desktop PC, Washing Machine, Television, Router/Modem, Gaming Console",Yes,4.5,-4.3458,-65.3351
+RC_0430,EcoMetal Inc,Austin,USA,CPCB Authorized,34214,+26 770 4115524,"Television, Camera, Router/Modem, Monitor, Washing Machine, Gaming Console",Yes,4.8,54.199,77.5803
+RC_0431,EcoTech Industries,Sharjah,UAE,WEEE Compliant,8335,+98 728 8287522,"Laptop, Smartphone, Camera, Monitor, Refrigerator",Yes,4.5,-39.9232,-101.4409
+RC_0432,SmartReclaim Corp,Brisbane,Australia,Basel Convention,27143,+4 131 2860981,"Smartphone, Laptop, Camera, Monitor",Yes,4.6,16.7975,-8.2579
+RC_0433,CoreNova Corp,Delhi,India,WEEE Compliant,49809,+71 945 3124926,"Router/Modem, Smartwatch, Washing Machine",No,4.4,-29.4507,-16.8751
+RC_0434,EcoMine Industries,Chicago,USA,R2 Certified,4688,+46 412 6294206,"Microwave, Refrigerator, Smartphone, Gaming Console, Smartwatch, Router/Modem, Monitor, Printer",No,4.2,-39.7777,56.8565
+RC_0435,EliteMine Inc,Sydney,Australia,ISO 14001:2015,38668,+36 560 3106158,"Smartphone, Headphones, Washing Machine, Monitor, Television, Microwave",No,4.0,53.4772,-37.909
+RC_0436,CleanMetal Technologies,Kobe,Japan,Zero Landfill Certified,2445,+78 816 8468876,"Tablet, Monitor, Television, Gaming Console, Camera, Desktop PC, Headphones",Yes,3.8,37.9534,79.4771
+RC_0437,EcoWaste GmbH,Jaipur,India,e-Stewards,7807,+10 367 5285255,"Desktop PC, Printer, Gaming Console",Yes,4.1,-33.6562,95.2037
+RC_0438,CoreGreen Pvt Ltd,Berlin,Germany,EPA Registered,9067,+96 853 7285969,"Desktop PC, Tablet, Washing Machine, Microwave, Laptop",Yes,4.4,-13.8415,7.1165
+RC_0439,UrbanNova Pvt Ltd,Stuttgart,Germany,Zero Landfill Certified,40560,+94 484 1251914,"Microwave, Refrigerator, Smartphone, Desktop PC",Yes,4.3,-36.9824,-50.0409
+RC_0440,PrimeWaste GmbH,Sapporo,Japan,R2 Certified,13341,+52 245 3944914,"Smartphone, Refrigerator, Television, Camera, Washing Machine",No,3.9,8.8398,52.6245
+RC_0441,EcoGreen Pvt Ltd,Edinburgh,UK,Basel Convention,11477,+85 742 5993186,"Camera, Laptop, Printer",No,4.1,49.6823,-77.895
+RC_0442,SmartTech Inc,Edinburgh,UK,ISO 14001:2015,17331,+65 822 8828158,"Smartphone, Printer, Television, Refrigerator, Headphones, Washing Machine, Camera",No,4.1,-23.4465,-6.2443
+RC_0443,SafeWaste Pvt Ltd,Ras Al Khaimah,UAE,Basel Convention,24825,+20 639 7398543,"Television, Microwave, Smartphone, Camera, Headphones",Yes,3.6,26.5822,99.282
+RC_0444,SmartWaste Recyclers,Dubai,UAE,WEEE Compliant,22248,+60 159 8531056,"Camera, Printer, Microwave, Washing Machine, Refrigerator, Laptop, Smartwatch",Yes,4.2,37.4038,79.5455
+RC_0445,CleanMine Solutions,Melbourne,Australia,ISO 14001:2015,17342,+25 404 5783561,"Headphones, Refrigerator, Smartphone, Printer",Yes,4.7,11.5826,-106.7263
+RC_0446,GreenMetal Inc,Bristol,UK,e-Stewards,8852,+8 959 9411538,"Tablet, Gaming Console, Microwave",Yes,3.8,-7.8788,28.9854
+RC_0447,UrbanCircuit Industries,Manchester,UK,EPA Registered,4292,+95 784 6655868,"Camera, Microwave, Headphones, Tablet, Laptop, Printer",Yes,4.2,-25.6403,-77.9171
+RC_0448,EliteMine GmbH,Kyoto,Japan,Basel Convention,22380,+6 855 5622902,"Laptop, Router/Modem, Washing Machine, Headphones, Microwave, Desktop PC, Printer, Smartphone",No,4.7,4.5417,132.8421
+RC_0449,GreenMetal Recyclers,Glasgow,UK,WEEE Compliant,47877,+26 714 8466593,"Router/Modem, Headphones, Smartphone, Smartwatch, Gaming Console, Refrigerator, Camera",Yes,4.2,-9.8036,-28.5483
+RC_0450,CleanNova Recyclers,Sapporo,Japan,R2 Certified,35632,+99 891 8441309,"Smartphone, Laptop, Washing Machine, Printer, Tablet, Headphones, Gaming Console, Microwave",Yes,3.6,7.6948,-73.3543
+RC_0451,UrbanReclaim Pvt Ltd,Abu Dhabi,UAE,ISO 14001:2015,43135,+43 387 9955591,"Smartphone, Camera, Refrigerator, Television, Monitor",Yes,4.1,19.8628,126.4932
+RC_0452,GreenCircuit Technologies,Mumbai,India,Basel Convention,4162,+45 531 2213423,"Tablet, Smartwatch, Printer, Smartphone, Gaming Console, Laptop",Yes,4.7,42.6463,37.6022
+RC_0453,CleanGreen Pvt Ltd,Birmingham,UK,R2 Certified,41173,+35 909 9286001,"Tablet, Headphones, Printer, Refrigerator, Smartwatch, Washing Machine",Yes,4.0,14.5687,-55.0888
+RC_0454,GreenCycle Technologies,Tokyo,Japan,EPA Registered,44726,+26 784 9290583,"Monitor, Washing Machine, Camera, Desktop PC, Tablet, Refrigerator, Smartphone, Gaming Console",Yes,3.6,16.0369,-96.9404
+RC_0455,UrbanGreen Solutions,Cologne,Germany,ISO 14001:2015,2587,+16 794 5957267,"Smartphone, Smartwatch, Gaming Console, Television",Yes,3.7,14.3786,-23.8994
+RC_0456,EliteMine Recyclers,Sharjah,UAE,R2 Certified,45071,+76 533 8495925,"Laptop, Headphones, Gaming Console, Washing Machine",No,4.0,3.5523,0.2309
+RC_0457,PrimeMine Corp,Dubai,UAE,e-Stewards,9966,+11 241 1691187,"Camera, Headphones, Monitor, Gaming Console, Washing Machine, Desktop PC, Router/Modem, Smartphone",Yes,4.7,54.2207,80.9811
+RC_0458,SmartTech Pvt Ltd,Ajman,UAE,Basel Convention,10015,+15 907 9710834,"Router/Modem, Smartphone, Washing Machine, Desktop PC",Yes,4.2,-22.1984,87.3415
+RC_0459,UrbanMine Inc,Delhi,India,e-Stewards,39747,+35 324 1898158,"Smartphone, Television, Microwave, Camera, Washing Machine, Tablet, Printer",Yes,4.1,19.517,112.4104
+RC_0460,EliteTech GmbH,Stuttgart,Germany,ISO 14001:2015,13931,+69 211 4826475,"Camera, Monitor, Microwave, Smartphone, Refrigerator, Desktop PC, Washing Machine, Smartwatch",Yes,3.5,-25.878,136.19
+RC_0461,SmartCycle Recyclers,Melbourne,Australia,e-Stewards,40180,+80 911 7540663,"Television, Tablet, Camera, Microwave, Smartwatch, Gaming Console, Monitor, Smartphone",No,4.9,40.9349,-1.4102
+RC_0462,EliteGreen Technologies,Berlin,Germany,EPA Registered,29802,+49 627 7099537,"Microwave, Headphones, Smartphone, Desktop PC, Printer",No,4.6,-16.9426,-84.8944
+RC_0463,SafeCircuit Technologies,Phoenix,USA,CPCB Authorized,6974,+19 267 6926953,"Camera, Washing Machine, Refrigerator, Television, Laptop, Headphones, Printer, Gaming Console",Yes,4.5,50.5109,33.2634
+RC_0464,CleanGreen GmbH,Pune,India,WEEE Compliant,33223,+35 594 9295788,"Laptop, Gaming Console, Smartphone",No,4.2,34.1477,-91.0349
+RC_0465,UrbanReclaim Industries,Chicago,USA,Basel Convention,27777,+29 980 4829325,"Smartwatch, Refrigerator, Tablet",Yes,3.6,-25.63,42.2127
+RC_0466,CleanTech Pvt Ltd,Liverpool,UK,Basel Convention,39005,+40 780 4316634,"Desktop PC, Headphones, Camera, Smartphone, Smartwatch, Microwave, Television, Monitor",No,3.8,-21.8369,-5.591
+RC_0467,EcoCircuit Pvt Ltd,Abu Dhabi,UAE,CPCB Authorized,12535,+23 906 5523258,"Router/Modem, Smartwatch, Washing Machine, Television, Gaming Console",No,3.6,52.2582,86.8166
+RC_0468,PrimeEarth Pvt Ltd,Kochi,India,Basel Convention,8917,+23 698 4347617,"Printer, Smartwatch, Tablet, Gaming Console, Desktop PC, Laptop, Router/Modem",No,4.2,27.7513,-84.6145
+RC_0469,EliteNova Solutions,Fukuoka,Japan,WEEE Compliant,44955,+9 482 5406753,"Smartwatch, Microwave, Refrigerator, Printer, Gaming Console, Washing Machine, Smartphone",No,3.5,45.292,30.4145
+RC_0470,MetroNova Pvt Ltd,Cardiff,UK,CPCB Authorized,34531,+38 648 4079213,"Microwave, Smartphone, Printer, Smartwatch, Television, Laptop, Refrigerator, Headphones",No,4.9,19.2794,39.8818
+RC_0471,MetroMetal Pvt Ltd,Dubai,UAE,Basel Convention,8082,+24 622 8595585,"Printer, Washing Machine, Laptop, Tablet",Yes,4.8,-35.2618,37.0633
+RC_0472,EcoNova Industries,San Jose,USA,ISO 14001:2015,34850,+14 439 3589832,"Desktop PC, Printer, Laptop",Yes,3.8,-11.462,76.0757
+RC_0473,CoreGreen Technologies,Osaka,Japan,e-Stewards,6010,+81 556 5882271,"Headphones, Laptop, Television, Gaming Console, Washing Machine, Desktop PC, Microwave, Smartwatch",Yes,4.3,26.0477,67.3289
+RC_0474,MetroCycle Technologies,Leeds,UK,ISO 14001:2015,16913,+40 939 1445399,"Router/Modem, Refrigerator, Television, Camera",Yes,4.4,-2.7002,72.9794
+RC_0475,CoreCycle Recyclers,Sydney,Australia,e-Stewards,39953,+54 436 2404905,"Router/Modem, Printer, Gaming Console, Laptop, Smartwatch, Microwave",Yes,3.8,20.6693,-48.0296
+RC_0476,CleanReclaim Corp,Sapporo,Japan,e-Stewards,12009,+81 453 3872158,"Smartwatch, Laptop, Monitor, Tablet, Printer",No,4.5,-36.3998,82.6058
+RC_0477,UrbanNova Inc,Pune,India,WEEE Compliant,28729,+9 802 9768661,"Headphones, Laptop, Desktop PC, Tablet, Washing Machine, Printer, Router/Modem, Microwave",No,4.0,41.8126,70.64
+RC_0478,EliteCircuit Inc,Pune,India,Zero Landfill Certified,31137,+90 547 8716515,"Smartphone, Gaming Console, Camera, Desktop PC, Printer, Router/Modem, Smartwatch, Refrigerator",No,3.6,-15.0524,122.5132
+RC_0479,SmartNova Corp,Frankfurt,Germany,R2 Certified,34054,+26 180 6852415,"Television, Laptop, Router/Modem, Desktop PC, Smartphone, Printer",Yes,3.9,-20.1596,115.3536
+RC_0480,MetroTech Corp,Kobe,Japan,Zero Landfill Certified,39843,+68 938 3398269,"Camera, Television, Smartphone, Laptop, Gaming Console, Desktop PC, Washing Machine, Smartwatch",Yes,3.9,43.3138,102.7528
+RC_0481,PrimeGreen Technologies,Yokohama,Japan,R2 Certified,40274,+43 736 6372331,"Printer, Television, Desktop PC",Yes,4.1,37.3782,134.4512
+RC_0482,SmartNova GmbH,Ras Al Khaimah,UAE,WEEE Compliant,9511,+37 707 8111850,"Laptop, Microwave, Refrigerator, Washing Machine, Smartwatch",Yes,3.9,28.4989,-57.5171
+RC_0483,SmartMetal GmbH,Cologne,Germany,R2 Certified,1691,+85 377 5239074,"Headphones, Desktop PC, Router/Modem, Microwave, Washing Machine, Refrigerator",No,4.9,10.9767,-95.1189
+RC_0484,UrbanEarth Solutions,Melbourne,Australia,e-Stewards,29221,+23 461 4234649,"Smartphone, Monitor, Television, Refrigerator, Smartwatch, Desktop PC, Headphones, Microwave",Yes,4.3,-28.477,-69.6308
+RC_0485,GreenNova Technologies,Sapporo,Japan,WEEE Compliant,13516,+61 766 1462479,"Refrigerator, Laptop, Monitor, Smartphone, Router/Modem, Desktop PC, Microwave",Yes,4.4,-26.7516,92.4359
+RC_0486,MetroCircuit Technologies,Sapporo,Japan,e-Stewards,12655,+40 331 3843042,"Refrigerator, Washing Machine, Headphones, Laptop, Smartwatch",Yes,3.8,48.699,-63.7548
+RC_0487,CleanNova Solutions,Hamburg,Germany,WEEE Compliant,32079,+16 904 8848530,"Television, Headphones, Monitor, Desktop PC, Refrigerator, Microwave",No,4.3,20.9085,128.0392
+RC_0488,PrimeNova GmbH,Berlin,Germany,EPA Registered,30845,+1 884 6523933,"Smartwatch, Refrigerator, Laptop, Camera, Monitor, Printer, Router/Modem",No,4.3,-20.1823,-59.6707
+RC_0489,EliteMine Technologies,Sheffield,UK,e-Stewards,41921,+56 941 4152212,"Desktop PC, Smartwatch, Laptop, Microwave, Camera",Yes,4.3,-23.4959,54.173
+RC_0490,PrimeMine Industries,Brisbane,Australia,Basel Convention,32789,+99 825 7530942,"Desktop PC, Router/Modem, Laptop, Gaming Console, Headphones, Printer",Yes,4.7,-32.1107,-2.3371
+RC_0491,EcoMine Recyclers,San Jose,USA,EPA Registered,49860,+55 789 5370091,"Router/Modem, Laptop, Printer, Television, Tablet, Camera, Monitor",Yes,4.4,-38.6455,-94.7929
+RC_0492,CleanMine Industries,Stuttgart,Germany,CPCB Authorized,49493,+93 615 4666949,"Camera, Refrigerator, Smartwatch, Gaming Console, Tablet, Television",Yes,4.1,-38.2729,-108.2416
+RC_0493,UrbanCycle Industries,Leeds,UK,EPA Registered,16966,+51 736 1338698,"Smartwatch, Gaming Console, Headphones, Tablet",Yes,4.8,-22.0279,95.1982
+RC_0494,EliteEarth Pvt Ltd,Liverpool,UK,EPA Registered,25606,+16 300 9859727,"Smartwatch, Router/Modem, Gaming Console, Printer, Washing Machine, Desktop PC, Microwave",No,4.7,-32.2251,19.9742
+RC_0495,CoreCircuit Corp,Boston,USA,ISO 14001:2015,3308,+18 675 2969267,"Headphones, Gaming Console, Router/Modem, Television, Microwave",Yes,4.6,-38.3442,-21.667
+RC_0496,GreenCircuit GmbH,San Jose,USA,Zero Landfill Certified,42337,+29 378 3941961,"Smartwatch, Router/Modem, Washing Machine, Microwave",Yes,4.2,28.6668,-36.4702
+RC_0497,UrbanTech Solutions,Houston,USA,CPCB Authorized,3005,+66 611 2325207,"Camera, Monitor, Printer, Television, Smartphone, Smartwatch, Desktop PC, Refrigerator",Yes,4.0,-2.468,5.5896
+RC_0498,SafeTech GmbH,Chicago,USA,WEEE Compliant,39113,+26 220 8794669,"Laptop, Tablet, Desktop PC, Camera, Washing Machine",Yes,3.8,9.3939,-92.569
+RC_0499,SafeEarth Solutions,Los Angeles,USA,ISO 14001:2015,22531,+16 972 2356081,"Washing Machine, Router/Modem, Desktop PC, Laptop, Television, Smartphone, Monitor, Camera",Yes,4.6,-14.4718,-15.3947
+RC_0500,EliteMine Recyclers,Tokyo,Japan,CPCB Authorized,22589,+14 699 5037186,"Desktop PC, Gaming Console, Television, Headphones",Yes,3.7,-14.9685,29.0478

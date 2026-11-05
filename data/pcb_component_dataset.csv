@@ -1,0 +1,1501 @@
+scan_id,pcb_type,component,bbox_xywh,detection_confidence,primary_metal,metal_content_pct,market_price_per_kg_usd,component_weight_g,recovery_method,toxicity_level
+PCB_00001,RAM Module,Connector,"1207,493,119,58",0.8235,Tin,10.484,11163.18,13.962,Mechanical Shredding,High
+PCB_00002,Printer Controller,LED,"170,58,97,47",0.7494,Silver,3.254,35671.44,42.328,Hydrometallurgical,Low
+PCB_00003,RAM Module,Inductor,"422,916,26,33",0.8114,Silver,2.009,37305.25,0.435,Mechanical Shredding,Critical
+PCB_00004,Motherboard,IC Chip,"1749,68,53,19",0.7131,Silver,8.206,12522.18,40.445,Pyrometallurgical,Moderate
+PCB_00005,Tablet Logic Board,Crystal Oscillator,"1495,12,51,21",0.9262,Palladium,8.791,47596.39,12.52,Bioleaching,Low
+PCB_00006,RAM Module,Battery Holder,"1812,72,81,77",0.6718,Palladium,2.798,24099.43,33.835,Mechanical Shredding,Moderate
+PCB_00007,GPU Board,Heat Sink,"1552,330,105,15",0.8262,Nickel,0.99,39854.36,38.415,Pyrometallurgical,Moderate
+PCB_00008,Router PCB,Heat Sink,"1661,311,111,49",0.9643,Platinum,7.622,33064.09,23.084,Bioleaching,Moderate
+PCB_00009,SSD Controller,IC Chip,"1120,112,76,16",0.7602,Gold,4.823,1681.93,41.235,Pyrometallurgical,Low
+PCB_00010,Tablet Logic Board,Transistor,"1113,475,106,36",0.6501,Zinc,8.095,61532.83,2.187,Mechanical Shredding,None
+PCB_00011,SSD Controller,Transistor,"1707,132,31,17",0.7724,Copper,11.431,61945.7,27.475,Bioleaching,Critical
+PCB_00012,Printer Controller,Resistor,"1270,906,46,61",0.9203,Gold,5.323,56402.46,4.638,Electrochemical,High
+PCB_00013,SSD Controller,Relay,"1520,101,79,44",0.9803,Tin,2.83,48314.08,1.282,Electrochemical,High
+PCB_00014,Phone Main Board,Inductor,"502,376,118,25",0.7729,Palladium,12.261,1239.92,41.048,Bioleaching,High
+PCB_00015,Router PCB,Transformer,"1460,427,71,79",0.8782,Silver,4.312,60625.92,2.328,Bioleaching,High
+PCB_00016,Printer Controller,Crystal Oscillator,"707,422,46,65",0.8268,Silver,1.566,6001.17,7.485,Bioleaching,Low
+PCB_00017,SSD Controller,Crystal Oscillator,"745,748,108,32",0.775,Copper,11.046,57794.35,11.252,Mechanical Shredding,Moderate
+PCB_00018,Printer Controller,Heat Sink,"805,214,84,65",0.6827,Silver,9.432,44278.42,8.103,Pyrometallurgical,Moderate
+PCB_00019,Router PCB,Fuse,"1000,396,106,74",0.9368,Gold,8.18,60550.13,21.941,Pyrometallurgical,None
+PCB_00020,Phone Main Board,Resistor,"1286,405,86,72",0.9714,Platinum,3.086,28456.79,8.477,Pyrometallurgical,High
+PCB_00021,SSD Controller,Transformer,"57,252,89,41",0.7475,Silver,1.421,27848.96,35.19,Electrochemical,None
+PCB_00022,SSD Controller,Heat Sink,"1095,167,50,21",0.8997,Gold,8.198,26675.02,40.208,Mechanical Shredding,Critical
+PCB_00023,GPU Board,Transistor,"847,439,77,29",0.9236,Nickel,2.41,4935.35,43.079,Bioleaching,High
+PCB_00024,RAM Module,Connector,"1837,414,20,45",0.6501,Palladium,10.982,133.63,6.168,Pyrometallurgical,High
+PCB_00025,SSD Controller,Relay,"658,1032,85,40",0.6749,Silver,9.326,61433.0,27.795,Electrochemical,None
+PCB_00026,Power Supply,Inductor,"99,97,85,17",0.9718,Copper,1.255,15324.21,29.34,Electrochemical,None
+PCB_00027,Printer Controller,Crystal Oscillator,"1313,852,47,51",0.8867,Copper,3.698,30419.75,35.295,Hydrometallurgical,Critical
+PCB_00028,Power Supply,Inductor,"1795,848,110,69",0.8817,Zinc,8.29,5399.66,18.24,Pyrometallurgical,Low
+PCB_00029,Router PCB,Transistor,"1031,265,111,80",0.6907,Gold,11.551,41468.33,29.541,Pyrometallurgical,Low
+PCB_00030,Power Supply,Crystal Oscillator,"1531,694,116,31",0.8925,Palladium,11.483,30438.45,39.835,Mechanical Shredding,Moderate
+PCB_00031,Router PCB,Inductor,"614,737,31,66",0.926,Copper,3.362,45508.87,44.337,Mechanical Shredding,Moderate
+PCB_00032,SSD Controller,Relay,"1411,398,80,21",0.7751,Tin,4.962,23888.69,13.138,Pyrometallurgical,Critical
+PCB_00033,RAM Module,Heat Sink,"1103,290,84,32",0.8026,Gold,11.076,4988.12,31.789,Pyrometallurgical,Critical
+PCB_00034,Tablet Logic Board,Transformer,"746,192,120,23",0.9675,Silver,6.3,15508.77,34.496,Hydrometallurgical,High
+PCB_00035,SSD Controller,Diode,"1190,655,95,73",0.6853,Silver,0.514,28465.32,33.991,Electrochemical,High
+PCB_00036,Tablet Logic Board,Transformer,"1254,66,45,47",0.949,Gold,0.306,3643.93,35.304,Hydrometallurgical,High
+PCB_00037,GPU Board,Capacitor,"1501,476,23,57",0.9151,Gold,9.833,42460.24,21.988,Mechanical Shredding,Moderate
+PCB_00038,Phone Main Board,Crystal Oscillator,"1775,980,51,32",0.9626,Zinc,2.146,6807.93,17.641,Bioleaching,None
+PCB_00039,Power Supply,Battery Holder,"1218,391,36,53",0.9625,Platinum,6.849,36882.24,9.183,Pyrometallurgical,High
+PCB_00040,SSD Controller,Voltage Regulator,"821,246,53,15",0.8431,Palladium,1.744,56803.77,19.993,Pyrometallurgical,Low
+PCB_00041,Tablet Logic Board,Transformer,"901,1043,89,80",0.8409,Copper,6.204,7553.64,12.969,Electrochemical,Moderate
+PCB_00042,SSD Controller,Voltage Regulator,"126,371,66,50",0.7699,Zinc,9.173,3896.56,43.011,Mechanical Shredding,Critical
+PCB_00043,Phone Main Board,Fuse,"1226,957,118,24",0.8221,Palladium,10.097,32932.65,22.838,Electrochemical,None
+PCB_00044,Motherboard,IC Chip,"1473,534,109,72",0.9304,Palladium,5.047,61656.88,2.148,Bioleaching,Low
+PCB_00045,RAM Module,IC Chip,"1841,481,119,37",0.7494,Copper,1.864,35298.24,1.986,Mechanical Shredding,High
+PCB_00046,Router PCB,Diode,"954,454,45,41",0.89,Zinc,3.07,24562.18,37.818,Bioleaching,None
+PCB_00047,Printer Controller,Fuse,"1600,141,24,78",0.6599,Tin,11.554,46607.19,28.406,Mechanical Shredding,Critical
+PCB_00048,GPU Board,Crystal Oscillator,"1896,1024,95,39",0.9018,Copper,10.479,61160.59,22.093,Bioleaching,Low
+PCB_00049,RAM Module,Inductor,"269,605,44,69",0.9437,Copper,8.449,42485.31,43.259,Hydrometallurgical,None
+PCB_00050,Phone Main Board,Diode,"1847,173,94,76",0.9484,Copper,0.399,32204.45,13.959,Mechanical Shredding,High
+PCB_00051,Power Supply,Battery Holder,"993,1034,56,80",0.7451,Copper,4.898,34322.85,41.428,Hydrometallurgical,None
+PCB_00052,RAM Module,Crystal Oscillator,"289,508,21,41",0.9381,Silver,9.1,8497.44,29.554,Electrochemical,Low
+PCB_00053,Phone Main Board,Resistor,"1142,642,61,22",0.8929,Copper,9.8,18525.2,18.877,Pyrometallurgical,Low
+PCB_00054,SSD Controller,Inductor,"1578,1040,77,33",0.6643,Tin,2.008,33458.85,0.994,Hydrometallurgical,None
+PCB_00055,Printer Controller,Fuse,"468,807,66,66",0.7272,Gold,12.403,8385.86,16.167,Electrochemical,Moderate
+PCB_00056,Printer Controller,Crystal Oscillator,"952,258,111,15",0.7878,Zinc,5.29,51307.78,35.699,Bioleaching,High
+PCB_00057,Router PCB,Fuse,"935,287,49,24",0.9598,Gold,10.096,29248.36,36.079,Electrochemical,Moderate
+PCB_00058,Motherboard,Resistor,"486,399,107,76",0.8519,Copper,8.226,22429.78,35.266,Bioleaching,Moderate
+PCB_00059,Motherboard,Resistor,"1349,196,48,53",0.9565,Gold,0.115,32255.22,16.437,Mechanical Shredding,Moderate
+PCB_00060,Phone Main Board,Inductor,"14,742,67,20",0.7962,Tin,0.335,9684.14,44.673,Pyrometallurgical,Low
+PCB_00061,Motherboard,Relay,"1353,704,48,22",0.8428,Gold,11.507,25746.39,4.696,Hydrometallurgical,Moderate
+PCB_00062,Router PCB,Heat Sink,"875,770,22,43",0.6689,Nickel,10.355,11701.91,11.203,Bioleaching,High
+PCB_00063,Motherboard,Transformer,"1351,577,93,80",0.9756,Platinum,5.897,21900.27,30.083,Electrochemical,None
+PCB_00064,Tablet Logic Board,Inductor,"836,670,37,59",0.9168,Zinc,5.849,45659.38,41.81,Electrochemical,High
+PCB_00065,GPU Board,Fuse,"79,430,45,38",0.7956,Silver,11.368,30457.64,40.937,Mechanical Shredding,Moderate
+PCB_00066,RAM Module,Connector,"129,1058,38,15",0.7283,Palladium,1.139,23722.27,24.011,Bioleaching,Moderate
+PCB_00067,RAM Module,Resistor,"392,470,90,61",0.6783,Gold,2.372,23978.58,5.486,Hydrometallurgical,High
+PCB_00068,SSD Controller,Capacitor,"323,695,113,55",0.8222,Platinum,7.137,2131.96,18.082,Bioleaching,Low
+PCB_00069,Motherboard,Inductor,"1725,208,27,48",0.8469,Palladium,4.337,52700.15,10.905,Electrochemical,None
+PCB_00070,Tablet Logic Board,Fuse,"1575,66,62,23",0.9711,Gold,12.212,47115.71,22.914,Bioleaching,Low
+PCB_00071,Motherboard,Crystal Oscillator,"1313,815,21,18",0.9011,Nickel,4.876,5555.28,22.674,Hydrometallurgical,None
+PCB_00072,SSD Controller,Fuse,"1437,1009,32,16",0.753,Zinc,4.212,12705.08,4.068,Electrochemical,High
+PCB_00073,Router PCB,Transistor,"70,832,62,31",0.6891,Gold,8.281,20733.1,30.408,Bioleaching,Critical
+PCB_00074,Motherboard,Heat Sink,"646,359,27,48",0.6734,Palladium,0.643,40006.47,0.199,Mechanical Shredding,None
+PCB_00075,GPU Board,Transistor,"1449,380,23,69",0.8344,Gold,9.98,8975.61,12.35,Pyrometallurgical,None
+PCB_00076,Power Supply,Battery Holder,"246,59,30,54",0.7654,Gold,1.924,11070.51,38.819,Hydrometallurgical,High
+PCB_00077,Printer Controller,Capacitor,"713,686,72,66",0.9489,Platinum,3.439,25974.7,39.091,Pyrometallurgical,Critical
+PCB_00078,Router PCB,LED,"1807,582,29,50",0.8593,Silver,0.775,34659.27,9.551,Hydrometallurgical,High
+PCB_00079,GPU Board,Voltage Regulator,"1465,156,112,65",0.8756,Zinc,5.136,25703.3,4.755,Bioleaching,Moderate
+PCB_00080,Printer Controller,Voltage Regulator,"1892,658,99,29",0.655,Palladium,10.637,49938.65,41.811,Bioleaching,Moderate
+PCB_00081,Phone Main Board,Capacitor,"1489,14,63,35",0.9303,Gold,3.365,23893.57,42.479,Bioleaching,Critical
+PCB_00082,Router PCB,Resistor,"1354,570,95,52",0.795,Copper,11.428,18280.99,25.835,Electrochemical,Critical
+PCB_00083,Tablet Logic Board,Inductor,"643,329,53,50",0.8239,Tin,10.226,40705.57,16.809,Bioleaching,None
+PCB_00084,Phone Main Board,Voltage Regulator,"1757,734,59,57",0.955,Platinum,10.282,5331.86,39.295,Pyrometallurgical,None
+PCB_00085,RAM Module,Inductor,"859,575,28,48",0.7652,Nickel,9.182,50072.73,35.117,Pyrometallurgical,Critical
+PCB_00086,Power Supply,Connector,"973,851,38,40",0.6573,Gold,11.765,44442.48,0.454,Mechanical Shredding,High
+PCB_00087,RAM Module,Inductor,"1712,188,66,25",0.913,Palladium,6.938,47267.96,25.998,Hydrometallurgical,High
+PCB_00088,RAM Module,Resistor,"420,1060,30,31",0.7023,Nickel,6.006,23071.89,11.485,Pyrometallurgical,Moderate
+PCB_00089,RAM Module,IC Chip,"998,618,40,48",0.7652,Silver,7.931,25306.52,37.049,Bioleaching,Critical
+PCB_00090,Power Supply,Transistor,"1466,608,57,30",0.7184,Nickel,3.662,34642.84,6.697,Pyrometallurgical,Critical
+PCB_00091,Printer Controller,Capacitor,"139,217,52,32",0.7384,Platinum,9.763,41744.6,8.492,Bioleaching,Low
+PCB_00092,Printer Controller,Voltage Regulator,"1220,529,62,30",0.7149,Gold,8.46,21311.38,20.597,Pyrometallurgical,Critical
+PCB_00093,Tablet Logic Board,Heat Sink,"1630,38,112,44",0.7899,Silver,10.035,44462.34,0.634,Bioleaching,Critical
+PCB_00094,SSD Controller,Heat Sink,"705,468,118,48",0.8846,Silver,11.202,60789.83,35.418,Mechanical Shredding,Moderate
+PCB_00095,RAM Module,Fuse,"1486,430,75,77",0.99,Tin,7.931,58125.26,16.928,Hydrometallurgical,Critical
+PCB_00096,Printer Controller,Battery Holder,"796,604,74,80",0.9642,Zinc,1.259,33580.94,14.71,Bioleaching,Critical
+PCB_00097,Printer Controller,Capacitor,"1503,997,40,63",0.75,Platinum,11.248,52104.04,40.258,Electrochemical,High
+PCB_00098,RAM Module,Transistor,"425,698,115,25",0.6767,Nickel,3.6,44638.69,37.16,Mechanical Shredding,High
+PCB_00099,Router PCB,Relay,"1851,159,54,17",0.6749,Copper,7.284,57621.53,40.324,Electrochemical,Critical
+PCB_00100,Router PCB,Battery Holder,"1076,859,112,36",0.8156,Tin,9.121,31236.83,3.213,Electrochemical,Critical
+PCB_00101,RAM Module,LED,"772,183,19,28",0.6827,Copper,0.092,16367.25,30.039,Pyrometallurgical,High
+PCB_00102,Motherboard,Capacitor,"873,334,87,46",0.9468,Copper,10.034,33855.81,35.137,Hydrometallurgical,None
+PCB_00103,Printer Controller,Transistor,"1778,1018,16,35",0.7002,Tin,7.063,39573.91,34.401,Electrochemical,Low
+PCB_00104,SSD Controller,Transformer,"1660,842,39,56",0.6653,Zinc,12.221,27750.45,19.378,Pyrometallurgical,Low
+PCB_00105,GPU Board,Inductor,"277,103,28,63",0.9775,Platinum,8.006,45653.59,15.203,Electrochemical,Critical
+PCB_00106,SSD Controller,Crystal Oscillator,"334,511,104,60",0.7603,Nickel,7.731,11914.56,28.321,Pyrometallurgical,High
+PCB_00107,RAM Module,Transistor,"125,197,109,19",0.7497,Zinc,3.541,33322.05,14.137,Pyrometallurgical,Critical
+PCB_00108,Phone Main Board,Capacitor,"409,675,98,50",0.7086,Zinc,6.722,40374.47,9.731,Mechanical Shredding,Critical
+PCB_00109,Router PCB,Battery Holder,"1204,778,19,30",0.7013,Platinum,11.172,12943.6,8.395,Mechanical Shredding,High
+PCB_00110,Motherboard,Connector,"983,751,48,34",0.8363,Tin,8.406,22428.05,26.54,Bioleaching,None
+PCB_00111,Power Supply,LED,"1669,502,20,49",0.8368,Silver,9.279,16119.65,36.41,Bioleaching,Moderate
+PCB_00112,Power Supply,Transistor,"255,799,93,73",0.759,Tin,7.166,31848.94,2.951,Bioleaching,High
+PCB_00113,Phone Main Board,Capacitor,"964,703,49,60",0.8386,Silver,5.885,29099.83,15.088,Pyrometallurgical,High
+PCB_00114,Tablet Logic Board,IC Chip,"100,385,57,65",0.8029,Platinum,3.015,5179.52,10.393,Electrochemical,High
+PCB_00115,GPU Board,Relay,"1036,597,55,23",0.712,Tin,4.585,58786.94,40.867,Pyrometallurgical,High
+PCB_00116,SSD Controller,Transformer,"909,900,105,15",0.9466,Tin,0.232,3827.76,19.418,Mechanical Shredding,Moderate
+PCB_00117,Printer Controller,Voltage Regulator,"767,567,74,18",0.6526,Tin,0.661,51062.61,30.343,Electrochemical,Critical
+PCB_00118,GPU Board,Battery Holder,"1481,724,16,17",0.8231,Copper,5.482,12548.47,21.645,Electrochemical,Moderate
+PCB_00119,Motherboard,Heat Sink,"1018,462,113,63",0.7435,Gold,11.657,8810.78,22.96,Pyrometallurgical,High
+PCB_00120,Phone Main Board,Relay,"1545,124,43,56",0.895,Nickel,7.529,15246.56,32.212,Bioleaching,None
+PCB_00121,GPU Board,Fuse,"1258,484,88,20",0.9832,Palladium,2.885,58151.87,3.42,Bioleaching,Critical
+PCB_00122,Tablet Logic Board,LED,"1873,688,85,54",0.8603,Gold,2.812,6145.47,37.734,Pyrometallurgical,High
+PCB_00123,Motherboard,Voltage Regulator,"1592,638,113,42",0.7175,Tin,3.035,57276.9,16.047,Electrochemical,Critical
+PCB_00124,Phone Main Board,Relay,"926,928,42,15",0.7712,Copper,11.271,41898.17,22.645,Bioleaching,None
+PCB_00125,SSD Controller,Diode,"885,344,26,68",0.7511,Platinum,8.012,12946.9,38.053,Bioleaching,High
+PCB_00126,SSD Controller,Capacitor,"1707,249,102,72",0.9059,Platinum,10.848,39365.69,41.723,Mechanical Shredding,High
+PCB_00127,SSD Controller,Relay,"874,94,77,51",0.7156,Silver,4.658,42732.17,42.986,Electrochemical,None
+PCB_00128,Power Supply,Transistor,"620,1010,61,15",0.6658,Silver,8.992,10347.19,36.773,Mechanical Shredding,None
+PCB_00129,RAM Module,Fuse,"1876,343,29,71",0.9266,Gold,1.3,54819.92,12.253,Hydrometallurgical,Moderate
+PCB_00130,Phone Main Board,Voltage Regulator,"101,513,18,30",0.8273,Silver,6.021,15284.57,14.911,Mechanical Shredding,None
+PCB_00131,Printer Controller,Inductor,"570,81,54,22",0.8978,Palladium,7.761,6853.5,20.785,Electrochemical,Low
+PCB_00132,SSD Controller,Crystal Oscillator,"36,1009,69,79",0.669,Zinc,9.029,34026.88,22.48,Electrochemical,Critical
+PCB_00133,Motherboard,Battery Holder,"1013,774,64,36",0.7153,Tin,6.859,20467.78,32.84,Pyrometallurgical,Critical
+PCB_00134,Tablet Logic Board,Transformer,"1289,173,76,37",0.8742,Palladium,6.756,56055.47,18.707,Hydrometallurgical,None
+PCB_00135,Phone Main Board,Transistor,"1556,122,88,38",0.7067,Zinc,5.642,8511.38,27.896,Electrochemical,Low
+PCB_00136,Tablet Logic Board,Resistor,"417,1007,108,47",0.8494,Gold,6.874,13382.64,26.709,Electrochemical,Moderate
+PCB_00137,Power Supply,Diode,"160,1007,61,76",0.7168,Nickel,8.213,30096.24,11.285,Hydrometallurgical,Low
+PCB_00138,RAM Module,Transformer,"1800,29,36,67",0.836,Palladium,12.421,292.69,14.368,Bioleaching,Critical
+PCB_00139,Tablet Logic Board,Connector,"306,1037,35,53",0.9262,Tin,1.367,6147.78,7.528,Hydrometallurgical,None
+PCB_00140,Phone Main Board,Transistor,"170,338,82,65",0.709,Platinum,3.143,31327.42,28.894,Electrochemical,Moderate
+PCB_00141,Phone Main Board,Resistor,"845,309,36,62",0.7689,Platinum,10.1,58196.99,13.571,Bioleaching,Low
+PCB_00142,SSD Controller,Relay,"358,1009,38,27",0.6521,Copper,3.952,41147.03,22.765,Electrochemical,None
+PCB_00143,Tablet Logic Board,Fuse,"1344,530,44,77",0.678,Copper,1.425,36506.18,27.375,Bioleaching,Critical
+PCB_00144,GPU Board,Fuse,"680,783,111,21",0.726,Platinum,4.992,8199.49,12.686,Bioleaching,Critical
+PCB_00145,RAM Module,Voltage Regulator,"1283,841,60,25",0.853,Silver,12.119,56037.55,23.039,Electrochemical,High
+PCB_00146,Motherboard,Connector,"1872,522,57,55",0.8005,Gold,8.971,47888.43,4.172,Mechanical Shredding,None
+PCB_00147,GPU Board,Relay,"125,1025,75,16",0.9507,Platinum,9.879,40189.68,14.824,Electrochemical,High
+PCB_00148,Motherboard,Crystal Oscillator,"120,397,32,15",0.6965,Tin,2.106,628.55,18.505,Hydrometallurgical,Critical
+PCB_00149,Printer Controller,IC Chip,"1094,301,80,69",0.6733,Palladium,4.637,53137.36,25.051,Electrochemical,None
+PCB_00150,Printer Controller,IC Chip,"1374,652,102,23",0.9413,Tin,2.744,32534.67,26.172,Pyrometallurgical,Moderate
+PCB_00151,Router PCB,Relay,"114,167,119,53",0.8163,Nickel,4.15,22429.12,17.316,Hydrometallurgical,Critical
+PCB_00152,Printer Controller,Heat Sink,"148,819,18,49",0.8915,Gold,10.134,12336.98,9.04,Bioleaching,Critical
+PCB_00153,Router PCB,LED,"518,857,19,66",0.7206,Platinum,6.195,44083.84,35.4,Mechanical Shredding,High
+PCB_00154,Tablet Logic Board,Voltage Regulator,"1687,762,94,20",0.7651,Platinum,8.634,35355.94,4.701,Pyrometallurgical,High
+PCB_00155,Printer Controller,Connector,"1727,90,60,17",0.982,Nickel,11.739,29287.2,7.193,Mechanical Shredding,Low
+PCB_00156,GPU Board,Transformer,"1531,866,104,79",0.7901,Palladium,4.906,509.3,14.181,Pyrometallurgical,Low
+PCB_00157,GPU Board,Heat Sink,"1614,279,61,60",0.798,Nickel,9.84,29031.52,26.08,Electrochemical,Critical
+PCB_00158,Power Supply,Transistor,"421,332,67,60",0.8614,Nickel,6.145,17807.41,32.351,Pyrometallurgical,Low
+PCB_00159,Phone Main Board,Diode,"469,925,25,63",0.8948,Tin,6.19,59672.01,11.266,Mechanical Shredding,None
+PCB_00160,Router PCB,Inductor,"1579,881,116,15",0.9567,Tin,1.363,29045.79,1.43,Electrochemical,None
+PCB_00161,SSD Controller,LED,"426,951,35,48",0.8532,Zinc,6.032,50239.85,31.072,Mechanical Shredding,Moderate
+PCB_00162,Motherboard,Relay,"1386,593,69,60",0.8615,Gold,7.091,18983.08,29.885,Mechanical Shredding,Low
+PCB_00163,Router PCB,Diode,"596,171,119,56",0.7271,Platinum,8.26,29995.78,23.646,Bioleaching,None
+PCB_00164,RAM Module,Fuse,"1149,114,47,27",0.8726,Platinum,9.501,40596.67,34.862,Mechanical Shredding,Moderate
+PCB_00165,Power Supply,IC Chip,"1320,650,82,35",0.6846,Palladium,9.042,50947.35,36.276,Pyrometallurgical,High
+PCB_00166,RAM Module,Inductor,"1495,1001,47,47",0.7268,Tin,10.004,9716.56,41.477,Bioleaching,Moderate
+PCB_00167,Motherboard,Transistor,"83,456,81,35",0.8687,Platinum,6.289,19215.13,16.055,Bioleaching,None
+PCB_00168,SSD Controller,Resistor,"1393,423,80,53",0.751,Copper,7.403,14220.34,1.92,Electrochemical,None
+PCB_00169,Tablet Logic Board,Relay,"1721,659,119,60",0.8391,Palladium,7.89,58036.48,5.081,Hydrometallurgical,High
+PCB_00170,Motherboard,Crystal Oscillator,"889,246,72,26",0.7778,Tin,5.784,5395.56,22.397,Electrochemical,None
+PCB_00171,Power Supply,Crystal Oscillator,"1581,831,18,29",0.8694,Gold,10.655,38780.53,30.942,Electrochemical,None
+PCB_00172,GPU Board,Battery Holder,"640,68,72,72",0.7175,Platinum,8.861,61269.36,23.603,Hydrometallurgical,High
+PCB_00173,SSD Controller,Connector,"499,458,89,78",0.886,Silver,7.178,25346.31,35.673,Hydrometallurgical,Critical
+PCB_00174,Printer Controller,LED,"737,631,96,64",0.7798,Gold,3.997,45209.91,22.353,Mechanical Shredding,None
+PCB_00175,Router PCB,Transistor,"1114,241,107,79",0.7773,Gold,6.391,29077.17,0.549,Electrochemical,None
+PCB_00176,RAM Module,LED,"296,1037,41,50",0.718,Copper,5.938,45489.34,40.7,Mechanical Shredding,None
+PCB_00177,RAM Module,Heat Sink,"1077,411,44,15",0.6597,Copper,2.792,40189.54,13.377,Mechanical Shredding,Moderate
+PCB_00178,GPU Board,Resistor,"930,1012,20,58",0.6953,Platinum,1.918,9960.79,33.274,Hydrometallurgical,Critical
+PCB_00179,RAM Module,Transformer,"1657,545,27,54",0.8897,Gold,1.583,57658.76,12.632,Mechanical Shredding,High
+PCB_00180,RAM Module,Capacitor,"497,760,73,79",0.7458,Copper,5.135,14641.35,35.382,Hydrometallurgical,None
+PCB_00181,Router PCB,Voltage Regulator,"616,737,55,27",0.7304,Palladium,12.491,45390.59,42.221,Pyrometallurgical,Low
+PCB_00182,Phone Main Board,Transistor,"359,715,75,43",0.8314,Copper,5.029,8644.15,31.165,Mechanical Shredding,Moderate
+PCB_00183,Tablet Logic Board,Diode,"736,685,85,52",0.7037,Tin,12.41,56628.71,24.149,Mechanical Shredding,High
+PCB_00184,SSD Controller,Battery Holder,"566,309,84,77",0.9853,Gold,4.601,43047.85,30.341,Electrochemical,Low
+PCB_00185,Printer Controller,Connector,"907,613,69,47",0.8044,Palladium,9.01,47352.75,7.467,Bioleaching,High
+PCB_00186,SSD Controller,Relay,"765,1037,83,76",0.9367,Zinc,9.916,35053.42,35.726,Mechanical Shredding,Moderate
+PCB_00187,RAM Module,LED,"1193,298,63,68",0.9741,Silver,6.565,26243.73,29.625,Electrochemical,Critical
+PCB_00188,SSD Controller,Heat Sink,"1352,622,39,50",0.7734,Platinum,8.872,18431.68,15.563,Bioleaching,High
+PCB_00189,Printer Controller,Relay,"1182,373,113,47",0.6874,Tin,7.475,56481.59,14.71,Electrochemical,Critical
+PCB_00190,RAM Module,Inductor,"1777,253,95,51",0.7988,Palladium,1.328,50359.53,34.872,Hydrometallurgical,Critical
+PCB_00191,RAM Module,Heat Sink,"1873,64,52,80",0.8386,Platinum,10.46,43084.96,21.288,Electrochemical,Critical
+PCB_00192,Tablet Logic Board,Inductor,"924,695,110,77",0.7787,Gold,0.411,46951.1,2.82,Hydrometallurgical,Critical
+PCB_00193,Power Supply,Relay,"1421,623,115,31",0.7107,Copper,6.559,60645.7,2.499,Pyrometallurgical,Moderate
+PCB_00194,RAM Module,Transformer,"1876,106,38,79",0.9532,Silver,5.431,50228.9,23.408,Hydrometallurgical,None
+PCB_00195,Power Supply,IC Chip,"1037,1000,39,73",0.6727,Palladium,10.601,2790.81,18.27,Mechanical Shredding,None
+PCB_00196,Router PCB,Relay,"669,874,53,56",0.9054,Palladium,5.355,41735.65,33.2,Mechanical Shredding,Low
+PCB_00197,Motherboard,Connector,"1538,347,97,76",0.8595,Palladium,7.905,37919.86,15.426,Hydrometallurgical,High
+PCB_00198,RAM Module,Fuse,"1619,732,109,33",0.6509,Palladium,11.233,38215.57,6.579,Hydrometallurgical,Critical
+PCB_00199,Motherboard,Voltage Regulator,"1356,77,58,20",0.8162,Zinc,3.573,26965.9,4.854,Mechanical Shredding,Moderate
+PCB_00200,Power Supply,Connector,"32,445,55,52",0.8256,Platinum,11.419,33573.09,26.015,Mechanical Shredding,Moderate
+PCB_00201,RAM Module,IC Chip,"44,360,108,48",0.8304,Platinum,7.862,47722.83,11.176,Mechanical Shredding,Low
+PCB_00202,Router PCB,Transistor,"407,281,28,60",0.906,Tin,7.775,54502.52,20.429,Hydrometallurgical,Moderate
+PCB_00203,Motherboard,Relay,"1523,1046,26,80",0.9839,Silver,5.687,29502.66,35.381,Bioleaching,Low
+PCB_00204,Tablet Logic Board,Transformer,"609,533,66,67",0.8508,Palladium,4.259,18258.28,1.018,Pyrometallurgical,Moderate
+PCB_00205,Printer Controller,Connector,"974,920,17,61",0.9166,Platinum,2.518,56907.61,14.349,Pyrometallurgical,Moderate
+PCB_00206,Tablet Logic Board,Resistor,"665,202,90,52",0.9482,Gold,0.095,61688.05,37.345,Bioleaching,Moderate
+PCB_00207,Printer Controller,Heat Sink,"896,464,52,22",0.8425,Silver,9.609,56997.18,24.665,Mechanical Shredding,Low
+PCB_00208,Motherboard,Inductor,"1002,831,99,19",0.9347,Zinc,5.794,3114.16,29.47,Mechanical Shredding,Moderate
+PCB_00209,SSD Controller,Resistor,"15,561,115,28",0.9567,Copper,9.842,19344.42,24.893,Pyrometallurgical,Low
+PCB_00210,Tablet Logic Board,Fuse,"581,588,70,70",0.7286,Zinc,7.25,38733.58,15.422,Hydrometallurgical,Moderate
+PCB_00211,SSD Controller,Connector,"612,743,82,57",0.8173,Nickel,8.216,41684.08,37.683,Electrochemical,Low
+PCB_00212,RAM Module,Transistor,"180,546,23,44",0.9786,Nickel,9.913,16106.03,10.11,Bioleaching,None
+PCB_00213,Router PCB,Diode,"1236,921,75,71",0.6976,Platinum,8.856,7378.7,11.318,Hydrometallurgical,Low
+PCB_00214,Printer Controller,Heat Sink,"773,267,69,27",0.9613,Tin,3.841,37166.23,33.523,Bioleaching,Moderate
+PCB_00215,SSD Controller,Connector,"1001,1008,40,57",0.8143,Gold,2.155,54827.27,25.692,Electrochemical,None
+PCB_00216,Power Supply,Capacitor,"1296,536,46,65",0.752,Zinc,11.827,598.12,38.726,Mechanical Shredding,Moderate
+PCB_00217,Power Supply,LED,"87,325,106,67",0.6697,Tin,8.59,52373.16,28.572,Pyrometallurgical,High
+PCB_00218,Motherboard,Transformer,"868,758,73,53",0.7689,Platinum,2.137,25003.07,22.381,Electrochemical,Moderate
+PCB_00219,Tablet Logic Board,Crystal Oscillator,"1611,790,16,16",0.9557,Zinc,8.172,36825.12,5.2,Pyrometallurgical,Moderate
+PCB_00220,SSD Controller,Relay,"502,796,70,24",0.9804,Silver,4.102,23083.84,39.236,Pyrometallurgical,None
+PCB_00221,Printer Controller,Voltage Regulator,"1219,461,64,59",0.6548,Palladium,3.041,59802.37,18.359,Electrochemical,Low
+PCB_00222,Router PCB,Inductor,"1789,310,52,51",0.8578,Platinum,8.803,2134.59,19.956,Bioleaching,None
+PCB_00223,Power Supply,LED,"552,618,114,31",0.7855,Platinum,5.486,52962.75,35.169,Hydrometallurgical,Critical
+PCB_00224,Phone Main Board,Diode,"1785,996,113,38",0.8413,Zinc,4.551,13534.46,33.685,Mechanical Shredding,Moderate
+PCB_00225,Phone Main Board,Inductor,"1403,856,104,16",0.8513,Gold,0.202,9038.05,16.796,Mechanical Shredding,Moderate
+PCB_00226,Motherboard,Inductor,"1461,492,31,15",0.9446,Tin,10.861,58555.16,10.912,Hydrometallurgical,Critical
+PCB_00227,Motherboard,Diode,"1592,285,30,54",0.7651,Nickel,10.76,22089.19,20.953,Bioleaching,Critical
+PCB_00228,Tablet Logic Board,Heat Sink,"1728,417,60,71",0.8469,Nickel,4.107,28936.08,28.35,Hydrometallurgical,None
+PCB_00229,Tablet Logic Board,Battery Holder,"840,791,21,67",0.667,Gold,0.267,511.29,38.88,Hydrometallurgical,None
+PCB_00230,Router PCB,Relay,"588,45,52,33",0.9521,Silver,3.088,14235.61,11.647,Hydrometallurgical,Moderate
+PCB_00231,Power Supply,Transformer,"398,494,22,19",0.7919,Gold,7.171,12522.06,9.741,Bioleaching,Low
+PCB_00232,Power Supply,Voltage Regulator,"1216,541,70,62",0.6723,Platinum,4.315,845.53,12.3,Mechanical Shredding,None
+PCB_00233,Phone Main Board,IC Chip,"762,1032,65,40",0.7847,Copper,12.107,1440.81,23.283,Mechanical Shredding,Critical
+PCB_00234,Router PCB,LED,"334,116,73,47",0.8056,Palladium,5.912,57102.98,11.308,Electrochemical,Critical
+PCB_00235,Tablet Logic Board,Connector,"1142,456,98,73",0.7523,Gold,0.289,17561.32,43.843,Pyrometallurgical,Critical
+PCB_00236,Phone Main Board,Fuse,"498,437,55,15",0.9669,Palladium,0.208,46926.56,9.153,Mechanical Shredding,Moderate
+PCB_00237,GPU Board,Diode,"1430,140,84,49",0.8851,Palladium,4.961,43629.33,0.379,Electrochemical,Moderate
+PCB_00238,Motherboard,Resistor,"1852,535,37,42",0.8603,Nickel,8.285,57887.64,4.662,Pyrometallurgical,Moderate
+PCB_00239,Tablet Logic Board,LED,"312,771,21,20",0.7073,Nickel,12.135,21758.97,11.22,Pyrometallurgical,Low
+PCB_00240,SSD Controller,LED,"1661,407,81,57",0.8253,Platinum,4.996,11553.91,36.126,Pyrometallurgical,Critical
+PCB_00241,Router PCB,Capacitor,"311,211,47,41",0.8275,Tin,10.835,31310.76,13.197,Hydrometallurgical,Low
+PCB_00242,Tablet Logic Board,Connector,"114,1008,107,76",0.8433,Zinc,1.831,32683.69,28.411,Pyrometallurgical,None
+PCB_00243,Router PCB,Crystal Oscillator,"170,461,76,78",0.7958,Platinum,9.004,48673.78,4.57,Hydrometallurgical,Moderate
+PCB_00244,SSD Controller,IC Chip,"426,334,25,53",0.8565,Tin,0.218,18769.54,12.085,Pyrometallurgical,Low
+PCB_00245,Power Supply,Capacitor,"86,700,21,76",0.8206,Zinc,4.714,44049.31,33.745,Mechanical Shredding,None
+PCB_00246,Phone Main Board,Heat Sink,"47,939,52,74",0.9606,Copper,6.587,22953.48,2.958,Pyrometallurgical,None
+PCB_00247,GPU Board,Crystal Oscillator,"1737,52,110,78",0.6501,Silver,8.768,30720.65,24.516,Hydrometallurgical,Critical
+PCB_00248,Power Supply,Resistor,"1022,823,83,78",0.6977,Nickel,7.501,34422.25,35.471,Pyrometallurgical,Critical
+PCB_00249,Printer Controller,Capacitor,"472,535,120,47",0.9794,Tin,1.164,20916.15,12.602,Pyrometallurgical,None
+PCB_00250,Phone Main Board,Connector,"1122,692,26,33",0.7085,Nickel,0.113,23020.46,6.28,Hydrometallurgical,Low
+PCB_00251,Motherboard,IC Chip,"1766,498,89,34",0.8047,Palladium,8.385,34814.06,16.783,Hydrometallurgical,None
+PCB_00252,Motherboard,Heat Sink,"916,77,79,58",0.9153,Tin,5.844,31216.49,3.363,Bioleaching,Moderate
+PCB_00253,Power Supply,Heat Sink,"388,1032,42,55",0.7122,Gold,3.058,8401.3,24.211,Bioleaching,High
+PCB_00254,Router PCB,Transistor,"638,396,104,31",0.8508,Palladium,0.054,60102.71,30.028,Hydrometallurgical,High
+PCB_00255,Tablet Logic Board,IC Chip,"644,358,47,76",0.7999,Gold,4.182,38804.28,6.522,Pyrometallurgical,Critical
+PCB_00256,Phone Main Board,Battery Holder,"1160,358,115,36",0.9745,Nickel,6.925,54393.85,20.258,Electrochemical,Low
+PCB_00257,Router PCB,Capacitor,"440,877,107,26",0.8546,Silver,10.117,16832.99,21.579,Electrochemical,Critical
+PCB_00258,SSD Controller,IC Chip,"149,522,76,37",0.8366,Zinc,9.436,32766.99,33.694,Hydrometallurgical,Low
+PCB_00259,SSD Controller,Crystal Oscillator,"1349,931,105,76",0.7834,Palladium,7.342,57033.54,24.543,Pyrometallurgical,Moderate
+PCB_00260,GPU Board,Transistor,"1410,120,15,23",0.7109,Copper,12.082,11984.76,25.607,Mechanical Shredding,High
+PCB_00261,Printer Controller,Fuse,"1478,518,101,35",0.6624,Copper,11.222,16682.63,8.8,Bioleaching,Critical
+PCB_00262,SSD Controller,Crystal Oscillator,"74,318,93,44",0.6957,Copper,3.626,38212.57,34.502,Pyrometallurgical,Critical
+PCB_00263,Motherboard,Transistor,"33,739,66,78",0.7846,Nickel,4.226,39936.66,22.792,Electrochemical,Moderate
+PCB_00264,Printer Controller,Fuse,"644,692,36,36",0.7201,Tin,12.105,31891.79,33.963,Hydrometallurgical,Moderate
+PCB_00265,Phone Main Board,LED,"106,378,86,77",0.8615,Palladium,3.763,39794.47,12.712,Bioleaching,Low
+PCB_00266,Tablet Logic Board,LED,"1067,1015,38,51",0.6981,Silver,3.151,38604.12,3.928,Electrochemical,Critical
+PCB_00267,GPU Board,Connector,"1249,631,102,23",0.7466,Platinum,8.418,31673.79,31.779,Mechanical Shredding,Critical
+PCB_00268,SSD Controller,IC Chip,"1392,851,64,73",0.8697,Gold,8.965,36560.58,16.019,Hydrometallurgical,Moderate
+PCB_00269,RAM Module,Transformer,"328,782,109,71",0.812,Gold,6.281,24560.35,31.578,Electrochemical,Critical
+PCB_00270,Router PCB,Inductor,"1496,241,118,37",0.6949,Silver,10.309,3891.44,14.515,Pyrometallurgical,Moderate
+PCB_00271,Motherboard,Fuse,"1841,161,48,50",0.9798,Copper,9.015,42733.01,17.124,Electrochemical,Low
+PCB_00272,Printer Controller,IC Chip,"981,37,67,36",0.8617,Silver,12.022,14832.47,39.671,Hydrometallurgical,Low
+PCB_00273,SSD Controller,Diode,"1165,604,29,75",0.9549,Silver,9.034,36721.73,17.683,Electrochemical,Critical
+PCB_00274,Router PCB,Crystal Oscillator,"1834,336,76,41",0.9631,Nickel,8.777,48286.51,0.48,Pyrometallurgical,None
+PCB_00275,Phone Main Board,IC Chip,"184,86,47,73",0.9028,Platinum,5.842,7366.24,40.77,Electrochemical,None
+PCB_00276,SSD Controller,Transformer,"1302,144,108,20",0.9475,Tin,0.86,31611.37,17.687,Pyrometallurgical,Low
+PCB_00277,Router PCB,Inductor,"39,121,25,39",0.7741,Palladium,9.312,36853.7,5.439,Bioleaching,High
+PCB_00278,Printer Controller,Diode,"947,368,39,24",0.894,Tin,12.147,3401.53,3.108,Pyrometallurgical,Critical
+PCB_00279,GPU Board,Crystal Oscillator,"1235,942,71,29",0.865,Nickel,0.947,1867.17,30.442,Bioleaching,Critical
+PCB_00280,GPU Board,Heat Sink,"16,464,101,75",0.7483,Silver,4.408,38576.76,2.351,Pyrometallurgical,High
+PCB_00281,RAM Module,Transformer,"796,767,36,42",0.6945,Gold,4.035,59815.37,20.219,Hydrometallurgical,Low
+PCB_00282,SSD Controller,Transistor,"978,295,93,68",0.7513,Silver,0.769,31106.72,23.349,Mechanical Shredding,Moderate
+PCB_00283,Printer Controller,Transistor,"1614,361,115,26",0.7366,Zinc,1.995,53080.35,39.263,Pyrometallurgical,Low
+PCB_00284,RAM Module,Battery Holder,"1187,905,54,29",0.8016,Copper,1.605,9979.5,33.043,Pyrometallurgical,None
+PCB_00285,Router PCB,Heat Sink,"228,426,92,23",0.9389,Silver,0.554,45480.12,32.105,Pyrometallurgical,High
+PCB_00286,Tablet Logic Board,Transformer,"817,540,81,28",0.8293,Zinc,0.068,32856.43,5.64,Electrochemical,Moderate
+PCB_00287,SSD Controller,Diode,"927,930,22,72",0.6688,Platinum,11.42,36446.45,26.489,Pyrometallurgical,Moderate
+PCB_00288,Tablet Logic Board,Transformer,"145,722,81,80",0.8751,Platinum,11.351,26738.46,7.462,Mechanical Shredding,None
+PCB_00289,Power Supply,IC Chip,"1776,387,80,41",0.738,Zinc,3.997,11469.75,38.323,Bioleaching,Moderate
+PCB_00290,SSD Controller,Capacitor,"748,638,71,47",0.6764,Tin,12.302,59390.25,22.103,Electrochemical,High
+PCB_00291,SSD Controller,Transformer,"786,1019,23,31",0.8233,Tin,8.718,60833.07,2.423,Mechanical Shredding,None
+PCB_00292,SSD Controller,Battery Holder,"922,818,86,39",0.787,Copper,2.784,40432.3,35.212,Electrochemical,High
+PCB_00293,Router PCB,Inductor,"17,1052,80,72",0.6882,Nickel,4.198,13393.25,10.984,Electrochemical,Critical
+PCB_00294,Phone Main Board,Resistor,"608,759,63,53",0.7092,Silver,1.783,47171.0,17.354,Bioleaching,None
+PCB_00295,Tablet Logic Board,Fuse,"30,396,23,28",0.7201,Palladium,7.719,30727.84,28.26,Pyrometallurgical,None
+PCB_00296,SSD Controller,IC Chip,"1732,220,72,74",0.8439,Zinc,3.007,54579.92,27.864,Bioleaching,High
+PCB_00297,Printer Controller,Crystal Oscillator,"1485,329,46,34",0.8737,Nickel,8.825,10006.49,22.586,Mechanical Shredding,Low
+PCB_00298,SSD Controller,Crystal Oscillator,"151,905,77,75",0.7525,Tin,11.749,45369.59,24.924,Hydrometallurgical,Low
+PCB_00299,Router PCB,Capacitor,"1464,111,55,22",0.9342,Tin,5.134,27014.29,37.767,Bioleaching,None
+PCB_00300,Printer Controller,Battery Holder,"1465,889,86,61",0.9258,Copper,7.056,3447.69,38.769,Mechanical Shredding,Critical
+PCB_00301,Router PCB,Connector,"50,879,51,66",0.9458,Zinc,4.852,35934.61,13.014,Mechanical Shredding,High
+PCB_00302,Router PCB,Diode,"468,217,19,52",0.9337,Zinc,6.331,55628.25,15.943,Pyrometallurgical,High
+PCB_00303,RAM Module,Connector,"1476,412,85,58",0.716,Nickel,9.885,53914.73,37.447,Hydrometallurgical,Moderate
+PCB_00304,Phone Main Board,Transformer,"1205,865,113,75",0.9156,Nickel,7.275,30001.34,17.095,Pyrometallurgical,None
+PCB_00305,Motherboard,Resistor,"1413,465,57,47",0.8108,Silver,2.865,44291.16,26.898,Electrochemical,Moderate
+PCB_00306,Tablet Logic Board,Fuse,"1894,208,42,76",0.8598,Copper,9.861,61037.7,16.331,Hydrometallurgical,None
+PCB_00307,Motherboard,Inductor,"1622,666,101,34",0.8803,Platinum,3.385,35722.9,27.07,Hydrometallurgical,Low
+PCB_00308,SSD Controller,LED,"681,658,85,65",0.8897,Nickel,2.356,37183.55,4.04,Hydrometallurgical,Moderate
+PCB_00309,Router PCB,Battery Holder,"273,501,17,71",0.9108,Platinum,7.459,25610.59,13.018,Mechanical Shredding,Low
+PCB_00310,Printer Controller,Connector,"1677,492,65,31",0.9122,Platinum,11.685,25650.72,14.68,Pyrometallurgical,High
+PCB_00311,Printer Controller,Battery Holder,"1393,641,55,18",0.9632,Copper,3.535,45549.61,1.959,Electrochemical,None
+PCB_00312,GPU Board,Transformer,"665,552,78,71",0.6576,Palladium,4.563,20759.67,12.341,Electrochemical,Low
+PCB_00313,Printer Controller,Fuse,"399,1027,95,59",0.8721,Palladium,7.895,14287.8,27.74,Mechanical Shredding,None
+PCB_00314,GPU Board,Relay,"1443,102,18,33",0.9107,Silver,11.938,21072.53,1.773,Electrochemical,None
+PCB_00315,GPU Board,Connector,"1168,453,104,33",0.8672,Copper,11.284,45390.36,31.383,Mechanical Shredding,None
+PCB_00316,Printer Controller,Transistor,"527,781,114,41",0.9281,Palladium,8.12,53297.09,13.754,Electrochemical,Critical
+PCB_00317,SSD Controller,Voltage Regulator,"1511,470,25,38",0.8107,Nickel,7.078,8069.83,27.324,Hydrometallurgical,High
+PCB_00318,Motherboard,IC Chip,"383,638,42,58",0.8268,Palladium,9.995,14743.77,24.703,Electrochemical,Moderate
+PCB_00319,Tablet Logic Board,Heat Sink,"549,634,39,75",0.7611,Gold,3.007,8078.43,13.652,Hydrometallurgical,Moderate
+PCB_00320,Printer Controller,Crystal Oscillator,"1563,188,38,57",0.8693,Copper,9.826,57281.44,43.358,Hydrometallurgical,High
+PCB_00321,Tablet Logic Board,Heat Sink,"1036,199,64,30",0.7381,Silver,12.223,57435.94,13.703,Mechanical Shredding,Moderate
+PCB_00322,Motherboard,Inductor,"1854,241,36,35",0.8775,Platinum,6.04,38810.86,29.279,Bioleaching,High
+PCB_00323,Printer Controller,Diode,"74,264,23,56",0.8888,Palladium,6.254,22441.22,37.46,Mechanical Shredding,Moderate
+PCB_00324,Tablet Logic Board,Fuse,"1525,64,45,74",0.9003,Silver,3.642,44424.49,16.639,Hydrometallurgical,None
+PCB_00325,Tablet Logic Board,Connector,"1177,761,105,79",0.9711,Nickel,5.504,29285.53,0.866,Electrochemical,Moderate
+PCB_00326,Printer Controller,Crystal Oscillator,"882,156,87,60",0.6784,Platinum,3.722,61130.86,13.495,Hydrometallurgical,Low
+PCB_00327,Power Supply,Transformer,"269,200,22,55",0.6757,Zinc,0.287,23922.4,31.845,Mechanical Shredding,None
+PCB_00328,SSD Controller,Transformer,"371,249,43,44",0.9075,Nickel,9.3,38033.72,16.212,Electrochemical,Low
+PCB_00329,Printer Controller,Transistor,"1513,717,21,17",0.9262,Silver,5.703,30230.17,43.496,Bioleaching,Low
+PCB_00330,Power Supply,Fuse,"665,722,60,48",0.697,Platinum,10.09,49366.01,32.884,Mechanical Shredding,High
+PCB_00331,SSD Controller,IC Chip,"520,478,95,80",0.9597,Gold,1.783,48410.33,37.717,Bioleaching,Low
+PCB_00332,GPU Board,Heat Sink,"1681,863,50,37",0.8739,Tin,10.055,8197.43,36.585,Electrochemical,None
+PCB_00333,Power Supply,Transistor,"682,165,57,23",0.905,Gold,7.79,61696.25,22.595,Hydrometallurgical,Critical
+PCB_00334,Printer Controller,Diode,"736,321,26,22",0.8243,Tin,4.472,60767.18,10.822,Hydrometallurgical,High
+PCB_00335,SSD Controller,Capacitor,"1775,177,50,39",0.9142,Gold,9.49,55080.88,37.422,Bioleaching,Low
+PCB_00336,Tablet Logic Board,Resistor,"1498,190,36,57",0.7244,Silver,11.825,11937.15,27.485,Mechanical Shredding,None
+PCB_00337,Motherboard,Relay,"899,799,55,29",0.853,Silver,9.014,45062.6,29.168,Hydrometallurgical,Critical
+PCB_00338,Tablet Logic Board,Fuse,"1565,138,49,51",0.9739,Silver,10.538,38909.75,27.027,Electrochemical,High
+PCB_00339,GPU Board,LED,"467,116,28,47",0.7133,Palladium,10.933,12216.01,14.33,Pyrometallurgical,Low
+PCB_00340,Printer Controller,Fuse,"1071,616,59,53",0.9739,Palladium,4.146,27229.36,13.9,Electrochemical,High
+PCB_00341,Router PCB,Relay,"160,613,58,38",0.7834,Tin,5.41,54655.24,44.718,Bioleaching,None
+PCB_00342,Tablet Logic Board,Connector,"683,360,66,35",0.7646,Nickel,8.26,24855.85,21.62,Mechanical Shredding,Moderate
+PCB_00343,Printer Controller,Crystal Oscillator,"637,316,97,25",0.8549,Tin,0.428,52441.33,5.094,Mechanical Shredding,Critical
+PCB_00344,Printer Controller,Transistor,"828,766,40,28",0.9474,Tin,8.058,18968.3,43.959,Mechanical Shredding,High
+PCB_00345,Printer Controller,Transistor,"1417,319,68,55",0.7216,Silver,11.216,37709.44,3.78,Mechanical Shredding,Critical
+PCB_00346,GPU Board,Connector,"1475,1055,53,76",0.7537,Nickel,7.724,19623.61,4.439,Electrochemical,None
+PCB_00347,Phone Main Board,Battery Holder,"593,511,48,64",0.9786,Tin,1.403,5126.38,15.498,Hydrometallurgical,Critical
+PCB_00348,SSD Controller,Relay,"646,836,50,37",0.7409,Silver,2.083,42651.16,2.283,Hydrometallurgical,High
+PCB_00349,GPU Board,Fuse,"1438,164,65,52",0.8017,Palladium,2.842,29504.65,29.285,Electrochemical,None
+PCB_00350,Motherboard,Capacitor,"1152,25,73,77",0.7774,Zinc,1.861,8635.74,11.085,Mechanical Shredding,High
+PCB_00351,Power Supply,Inductor,"173,356,76,22",0.887,Palladium,0.042,6810.28,39.908,Mechanical Shredding,Low
+PCB_00352,Tablet Logic Board,LED,"1354,25,27,72",0.7562,Palladium,6.267,61823.15,26.556,Bioleaching,High
+PCB_00353,Motherboard,IC Chip,"780,57,88,61",0.9372,Gold,6.349,13502.48,41.057,Hydrometallurgical,High
+PCB_00354,Printer Controller,Transformer,"241,247,63,65",0.9788,Palladium,4.464,859.85,4.659,Electrochemical,Critical
+PCB_00355,GPU Board,Transformer,"58,204,36,26",0.7647,Nickel,6.341,26958.55,7.946,Hydrometallurgical,Low
+PCB_00356,Motherboard,Relay,"1092,506,54,22",0.7522,Palladium,12.026,5881.4,0.614,Bioleaching,High
+PCB_00357,Router PCB,Transistor,"285,1057,67,67",0.8014,Palladium,7.547,959.35,13.562,Electrochemical,High
+PCB_00358,GPU Board,LED,"1799,405,52,66",0.7447,Nickel,1.171,14460.82,35.153,Pyrometallurgical,Critical
+PCB_00359,SSD Controller,Battery Holder,"1754,480,20,73",0.7862,Copper,8.555,50385.61,32.838,Bioleaching,Moderate
+PCB_00360,GPU Board,Resistor,"655,244,96,26",0.7327,Palladium,6.061,55858.96,27.454,Mechanical Shredding,None
+PCB_00361,Power Supply,Transformer,"229,14,43,18",0.9234,Palladium,4.253,16184.15,44.048,Mechanical Shredding,Critical
+PCB_00362,Router PCB,Voltage Regulator,"323,11,75,80",0.92,Nickel,5.51,4718.88,34.852,Pyrometallurgical,Critical
+PCB_00363,GPU Board,Relay,"707,97,90,58",0.6628,Tin,3.666,61689.96,40.616,Hydrometallurgical,None
+PCB_00364,Motherboard,Diode,"1534,89,76,45",0.8841,Silver,2.571,495.98,1.189,Mechanical Shredding,Moderate
+PCB_00365,SSD Controller,Resistor,"757,887,26,36",0.7287,Zinc,12.313,5724.83,27.122,Hydrometallurgical,Critical
+PCB_00366,Power Supply,Transformer,"730,941,35,72",0.9306,Tin,9.989,49091.34,8.252,Electrochemical,High
+PCB_00367,SSD Controller,Capacitor,"1893,333,59,61",0.6555,Palladium,7.552,56709.67,39.208,Electrochemical,High
+PCB_00368,Router PCB,Transformer,"619,959,107,69",0.6993,Platinum,11.115,61752.91,19.829,Hydrometallurgical,High
+PCB_00369,Power Supply,Transformer,"1746,1055,29,41",0.7678,Silver,11.692,58152.57,26.137,Hydrometallurgical,High
+PCB_00370,SSD Controller,LED,"410,299,57,59",0.7249,Tin,5.484,56421.68,39.606,Bioleaching,None
+PCB_00371,Motherboard,Resistor,"1467,302,61,19",0.7862,Tin,9.806,32564.34,15.276,Bioleaching,Critical
+PCB_00372,Printer Controller,Resistor,"785,48,105,63",0.695,Copper,0.271,2668.64,38.298,Electrochemical,None
+PCB_00373,Motherboard,Resistor,"1355,393,99,30",0.8277,Tin,2.328,27503.84,3.917,Electrochemical,Moderate
+PCB_00374,Power Supply,Battery Holder,"743,143,28,59",0.6725,Gold,5.922,40981.19,26.938,Mechanical Shredding,None
+PCB_00375,Router PCB,Crystal Oscillator,"1196,536,65,47",0.8506,Platinum,8.682,3904.77,10.598,Hydrometallurgical,Low
+PCB_00376,Power Supply,Fuse,"381,493,117,68",0.8467,Platinum,6.738,17857.86,8.587,Hydrometallurgical,Moderate
+PCB_00377,GPU Board,Inductor,"1745,255,94,74",0.8498,Platinum,6.831,26712.86,44.959,Pyrometallurgical,High
+PCB_00378,Phone Main Board,Relay,"1301,935,20,35",0.9801,Copper,11.942,34495.14,15.29,Bioleaching,None
+PCB_00379,RAM Module,IC Chip,"53,441,16,46",0.8666,Copper,5.374,44364.69,21.953,Bioleaching,Moderate
+PCB_00380,Phone Main Board,Crystal Oscillator,"1336,834,31,26",0.8225,Copper,6.072,33003.03,12.459,Hydrometallurgical,Critical
+PCB_00381,Phone Main Board,Relay,"793,174,119,61",0.7828,Gold,2.504,5061.33,27.393,Electrochemical,Critical
+PCB_00382,RAM Module,Transistor,"1233,657,89,55",0.9191,Silver,2.066,38859.26,43.519,Electrochemical,Critical
+PCB_00383,GPU Board,Relay,"778,519,74,21",0.6502,Tin,7.087,4388.2,43.549,Bioleaching,High
+PCB_00384,Motherboard,Relay,"1158,520,80,76",0.7704,Palladium,8.739,54537.21,21.154,Bioleaching,None
+PCB_00385,Phone Main Board,Connector,"440,623,51,38",0.7274,Silver,10.361,58465.79,13.635,Bioleaching,Moderate
+PCB_00386,Motherboard,Relay,"976,477,37,64",0.9806,Gold,8.784,26212.66,26.349,Pyrometallurgical,None
+PCB_00387,Phone Main Board,Relay,"987,815,44,25",0.8674,Silver,7.04,31037.76,27.408,Mechanical Shredding,Moderate
+PCB_00388,SSD Controller,Voltage Regulator,"1750,543,19,55",0.792,Zinc,7.631,19758.73,9.549,Electrochemical,Low
+PCB_00389,Power Supply,Voltage Regulator,"962,330,44,57",0.9111,Gold,7.401,53113.18,44.93,Bioleaching,Moderate
+PCB_00390,RAM Module,IC Chip,"972,701,100,31",0.7754,Tin,1.685,43075.61,24.876,Mechanical Shredding,High
+PCB_00391,Printer Controller,Resistor,"1273,817,53,23",0.7409,Tin,2.181,17026.58,39.642,Pyrometallurgical,Moderate
+PCB_00392,RAM Module,Crystal Oscillator,"1555,682,111,36",0.951,Silver,6.831,39276.49,19.568,Pyrometallurgical,Low
+PCB_00393,GPU Board,Relay,"931,881,77,38",0.8126,Silver,10.896,27300.8,9.631,Hydrometallurgical,Critical
+PCB_00394,Phone Main Board,Relay,"23,202,99,62",0.7543,Zinc,7.391,55103.77,35.23,Bioleaching,Low
+PCB_00395,Tablet Logic Board,Transformer,"618,837,95,20",0.9688,Silver,10.56,46956.76,28.96,Hydrometallurgical,Critical
+PCB_00396,Tablet Logic Board,Inductor,"252,247,22,39",0.8976,Copper,1.909,30718.32,33.942,Hydrometallurgical,Moderate
+PCB_00397,Motherboard,Resistor,"1141,182,117,80",0.6904,Zinc,9.247,15770.56,17.911,Bioleaching,Low
+PCB_00398,Tablet Logic Board,Heat Sink,"489,899,26,30",0.8864,Silver,9.925,9532.74,18.82,Mechanical Shredding,Critical
+PCB_00399,Phone Main Board,Inductor,"1626,405,54,46",0.9224,Zinc,9.945,27819.37,11.363,Mechanical Shredding,Low
+PCB_00400,Router PCB,IC Chip,"929,482,47,78",0.7441,Nickel,5.714,42273.5,0.126,Electrochemical,None
+PCB_00401,Phone Main Board,Resistor,"1455,29,45,75",0.8994,Silver,3.562,8743.36,37.054,Pyrometallurgical,High
+PCB_00402,SSD Controller,Voltage Regulator,"530,325,37,48",0.6587,Nickel,6.749,40009.29,35.859,Pyrometallurgical,None
+PCB_00403,Motherboard,Fuse,"1036,442,85,64",0.6666,Palladium,8.701,31022.97,26.191,Electrochemical,High
+PCB_00404,Motherboard,Fuse,"291,157,47,35",0.719,Silver,0.072,48092.08,7.955,Mechanical Shredding,Moderate
+PCB_00405,Tablet Logic Board,Fuse,"590,447,71,73",0.8152,Zinc,12.13,35919.34,6.694,Electrochemical,Critical
+PCB_00406,Power Supply,Fuse,"1838,192,26,22",0.6799,Zinc,3.975,5600.8,0.964,Bioleaching,High
+PCB_00407,SSD Controller,Capacitor,"1803,766,33,80",0.9888,Silver,8.878,30777.73,28.611,Electrochemical,Low
+PCB_00408,GPU Board,Inductor,"1345,1002,34,15",0.8218,Copper,0.072,44651.45,43.992,Hydrometallurgical,Critical
+PCB_00409,Router PCB,Voltage Regulator,"915,299,68,33",0.7571,Copper,7.681,60736.84,35.965,Mechanical Shredding,High
+PCB_00410,Tablet Logic Board,Heat Sink,"1624,1037,92,76",0.7358,Zinc,4.539,44600.84,32.182,Pyrometallurgical,Low
+PCB_00411,SSD Controller,Capacitor,"1161,700,47,44",0.7529,Tin,2.329,47240.38,2.707,Hydrometallurgical,Moderate
+PCB_00412,SSD Controller,Battery Holder,"197,534,116,77",0.6836,Zinc,9.666,57361.81,15.603,Electrochemical,High
+PCB_00413,Printer Controller,Transformer,"1632,233,26,71",0.9401,Copper,4.823,55961.63,5.241,Hydrometallurgical,Moderate
+PCB_00414,Motherboard,Resistor,"1563,694,33,73",0.8379,Zinc,8.194,38861.41,5.588,Hydrometallurgical,Moderate
+PCB_00415,Power Supply,Crystal Oscillator,"600,437,89,35",0.7533,Copper,11.19,27632.9,27.715,Mechanical Shredding,None
+PCB_00416,Router PCB,Transistor,"891,605,73,62",0.8052,Zinc,11.921,56145.55,39.304,Pyrometallurgical,High
+PCB_00417,Tablet Logic Board,Crystal Oscillator,"679,366,48,39",0.7983,Gold,3.032,53736.59,10.778,Electrochemical,Low
+PCB_00418,Motherboard,Battery Holder,"154,29,90,72",0.9899,Nickel,1.865,57351.57,40.844,Pyrometallurgical,Critical
+PCB_00419,GPU Board,Heat Sink,"691,25,91,31",0.8468,Platinum,12.383,58500.53,8.828,Mechanical Shredding,Low
+PCB_00420,RAM Module,Voltage Regulator,"922,660,68,20",0.7494,Nickel,9.036,42760.86,32.963,Mechanical Shredding,Low
+PCB_00421,Power Supply,LED,"711,505,85,28",0.8728,Zinc,6.462,34804.01,17.606,Electrochemical,Low
+PCB_00422,Router PCB,Crystal Oscillator,"1323,260,92,27",0.9865,Nickel,3.236,27485.89,37.818,Bioleaching,Critical
+PCB_00423,Printer Controller,Resistor,"395,835,62,45",0.8383,Silver,6.98,47897.41,17.642,Electrochemical,Critical
+PCB_00424,Tablet Logic Board,Transformer,"669,426,117,26",0.9853,Nickel,5.894,22846.56,26.006,Bioleaching,Critical
+PCB_00425,Router PCB,Transistor,"201,850,60,80",0.6881,Copper,7.017,56521.46,17.333,Pyrometallurgical,Moderate
+PCB_00426,Printer Controller,Capacitor,"1605,212,118,79",0.9284,Gold,9.419,5051.15,27.101,Electrochemical,Low
+PCB_00427,Motherboard,Capacitor,"497,408,62,35",0.9439,Tin,7.756,12984.41,7.555,Bioleaching,None
+PCB_00428,Printer Controller,Connector,"1317,230,101,62",0.9368,Tin,3.78,50355.21,21.72,Bioleaching,Moderate
+PCB_00429,Power Supply,Connector,"122,830,99,32",0.7961,Nickel,2.978,19286.59,24.948,Bioleaching,Critical
+PCB_00430,GPU Board,LED,"20,775,20,23",0.6927,Silver,3.766,7188.97,42.209,Pyrometallurgical,High
+PCB_00431,Motherboard,Capacitor,"88,344,113,40",0.9536,Tin,4.459,13061.04,43.842,Electrochemical,Low
+PCB_00432,RAM Module,Resistor,"383,993,82,45",0.8323,Gold,2.722,41895.6,20.056,Mechanical Shredding,Low
+PCB_00433,Tablet Logic Board,Voltage Regulator,"1192,1005,43,80",0.6741,Gold,2.957,34313.8,29.085,Hydrometallurgical,Low
+PCB_00434,Printer Controller,Battery Holder,"685,485,62,30",0.9862,Copper,5.057,24474.27,5.235,Bioleaching,Low
+PCB_00435,Printer Controller,LED,"1184,710,21,40",0.7997,Platinum,9.525,39781.1,38.994,Hydrometallurgical,High
+PCB_00436,RAM Module,Voltage Regulator,"1666,944,96,60",0.8229,Zinc,7.246,52845.67,13.719,Pyrometallurgical,None
+PCB_00437,Router PCB,Diode,"1129,832,107,15",0.9269,Nickel,5.723,49678.82,27.022,Electrochemical,Low
+PCB_00438,GPU Board,IC Chip,"264,348,80,78",0.9694,Palladium,3.087,26894.26,4.448,Mechanical Shredding,High
+PCB_00439,Motherboard,Relay,"100,647,68,30",0.7008,Gold,9.9,54299.0,44.076,Pyrometallurgical,None
+PCB_00440,Motherboard,Capacitor,"1781,177,114,34",0.8558,Silver,8.315,50665.97,3.038,Hydrometallurgical,None
+PCB_00441,Tablet Logic Board,Diode,"1595,83,98,57",0.6504,Tin,4.815,19744.49,2.368,Electrochemical,High
+PCB_00442,Tablet Logic Board,Voltage Regulator,"1447,411,90,41",0.7602,Palladium,1.066,1265.92,32.603,Bioleaching,Moderate
+PCB_00443,GPU Board,Fuse,"388,959,74,75",0.9732,Gold,8.464,45631.77,4.257,Bioleaching,Moderate
+PCB_00444,Phone Main Board,Crystal Oscillator,"915,391,107,59",0.718,Gold,1.76,29505.12,44.56,Mechanical Shredding,Moderate
+PCB_00445,SSD Controller,Transistor,"1427,713,116,40",0.774,Gold,7.267,1046.68,22.686,Hydrometallurgical,Low
+PCB_00446,Phone Main Board,IC Chip,"1292,719,94,41",0.8939,Copper,9.948,55743.32,14.948,Bioleaching,Critical
+PCB_00447,Power Supply,IC Chip,"153,250,23,36",0.7293,Copper,4.76,60530.27,17.58,Mechanical Shredding,Critical
+PCB_00448,SSD Controller,Crystal Oscillator,"821,673,95,56",0.7003,Zinc,10.859,1806.34,18.309,Hydrometallurgical,Low
+PCB_00449,Motherboard,LED,"562,223,96,38",0.7949,Tin,11.125,39252.03,25.479,Bioleaching,Critical
+PCB_00450,Phone Main Board,Resistor,"859,454,90,46",0.7165,Palladium,5.609,10156.77,36.916,Hydrometallurgical,Critical
+PCB_00451,Power Supply,Transformer,"1730,737,29,56",0.7,Nickel,5.865,36621.46,2.282,Electrochemical,Critical
+PCB_00452,GPU Board,LED,"1352,673,49,19",0.6879,Palladium,0.43,11254.31,44.428,Mechanical Shredding,Moderate
+PCB_00453,Printer Controller,Transistor,"1701,366,57,54",0.7343,Nickel,9.944,11229.22,9.893,Electrochemical,Low
+PCB_00454,Power Supply,Battery Holder,"861,13,46,75",0.6633,Silver,3.987,40491.11,36.746,Bioleaching,None
+PCB_00455,Router PCB,Transformer,"1061,80,91,32",0.7592,Silver,9.376,41734.69,6.33,Electrochemical,Low
+PCB_00456,Motherboard,Inductor,"1612,337,56,21",0.9074,Zinc,2.053,4831.92,3.555,Bioleaching,Moderate
+PCB_00457,Tablet Logic Board,Battery Holder,"456,467,116,61",0.8941,Platinum,4.779,14013.87,44.697,Bioleaching,High
+PCB_00458,SSD Controller,Diode,"1473,618,41,24",0.9605,Tin,4.509,57486.84,10.207,Electrochemical,Low
+PCB_00459,RAM Module,Heat Sink,"99,125,40,35",0.788,Silver,3.235,36027.8,27.675,Bioleaching,Critical
+PCB_00460,Printer Controller,Fuse,"685,186,88,63",0.8942,Tin,2.557,16305.92,43.694,Mechanical Shredding,Critical
+PCB_00461,RAM Module,Crystal Oscillator,"183,454,96,61",0.8454,Nickel,8.128,46566.89,2.201,Pyrometallurgical,High
+PCB_00462,GPU Board,Connector,"296,445,32,78",0.7418,Copper,10.99,24667.23,3.824,Bioleaching,None
+PCB_00463,RAM Module,Battery Holder,"1368,1048,120,19",0.6871,Platinum,11.256,60280.4,36.388,Pyrometallurgical,None
+PCB_00464,Tablet Logic Board,Voltage Regulator,"42,323,35,30",0.7598,Gold,3.386,8295.02,15.05,Hydrometallurgical,None
+PCB_00465,SSD Controller,Transistor,"1862,662,32,78",0.8397,Nickel,2.27,49477.8,20.923,Electrochemical,Critical
+PCB_00466,Power Supply,Battery Holder,"575,776,66,74",0.7047,Silver,12.266,12240.67,3.668,Pyrometallurgical,Critical
+PCB_00467,Printer Controller,IC Chip,"443,975,86,53",0.7071,Copper,2.935,2354.57,0.313,Mechanical Shredding,Moderate
+PCB_00468,RAM Module,Connector,"877,376,112,55",0.9188,Copper,0.869,61589.24,6.407,Hydrometallurgical,High
+PCB_00469,RAM Module,Voltage Regulator,"1672,312,23,58",0.8723,Silver,3.778,3090.47,10.244,Bioleaching,Moderate
+PCB_00470,Printer Controller,Voltage Regulator,"1779,955,63,68",0.7483,Silver,6.207,13670.08,13.96,Hydrometallurgical,None
+PCB_00471,SSD Controller,Capacitor,"807,174,75,39",0.7121,Gold,0.829,36546.13,31.276,Mechanical Shredding,Moderate
+PCB_00472,Router PCB,Crystal Oscillator,"1480,958,36,51",0.7025,Platinum,5.553,18762.02,32.202,Mechanical Shredding,Moderate
+PCB_00473,GPU Board,Battery Holder,"574,627,90,62",0.8776,Nickel,10.245,13492.28,10.642,Pyrometallurgical,None
+PCB_00474,Printer Controller,LED,"159,998,61,60",0.7396,Tin,5.664,29487.42,7.637,Mechanical Shredding,None
+PCB_00475,GPU Board,Transistor,"491,907,92,72",0.9229,Palladium,8.301,11095.15,35.466,Electrochemical,None
+PCB_00476,Tablet Logic Board,Voltage Regulator,"484,994,96,33",0.9547,Tin,4.209,52807.06,26.974,Electrochemical,None
+PCB_00477,Printer Controller,Heat Sink,"468,891,91,19",0.8987,Nickel,9.84,49513.78,23.803,Electrochemical,None
+PCB_00478,Phone Main Board,Connector,"159,546,51,70",0.6527,Palladium,3.587,58136.89,0.77,Bioleaching,Moderate
+PCB_00479,Motherboard,Heat Sink,"815,172,84,33",0.9226,Zinc,5.728,15202.46,15.404,Mechanical Shredding,Moderate
+PCB_00480,Router PCB,Capacitor,"1490,453,71,56",0.9545,Platinum,1.785,34112.46,22.452,Pyrometallurgical,High
+PCB_00481,SSD Controller,Capacitor,"843,276,101,54",0.9198,Silver,11.898,35304.61,3.649,Mechanical Shredding,Low
+PCB_00482,Motherboard,Heat Sink,"313,770,29,76",0.6571,Platinum,5.926,41293.76,32.649,Mechanical Shredding,Low
+PCB_00483,GPU Board,Relay,"1012,314,107,65",0.7675,Zinc,0.078,17843.21,7.262,Pyrometallurgical,High
+PCB_00484,Printer Controller,Fuse,"496,180,84,26",0.7569,Tin,1.245,38901.39,26.688,Pyrometallurgical,None
+PCB_00485,Power Supply,Connector,"1418,619,80,56",0.7682,Copper,5.143,55824.49,21.122,Electrochemical,Critical
+PCB_00486,RAM Module,Resistor,"635,162,108,59",0.6519,Palladium,10.222,8972.04,15.436,Mechanical Shredding,High
+PCB_00487,Motherboard,Transformer,"1729,94,92,61",0.7537,Nickel,11.397,51398.03,37.404,Hydrometallurgical,None
+PCB_00488,GPU Board,Battery Holder,"188,530,43,31",0.9464,Gold,7.731,53252.05,13.642,Pyrometallurgical,Critical
+PCB_00489,Power Supply,LED,"93,563,29,32",0.8176,Zinc,1.178,3316.37,28.546,Mechanical Shredding,High
+PCB_00490,Printer Controller,Inductor,"1386,1002,85,25",0.8674,Nickel,0.437,8909.99,27.552,Pyrometallurgical,Moderate
+PCB_00491,Phone Main Board,LED,"172,677,52,40",0.8409,Tin,2.701,32480.88,3.327,Pyrometallurgical,High
+PCB_00492,Router PCB,Battery Holder,"934,737,26,45",0.8462,Palladium,8.748,49740.95,20.214,Bioleaching,Low
+PCB_00493,RAM Module,Fuse,"969,827,22,65",0.7495,Copper,10.419,28801.69,9.642,Pyrometallurgical,Critical
+PCB_00494,SSD Controller,Connector,"499,969,36,60",0.8037,Palladium,7.479,34852.6,42.023,Mechanical Shredding,Moderate
+PCB_00495,RAM Module,Battery Holder,"1189,632,59,31",0.9203,Palladium,6.415,3626.65,44.253,Electrochemical,High
+PCB_00496,RAM Module,Capacitor,"1169,903,46,76",0.8062,Palladium,4.152,59819.87,3.505,Electrochemical,Moderate
+PCB_00497,Printer Controller,Capacitor,"1290,806,109,68",0.7011,Gold,12.154,39342.06,19.012,Hydrometallurgical,Low
+PCB_00498,Tablet Logic Board,Voltage Regulator,"759,1060,27,73",0.9458,Nickel,8.067,47777.87,31.719,Bioleaching,None
+PCB_00499,Tablet Logic Board,Relay,"1328,424,19,68",0.7293,Gold,8.79,36182.19,34.908,Pyrometallurgical,Moderate
+PCB_00500,Motherboard,Diode,"1467,850,73,59",0.9068,Copper,8.385,30819.77,25.712,Electrochemical,Low
+PCB_00501,Power Supply,Inductor,"1549,721,81,62",0.8874,Tin,7.52,11107.92,10.992,Electrochemical,Moderate
+PCB_00502,Router PCB,Crystal Oscillator,"1027,490,57,70",0.7434,Copper,1.066,58829.2,20.164,Bioleaching,None
+PCB_00503,GPU Board,Voltage Regulator,"1847,414,87,75",0.8868,Palladium,4.878,20426.37,7.457,Bioleaching,High
+PCB_00504,GPU Board,IC Chip,"356,706,22,28",0.916,Nickel,5.841,30978.14,33.693,Pyrometallurgical,Critical
+PCB_00505,Motherboard,Transistor,"1539,599,59,57",0.8114,Zinc,4.722,24793.09,19.137,Mechanical Shredding,Moderate
+PCB_00506,Power Supply,Resistor,"271,422,45,23",0.7557,Nickel,5.07,44820.37,10.152,Hydrometallurgical,Critical
+PCB_00507,SSD Controller,Transistor,"1263,116,20,53",0.749,Platinum,9.829,431.84,27.584,Mechanical Shredding,Low
+PCB_00508,Motherboard,Crystal Oscillator,"1577,334,90,77",0.6729,Gold,4.44,36992.85,24.105,Electrochemical,None
+PCB_00509,Printer Controller,LED,"1447,356,85,36",0.9042,Palladium,6.959,11332.02,21.994,Pyrometallurgical,Critical
+PCB_00510,Motherboard,Battery Holder,"1729,142,71,30",0.7147,Tin,9.402,50130.78,15.886,Pyrometallurgical,None
+PCB_00511,Router PCB,Transformer,"43,917,95,21",0.9343,Platinum,10.405,53181.88,30.246,Electrochemical,Low
+PCB_00512,Phone Main Board,Crystal Oscillator,"1039,874,120,67",0.9547,Zinc,8.268,57202.04,0.936,Mechanical Shredding,Moderate
+PCB_00513,Tablet Logic Board,Connector,"825,470,34,79",0.7563,Nickel,10.431,31862.04,5.764,Pyrometallurgical,Moderate
+PCB_00514,Printer Controller,IC Chip,"343,997,21,48",0.7678,Palladium,5.492,7070.1,11.262,Bioleaching,Moderate
+PCB_00515,Printer Controller,Inductor,"929,1043,23,22",0.6972,Gold,2.004,7793.35,43.437,Mechanical Shredding,Low
+PCB_00516,RAM Module,Resistor,"816,16,29,55",0.8142,Copper,6.346,58180.13,42.113,Bioleaching,Moderate
+PCB_00517,RAM Module,Crystal Oscillator,"1458,367,22,44",0.7557,Tin,1.351,19609.04,36.841,Hydrometallurgical,High
+PCB_00518,SSD Controller,IC Chip,"140,965,95,38",0.9031,Copper,5.561,59303.0,5.321,Bioleaching,Moderate
+PCB_00519,Printer Controller,Fuse,"920,54,55,15",0.8048,Platinum,5.514,44228.48,9.805,Electrochemical,Critical
+PCB_00520,Motherboard,Inductor,"1382,751,48,54",0.6916,Silver,10.928,1352.33,22.522,Mechanical Shredding,Low
+PCB_00521,Printer Controller,Heat Sink,"148,368,103,30",0.7355,Nickel,2.544,44201.97,34.305,Hydrometallurgical,Moderate
+PCB_00522,Tablet Logic Board,Relay,"1508,88,106,53",0.8676,Silver,2.945,61043.27,28.475,Bioleaching,Critical
+PCB_00523,Power Supply,Transformer,"292,278,77,31",0.8301,Palladium,1.645,17067.78,2.861,Bioleaching,None
+PCB_00524,GPU Board,Battery Holder,"315,429,45,70",0.9198,Zinc,11.853,16527.08,3.454,Mechanical Shredding,Low
+PCB_00525,Motherboard,Diode,"1022,1036,87,52",0.9337,Nickel,4.414,9305.59,31.647,Pyrometallurgical,Critical
+PCB_00526,Motherboard,LED,"1389,334,41,30",0.7267,Gold,0.964,49101.84,18.425,Mechanical Shredding,Low
+PCB_00527,Phone Main Board,Crystal Oscillator,"30,318,73,58",0.8455,Copper,9.565,6407.67,26.23,Electrochemical,Moderate
+PCB_00528,RAM Module,Transistor,"232,976,74,42",0.6787,Palladium,9.476,3251.72,32.011,Electrochemical,Low
+PCB_00529,Power Supply,Inductor,"1532,428,111,30",0.8251,Palladium,2.993,38350.87,31.775,Electrochemical,Critical
+PCB_00530,SSD Controller,Transistor,"161,525,36,75",0.7599,Nickel,10.223,24638.01,18.221,Bioleaching,Low
+PCB_00531,RAM Module,Resistor,"1820,326,82,69",0.8938,Platinum,10.032,37175.76,7.906,Mechanical Shredding,Critical
+PCB_00532,GPU Board,Capacitor,"153,799,114,24",0.7904,Nickel,12.372,7916.1,12.405,Bioleaching,Low
+PCB_00533,GPU Board,Capacitor,"1052,166,19,44",0.8656,Silver,11.016,24176.74,39.921,Mechanical Shredding,Low
+PCB_00534,Phone Main Board,Voltage Regulator,"1100,277,120,35",0.6525,Zinc,2.012,25784.92,29.003,Hydrometallurgical,High
+PCB_00535,Router PCB,Relay,"475,772,110,62",0.7706,Tin,12.104,6646.6,3.418,Hydrometallurgical,High
+PCB_00536,Tablet Logic Board,Voltage Regulator,"1049,253,86,31",0.9089,Nickel,8.399,43042.65,28.018,Mechanical Shredding,High
+PCB_00537,Tablet Logic Board,Inductor,"1889,303,87,34",0.7984,Platinum,9.899,21132.09,0.162,Bioleaching,Low
+PCB_00538,Phone Main Board,IC Chip,"32,457,16,46",0.9704,Platinum,6.702,36462.3,3.289,Mechanical Shredding,High
+PCB_00539,Printer Controller,Inductor,"930,365,90,36",0.9806,Silver,9.519,30151.24,26.433,Mechanical Shredding,High
+PCB_00540,Phone Main Board,Capacitor,"1530,353,108,36",0.7754,Nickel,4.315,3004.94,38.734,Mechanical Shredding,High
+PCB_00541,Router PCB,Fuse,"990,26,37,37",0.8732,Nickel,6.061,42330.52,34.368,Pyrometallurgical,Moderate
+PCB_00542,RAM Module,Heat Sink,"663,645,49,72",0.9425,Nickel,12.326,12456.4,24.84,Bioleaching,High
+PCB_00543,Printer Controller,Heat Sink,"875,988,43,57",0.6785,Gold,1.764,10404.94,43.064,Pyrometallurgical,None
+PCB_00544,Motherboard,Transistor,"1891,889,108,75",0.8943,Tin,1.159,54841.47,11.967,Bioleaching,Moderate
+PCB_00545,GPU Board,Crystal Oscillator,"280,441,56,42",0.8425,Zinc,6.678,25203.4,13.733,Mechanical Shredding,Critical
+PCB_00546,Phone Main Board,Battery Holder,"1539,863,43,69",0.68,Platinum,3.208,7134.51,18.117,Electrochemical,Low
+PCB_00547,Motherboard,Inductor,"260,683,114,66",0.9738,Tin,2.68,47008.13,44.741,Pyrometallurgical,Moderate
+PCB_00548,Printer Controller,Resistor,"1047,107,53,23",0.8866,Platinum,4.635,45078.51,37.187,Mechanical Shredding,Moderate
+PCB_00549,Printer Controller,Resistor,"525,1000,39,74",0.9621,Palladium,0.958,61292.98,1.54,Hydrometallurgical,None
+PCB_00550,Phone Main Board,Fuse,"463,512,45,55",0.8631,Platinum,5.022,44719.0,29.035,Bioleaching,Moderate
+PCB_00551,Printer Controller,Capacitor,"1872,630,50,44",0.9754,Copper,6.941,8949.98,30.217,Bioleaching,Low
+PCB_00552,Router PCB,Resistor,"748,780,114,57",0.9863,Zinc,10.86,24483.52,24.74,Bioleaching,Critical
+PCB_00553,Printer Controller,IC Chip,"1537,402,24,34",0.9864,Zinc,5.387,59776.55,9.913,Bioleaching,High
+PCB_00554,Router PCB,Transistor,"605,907,99,79",0.8831,Copper,0.286,47053.89,37.982,Pyrometallurgical,None
+PCB_00555,Printer Controller,Connector,"1583,991,26,22",0.8973,Nickel,4.218,9097.4,27.25,Mechanical Shredding,Moderate
+PCB_00556,Motherboard,Transformer,"118,402,60,63",0.8583,Silver,10.11,33474.2,6.153,Mechanical Shredding,Moderate
+PCB_00557,Printer Controller,Inductor,"1391,515,107,33",0.9456,Platinum,10.621,22252.72,3.041,Bioleaching,None
+PCB_00558,Printer Controller,IC Chip,"1154,963,50,48",0.9773,Silver,0.914,18725.03,20.888,Mechanical Shredding,Critical
+PCB_00559,GPU Board,Battery Holder,"317,261,100,30",0.6841,Platinum,4.892,14767.54,36.447,Electrochemical,Critical
+PCB_00560,GPU Board,Transistor,"1681,179,105,77",0.9752,Copper,4.641,36290.59,19.735,Electrochemical,Moderate
+PCB_00561,Printer Controller,Voltage Regulator,"1149,1025,63,25",0.7306,Copper,4.309,35618.3,29.126,Electrochemical,Critical
+PCB_00562,Phone Main Board,Fuse,"1829,547,52,16",0.7538,Palladium,10.514,47856.64,6.285,Mechanical Shredding,None
+PCB_00563,Power Supply,Capacitor,"697,426,37,54",0.6706,Copper,6.147,1142.51,13.352,Mechanical Shredding,Low
+PCB_00564,Printer Controller,Inductor,"1263,958,105,49",0.7187,Tin,8.046,37658.72,22.152,Hydrometallurgical,High
+PCB_00565,Power Supply,Inductor,"341,1012,55,36",0.8843,Gold,1.797,191.84,21.841,Electrochemical,Low
+PCB_00566,RAM Module,Relay,"1865,1012,90,71",0.7881,Platinum,10.677,14290.4,35.34,Bioleaching,High
+PCB_00567,Tablet Logic Board,Fuse,"1086,814,48,40",0.716,Nickel,7.131,772.7,21.925,Hydrometallurgical,Critical
+PCB_00568,RAM Module,Inductor,"171,217,90,21",0.9008,Platinum,7.83,59284.32,25.056,Mechanical Shredding,Low
+PCB_00569,Motherboard,Connector,"1069,485,112,39",0.9074,Palladium,10.318,48592.95,40.682,Mechanical Shredding,Low
+PCB_00570,Router PCB,LED,"1381,508,71,80",0.7453,Gold,11.971,40428.2,39.298,Hydrometallurgical,High
+PCB_00571,Printer Controller,Capacitor,"725,995,57,44",0.8695,Platinum,7.991,16532.79,9.691,Mechanical Shredding,High
+PCB_00572,Power Supply,Fuse,"988,352,42,44",0.6834,Palladium,6.294,19932.29,13.46,Bioleaching,None
+PCB_00573,SSD Controller,IC Chip,"665,924,59,68",0.9202,Palladium,3.757,50751.64,16.019,Pyrometallurgical,Low
+PCB_00574,GPU Board,Crystal Oscillator,"654,601,36,62",0.6564,Copper,10.333,12476.98,12.946,Electrochemical,Critical
+PCB_00575,Printer Controller,LED,"1769,263,84,41",0.9295,Gold,1.584,12655.95,25.428,Mechanical Shredding,Critical
+PCB_00576,Power Supply,Capacitor,"1696,332,93,57",0.6665,Nickel,1.178,4620.51,19.922,Hydrometallurgical,Low
+PCB_00577,Power Supply,Voltage Regulator,"1800,474,19,23",0.9503,Zinc,8.188,40069.5,17.791,Electrochemical,Moderate
+PCB_00578,SSD Controller,Battery Holder,"1359,606,85,27",0.8961,Silver,6.842,21977.46,18.955,Pyrometallurgical,High
+PCB_00579,Tablet Logic Board,Fuse,"1776,466,58,61",0.7846,Nickel,9.726,32714.82,43.542,Mechanical Shredding,Critical
+PCB_00580,Phone Main Board,Heat Sink,"1679,992,27,70",0.8925,Gold,11.753,16411.18,0.256,Mechanical Shredding,Critical
+PCB_00581,Motherboard,Inductor,"1737,434,117,48",0.6741,Copper,1.126,6173.0,14.388,Electrochemical,Moderate
+PCB_00582,Router PCB,Transistor,"1893,1032,70,35",0.9761,Platinum,9.719,36089.85,44.882,Pyrometallurgical,Low
+PCB_00583,Printer Controller,Connector,"506,870,87,61",0.6849,Zinc,5.793,29151.9,17.892,Electrochemical,Moderate
+PCB_00584,Phone Main Board,Inductor,"1266,348,24,50",0.8546,Gold,10.705,3812.91,31.965,Electrochemical,Low
+PCB_00585,SSD Controller,Connector,"1819,429,36,24",0.9153,Zinc,9.296,28464.62,44.135,Electrochemical,Critical
+PCB_00586,Router PCB,Heat Sink,"1397,640,40,60",0.7088,Platinum,1.341,1339.5,44.465,Bioleaching,None
+PCB_00587,Router PCB,Capacitor,"870,561,56,26",0.9038,Copper,0.825,24792.09,3.98,Hydrometallurgical,High
+PCB_00588,RAM Module,Relay,"131,556,49,45",0.6553,Zinc,7.462,12937.61,20.563,Hydrometallurgical,Critical
+PCB_00589,SSD Controller,Crystal Oscillator,"1256,469,41,26",0.805,Nickel,4.25,23171.48,19.528,Bioleaching,Moderate
+PCB_00590,GPU Board,Resistor,"962,1056,77,57",0.886,Gold,12.03,58738.11,16.524,Electrochemical,Low
+PCB_00591,Motherboard,Relay,"405,343,81,55",0.7314,Silver,9.181,36275.23,9.082,Mechanical Shredding,Low
+PCB_00592,RAM Module,Diode,"423,615,29,61",0.8181,Nickel,1.597,58406.46,36.658,Bioleaching,Moderate
+PCB_00593,RAM Module,Voltage Regulator,"317,178,33,43",0.7625,Copper,5.865,9125.83,36.955,Bioleaching,None
+PCB_00594,Power Supply,Battery Holder,"292,585,99,62",0.6533,Platinum,11.695,30503.24,6.325,Bioleaching,Critical
+PCB_00595,SSD Controller,Inductor,"793,49,70,79",0.6613,Platinum,1.786,35782.89,28.935,Bioleaching,High
+PCB_00596,Power Supply,Crystal Oscillator,"1884,54,57,79",0.6514,Gold,4.417,1200.43,3.643,Pyrometallurgical,Moderate
+PCB_00597,Tablet Logic Board,Transistor,"891,59,19,77",0.9194,Silver,0.82,6110.24,3.599,Electrochemical,None
+PCB_00598,Printer Controller,Voltage Regulator,"1768,980,36,43",0.7204,Platinum,1.845,61152.2,37.598,Electrochemical,High
+PCB_00599,Motherboard,Inductor,"967,211,100,75",0.9268,Palladium,10.118,35045.06,6.222,Pyrometallurgical,None
+PCB_00600,RAM Module,Heat Sink,"1529,892,41,36",0.8771,Platinum,4.023,10039.27,23.981,Hydrometallurgical,None
+PCB_00601,Phone Main Board,Connector,"1059,148,113,37",0.6726,Nickel,1.391,14181.98,23.878,Hydrometallurgical,High
+PCB_00602,Tablet Logic Board,Relay,"162,300,112,41",0.7957,Zinc,2.438,2518.38,11.959,Mechanical Shredding,None
+PCB_00603,RAM Module,IC Chip,"1744,262,75,22",0.7709,Palladium,5.644,60738.81,12.137,Mechanical Shredding,High
+PCB_00604,SSD Controller,LED,"630,984,89,24",0.8617,Zinc,3.028,47143.28,27.976,Mechanical Shredding,None
+PCB_00605,Tablet Logic Board,Crystal Oscillator,"62,200,66,63",0.9595,Tin,9.704,33956.16,39.574,Mechanical Shredding,Low
+PCB_00606,Motherboard,Relay,"1852,736,120,37",0.8633,Gold,11.473,30919.54,39.346,Electrochemical,High
+PCB_00607,Motherboard,Transformer,"30,209,36,28",0.6732,Nickel,2.841,26295.72,41.626,Pyrometallurgical,High
+PCB_00608,SSD Controller,Heat Sink,"241,468,34,77",0.9564,Silver,4.341,20552.9,13.506,Hydrometallurgical,Low
+PCB_00609,Phone Main Board,IC Chip,"1507,774,83,35",0.9338,Tin,0.582,23604.89,27.7,Pyrometallurgical,High
+PCB_00610,GPU Board,Voltage Regulator,"1076,581,26,29",0.7552,Nickel,1.343,22195.21,1.285,Pyrometallurgical,Critical
+PCB_00611,Printer Controller,Transistor,"934,729,79,61",0.8642,Copper,2.756,20723.0,2.999,Hydrometallurgical,None
+PCB_00612,Motherboard,Fuse,"1527,633,16,67",0.9298,Gold,12.365,3781.67,2.574,Pyrometallurgical,Moderate
+PCB_00613,SSD Controller,LED,"1099,404,63,71",0.8885,Silver,1.592,46979.31,14.085,Hydrometallurgical,Moderate
+PCB_00614,Power Supply,LED,"1072,622,110,57",0.7527,Platinum,8.425,55132.52,11.597,Pyrometallurgical,Low
+PCB_00615,Tablet Logic Board,Diode,"1772,284,79,33",0.7154,Platinum,4.531,59908.94,19.409,Mechanical Shredding,Low
+PCB_00616,Printer Controller,Transistor,"410,280,87,63",0.8931,Palladium,7.029,52796.52,33.358,Hydrometallurgical,High
+PCB_00617,Printer Controller,Transformer,"118,995,120,57",0.9117,Silver,7.157,25157.53,13.428,Bioleaching,High
+PCB_00618,Printer Controller,Transistor,"833,809,73,26",0.8837,Nickel,1.286,58616.04,40.38,Hydrometallurgical,Critical
+PCB_00619,Power Supply,Transistor,"1607,1026,26,40",0.9682,Silver,0.351,44605.45,30.42,Electrochemical,High
+PCB_00620,Motherboard,Voltage Regulator,"1739,914,21,19",0.7599,Nickel,3.356,42612.34,6.218,Mechanical Shredding,High
+PCB_00621,Phone Main Board,Fuse,"1216,542,34,70",0.7732,Gold,4.605,40941.22,4.572,Electrochemical,Critical
+PCB_00622,Router PCB,Relay,"648,376,60,48",0.8188,Gold,0.053,1092.9,23.906,Mechanical Shredding,Low
+PCB_00623,SSD Controller,Capacitor,"1848,217,89,43",0.9771,Copper,11.687,20810.07,28.476,Electrochemical,Low
+PCB_00624,Printer Controller,Resistor,"1788,196,92,55",0.6554,Nickel,0.69,23143.68,7.304,Pyrometallurgical,Low
+PCB_00625,Power Supply,Capacitor,"448,553,29,50",0.7077,Silver,2.594,47705.97,24.551,Electrochemical,None
+PCB_00626,Router PCB,Diode,"1262,1029,89,29",0.7763,Nickel,1.278,23022.67,6.626,Mechanical Shredding,Moderate
+PCB_00627,Tablet Logic Board,Connector,"69,77,56,26",0.9204,Palladium,11.341,50135.19,32.264,Bioleaching,Moderate
+PCB_00628,Printer Controller,Transistor,"463,101,28,77",0.769,Nickel,1.943,4656.3,6.701,Pyrometallurgical,Moderate
+PCB_00629,GPU Board,Voltage Regulator,"513,64,79,58",0.8669,Silver,8.959,17545.73,21.168,Pyrometallurgical,High
+PCB_00630,SSD Controller,IC Chip,"1833,182,30,74",0.8184,Palladium,10.752,11943.9,43.908,Electrochemical,Low
+PCB_00631,GPU Board,IC Chip,"535,379,71,63",0.7433,Nickel,4.855,24111.83,34.782,Mechanical Shredding,None
+PCB_00632,RAM Module,IC Chip,"105,299,52,23",0.7822,Copper,0.729,43005.6,16.797,Bioleaching,Critical
+PCB_00633,Power Supply,Crystal Oscillator,"620,944,80,27",0.807,Tin,10.208,47536.47,17.232,Mechanical Shredding,None
+PCB_00634,Motherboard,LED,"623,740,39,51",0.7789,Copper,5.652,48268.19,3.785,Pyrometallurgical,None
+PCB_00635,GPU Board,Voltage Regulator,"1298,601,27,17",0.9217,Tin,8.212,29924.83,7.469,Bioleaching,Critical
+PCB_00636,Phone Main Board,Crystal Oscillator,"1632,210,107,43",0.8935,Palladium,8.267,27224.8,32.548,Mechanical Shredding,Critical
+PCB_00637,Motherboard,Heat Sink,"905,415,43,69",0.9566,Nickel,4.803,4469.26,41.135,Electrochemical,Moderate
+PCB_00638,Printer Controller,LED,"377,239,25,16",0.7272,Tin,2.955,49252.42,9.265,Bioleaching,High
+PCB_00639,Power Supply,LED,"1183,689,99,40",0.8326,Copper,7.818,44199.74,25.242,Pyrometallurgical,Critical
+PCB_00640,Printer Controller,Voltage Regulator,"1665,543,84,15",0.8799,Tin,9.115,57677.27,22.158,Pyrometallurgical,Critical
+PCB_00641,Motherboard,Fuse,"954,566,48,33",0.8929,Palladium,2.933,58745.85,21.078,Hydrometallurgical,None
+PCB_00642,RAM Module,Transformer,"279,920,102,72",0.677,Platinum,7.025,34322.57,24.654,Hydrometallurgical,None
+PCB_00643,Tablet Logic Board,Heat Sink,"1666,690,24,19",0.7002,Silver,2.184,10044.2,43.637,Mechanical Shredding,High
+PCB_00644,Motherboard,Connector,"1069,885,79,41",0.7399,Tin,2.503,28868.26,30.804,Bioleaching,High
+PCB_00645,Motherboard,Transistor,"72,613,80,70",0.8528,Tin,3.061,14594.26,42.028,Pyrometallurgical,Moderate
+PCB_00646,Printer Controller,Resistor,"722,117,56,61",0.715,Platinum,6.238,19737.58,22.632,Mechanical Shredding,Critical
+PCB_00647,Motherboard,LED,"742,862,89,54",0.8245,Platinum,3.982,17783.58,44.325,Mechanical Shredding,None
+PCB_00648,SSD Controller,Connector,"761,863,39,74",0.6951,Tin,8.378,13066.9,11.712,Electrochemical,Critical
+PCB_00649,Tablet Logic Board,Resistor,"775,77,21,30",0.7439,Tin,0.179,13796.08,42.147,Bioleaching,None
+PCB_00650,Tablet Logic Board,IC Chip,"1330,984,86,74",0.9318,Palladium,0.917,37278.12,14.486,Hydrometallurgical,Low
+PCB_00651,Power Supply,Resistor,"892,382,103,56",0.9267,Tin,2.942,52984.68,31.916,Bioleaching,Critical
+PCB_00652,Phone Main Board,Transistor,"1731,910,93,17",0.792,Silver,6.436,41617.38,12.213,Electrochemical,None
+PCB_00653,SSD Controller,Transistor,"363,469,89,77",0.7727,Silver,11.581,43398.17,12.384,Bioleaching,None
+PCB_00654,Power Supply,Connector,"1674,271,26,66",0.8052,Platinum,4.748,1964.25,16.989,Mechanical Shredding,Moderate
+PCB_00655,SSD Controller,Voltage Regulator,"694,685,88,62",0.7664,Copper,3.238,10288.42,42.77,Electrochemical,Critical
+PCB_00656,Motherboard,Heat Sink,"321,356,107,37",0.8637,Nickel,10.857,23348.71,17.182,Pyrometallurgical,Low
+PCB_00657,Motherboard,Heat Sink,"1530,767,42,64",0.7577,Palladium,0.586,34581.16,2.332,Mechanical Shredding,Critical
+PCB_00658,Router PCB,Fuse,"422,187,56,45",0.8688,Gold,8.648,13664.86,13.134,Hydrometallurgical,None
+PCB_00659,Router PCB,LED,"1821,588,38,28",0.9871,Palladium,2.73,23573.49,15.066,Electrochemical,None
+PCB_00660,Motherboard,Voltage Regulator,"68,517,80,38",0.7432,Nickel,4.542,26880.42,13.829,Mechanical Shredding,Moderate
+PCB_00661,Tablet Logic Board,Diode,"332,45,46,47",0.891,Tin,7.951,50906.94,17.228,Electrochemical,None
+PCB_00662,GPU Board,Voltage Regulator,"793,934,55,19",0.8591,Tin,4.44,60836.52,22.986,Bioleaching,None
+PCB_00663,Tablet Logic Board,Fuse,"1668,863,77,63",0.9423,Platinum,3.556,54065.98,15.579,Pyrometallurgical,Moderate
+PCB_00664,SSD Controller,Transformer,"576,429,54,72",0.6996,Zinc,2.162,59661.14,10.395,Hydrometallurgical,None
+PCB_00665,GPU Board,Connector,"884,44,115,48",0.9091,Copper,6.447,43877.79,24.8,Pyrometallurgical,High
+PCB_00666,Power Supply,Connector,"1633,955,15,63",0.7665,Silver,9.027,61635.43,32.011,Hydrometallurgical,Moderate
+PCB_00667,GPU Board,Fuse,"1696,348,112,74",0.6625,Gold,1.434,6488.65,28.378,Pyrometallurgical,Low
+PCB_00668,SSD Controller,Fuse,"157,163,87,22",0.9094,Tin,5.949,16549.51,22.857,Bioleaching,None
+PCB_00669,Power Supply,Relay,"753,125,19,78",0.9275,Tin,8.308,58284.14,27.462,Mechanical Shredding,Low
+PCB_00670,Power Supply,LED,"1716,212,87,35",0.7531,Silver,0.988,49658.95,12.162,Electrochemical,Low
+PCB_00671,SSD Controller,Battery Holder,"890,438,97,65",0.7794,Nickel,11.966,28620.37,18.782,Mechanical Shredding,Moderate
+PCB_00672,Printer Controller,Battery Holder,"1186,320,120,42",0.8109,Silver,5.912,48787.66,36.001,Mechanical Shredding,Critical
+PCB_00673,Phone Main Board,Connector,"715,442,50,62",0.7795,Tin,11.711,58639.27,18.57,Hydrometallurgical,Moderate
+PCB_00674,Phone Main Board,Inductor,"1023,812,65,68",0.8278,Zinc,4.912,8139.61,20.547,Bioleaching,Critical
+PCB_00675,Phone Main Board,LED,"1027,532,108,71",0.7339,Gold,3.772,48654.46,6.551,Hydrometallurgical,Moderate
+PCB_00676,Phone Main Board,Battery Holder,"1004,237,52,24",0.9779,Nickel,0.134,56134.76,33.359,Pyrometallurgical,None
+PCB_00677,RAM Module,Crystal Oscillator,"1124,985,52,63",0.7804,Gold,0.042,10671.72,37.516,Mechanical Shredding,None
+PCB_00678,Tablet Logic Board,Heat Sink,"1716,318,26,29",0.9075,Zinc,7.712,55819.23,30.314,Mechanical Shredding,Low
+PCB_00679,Printer Controller,Transistor,"1050,804,78,38",0.9413,Palladium,11.315,38666.61,11.286,Pyrometallurgical,Moderate
+PCB_00680,GPU Board,Heat Sink,"868,567,31,19",0.808,Tin,10.499,47129.4,30.179,Pyrometallurgical,Critical
+PCB_00681,SSD Controller,Fuse,"1543,396,40,35",0.6913,Nickel,2.247,8438.58,32.038,Hydrometallurgical,None
+PCB_00682,Printer Controller,Transformer,"711,882,81,35",0.6803,Tin,2.072,30679.51,13.458,Bioleaching,Low
+PCB_00683,Phone Main Board,Transistor,"689,14,92,27",0.8836,Platinum,5.579,21488.89,26.167,Electrochemical,Moderate
+PCB_00684,Printer Controller,Crystal Oscillator,"168,509,120,41",0.8362,Gold,2.93,8204.92,37.156,Bioleaching,Moderate
+PCB_00685,Tablet Logic Board,IC Chip,"1215,432,51,37",0.7556,Platinum,0.124,16655.69,35.27,Pyrometallurgical,High
+PCB_00686,Phone Main Board,Transformer,"831,77,55,54",0.8216,Silver,3.144,34699.15,37.274,Electrochemical,None
+PCB_00687,Printer Controller,Crystal Oscillator,"1515,273,86,20",0.7567,Copper,5.888,10071.16,28.87,Pyrometallurgical,High
+PCB_00688,SSD Controller,Voltage Regulator,"1761,174,100,56",0.6842,Nickel,0.532,43944.37,26.022,Electrochemical,None
+PCB_00689,Printer Controller,Battery Holder,"212,212,117,18",0.8195,Silver,5.874,9456.23,10.117,Electrochemical,Moderate
+PCB_00690,GPU Board,Transformer,"749,552,49,38",0.7918,Gold,0.039,38800.1,15.415,Electrochemical,High
+PCB_00691,Power Supply,Voltage Regulator,"403,199,66,67",0.8123,Zinc,11.503,50680.72,16.201,Electrochemical,High
+PCB_00692,SSD Controller,Relay,"1126,535,97,66",0.8091,Palladium,2.885,35494.86,39.327,Bioleaching,Critical
+PCB_00693,Printer Controller,IC Chip,"1180,298,97,75",0.8503,Copper,7.377,2697.33,20.612,Bioleaching,High
+PCB_00694,Phone Main Board,Transistor,"1730,620,95,30",0.9253,Tin,6.263,12944.68,28.293,Electrochemical,Critical
+PCB_00695,Phone Main Board,Resistor,"211,752,85,44",0.8688,Copper,1.978,18589.08,17.342,Hydrometallurgical,Moderate
+PCB_00696,Router PCB,Transistor,"1381,86,101,34",0.7794,Nickel,7.034,61606.5,1.613,Electrochemical,Critical
+PCB_00697,Motherboard,Crystal Oscillator,"140,782,57,46",0.6955,Zinc,9.477,14270.74,42.877,Mechanical Shredding,None
+PCB_00698,RAM Module,IC Chip,"286,1042,73,71",0.7664,Gold,8.671,3901.82,30.059,Pyrometallurgical,None
+PCB_00699,Motherboard,Connector,"701,745,105,54",0.7504,Platinum,2.245,34720.19,16.06,Mechanical Shredding,None
+PCB_00700,SSD Controller,Relay,"1821,535,63,16",0.9436,Palladium,4.815,629.47,31.029,Hydrometallurgical,Low
+PCB_00701,Phone Main Board,Connector,"1836,455,72,44",0.9155,Platinum,10.279,39761.65,1.208,Pyrometallurgical,Critical
+PCB_00702,RAM Module,LED,"1320,404,60,57",0.9671,Gold,8.381,38699.12,14.952,Hydrometallurgical,Moderate
+PCB_00703,Power Supply,Capacitor,"487,406,66,70",0.7278,Zinc,10.858,10098.01,12.88,Mechanical Shredding,Critical
+PCB_00704,Tablet Logic Board,Transistor,"609,884,100,27",0.7832,Copper,0.196,47209.44,14.555,Electrochemical,High
+PCB_00705,Tablet Logic Board,Transistor,"445,978,105,31",0.731,Tin,10.854,20295.55,21.839,Electrochemical,Low
+PCB_00706,GPU Board,Transistor,"1161,835,34,73",0.9377,Tin,10.259,35412.18,7.145,Hydrometallurgical,Low
+PCB_00707,Phone Main Board,Transformer,"249,400,119,41",0.6857,Palladium,3.029,15434.17,4.514,Electrochemical,Critical
+PCB_00708,Motherboard,Battery Holder,"538,864,51,67",0.6656,Tin,7.155,14019.36,16.298,Bioleaching,Moderate
+PCB_00709,Motherboard,Relay,"1225,906,40,17",0.8549,Palladium,12.031,40582.89,3.275,Hydrometallurgical,Moderate
+PCB_00710,Power Supply,Heat Sink,"1739,177,113,19",0.6656,Palladium,2.676,40585.67,16.148,Bioleaching,Low
+PCB_00711,Motherboard,Transistor,"1309,436,24,64",0.786,Gold,0.304,18204.35,35.234,Pyrometallurgical,Critical
+PCB_00712,RAM Module,Inductor,"1109,44,92,31",0.8415,Nickel,8.932,40311.86,33.912,Pyrometallurgical,None
+PCB_00713,Phone Main Board,Resistor,"1149,832,102,21",0.7304,Copper,6.431,11863.5,22.187,Electrochemical,High
+PCB_00714,Tablet Logic Board,LED,"431,725,41,65",0.8129,Copper,0.427,1385.35,35.971,Hydrometallurgical,High
+PCB_00715,RAM Module,Diode,"1162,559,93,34",0.7447,Copper,10.489,12160.36,9.763,Mechanical Shredding,None
+PCB_00716,RAM Module,Relay,"1617,908,110,52",0.7953,Tin,5.953,58230.25,30.365,Pyrometallurgical,Critical
+PCB_00717,Tablet Logic Board,Transistor,"1293,258,112,31",0.7832,Palladium,1.757,19353.55,5.388,Electrochemical,None
+PCB_00718,Motherboard,Resistor,"1070,578,82,51",0.769,Platinum,4.988,61297.38,13.774,Pyrometallurgical,Low
+PCB_00719,Power Supply,Diode,"776,909,50,40",0.849,Platinum,4.281,20629.19,5.229,Mechanical Shredding,Low
+PCB_00720,RAM Module,Battery Holder,"1403,494,78,58",0.9714,Zinc,4.052,20368.69,2.606,Mechanical Shredding,None
+PCB_00721,Power Supply,LED,"1313,451,102,42",0.6722,Palladium,6.494,10580.91,23.582,Bioleaching,None
+PCB_00722,Tablet Logic Board,Fuse,"344,534,114,68",0.6658,Nickel,0.778,21955.49,40.195,Pyrometallurgical,None
+PCB_00723,Phone Main Board,Capacitor,"1873,1059,21,78",0.8438,Palladium,11.409,17150.71,38.91,Electrochemical,Moderate
+PCB_00724,Router PCB,Resistor,"1518,310,34,32",0.7626,Platinum,4.368,52384.67,6.175,Electrochemical,Moderate
+PCB_00725,Tablet Logic Board,Battery Holder,"547,910,98,25",0.9339,Zinc,5.789,586.69,36.556,Hydrometallurgical,Critical
+PCB_00726,GPU Board,Capacitor,"1666,569,110,46",0.7381,Nickel,8.606,60485.23,36.456,Bioleaching,Moderate
+PCB_00727,Power Supply,Transformer,"1572,1008,61,18",0.9561,Nickel,3.215,3700.25,5.017,Pyrometallurgical,High
+PCB_00728,RAM Module,Diode,"208,141,68,29",0.7384,Palladium,1.115,27024.49,41.282,Mechanical Shredding,None
+PCB_00729,Printer Controller,Crystal Oscillator,"1190,399,100,59",0.8238,Palladium,9.574,32594.92,10.47,Hydrometallurgical,None
+PCB_00730,Power Supply,Fuse,"961,391,91,59",0.849,Nickel,9.211,40195.16,32.869,Bioleaching,Moderate
+PCB_00731,RAM Module,Fuse,"1160,164,81,67",0.9042,Palladium,10.579,53754.29,27.887,Bioleaching,Low
+PCB_00732,Power Supply,Diode,"954,68,120,35",0.7521,Zinc,9.945,7460.72,42.498,Bioleaching,Low
+PCB_00733,SSD Controller,Battery Holder,"1651,354,42,66",0.9039,Copper,12.302,40822.94,0.282,Electrochemical,None
+PCB_00734,Power Supply,Relay,"798,628,78,21",0.7633,Silver,5.583,25823.78,11.262,Hydrometallurgical,Moderate
+PCB_00735,Power Supply,Relay,"31,789,42,57",0.7779,Gold,10.714,35847.76,9.242,Electrochemical,Critical
+PCB_00736,GPU Board,Transformer,"1392,101,72,35",0.8501,Zinc,10.336,24317.88,41.693,Hydrometallurgical,None
+PCB_00737,RAM Module,Inductor,"1307,933,84,71",0.9372,Nickel,6.657,36637.63,36.773,Mechanical Shredding,None
+PCB_00738,RAM Module,Heat Sink,"61,574,29,39",0.9179,Copper,11.957,889.86,17.531,Bioleaching,None
+PCB_00739,SSD Controller,LED,"12,557,80,72",0.6592,Silver,5.217,9818.99,43.627,Electrochemical,None
+PCB_00740,GPU Board,Resistor,"377,529,47,16",0.97,Nickel,5.464,37886.31,33.04,Hydrometallurgical,High
+PCB_00741,Motherboard,IC Chip,"361,335,115,65",0.7363,Copper,9.79,10309.17,19.56,Mechanical Shredding,Moderate
+PCB_00742,Motherboard,Relay,"144,448,53,62",0.9816,Nickel,0.264,12424.02,6.144,Bioleaching,None
+PCB_00743,SSD Controller,Diode,"59,111,99,20",0.7266,Silver,8.117,50249.72,13.526,Hydrometallurgical,Low
+PCB_00744,GPU Board,Heat Sink,"950,482,57,34",0.8065,Copper,10.112,36696.02,6.256,Pyrometallurgical,Moderate
+PCB_00745,RAM Module,LED,"1427,34,45,79",0.6758,Silver,9.312,44029.37,37.919,Hydrometallurgical,Moderate
+PCB_00746,Phone Main Board,Diode,"1863,770,75,35",0.7401,Platinum,7.969,43717.16,25.506,Mechanical Shredding,Critical
+PCB_00747,Router PCB,Transistor,"1727,171,107,16",0.6909,Palladium,10.312,26154.48,19.225,Bioleaching,Low
+PCB_00748,Motherboard,Capacitor,"26,942,109,35",0.9746,Silver,12.162,38843.68,1.369,Mechanical Shredding,High
+PCB_00749,Motherboard,Crystal Oscillator,"1183,595,48,30",0.8866,Gold,11.886,13111.46,30.993,Bioleaching,Low
+PCB_00750,Motherboard,Relay,"996,536,78,65",0.8822,Gold,7.676,33913.34,35.923,Electrochemical,Moderate
+PCB_00751,Router PCB,Inductor,"405,395,106,22",0.7781,Nickel,9.988,37706.01,17.967,Mechanical Shredding,Moderate
+PCB_00752,Motherboard,Transistor,"31,259,49,78",0.9811,Copper,8.541,61136.27,28.64,Bioleaching,Moderate
+PCB_00753,Router PCB,Fuse,"1420,379,42,30",0.9685,Silver,11.256,24170.61,28.001,Pyrometallurgical,None
+PCB_00754,Phone Main Board,Inductor,"962,66,82,33",0.8837,Palladium,10.861,13164.75,38.556,Mechanical Shredding,High
+PCB_00755,SSD Controller,Resistor,"1103,323,56,74",0.9352,Gold,0.357,21762.88,34.105,Electrochemical,High
+PCB_00756,SSD Controller,Crystal Oscillator,"1829,290,36,78",0.905,Silver,9.646,11185.47,12.891,Hydrometallurgical,None
+PCB_00757,Phone Main Board,Heat Sink,"1282,737,16,60",0.9335,Gold,0.499,14985.09,1.106,Bioleaching,None
+PCB_00758,Printer Controller,Transistor,"1509,1049,50,79",0.8714,Gold,9.814,38567.77,22.803,Hydrometallurgical,Critical
+PCB_00759,Power Supply,LED,"1261,135,42,29",0.9116,Silver,7.272,8376.18,1.818,Mechanical Shredding,Moderate
+PCB_00760,Phone Main Board,Voltage Regulator,"523,1051,55,23",0.769,Copper,11.499,5424.11,1.574,Electrochemical,Low
+PCB_00761,Power Supply,Capacitor,"1389,867,76,25",0.8711,Palladium,5.132,29171.21,35.626,Pyrometallurgical,Low
+PCB_00762,Printer Controller,Heat Sink,"1666,709,109,16",0.8571,Copper,10.349,2586.84,4.143,Pyrometallurgical,Low
+PCB_00763,Power Supply,Heat Sink,"653,913,26,44",0.9585,Tin,11.398,15871.73,24.643,Bioleaching,High
+PCB_00764,Motherboard,Relay,"1700,881,31,67",0.9797,Tin,6.75,9064.55,42.506,Electrochemical,High
+PCB_00765,RAM Module,Resistor,"901,919,111,73",0.9073,Copper,9.698,61727.48,28.275,Electrochemical,None
+PCB_00766,GPU Board,Relay,"525,282,76,43",0.9056,Nickel,6.382,24068.15,39.546,Bioleaching,Critical
+PCB_00767,GPU Board,Transformer,"489,177,39,27",0.9649,Silver,0.366,18768.18,37.269,Bioleaching,Moderate
+PCB_00768,Motherboard,Battery Holder,"185,498,30,73",0.6627,Tin,8.396,57095.23,3.114,Bioleaching,Moderate
+PCB_00769,Power Supply,Inductor,"1022,821,99,78",0.7168,Platinum,5.372,28414.68,0.643,Pyrometallurgical,Moderate
+PCB_00770,Tablet Logic Board,Diode,"277,708,35,43",0.8816,Platinum,12.031,13556.03,26.922,Mechanical Shredding,Critical
+PCB_00771,SSD Controller,Capacitor,"806,483,107,54",0.919,Nickel,4.32,44687.94,35.317,Electrochemical,Critical
+PCB_00772,Tablet Logic Board,Transformer,"1083,703,18,54",0.7933,Platinum,9.951,17769.38,42.282,Pyrometallurgical,None
+PCB_00773,Tablet Logic Board,Heat Sink,"294,343,49,25",0.7838,Copper,0.653,29548.41,27.178,Pyrometallurgical,Low
+PCB_00774,Router PCB,Resistor,"507,202,53,46",0.9643,Platinum,5.217,43228.39,13.606,Bioleaching,Critical
+PCB_00775,Tablet Logic Board,Battery Holder,"1320,105,115,67",0.8454,Platinum,9.653,37521.19,33.703,Pyrometallurgical,Low
+PCB_00776,Printer Controller,Fuse,"1363,202,76,43",0.9802,Zinc,3.363,48693.05,9.286,Pyrometallurgical,Low
+PCB_00777,SSD Controller,Diode,"1120,442,80,33",0.7356,Silver,11.913,26105.52,32.014,Pyrometallurgical,High
+PCB_00778,RAM Module,Connector,"251,1008,93,30",0.6672,Silver,10.328,45814.23,9.296,Pyrometallurgical,Low
+PCB_00779,Power Supply,Transformer,"803,570,53,66",0.8882,Palladium,2.878,53611.92,27.175,Hydrometallurgical,Moderate
+PCB_00780,Power Supply,Heat Sink,"1057,661,30,72",0.9791,Zinc,1.713,5503.17,27.874,Mechanical Shredding,High
+PCB_00781,Tablet Logic Board,Fuse,"789,181,109,69",0.6816,Copper,3.789,23741.63,10.28,Hydrometallurgical,Moderate
+PCB_00782,GPU Board,LED,"1217,116,109,34",0.8349,Zinc,7.445,9130.21,22.153,Electrochemical,High
+PCB_00783,RAM Module,Voltage Regulator,"937,251,95,20",0.8618,Zinc,1.975,23710.15,19.158,Pyrometallurgical,Critical
+PCB_00784,Power Supply,Heat Sink,"251,1035,46,43",0.7665,Nickel,10.098,15491.36,20.736,Electrochemical,Critical
+PCB_00785,SSD Controller,Diode,"1844,364,63,56",0.8275,Tin,0.209,24355.6,10.29,Hydrometallurgical,Low
+PCB_00786,Phone Main Board,Connector,"1589,109,73,77",0.7239,Copper,6.485,4157.56,13.686,Pyrometallurgical,Critical
+PCB_00787,SSD Controller,Transistor,"1125,736,59,75",0.8449,Zinc,7.776,47196.42,1.098,Bioleaching,High
+PCB_00788,RAM Module,Heat Sink,"1368,449,71,57",0.66,Copper,8.08,4318.02,42.587,Hydrometallurgical,Low
+PCB_00789,GPU Board,Connector,"849,936,100,35",0.9164,Copper,5.827,15673.29,18.148,Hydrometallurgical,Critical
+PCB_00790,Printer Controller,Diode,"597,754,15,45",0.6628,Copper,1.884,6106.67,5.96,Electrochemical,Moderate
+PCB_00791,Phone Main Board,Voltage Regulator,"1362,276,69,16",0.9543,Silver,10.628,8860.67,12.612,Pyrometallurgical,Low
+PCB_00792,RAM Module,Crystal Oscillator,"1657,687,17,34",0.7348,Nickel,11.004,45111.63,34.826,Bioleaching,Critical
+PCB_00793,RAM Module,Transistor,"861,990,87,32",0.8078,Zinc,4.272,57468.85,14.461,Bioleaching,Critical
+PCB_00794,Router PCB,Transformer,"243,34,53,51",0.7726,Palladium,7.89,16175.77,6.917,Hydrometallurgical,Low
+PCB_00795,GPU Board,LED,"139,974,41,17",0.9385,Gold,4.975,50927.2,0.419,Bioleaching,None
+PCB_00796,Printer Controller,Resistor,"432,199,53,24",0.8759,Zinc,5.805,49372.69,3.346,Pyrometallurgical,High
+PCB_00797,Router PCB,Transformer,"209,269,27,35",0.8237,Silver,4.925,37492.18,22.131,Pyrometallurgical,Critical
+PCB_00798,Motherboard,Resistor,"394,339,78,70",0.9703,Tin,4.102,48403.48,42.128,Electrochemical,Low
+PCB_00799,RAM Module,Transistor,"1658,914,103,48",0.8074,Copper,0.732,46005.39,44.521,Electrochemical,None
+PCB_00800,RAM Module,Fuse,"1399,928,42,79",0.7123,Platinum,1.163,12100.81,1.812,Electrochemical,High
+PCB_00801,SSD Controller,Voltage Regulator,"1088,855,106,42",0.9479,Palladium,3.45,28411.9,30.37,Electrochemical,Low
+PCB_00802,Router PCB,Connector,"1523,105,119,45",0.9272,Tin,1.65,52730.92,18.566,Hydrometallurgical,None
+PCB_00803,Router PCB,Connector,"231,286,101,45",0.8585,Zinc,2.209,11534.31,41.209,Electrochemical,High
+PCB_00804,Tablet Logic Board,Connector,"1699,207,32,39",0.8019,Platinum,8.342,42762.1,2.474,Bioleaching,High
+PCB_00805,RAM Module,Fuse,"354,228,94,17",0.9821,Copper,11.113,838.58,16.647,Bioleaching,Low
+PCB_00806,Router PCB,IC Chip,"1876,940,57,42",0.6624,Silver,10.929,21531.95,14.427,Mechanical Shredding,Low
+PCB_00807,Printer Controller,Fuse,"104,306,99,74",0.6993,Zinc,5.311,5974.21,38.313,Electrochemical,None
+PCB_00808,SSD Controller,IC Chip,"60,470,17,50",0.9001,Nickel,4.371,797.35,8.937,Pyrometallurgical,High
+PCB_00809,Printer Controller,Voltage Regulator,"446,54,31,39",0.9094,Copper,9.184,50587.44,26.652,Pyrometallurgical,High
+PCB_00810,Router PCB,LED,"1509,1030,119,69",0.7097,Gold,10.016,15582.32,15.613,Mechanical Shredding,Low
+PCB_00811,GPU Board,IC Chip,"882,927,60,57",0.9484,Platinum,12.356,42003.58,40.081,Pyrometallurgical,Low
+PCB_00812,RAM Module,Resistor,"237,494,60,60",0.9319,Zinc,7.684,5081.86,23.025,Hydrometallurgical,Critical
+PCB_00813,GPU Board,Resistor,"598,197,106,67",0.8699,Gold,6.615,47086.71,30.77,Bioleaching,Moderate
+PCB_00814,Phone Main Board,Relay,"170,309,101,42",0.836,Tin,4.643,10906.68,2.789,Electrochemical,None
+PCB_00815,Router PCB,LED,"43,863,22,47",0.7984,Gold,10.187,14260.76,1.55,Hydrometallurgical,None
+PCB_00816,Tablet Logic Board,LED,"111,393,90,39",0.8272,Zinc,5.334,3652.11,23.995,Hydrometallurgical,None
+PCB_00817,Motherboard,LED,"1770,350,53,68",0.6848,Zinc,8.628,39829.48,12.804,Pyrometallurgical,Critical
+PCB_00818,SSD Controller,Relay,"772,1008,100,72",0.8388,Copper,1.798,26837.45,3.403,Mechanical Shredding,Low
+PCB_00819,GPU Board,Relay,"1614,1018,44,35",0.8244,Gold,3.614,25480.01,33.015,Bioleaching,Low
+PCB_00820,RAM Module,Fuse,"1069,943,32,64",0.9786,Tin,6.183,56352.26,36.986,Mechanical Shredding,Critical
+PCB_00821,Motherboard,Transformer,"1787,622,116,74",0.8464,Nickel,5.502,21319.04,31.382,Electrochemical,Low
+PCB_00822,RAM Module,Transistor,"219,283,25,36",0.983,Tin,6.177,4634.67,6.748,Mechanical Shredding,Low
+PCB_00823,GPU Board,Relay,"1812,419,86,70",0.8297,Palladium,1.632,43639.91,27.745,Pyrometallurgical,Low
+PCB_00824,Power Supply,Diode,"1613,449,115,70",0.9211,Palladium,9.012,46244.1,29.929,Bioleaching,Critical
+PCB_00825,Motherboard,Inductor,"1849,452,72,45",0.8314,Palladium,4.319,36456.06,35.852,Hydrometallurgical,Critical
+PCB_00826,Router PCB,Diode,"1313,666,38,37",0.7471,Nickel,3.4,46250.41,2.816,Mechanical Shredding,Moderate
+PCB_00827,GPU Board,Inductor,"928,853,100,49",0.6549,Zinc,11.449,1622.25,31.179,Mechanical Shredding,High
+PCB_00828,SSD Controller,Fuse,"1694,173,119,71",0.6573,Silver,6.079,52290.04,15.447,Mechanical Shredding,Low
+PCB_00829,GPU Board,Crystal Oscillator,"1011,925,21,30",0.8555,Silver,9.152,15415.63,12.454,Pyrometallurgical,High
+PCB_00830,Phone Main Board,Capacitor,"1693,303,22,54",0.696,Copper,3.844,7086.68,33.259,Bioleaching,Critical
+PCB_00831,GPU Board,IC Chip,"477,93,56,34",0.8086,Palladium,9.785,8061.16,40.396,Electrochemical,Critical
+PCB_00832,Router PCB,Relay,"913,606,46,45",0.7326,Palladium,2.649,28639.48,12.767,Hydrometallurgical,None
+PCB_00833,SSD Controller,Transistor,"853,899,64,79",0.6708,Palladium,1.421,12290.49,26.925,Pyrometallurgical,Low
+PCB_00834,RAM Module,Crystal Oscillator,"1322,747,77,16",0.6928,Platinum,6.81,37502.39,39.894,Mechanical Shredding,Low
+PCB_00835,Phone Main Board,Connector,"1221,576,50,29",0.9,Zinc,5.375,2932.93,39.442,Bioleaching,High
+PCB_00836,GPU Board,Transistor,"81,340,82,45",0.6623,Palladium,1.554,40212.18,1.648,Electrochemical,Low
+PCB_00837,SSD Controller,Diode,"280,444,81,30",0.6841,Gold,0.798,25247.24,24.234,Bioleaching,Critical
+PCB_00838,Tablet Logic Board,LED,"805,464,21,52",0.7311,Zinc,2.11,14111.0,34.218,Hydrometallurgical,Critical
+PCB_00839,Phone Main Board,Diode,"1895,94,24,45",0.8263,Zinc,10.066,42305.06,23.011,Hydrometallurgical,High
+PCB_00840,Tablet Logic Board,IC Chip,"719,342,18,35",0.8239,Copper,1.324,59288.11,28.358,Electrochemical,Low
+PCB_00841,SSD Controller,Diode,"436,348,30,18",0.8531,Tin,1.538,38147.31,11.926,Bioleaching,None
+PCB_00842,Router PCB,Fuse,"401,497,15,23",0.8973,Nickel,1.494,14797.61,41.784,Bioleaching,High
+PCB_00843,GPU Board,Battery Holder,"981,253,87,68",0.8344,Palladium,9.099,6499.29,43.718,Electrochemical,None
+PCB_00844,SSD Controller,Crystal Oscillator,"961,756,83,77",0.8212,Silver,3.42,46703.82,36.144,Hydrometallurgical,Critical
+PCB_00845,GPU Board,Voltage Regulator,"1273,845,103,50",0.8638,Palladium,1.684,34522.6,2.009,Hydrometallurgical,Low
+PCB_00846,GPU Board,Resistor,"300,159,100,78",0.8707,Silver,7.607,1721.32,11.728,Bioleaching,Moderate
+PCB_00847,GPU Board,Diode,"1889,517,92,65",0.6801,Tin,6.413,47504.68,41.426,Pyrometallurgical,Moderate
+PCB_00848,Tablet Logic Board,IC Chip,"1503,174,75,20",0.8104,Zinc,3.638,39108.81,30.163,Electrochemical,None
+PCB_00849,Power Supply,Diode,"590,65,63,34",0.905,Copper,3.329,7262.03,14.472,Electrochemical,Critical
+PCB_00850,GPU Board,Resistor,"1658,54,52,64",0.7565,Zinc,6.618,3159.2,43.143,Mechanical Shredding,None
+PCB_00851,Tablet Logic Board,Relay,"951,1025,37,57",0.8791,Zinc,1.089,60494.12,20.963,Mechanical Shredding,Moderate
+PCB_00852,Router PCB,Connector,"441,833,32,54",0.9812,Gold,7.219,7789.11,26.378,Mechanical Shredding,Moderate
+PCB_00853,Phone Main Board,Resistor,"934,790,84,51",0.7649,Silver,11.219,51860.25,39.802,Electrochemical,Low
+PCB_00854,GPU Board,Transformer,"57,38,104,67",0.8733,Gold,6.243,36340.82,38.674,Bioleaching,Low
+PCB_00855,GPU Board,Heat Sink,"1552,197,58,55",0.9552,Copper,1.11,38236.27,4.486,Electrochemical,Moderate
+PCB_00856,Motherboard,Battery Holder,"784,391,103,31",0.7453,Tin,5.157,20409.97,26.939,Bioleaching,Moderate
+PCB_00857,Printer Controller,Crystal Oscillator,"270,417,81,29",0.8153,Tin,5.95,48376.64,42.601,Electrochemical,Moderate
+PCB_00858,SSD Controller,Diode,"521,154,68,27",0.9203,Palladium,11.835,56199.3,36.401,Electrochemical,Moderate
+PCB_00859,Power Supply,Diode,"1194,193,23,54",0.7978,Copper,4.978,46914.3,2.186,Pyrometallurgical,High
+PCB_00860,SSD Controller,Heat Sink,"442,280,113,37",0.9669,Copper,2.715,8365.48,26.192,Electrochemical,High
+PCB_00861,GPU Board,Diode,"687,738,110,52",0.9699,Tin,11.362,20794.99,10.75,Bioleaching,Moderate
+PCB_00862,Power Supply,Voltage Regulator,"1005,222,66,32",0.9006,Gold,11.793,35294.74,32.333,Hydrometallurgical,Critical
+PCB_00863,Phone Main Board,IC Chip,"579,673,118,30",0.9534,Zinc,0.138,52631.38,27.674,Hydrometallurgical,High
+PCB_00864,Phone Main Board,Connector,"632,399,73,33",0.7813,Silver,11.934,28373.34,34.166,Bioleaching,High
+PCB_00865,GPU Board,Diode,"398,195,104,72",0.9794,Nickel,9.505,14856.81,10.884,Pyrometallurgical,Moderate
+PCB_00866,Router PCB,Fuse,"295,598,79,57",0.6541,Palladium,9.218,31397.58,44.498,Pyrometallurgical,High
+PCB_00867,SSD Controller,Connector,"791,504,91,74",0.7656,Platinum,2.42,23092.18,25.95,Bioleaching,Low
+PCB_00868,Phone Main Board,Transistor,"413,1028,96,38",0.96,Copper,0.988,41618.43,35.484,Pyrometallurgical,None
+PCB_00869,RAM Module,IC Chip,"268,787,40,39",0.9755,Silver,5.719,35829.74,3.365,Bioleaching,Low
+PCB_00870,SSD Controller,Inductor,"333,349,69,36",0.6541,Gold,6.07,530.8,33.72,Mechanical Shredding,High
+PCB_00871,Router PCB,Connector,"1445,98,113,71",0.8882,Zinc,2.591,5113.17,10.447,Electrochemical,None
+PCB_00872,Phone Main Board,Battery Holder,"1382,64,59,72",0.7391,Gold,10.08,60217.72,38.919,Pyrometallurgical,Low
+PCB_00873,Printer Controller,Voltage Regulator,"1703,750,84,68",0.9393,Copper,4.859,37682.83,20.717,Bioleaching,High
+PCB_00874,Tablet Logic Board,Inductor,"766,89,95,69",0.7202,Tin,8.582,27893.11,34.911,Mechanical Shredding,Low
+PCB_00875,Phone Main Board,Inductor,"999,350,21,19",0.6599,Nickel,9.432,52943.02,3.272,Hydrometallurgical,Critical
+PCB_00876,Motherboard,Capacitor,"687,518,51,24",0.9584,Copper,1.235,42529.97,5.46,Mechanical Shredding,Moderate
+PCB_00877,Tablet Logic Board,Fuse,"1340,322,38,32",0.8627,Copper,3.895,41490.88,15.672,Pyrometallurgical,Critical
+PCB_00878,GPU Board,Relay,"1307,482,23,80",0.7384,Platinum,12.195,59429.05,25.547,Hydrometallurgical,High
+PCB_00879,GPU Board,Capacitor,"512,81,97,34",0.8508,Tin,9.746,49930.51,6.663,Mechanical Shredding,Critical
+PCB_00880,Phone Main Board,Voltage Regulator,"1573,547,105,72",0.7462,Palladium,9.534,12.47,11.626,Pyrometallurgical,High
+PCB_00881,GPU Board,Connector,"391,21,120,71",0.806,Zinc,2.697,49988.21,4.794,Hydrometallurgical,Low
+PCB_00882,Router PCB,Transistor,"563,135,114,54",0.7117,Silver,5.842,9607.7,3.989,Hydrometallurgical,High
+PCB_00883,Phone Main Board,Relay,"1044,793,105,74",0.7703,Zinc,2.742,20012.77,20.495,Bioleaching,Critical
+PCB_00884,Printer Controller,Diode,"363,447,33,39",0.8021,Silver,9.474,44908.04,42.084,Bioleaching,High
+PCB_00885,Tablet Logic Board,IC Chip,"361,1013,30,66",0.9015,Copper,6.323,38645.35,17.795,Electrochemical,High
+PCB_00886,SSD Controller,Capacitor,"90,749,33,44",0.8447,Gold,0.597,54531.81,25.806,Electrochemical,Moderate
+PCB_00887,Printer Controller,Voltage Regulator,"226,503,59,16",0.7749,Tin,5.243,28279.54,36.301,Mechanical Shredding,None
+PCB_00888,RAM Module,Resistor,"895,883,69,40",0.749,Palladium,0.275,11310.88,22.57,Mechanical Shredding,High
+PCB_00889,RAM Module,Relay,"81,42,77,55",0.922,Zinc,2.573,60072.85,30.681,Pyrometallurgical,Low
+PCB_00890,SSD Controller,Battery Holder,"210,922,61,80",0.9707,Copper,4.293,39385.78,31.072,Pyrometallurgical,None
+PCB_00891,RAM Module,Battery Holder,"1794,364,32,68",0.9889,Palladium,7.641,47849.22,25.816,Mechanical Shredding,High
+PCB_00892,Printer Controller,Heat Sink,"1876,787,59,27",0.8666,Nickel,9.534,48839.97,26.142,Hydrometallurgical,Low
+PCB_00893,SSD Controller,Crystal Oscillator,"1157,393,46,51",0.7134,Platinum,0.299,21692.82,42.323,Bioleaching,Moderate
+PCB_00894,RAM Module,Voltage Regulator,"24,56,63,75",0.9351,Palladium,10.253,58973.14,24.262,Pyrometallurgical,Critical
+PCB_00895,Printer Controller,Diode,"1163,967,59,48",0.7689,Gold,9.077,43370.79,38.26,Pyrometallurgical,Low
+PCB_00896,SSD Controller,Fuse,"326,875,34,40",0.6713,Silver,4.639,54615.96,36.464,Mechanical Shredding,High
+PCB_00897,RAM Module,IC Chip,"823,204,33,32",0.916,Tin,2.711,44096.59,31.59,Electrochemical,None
+PCB_00898,Power Supply,Fuse,"182,912,25,65",0.8625,Palladium,7.564,22031.68,22.04,Electrochemical,High
+PCB_00899,Tablet Logic Board,Heat Sink,"1717,679,55,40",0.9689,Zinc,2.737,59067.36,0.354,Pyrometallurgical,None
+PCB_00900,GPU Board,Relay,"375,581,80,64",0.7968,Zinc,7.907,16969.91,22.49,Mechanical Shredding,High
+PCB_00901,GPU Board,Capacitor,"1422,869,42,37",0.8766,Gold,4.937,10003.69,14.358,Pyrometallurgical,Critical
+PCB_00902,Power Supply,Capacitor,"1516,930,98,68",0.7095,Copper,11.646,52807.09,23.807,Electrochemical,Low
+PCB_00903,Power Supply,Heat Sink,"393,1040,49,64",0.6879,Tin,8.09,27933.58,17.032,Pyrometallurgical,Low
+PCB_00904,Router PCB,Inductor,"1368,969,50,54",0.7485,Nickel,4.489,18862.28,33.345,Pyrometallurgical,Moderate
+PCB_00905,Router PCB,IC Chip,"1878,602,31,62",0.87,Nickel,9.815,57277.06,4.771,Pyrometallurgical,None
+PCB_00906,Power Supply,LED,"1489,667,65,30",0.6517,Silver,8.177,31439.82,11.045,Mechanical Shredding,Low
+PCB_00907,Tablet Logic Board,Heat Sink,"1308,435,76,56",0.8302,Tin,4.354,3333.95,39.321,Hydrometallurgical,Critical
+PCB_00908,Printer Controller,Transformer,"1563,640,16,77",0.7716,Nickel,11.65,48272.19,22.359,Bioleaching,High
+PCB_00909,Motherboard,Transformer,"27,874,82,56",0.7442,Silver,11.966,14005.8,8.769,Bioleaching,Critical
+PCB_00910,GPU Board,Relay,"1519,639,89,50",0.7259,Palladium,5.662,51700.29,25.662,Hydrometallurgical,Critical
+PCB_00911,SSD Controller,Battery Holder,"1073,588,120,31",0.8062,Gold,5.072,39504.53,17.399,Mechanical Shredding,Low
+PCB_00912,Motherboard,Capacitor,"1613,551,35,22",0.6969,Palladium,12.071,47943.42,27.826,Hydrometallurgical,Low
+PCB_00913,Motherboard,Capacitor,"414,95,100,69",0.7836,Nickel,7.099,39966.95,9.705,Mechanical Shredding,None
+PCB_00914,Motherboard,Voltage Regulator,"1402,163,113,41",0.9349,Gold,3.604,58665.64,21.404,Hydrometallurgical,Moderate
+PCB_00915,Motherboard,Voltage Regulator,"283,333,33,42",0.8765,Tin,3.915,52587.4,35.294,Pyrometallurgical,None
+PCB_00916,Power Supply,LED,"1857,818,100,25",0.8841,Palladium,5.564,52836.53,0.112,Pyrometallurgical,Low
+PCB_00917,Motherboard,Diode,"1749,387,33,74",0.8287,Copper,9.2,12276.58,26.904,Mechanical Shredding,High
+PCB_00918,Power Supply,Fuse,"1113,1005,117,71",0.67,Gold,10.635,1625.99,30.333,Mechanical Shredding,Moderate
+PCB_00919,Router PCB,Relay,"57,544,53,69",0.8025,Tin,11.932,13970.04,5.579,Electrochemical,Critical
+PCB_00920,Printer Controller,Transformer,"1530,87,120,16",0.9704,Silver,6.942,25198.08,5.672,Hydrometallurgical,Moderate
+PCB_00921,RAM Module,Heat Sink,"1231,895,44,55",0.9091,Copper,1.807,56614.49,9.335,Electrochemical,Low
+PCB_00922,SSD Controller,Diode,"1389,915,51,26",0.6992,Copper,4.967,34724.04,44.743,Electrochemical,Critical
+PCB_00923,Router PCB,Capacitor,"1350,1057,79,71",0.6791,Silver,2.607,24128.44,4.91,Mechanical Shredding,None
+PCB_00924,Power Supply,Transistor,"276,1017,68,53",0.6977,Copper,3.725,51871.75,8.866,Mechanical Shredding,Critical
+PCB_00925,RAM Module,Voltage Regulator,"1350,958,34,18",0.9785,Zinc,4.49,19731.94,29.171,Mechanical Shredding,None
+PCB_00926,RAM Module,Fuse,"1857,33,92,74",0.9265,Palladium,1.864,45526.8,9.246,Electrochemical,None
+PCB_00927,Tablet Logic Board,Connector,"19,302,76,72",0.879,Platinum,6.781,17800.03,1.98,Electrochemical,Moderate
+PCB_00928,SSD Controller,Heat Sink,"1714,922,69,47",0.7948,Platinum,4.162,33279.8,22.373,Mechanical Shredding,Low
+PCB_00929,Phone Main Board,Voltage Regulator,"1089,647,59,78",0.9341,Gold,10.873,51843.3,10.357,Bioleaching,None
+PCB_00930,Tablet Logic Board,Relay,"1900,245,104,29",0.7451,Palladium,10.809,61557.37,41.455,Hydrometallurgical,Moderate
+PCB_00931,Power Supply,LED,"727,393,100,33",0.6905,Palladium,7.902,59650.3,20.718,Mechanical Shredding,None
+PCB_00932,Printer Controller,Inductor,"365,677,39,53",0.7043,Silver,2.381,59248.75,20.837,Hydrometallurgical,None
+PCB_00933,SSD Controller,IC Chip,"211,991,101,62",0.8941,Platinum,0.197,20315.58,21.768,Mechanical Shredding,Moderate
+PCB_00934,Router PCB,Diode,"1580,168,39,68",0.9379,Nickel,2.386,2727.07,44.932,Electrochemical,High
+PCB_00935,GPU Board,Connector,"388,49,67,74",0.6797,Tin,8.93,35539.19,43.803,Mechanical Shredding,Moderate
+PCB_00936,GPU Board,LED,"610,394,116,51",0.7385,Palladium,12.063,57883.42,10.697,Hydrometallurgical,High
+PCB_00937,SSD Controller,Diode,"1305,80,111,58",0.6832,Silver,4.305,25528.67,26.396,Electrochemical,Critical
+PCB_00938,RAM Module,LED,"518,651,62,38",0.8574,Palladium,0.422,46222.64,31.77,Hydrometallurgical,None
+PCB_00939,GPU Board,Resistor,"1514,768,21,54",0.7798,Zinc,7.859,28898.25,9.459,Mechanical Shredding,None
+PCB_00940,Motherboard,Fuse,"971,240,59,16",0.7885,Copper,1.876,48227.28,10.402,Pyrometallurgical,Critical
+PCB_00941,Printer Controller,Inductor,"1320,443,64,15",0.8841,Palladium,0.545,43879.12,10.77,Pyrometallurgical,Critical
+PCB_00942,SSD Controller,Diode,"1249,832,72,77",0.9273,Platinum,10.829,21224.53,21.95,Bioleaching,Moderate
+PCB_00943,GPU Board,Connector,"259,54,26,28",0.962,Palladium,7.594,11128.18,2.763,Bioleaching,Critical
+PCB_00944,Tablet Logic Board,Fuse,"471,588,92,78",0.9573,Nickel,1.373,28398.57,4.629,Hydrometallurgical,Critical
+PCB_00945,SSD Controller,IC Chip,"660,771,16,73",0.7934,Zinc,10.455,13951.32,44.442,Mechanical Shredding,Moderate
+PCB_00946,Phone Main Board,Voltage Regulator,"875,549,69,19",0.8919,Palladium,11.309,28882.6,43.538,Mechanical Shredding,Moderate
+PCB_00947,Printer Controller,Heat Sink,"1898,710,52,35",0.9562,Tin,1.16,29469.2,25.814,Hydrometallurgical,None
+PCB_00948,RAM Module,Connector,"768,122,104,58",0.9329,Zinc,7.12,35937.42,0.535,Hydrometallurgical,Moderate
+PCB_00949,Router PCB,Fuse,"815,81,23,71",0.8711,Zinc,0.224,27973.32,20.528,Mechanical Shredding,Low
+PCB_00950,Router PCB,Fuse,"1085,559,78,75",0.8702,Tin,4.44,61326.04,17.405,Hydrometallurgical,None
+PCB_00951,SSD Controller,Crystal Oscillator,"1241,969,100,58",0.849,Copper,9.795,57155.03,8.86,Mechanical Shredding,Low
+PCB_00952,Phone Main Board,Resistor,"1771,464,19,48",0.6916,Gold,12.255,38559.65,32.694,Mechanical Shredding,Critical
+PCB_00953,RAM Module,Diode,"553,919,77,25",0.7405,Zinc,7.15,35722.39,23.913,Electrochemical,Low
+PCB_00954,Router PCB,Voltage Regulator,"1405,576,33,35",0.7038,Platinum,8.231,38777.91,31.423,Pyrometallurgical,None
+PCB_00955,Power Supply,Inductor,"1822,966,109,50",0.8354,Gold,8.718,222.41,43.278,Mechanical Shredding,Low
+PCB_00956,Router PCB,Voltage Regulator,"215,1003,43,43",0.7666,Palladium,8.733,19776.35,28.555,Mechanical Shredding,Critical
+PCB_00957,Tablet Logic Board,Transistor,"1831,654,57,31",0.8054,Palladium,9.667,24297.46,21.879,Bioleaching,Moderate
+PCB_00958,SSD Controller,IC Chip,"315,514,47,72",0.8824,Platinum,4.13,28980.98,34.943,Bioleaching,Critical
+PCB_00959,Tablet Logic Board,Connector,"1431,42,112,54",0.9868,Copper,5.59,60933.55,3.366,Electrochemical,Critical
+PCB_00960,Router PCB,Crystal Oscillator,"343,858,55,76",0.9884,Tin,9.514,40352.2,19.016,Pyrometallurgical,Moderate
+PCB_00961,Power Supply,Fuse,"767,569,117,67",0.6552,Gold,0.269,4068.02,39.365,Bioleaching,Low
+PCB_00962,GPU Board,Battery Holder,"933,564,48,35",0.8836,Palladium,3.492,2240.54,21.586,Pyrometallurgical,Moderate
+PCB_00963,Motherboard,Heat Sink,"413,93,101,67",0.7349,Platinum,0.302,46482.29,31.158,Pyrometallurgical,Critical
+PCB_00964,Motherboard,IC Chip,"1882,406,80,66",0.9355,Zinc,8.02,27370.17,18.403,Electrochemical,High
+PCB_00965,Phone Main Board,Relay,"1604,44,53,58",0.6924,Tin,4.718,39338.88,9.857,Pyrometallurgical,Low
+PCB_00966,Router PCB,Inductor,"1267,467,106,55",0.9233,Silver,0.269,8923.55,12.792,Electrochemical,Critical
+PCB_00967,Power Supply,Heat Sink,"1590,486,104,49",0.6914,Zinc,4.067,22847.21,22.915,Mechanical Shredding,Low
+PCB_00968,Power Supply,Resistor,"73,29,75,46",0.7949,Copper,12.177,701.65,22.388,Mechanical Shredding,Moderate
+PCB_00969,Printer Controller,Transformer,"1226,881,95,38",0.7165,Nickel,1.194,34254.57,32.347,Bioleaching,Moderate
+PCB_00970,GPU Board,Fuse,"959,206,84,44",0.9809,Palladium,9.037,149.46,3.824,Electrochemical,Critical
+PCB_00971,SSD Controller,Relay,"457,703,96,78",0.9866,Palladium,7.15,61446.3,22.503,Bioleaching,Critical
+PCB_00972,Motherboard,Fuse,"1299,285,101,58",0.7682,Zinc,3.245,2672.08,20.453,Electrochemical,Moderate
+PCB_00973,SSD Controller,Transistor,"1670,662,110,38",0.8977,Tin,2.792,58538.05,35.549,Pyrometallurgical,Moderate
+PCB_00974,Tablet Logic Board,Connector,"1678,474,15,46",0.8657,Silver,3.413,23904.91,24.453,Mechanical Shredding,Moderate
+PCB_00975,RAM Module,IC Chip,"1855,911,120,38",0.9529,Zinc,0.092,1070.37,25.956,Electrochemical,High
+PCB_00976,Router PCB,Crystal Oscillator,"202,842,36,53",0.7488,Nickel,1.065,38310.2,6.821,Mechanical Shredding,None
+PCB_00977,GPU Board,Heat Sink,"245,505,32,68",0.8257,Silver,9.16,19592.79,39.234,Bioleaching,Low
+PCB_00978,GPU Board,Transistor,"453,450,93,75",0.8032,Nickel,11.467,14179.07,40.772,Bioleaching,High
+PCB_00979,RAM Module,LED,"1462,624,26,30",0.7091,Silver,1.052,50220.63,21.822,Pyrometallurgical,Low
+PCB_00980,Power Supply,Connector,"824,213,65,79",0.6677,Gold,0.222,14723.59,37.536,Hydrometallurgical,High
+PCB_00981,Power Supply,Capacitor,"862,582,84,16",0.8073,Tin,4.815,25870.77,4.951,Electrochemical,High
+PCB_00982,Router PCB,Transformer,"1054,654,101,29",0.9336,Gold,0.416,5284.15,42.118,Electrochemical,None
+PCB_00983,Printer Controller,Voltage Regulator,"860,348,83,44",0.7086,Silver,7.959,21958.63,26.545,Pyrometallurgical,Critical
+PCB_00984,Power Supply,LED,"1338,978,22,69",0.7616,Copper,10.693,31346.74,32.871,Mechanical Shredding,Moderate
+PCB_00985,Tablet Logic Board,Relay,"1791,191,42,69",0.912,Gold,11.079,46781.31,40.764,Mechanical Shredding,Low
+PCB_00986,GPU Board,Inductor,"1236,451,76,55",0.8207,Palladium,0.47,47103.42,26.063,Bioleaching,None
+PCB_00987,Router PCB,Crystal Oscillator,"1248,451,17,77",0.7745,Copper,12.037,412.97,32.401,Electrochemical,Moderate
+PCB_00988,RAM Module,Transistor,"1695,866,32,43",0.8475,Copper,7.646,30226.87,7.651,Mechanical Shredding,Low
+PCB_00989,GPU Board,Relay,"1060,458,81,72",0.7204,Gold,1.952,29392.38,3.612,Electrochemical,None
+PCB_00990,SSD Controller,Fuse,"374,494,40,70",0.7794,Palladium,10.556,40610.24,10.145,Pyrometallurgical,High
+PCB_00991,SSD Controller,Relay,"1630,635,113,75",0.6615,Platinum,7.958,58248.76,0.397,Mechanical Shredding,Low
+PCB_00992,RAM Module,Voltage Regulator,"49,731,80,40",0.6991,Nickel,8.779,43791.36,4.361,Hydrometallurgical,Moderate
+PCB_00993,GPU Board,Voltage Regulator,"1704,239,107,37",0.9481,Zinc,8.967,27633.21,8.657,Hydrometallurgical,Critical
+PCB_00994,GPU Board,Transistor,"1201,114,40,50",0.8799,Gold,2.48,6915.86,11.57,Mechanical Shredding,Low
+PCB_00995,Power Supply,Connector,"615,431,105,61",0.8268,Palladium,2.218,16665.85,23.599,Pyrometallurgical,None
+PCB_00996,Tablet Logic Board,Connector,"100,173,118,80",0.9344,Zinc,5.057,40223.63,44.335,Electrochemical,None
+PCB_00997,Router PCB,Relay,"1849,183,100,69",0.7269,Gold,10.64,58940.34,20.422,Hydrometallurgical,Low
+PCB_00998,RAM Module,Inductor,"541,298,49,42",0.8858,Tin,9.224,17302.84,27.137,Hydrometallurgical,Critical
+PCB_00999,GPU Board,Crystal Oscillator,"524,606,79,63",0.6608,Zinc,10.142,16280.22,26.907,Bioleaching,High
+PCB_01000,Tablet Logic Board,Resistor,"1326,304,34,18",0.8872,Zinc,5.579,17128.4,31.372,Mechanical Shredding,High
+PCB_01001,GPU Board,Capacitor,"1191,425,63,61",0.9325,Nickel,8.127,17290.76,31.065,Bioleaching,Critical
+PCB_01002,GPU Board,Capacitor,"996,218,56,57",0.7084,Palladium,7.696,32382.31,28.647,Mechanical Shredding,High
+PCB_01003,GPU Board,Crystal Oscillator,"548,624,64,74",0.8868,Zinc,0.568,23188.23,37.515,Bioleaching,Critical
+PCB_01004,RAM Module,Fuse,"94,522,106,75",0.7128,Palladium,9.995,3563.19,10.793,Electrochemical,High
+PCB_01005,Motherboard,Heat Sink,"1545,170,21,77",0.9074,Silver,6.169,41326.21,18.25,Electrochemical,Moderate
+PCB_01006,RAM Module,Transistor,"512,78,104,78",0.7041,Gold,10.376,22000.08,15.373,Mechanical Shredding,Critical
+PCB_01007,SSD Controller,Capacitor,"290,729,98,28",0.6758,Zinc,7.811,5169.48,19.281,Electrochemical,Moderate
+PCB_01008,RAM Module,Crystal Oscillator,"238,375,33,30",0.7771,Nickel,2.869,9279.56,35.794,Mechanical Shredding,Critical
+PCB_01009,RAM Module,IC Chip,"1405,613,79,39",0.8938,Zinc,3.188,51175.75,25.468,Pyrometallurgical,High
+PCB_01010,Power Supply,Connector,"1131,104,45,22",0.9425,Copper,1.952,40502.63,11.412,Mechanical Shredding,None
+PCB_01011,SSD Controller,Inductor,"1377,88,107,69",0.847,Silver,6.379,39842.82,1.948,Bioleaching,Critical
+PCB_01012,Tablet Logic Board,Fuse,"1770,883,46,45",0.7973,Palladium,6.507,15372.18,14.871,Mechanical Shredding,Critical
+PCB_01013,Printer Controller,Inductor,"220,965,30,59",0.8006,Zinc,8.75,58430.11,8.797,Hydrometallurgical,Moderate
+PCB_01014,Motherboard,LED,"1712,815,110,30",0.6979,Gold,6.056,39024.99,41.568,Hydrometallurgical,Moderate
+PCB_01015,RAM Module,Fuse,"230,173,23,78",0.7453,Copper,11.757,10520.36,1.135,Bioleaching,Critical
+PCB_01016,Tablet Logic Board,LED,"494,865,83,47",0.9021,Nickel,2.544,21901.17,14.767,Electrochemical,Moderate
+PCB_01017,Printer Controller,Resistor,"129,823,19,69",0.6658,Palladium,8.964,32756.91,40.35,Mechanical Shredding,None
+PCB_01018,Power Supply,Capacitor,"265,827,51,51",0.8071,Zinc,2.911,19149.8,15.027,Mechanical Shredding,Low
+PCB_01019,GPU Board,Heat Sink,"1310,763,96,15",0.9173,Palladium,5.363,41028.62,0.387,Mechanical Shredding,Low
+PCB_01020,Power Supply,Inductor,"1075,483,105,24",0.9738,Tin,1.664,56366.37,5.698,Electrochemical,High
+PCB_01021,Power Supply,Voltage Regulator,"1576,647,65,41",0.9468,Silver,2.737,21812.01,28.195,Bioleaching,None
+PCB_01022,Power Supply,Resistor,"1823,621,64,64",0.755,Silver,0.1,10141.42,27.238,Hydrometallurgical,None
+PCB_01023,RAM Module,Crystal Oscillator,"76,348,64,35",0.9552,Platinum,8.317,28725.66,41.709,Pyrometallurgical,None
+PCB_01024,Router PCB,Battery Holder,"1158,163,42,56",0.6512,Nickel,2.045,51697.02,25.705,Bioleaching,Critical
+PCB_01025,SSD Controller,Transistor,"386,246,32,79",0.7214,Gold,1.111,33722.45,18.642,Electrochemical,None
+PCB_01026,Router PCB,Fuse,"1459,157,90,39",0.7981,Palladium,4.369,1711.03,15.333,Electrochemical,None
+PCB_01027,GPU Board,Voltage Regulator,"1308,10,82,20",0.9282,Copper,5.668,56139.95,40.559,Electrochemical,None
+PCB_01028,SSD Controller,Transformer,"1041,155,51,29",0.8188,Palladium,2.113,20190.08,39.881,Mechanical Shredding,Critical
+PCB_01029,Router PCB,Resistor,"84,575,105,54",0.7697,Platinum,2.44,23287.55,26.944,Mechanical Shredding,None
+PCB_01030,Phone Main Board,Battery Holder,"1223,946,47,58",0.6705,Zinc,11.219,25688.89,4.268,Pyrometallurgical,High
+PCB_01031,GPU Board,LED,"1572,267,109,64",0.8972,Copper,5.646,11538.76,26.255,Pyrometallurgical,Moderate
+PCB_01032,Power Supply,Resistor,"1163,49,16,71",0.9767,Nickel,8.19,14286.69,21.498,Hydrometallurgical,Critical
+PCB_01033,GPU Board,Heat Sink,"974,186,111,36",0.9876,Gold,7.168,26024.91,29.97,Hydrometallurgical,High
+PCB_01034,Tablet Logic Board,Transistor,"472,655,80,63",0.8308,Platinum,4.49,20370.25,15.425,Hydrometallurgical,Low
+PCB_01035,GPU Board,Diode,"1515,479,37,59",0.9042,Gold,4.332,14064.95,0.786,Pyrometallurgical,Critical
+PCB_01036,SSD Controller,Resistor,"111,495,110,34",0.7375,Nickel,10.56,20553.56,16.658,Bioleaching,None
+PCB_01037,Phone Main Board,Connector,"1647,601,43,54",0.9205,Silver,0.871,53811.19,35.463,Mechanical Shredding,None
+PCB_01038,Tablet Logic Board,Battery Holder,"1596,329,106,77",0.7344,Copper,7.768,48845.26,8.78,Hydrometallurgical,Critical
+PCB_01039,Router PCB,Diode,"800,328,27,77",0.6796,Tin,7.82,11984.08,5.154,Pyrometallurgical,None
+PCB_01040,Tablet Logic Board,Voltage Regulator,"1126,760,107,35",0.9001,Zinc,8.247,42712.36,8.292,Pyrometallurgical,Moderate
+PCB_01041,SSD Controller,Battery Holder,"21,720,103,41",0.9488,Platinum,7.886,9882.06,17.761,Electrochemical,Moderate
+PCB_01042,Motherboard,Relay,"83,737,19,33",0.7036,Silver,11.667,35242.95,6.859,Electrochemical,Moderate
+PCB_01043,Router PCB,Diode,"311,953,95,78",0.713,Palladium,4.223,56905.03,41.9,Pyrometallurgical,Low
+PCB_01044,RAM Module,Voltage Regulator,"589,357,71,64",0.7177,Platinum,9.069,19025.78,20.187,Electrochemical,Critical
+PCB_01045,Power Supply,Voltage Regulator,"568,634,18,35",0.6955,Gold,6.855,35424.02,43.397,Hydrometallurgical,Moderate
+PCB_01046,Motherboard,Transformer,"55,481,21,68",0.8934,Zinc,0.069,2094.83,31.195,Bioleaching,High
+PCB_01047,RAM Module,Capacitor,"1676,437,95,64",0.7831,Copper,6.834,50006.77,37.561,Bioleaching,None
+PCB_01048,Router PCB,Capacitor,"792,153,66,55",0.8868,Copper,5.779,28490.33,19.299,Mechanical Shredding,High
+PCB_01049,Motherboard,Fuse,"961,144,88,54",0.6558,Nickel,2.437,59443.85,0.529,Pyrometallurgical,High
+PCB_01050,SSD Controller,Inductor,"700,495,105,51",0.7973,Tin,1.827,48860.91,7.675,Pyrometallurgical,None
+PCB_01051,RAM Module,Battery Holder,"1642,889,87,58",0.7595,Nickel,8.664,56928.36,34.527,Pyrometallurgical,Low
+PCB_01052,Phone Main Board,Transformer,"1554,296,114,69",0.9096,Zinc,2.982,20659.99,40.944,Pyrometallurgical,Moderate
+PCB_01053,RAM Module,Inductor,"1105,857,90,26",0.6511,Zinc,12.261,21487.98,28.848,Hydrometallurgical,Moderate
+PCB_01054,RAM Module,Heat Sink,"1693,116,103,17",0.784,Gold,0.292,48965.48,39.841,Mechanical Shredding,None
+PCB_01055,Printer Controller,Fuse,"1264,279,29,68",0.9728,Gold,7.251,37687.09,15.602,Electrochemical,None
+PCB_01056,Router PCB,Connector,"1085,304,55,26",0.8973,Zinc,2.296,43718.81,7.149,Electrochemical,Moderate
+PCB_01057,Motherboard,Relay,"318,61,115,71",0.9631,Silver,8.94,52010.47,26.988,Bioleaching,None
+PCB_01058,Printer Controller,Transformer,"1690,1026,56,58",0.8424,Tin,5.185,52856.13,6.494,Hydrometallurgical,Low
+PCB_01059,GPU Board,LED,"1255,204,98,22",0.8433,Copper,8.307,10935.06,22.864,Electrochemical,Low
+PCB_01060,Motherboard,Relay,"1637,452,88,72",0.6715,Gold,4.634,42112.68,16.155,Bioleaching,Moderate
+PCB_01061,Phone Main Board,Capacitor,"396,271,42,56",0.8148,Tin,11.227,5117.7,4.283,Mechanical Shredding,Critical
+PCB_01062,Printer Controller,Relay,"1600,88,94,71",0.9347,Copper,10.308,50438.96,39.782,Pyrometallurgical,None
+PCB_01063,Router PCB,Capacitor,"1516,211,92,68",0.8035,Silver,11.561,8283.11,28.483,Hydrometallurgical,High
+PCB_01064,Motherboard,Crystal Oscillator,"880,687,59,76",0.9593,Palladium,10.482,22043.42,2.939,Pyrometallurgical,None
+PCB_01065,RAM Module,Heat Sink,"1846,829,20,70",0.9232,Nickel,2.658,465.07,3.848,Hydrometallurgical,Low
+PCB_01066,Printer Controller,Capacitor,"1840,195,68,59",0.8143,Platinum,3.365,5196.17,27.966,Pyrometallurgical,Moderate
+PCB_01067,SSD Controller,Relay,"741,861,85,39",0.7199,Nickel,2.781,57201.16,22.258,Hydrometallurgical,Critical
+PCB_01068,RAM Module,Voltage Regulator,"745,171,100,77",0.8947,Gold,1.557,50102.24,24.062,Hydrometallurgical,None
+PCB_01069,SSD Controller,Inductor,"1899,574,40,42",0.6937,Copper,10.041,56839.66,27.645,Pyrometallurgical,Moderate
+PCB_01070,Phone Main Board,Inductor,"1542,608,40,44",0.8308,Palladium,6.037,21293.71,35.379,Bioleaching,Low
+PCB_01071,Phone Main Board,IC Chip,"1863,390,83,54",0.8026,Tin,5.348,38083.22,5.527,Bioleaching,Moderate
+PCB_01072,SSD Controller,Capacitor,"670,740,16,65",0.7406,Zinc,4.755,26103.24,8.322,Pyrometallurgical,High
+PCB_01073,Printer Controller,Transformer,"1293,336,102,21",0.7115,Nickel,2.284,47850.04,19.54,Bioleaching,Critical
+PCB_01074,Tablet Logic Board,Fuse,"1836,539,71,64",0.7782,Nickel,7.975,25929.05,38.749,Mechanical Shredding,None
+PCB_01075,Router PCB,Heat Sink,"582,208,75,68",0.9574,Zinc,11.05,44131.59,12.452,Electrochemical,High
+PCB_01076,Router PCB,Connector,"714,1003,17,27",0.9641,Silver,7.567,31909.98,35.05,Mechanical Shredding,Critical
+PCB_01077,GPU Board,Diode,"1551,276,48,58",0.858,Nickel,10.592,15588.03,3.14,Hydrometallurgical,Moderate
+PCB_01078,GPU Board,Capacitor,"1579,603,95,75",0.8382,Palladium,10.171,3471.03,25.557,Electrochemical,Moderate
+PCB_01079,Power Supply,Connector,"1753,711,46,18",0.7397,Nickel,4.426,48019.77,27.849,Hydrometallurgical,None
+PCB_01080,Printer Controller,Resistor,"1863,368,84,50",0.9711,Silver,1.562,10032.2,10.628,Electrochemical,Low
+PCB_01081,Printer Controller,Capacitor,"1845,312,58,41",0.8321,Zinc,6.271,14664.73,21.489,Bioleaching,None
+PCB_01082,Phone Main Board,Relay,"1044,889,55,79",0.8311,Platinum,5.617,50611.08,17.196,Mechanical Shredding,High
+PCB_01083,Motherboard,Transformer,"369,178,83,20",0.7982,Palladium,2.941,58237.37,31.305,Pyrometallurgical,Moderate
+PCB_01084,GPU Board,Connector,"1077,834,116,57",0.969,Nickel,5.06,48621.23,12.076,Bioleaching,None
+PCB_01085,Router PCB,Crystal Oscillator,"882,872,68,39",0.8879,Platinum,2.545,18584.32,23.795,Hydrometallurgical,Critical
+PCB_01086,GPU Board,Crystal Oscillator,"1777,58,43,57",0.8532,Tin,9.868,29247.61,17.124,Hydrometallurgical,High
+PCB_01087,SSD Controller,IC Chip,"525,688,53,70",0.9636,Gold,4.341,50953.06,2.427,Bioleaching,Moderate
+PCB_01088,Router PCB,Transformer,"504,808,21,58",0.893,Tin,8.381,15077.19,8.004,Bioleaching,Critical
+PCB_01089,SSD Controller,Crystal Oscillator,"1125,620,64,76",0.9076,Silver,4.037,13519.18,28.323,Pyrometallurgical,High
+PCB_01090,SSD Controller,IC Chip,"994,445,113,29",0.8953,Copper,4.015,8301.04,27.094,Hydrometallurgical,Critical
+PCB_01091,Router PCB,Transformer,"86,362,41,70",0.8062,Copper,1.25,34983.63,0.88,Bioleaching,High
+PCB_01092,Printer Controller,LED,"281,850,59,58",0.66,Platinum,12.474,9820.32,22.324,Bioleaching,None
+PCB_01093,RAM Module,Transistor,"445,828,62,57",0.839,Silver,6.807,3309.55,12.414,Mechanical Shredding,Moderate
+PCB_01094,Printer Controller,Crystal Oscillator,"400,673,82,75",0.9759,Zinc,2.544,18054.16,12.223,Electrochemical,Critical
+PCB_01095,Phone Main Board,Fuse,"1443,924,37,78",0.7479,Gold,8.081,43394.69,24.54,Bioleaching,High
+PCB_01096,Tablet Logic Board,Crystal Oscillator,"997,990,48,71",0.9693,Copper,5.173,37017.19,43.856,Pyrometallurgical,High
+PCB_01097,Phone Main Board,Fuse,"303,802,120,54",0.9448,Palladium,3.786,14914.36,19.455,Bioleaching,None
+PCB_01098,Power Supply,Transistor,"296,1018,38,54",0.7257,Zinc,0.441,43014.73,14.972,Electrochemical,Moderate
+PCB_01099,GPU Board,Relay,"1488,305,30,20",0.8224,Nickel,3.28,46951.43,0.06,Electrochemical,High
+PCB_01100,Motherboard,Voltage Regulator,"357,270,55,37",0.6635,Copper,9.511,14820.04,44.544,Bioleaching,Moderate
+PCB_01101,Router PCB,Fuse,"137,263,36,35",0.6571,Gold,4.236,2442.93,38.228,Hydrometallurgical,Low
+PCB_01102,Phone Main Board,Transformer,"508,780,114,41",0.8221,Zinc,7.825,34465.57,15.022,Hydrometallurgical,High
+PCB_01103,Power Supply,Transformer,"277,987,62,56",0.9459,Copper,0.887,43141.99,3.312,Hydrometallurgical,None
+PCB_01104,Motherboard,Voltage Regulator,"1308,966,45,54",0.9548,Copper,11.059,48318.2,25.64,Pyrometallurgical,Low
+PCB_01105,Phone Main Board,Fuse,"1681,913,29,32",0.8877,Copper,4.332,53916.42,26.508,Bioleaching,Moderate
+PCB_01106,Motherboard,Relay,"503,559,111,73",0.9188,Zinc,3.109,19234.99,13.815,Hydrometallurgical,Critical
+PCB_01107,SSD Controller,Relay,"595,918,51,65",0.9315,Gold,8.547,36611.19,27.834,Electrochemical,Critical
+PCB_01108,Router PCB,Voltage Regulator,"392,94,53,39",0.8113,Palladium,10.89,38321.18,2.707,Hydrometallurgical,Moderate
+PCB_01109,GPU Board,Crystal Oscillator,"37,919,48,57",0.7851,Copper,11.971,39230.7,12.817,Pyrometallurgical,High
+PCB_01110,Motherboard,Capacitor,"1109,301,83,69",0.9041,Palladium,3.865,39513.05,42.096,Electrochemical,High
+PCB_01111,Motherboard,Inductor,"1239,676,66,71",0.7452,Silver,5.238,26328.34,4.249,Hydrometallurgical,None
+PCB_01112,Motherboard,Transformer,"592,97,110,52",0.975,Silver,8.884,24912.81,43.222,Pyrometallurgical,None
+PCB_01113,Motherboard,Resistor,"518,676,95,35",0.6678,Palladium,10.118,50625.36,7.792,Bioleaching,Critical
+PCB_01114,Power Supply,Voltage Regulator,"987,458,22,58",0.8235,Silver,8.694,29001.88,24.357,Bioleaching,Critical
+PCB_01115,Router PCB,Relay,"1077,667,76,50",0.8644,Silver,12.378,31909.67,3.982,Bioleaching,Low
+PCB_01116,Printer Controller,Battery Holder,"59,327,112,77",0.8989,Gold,8.78,30785.95,28.601,Electrochemical,High
+PCB_01117,Power Supply,Heat Sink,"123,976,93,56",0.8284,Gold,11.434,47589.14,15.837,Electrochemical,Critical
+PCB_01118,Tablet Logic Board,Battery Holder,"1378,746,26,78",0.9454,Palladium,10.836,54310.7,35.675,Mechanical Shredding,Critical
+PCB_01119,Power Supply,Fuse,"1059,560,69,33",0.7957,Nickel,10.862,20678.01,14.88,Pyrometallurgical,High
+PCB_01120,Phone Main Board,Resistor,"1371,955,64,45",0.9887,Zinc,0.383,61414.41,27.0,Hydrometallurgical,Low
+PCB_01121,GPU Board,Voltage Regulator,"730,533,18,33",0.8554,Copper,8.909,34711.1,40.62,Mechanical Shredding,Critical
+PCB_01122,GPU Board,Fuse,"1817,607,94,77",0.7807,Silver,2.868,35280.57,34.457,Mechanical Shredding,Low
+PCB_01123,RAM Module,Capacitor,"1463,340,79,51",0.9786,Copper,11.715,24385.62,13.908,Pyrometallurgical,Critical
+PCB_01124,Printer Controller,Transistor,"562,569,74,61",0.8439,Tin,9.175,31627.72,39.083,Electrochemical,Moderate
+PCB_01125,Power Supply,Connector,"264,942,58,25",0.8163,Palladium,5.269,30155.69,5.824,Mechanical Shredding,Critical
+PCB_01126,Tablet Logic Board,Resistor,"706,992,96,18",0.7142,Zinc,5.417,12836.97,28.601,Mechanical Shredding,Low
+PCB_01127,SSD Controller,Capacitor,"533,91,80,42",0.8743,Palladium,3.556,33159.02,15.512,Electrochemical,High
+PCB_01128,Motherboard,Fuse,"1083,957,19,28",0.9685,Nickel,5.016,56885.72,23.18,Mechanical Shredding,None
+PCB_01129,GPU Board,Diode,"1061,910,42,67",0.9161,Gold,1.81,23602.28,34.02,Bioleaching,Moderate
+PCB_01130,Phone Main Board,LED,"819,454,41,17",0.9713,Palladium,10.767,60645.67,29.737,Mechanical Shredding,Critical
+PCB_01131,SSD Controller,Transistor,"1817,928,39,17",0.7779,Palladium,0.74,24527.23,18.585,Pyrometallurgical,None
+PCB_01132,Motherboard,Diode,"1317,933,113,16",0.753,Silver,6.81,34517.83,22.672,Hydrometallurgical,None
+PCB_01133,Tablet Logic Board,Fuse,"1616,661,92,31",0.764,Zinc,4.47,42439.58,36.786,Mechanical Shredding,Low
+PCB_01134,GPU Board,IC Chip,"1278,224,72,30",0.8176,Platinum,8.399,7999.2,23.774,Mechanical Shredding,Moderate
+PCB_01135,Phone Main Board,Connector,"1530,1000,63,25",0.8849,Tin,8.168,10022.53,43.804,Mechanical Shredding,Critical
+PCB_01136,Printer Controller,IC Chip,"222,102,19,60",0.8934,Gold,1.26,24698.67,4.629,Hydrometallurgical,Low
+PCB_01137,Router PCB,Battery Holder,"999,691,51,79",0.8954,Copper,8.242,23672.95,8.678,Mechanical Shredding,Moderate
+PCB_01138,GPU Board,LED,"401,403,18,62",0.6501,Gold,6.226,4364.46,13.606,Hydrometallurgical,Critical
+PCB_01139,Tablet Logic Board,Voltage Regulator,"1236,148,21,68",0.857,Silver,4.623,27736.59,23.149,Bioleaching,Critical
+PCB_01140,GPU Board,Heat Sink,"169,867,49,58",0.7293,Silver,7.804,44580.35,31.16,Bioleaching,Critical
+PCB_01141,RAM Module,Inductor,"24,213,116,30",0.7026,Copper,1.133,52893.48,22.597,Bioleaching,Low
+PCB_01142,RAM Module,IC Chip,"105,901,21,48",0.6621,Nickel,9.938,46394.96,18.495,Mechanical Shredding,Low
+PCB_01143,Phone Main Board,IC Chip,"1136,762,37,79",0.6685,Silver,10.391,6435.32,36.684,Pyrometallurgical,None
+PCB_01144,GPU Board,Diode,"1296,318,67,53",0.6608,Platinum,11.146,35965.79,4.456,Mechanical Shredding,Moderate
+PCB_01145,Router PCB,Inductor,"254,28,87,46",0.8885,Zinc,6.607,30122.44,41.489,Electrochemical,None
+PCB_01146,SSD Controller,Transformer,"686,1008,26,59",0.8591,Gold,6.95,24539.58,40.245,Hydrometallurgical,Moderate
+PCB_01147,Tablet Logic Board,LED,"497,612,45,72",0.947,Nickel,9.488,9620.73,6.926,Hydrometallurgical,None
+PCB_01148,Router PCB,Voltage Regulator,"378,913,49,40",0.6845,Silver,9.219,56025.64,12.864,Mechanical Shredding,Moderate
+PCB_01149,Phone Main Board,Crystal Oscillator,"1360,829,45,26",0.9295,Silver,1.435,5334.37,6.717,Electrochemical,Moderate
+PCB_01150,Power Supply,Crystal Oscillator,"1836,269,39,62",0.8744,Platinum,2.9,37589.25,26.224,Pyrometallurgical,Low
+PCB_01151,RAM Module,Voltage Regulator,"1775,863,98,62",0.7066,Copper,2.066,23511.13,0.209,Electrochemical,High
+PCB_01152,GPU Board,IC Chip,"166,147,23,56",0.726,Tin,5.976,31716.41,43.867,Bioleaching,Moderate
+PCB_01153,Motherboard,Voltage Regulator,"224,359,105,78",0.9824,Zinc,5.823,59911.61,12.002,Hydrometallurgical,None
+PCB_01154,Power Supply,Transformer,"1696,353,44,26",0.8389,Gold,6.951,50708.27,34.3,Pyrometallurgical,None
+PCB_01155,SSD Controller,LED,"1885,253,118,19",0.8138,Palladium,4.653,55835.68,30.388,Mechanical Shredding,Low
+PCB_01156,GPU Board,Connector,"1757,867,80,26",0.654,Silver,10.816,51271.69,3.816,Hydrometallurgical,Critical
+PCB_01157,RAM Module,Transistor,"277,995,70,77",0.9057,Palladium,5.325,37541.89,23.062,Hydrometallurgical,High
+PCB_01158,Motherboard,Voltage Regulator,"630,454,30,18",0.7671,Palladium,5.041,50761.48,33.96,Bioleaching,Critical
+PCB_01159,Motherboard,Crystal Oscillator,"1877,167,57,36",0.8573,Tin,1.461,17645.13,19.327,Electrochemical,None
+PCB_01160,Router PCB,Crystal Oscillator,"408,799,71,57",0.7562,Gold,0.097,45550.39,27.584,Hydrometallurgical,Low
+PCB_01161,Power Supply,Fuse,"844,668,59,37",0.9509,Nickel,9.785,3464.29,9.64,Mechanical Shredding,None
+PCB_01162,RAM Module,Resistor,"333,716,93,76",0.8908,Palladium,8.765,11418.26,36.999,Hydrometallurgical,Critical
+PCB_01163,SSD Controller,Fuse,"154,1039,59,77",0.7162,Zinc,6.796,50646.66,44.29,Hydrometallurgical,High
+PCB_01164,Router PCB,Heat Sink,"811,639,53,32",0.8668,Silver,3.505,37478.4,39.095,Mechanical Shredding,None
+PCB_01165,SSD Controller,Fuse,"1731,746,31,46",0.8947,Platinum,0.373,44231.51,19.291,Electrochemical,High
+PCB_01166,SSD Controller,Crystal Oscillator,"470,809,117,16",0.8008,Gold,9.917,2948.3,14.99,Bioleaching,Low
+PCB_01167,Motherboard,Transistor,"213,682,85,57",0.8036,Gold,4.086,19425.05,41.864,Hydrometallurgical,None
+PCB_01168,Motherboard,Transformer,"1716,787,100,36",0.9657,Nickel,7.05,20375.86,26.602,Electrochemical,High
+PCB_01169,GPU Board,Voltage Regulator,"106,326,73,75",0.9169,Platinum,7.97,3535.12,37.118,Electrochemical,Low
+PCB_01170,Power Supply,Crystal Oscillator,"893,770,15,77",0.79,Gold,4.155,1473.02,43.344,Hydrometallurgical,Critical
+PCB_01171,Power Supply,Heat Sink,"1721,650,23,37",0.6969,Palladium,9.444,38348.82,24.178,Mechanical Shredding,High
+PCB_01172,Tablet Logic Board,Transformer,"108,730,94,56",0.8334,Silver,1.757,149.58,2.508,Hydrometallurgical,None
+PCB_01173,Tablet Logic Board,Capacitor,"512,209,36,32",0.9064,Zinc,11.338,16034.58,18.598,Pyrometallurgical,Low
+PCB_01174,RAM Module,Fuse,"793,636,64,20",0.8367,Gold,1.77,60287.63,28.351,Pyrometallurgical,Critical
+PCB_01175,Printer Controller,Relay,"736,639,102,52",0.9444,Palladium,11.069,57259.35,22.159,Bioleaching,Critical
+PCB_01176,Motherboard,Relay,"1324,1052,104,67",0.7561,Palladium,3.214,42621.33,30.77,Mechanical Shredding,None
+PCB_01177,Power Supply,Capacitor,"1722,879,107,44",0.8827,Tin,1.26,36044.46,41.051,Mechanical Shredding,Critical
+PCB_01178,SSD Controller,Transformer,"775,793,108,19",0.9759,Gold,4.274,3282.43,30.979,Pyrometallurgical,None
+PCB_01179,GPU Board,Transistor,"758,27,113,64",0.7449,Silver,10.579,36176.47,38.885,Mechanical Shredding,High
+PCB_01180,SSD Controller,Diode,"1415,754,16,41",0.7448,Platinum,6.616,47669.42,1.455,Electrochemical,Low
+PCB_01181,Motherboard,Fuse,"1036,745,65,40",0.922,Platinum,3.471,42444.18,19.146,Hydrometallurgical,Critical
+PCB_01182,Router PCB,LED,"1766,842,44,64",0.9863,Copper,5.508,3875.72,35.196,Electrochemical,High
+PCB_01183,GPU Board,Connector,"305,144,33,79",0.7431,Silver,5.503,51414.55,28.818,Hydrometallurgical,Moderate
+PCB_01184,Power Supply,Transformer,"939,825,54,28",0.7986,Platinum,2.567,41064.75,41.06,Bioleaching,Critical
+PCB_01185,Printer Controller,IC Chip,"328,745,84,71",0.9041,Nickel,1.036,43738.15,18.206,Electrochemical,Critical
+PCB_01186,Phone Main Board,IC Chip,"657,552,79,77",0.9037,Nickel,11.216,4263.6,8.013,Electrochemical,None
+PCB_01187,SSD Controller,Transistor,"962,675,55,44",0.8793,Tin,9.256,55150.41,8.745,Hydrometallurgical,Low
+PCB_01188,Power Supply,Fuse,"954,373,86,24",0.9423,Gold,8.588,27710.79,39.13,Mechanical Shredding,Moderate
+PCB_01189,Motherboard,Resistor,"1601,310,59,51",0.7259,Gold,0.274,53077.3,31.156,Hydrometallurgical,High
+PCB_01190,Printer Controller,Relay,"975,915,83,35",0.748,Zinc,11.144,59281.36,23.42,Hydrometallurgical,Low
+PCB_01191,GPU Board,Transformer,"489,772,85,46",0.7048,Tin,2.923,36243.08,41.623,Pyrometallurgical,High
+PCB_01192,Power Supply,Diode,"1712,998,38,65",0.7555,Silver,3.52,24891.29,23.126,Bioleaching,Critical
+PCB_01193,Power Supply,Crystal Oscillator,"109,172,79,18",0.7309,Tin,2.282,45810.84,26.807,Mechanical Shredding,Moderate
+PCB_01194,Phone Main Board,Connector,"1852,203,30,33",0.8367,Nickel,5.615,1571.24,44.792,Pyrometallurgical,Critical
+PCB_01195,Power Supply,Crystal Oscillator,"649,801,63,74",0.8131,Gold,10.906,28273.25,30.966,Pyrometallurgical,Moderate
+PCB_01196,Power Supply,IC Chip,"905,911,82,41",0.8179,Zinc,0.354,4950.22,36.805,Pyrometallurgical,Moderate
+PCB_01197,Tablet Logic Board,Fuse,"1755,792,28,66",0.7875,Copper,4.63,12791.38,21.543,Hydrometallurgical,Moderate
+PCB_01198,RAM Module,Diode,"310,228,20,18",0.8295,Gold,6.142,24525.9,31.033,Bioleaching,Critical
+PCB_01199,Motherboard,Battery Holder,"786,191,38,52",0.6554,Zinc,2.036,58713.61,4.275,Bioleaching,High
+PCB_01200,Printer Controller,LED,"1852,36,114,63",0.9767,Tin,6.484,43736.39,25.654,Hydrometallurgical,High
+PCB_01201,Power Supply,Connector,"895,768,46,77",0.878,Nickel,5.071,34023.14,40.304,Pyrometallurgical,High
+PCB_01202,Router PCB,Transistor,"829,819,82,75",0.9826,Gold,2.837,46571.04,40.498,Bioleaching,Critical
+PCB_01203,Motherboard,Resistor,"1684,937,99,15",0.8397,Zinc,10.98,34127.44,16.359,Mechanical Shredding,High
+PCB_01204,RAM Module,Inductor,"1708,616,73,57",0.8582,Palladium,7.399,18281.34,2.176,Bioleaching,None
+PCB_01205,Tablet Logic Board,Relay,"1774,961,46,47",0.6915,Gold,10.427,39857.11,25.614,Hydrometallurgical,High
+PCB_01206,Printer Controller,Voltage Regulator,"733,877,20,38",0.8094,Platinum,11.689,18192.92,43.776,Bioleaching,High
+PCB_01207,Printer Controller,Crystal Oscillator,"976,20,39,53",0.6714,Tin,11.917,1180.19,1.308,Electrochemical,Low
+PCB_01208,SSD Controller,Fuse,"777,708,17,71",0.7121,Platinum,10.498,21181.81,19.268,Electrochemical,High
+PCB_01209,GPU Board,Fuse,"1430,735,79,39",0.7199,Platinum,8.854,31039.31,40.294,Pyrometallurgical,Low
+PCB_01210,Printer Controller,Resistor,"1792,1042,107,49",0.921,Gold,0.337,21710.7,2.46,Hydrometallurgical,Critical
+PCB_01211,Printer Controller,Capacitor,"1333,434,21,19",0.84,Silver,2.634,57470.0,19.159,Hydrometallurgical,High
+PCB_01212,GPU Board,Battery Holder,"1520,810,88,50",0.9792,Platinum,6.28,47598.21,27.254,Electrochemical,None
+PCB_01213,Printer Controller,Inductor,"1792,736,46,32",0.6794,Zinc,10.046,41286.46,27.248,Electrochemical,Critical
+PCB_01214,SSD Controller,Resistor,"1175,736,84,65",0.9608,Nickel,5.794,20877.56,15.158,Electrochemical,Low
+PCB_01215,RAM Module,Transformer,"573,645,65,33",0.6971,Platinum,5.899,8855.21,14.325,Mechanical Shredding,Critical
+PCB_01216,Printer Controller,Connector,"64,1020,18,73",0.7816,Silver,4.495,21169.45,19.35,Hydrometallurgical,None
+PCB_01217,GPU Board,Connector,"520,357,39,67",0.7157,Copper,10.585,48385.78,30.766,Hydrometallurgical,None
+PCB_01218,SSD Controller,Fuse,"1373,258,110,19",0.9887,Copper,11.66,35848.58,24.58,Hydrometallurgical,Moderate
+PCB_01219,Power Supply,LED,"862,11,116,35",0.6965,Nickel,8.898,50900.28,33.089,Bioleaching,High
+PCB_01220,Printer Controller,Voltage Regulator,"475,923,25,61",0.6773,Silver,12.29,33800.84,14.495,Bioleaching,Critical
+PCB_01221,Router PCB,Transformer,"790,66,107,61",0.9696,Palladium,5.849,37192.09,44.408,Electrochemical,Moderate
+PCB_01222,Phone Main Board,Resistor,"52,267,46,54",0.9442,Gold,8.244,10303.35,44.802,Hydrometallurgical,None
+PCB_01223,SSD Controller,Resistor,"577,287,99,42",0.7512,Zinc,3.854,12119.4,31.273,Bioleaching,None
+PCB_01224,Router PCB,Diode,"349,1041,86,48",0.8596,Zinc,3.982,16151.91,31.735,Electrochemical,Moderate
+PCB_01225,Motherboard,Capacitor,"1744,956,77,42",0.6822,Platinum,0.682,56549.62,10.341,Mechanical Shredding,None
+PCB_01226,Printer Controller,Relay,"51,691,77,77",0.6536,Gold,0.845,30594.5,31.546,Bioleaching,Low
+PCB_01227,Tablet Logic Board,Crystal Oscillator,"1247,293,65,55",0.867,Platinum,2.517,11988.98,37.293,Pyrometallurgical,Low
+PCB_01228,Router PCB,Relay,"1621,614,91,42",0.7449,Zinc,7.939,10052.45,19.101,Mechanical Shredding,High
+PCB_01229,Power Supply,Heat Sink,"351,618,107,17",0.9714,Copper,6.281,26693.62,6.261,Pyrometallurgical,Low
+PCB_01230,Router PCB,Battery Holder,"1547,117,92,77",0.7282,Gold,1.977,28733.78,18.145,Hydrometallurgical,Low
+PCB_01231,RAM Module,Inductor,"465,917,67,37",0.9147,Tin,10.454,27661.63,26.043,Mechanical Shredding,Low
+PCB_01232,Phone Main Board,Capacitor,"994,566,109,37",0.7658,Silver,7.815,40728.8,21.742,Mechanical Shredding,High
+PCB_01233,Printer Controller,LED,"1686,799,88,26",0.7114,Nickel,2.341,44283.93,28.008,Electrochemical,None
+PCB_01234,Router PCB,Transformer,"1138,16,68,29",0.7252,Nickel,7.769,52744.9,9.957,Bioleaching,High
+PCB_01235,Motherboard,Crystal Oscillator,"194,630,91,42",0.876,Zinc,8.977,16997.76,20.936,Electrochemical,None
+PCB_01236,Tablet Logic Board,Crystal Oscillator,"379,532,115,76",0.8644,Zinc,4.799,20333.84,7.747,Mechanical Shredding,Low
+PCB_01237,GPU Board,LED,"281,243,86,24",0.9416,Palladium,12.145,10157.27,31.569,Bioleaching,Critical
+PCB_01238,Printer Controller,IC Chip,"1801,317,75,76",0.9589,Palladium,7.322,15535.52,16.517,Mechanical Shredding,High
+PCB_01239,Phone Main Board,LED,"1264,853,27,41",0.8123,Nickel,2.16,14187.34,18.001,Bioleaching,Critical
+PCB_01240,Power Supply,Inductor,"1525,732,64,62",0.8624,Silver,9.048,25878.01,20.003,Bioleaching,None
+PCB_01241,Phone Main Board,Transistor,"547,716,109,68",0.9867,Gold,4.498,5476.59,30.687,Mechanical Shredding,Low
+PCB_01242,GPU Board,IC Chip,"930,975,111,40",0.8852,Nickel,8.606,35799.68,6.416,Pyrometallurgical,Critical
+PCB_01243,RAM Module,Transformer,"219,984,72,18",0.6951,Nickel,8.699,28478.11,17.958,Hydrometallurgical,Moderate
+PCB_01244,Tablet Logic Board,Relay,"1158,949,38,31",0.6526,Palladium,6.017,32114.72,16.47,Bioleaching,High
+PCB_01245,Tablet Logic Board,LED,"766,972,93,27",0.7682,Gold,10.319,18786.57,36.773,Electrochemical,High
+PCB_01246,Phone Main Board,Connector,"1098,931,81,27",0.8586,Gold,11.585,51119.29,24.573,Electrochemical,High
+PCB_01247,Printer Controller,Crystal Oscillator,"801,115,120,22",0.6728,Silver,7.473,39808.94,25.254,Pyrometallurgical,Low
+PCB_01248,GPU Board,Diode,"1425,50,18,17",0.8547,Gold,2.706,30034.05,43.47,Pyrometallurgical,None
+PCB_01249,Phone Main Board,Voltage Regulator,"1626,810,106,28",0.9413,Nickel,5.635,49923.36,29.065,Bioleaching,Critical
+PCB_01250,Motherboard,Resistor,"1629,256,80,58",0.8966,Copper,5.318,27073.53,12.481,Pyrometallurgical,None
+PCB_01251,Motherboard,Transistor,"1740,466,65,80",0.8003,Tin,2.093,13889.44,24.336,Electrochemical,High
+PCB_01252,GPU Board,Relay,"1170,323,88,40",0.9189,Palladium,4.073,59435.76,26.253,Electrochemical,Low
+PCB_01253,Phone Main Board,Transformer,"620,293,112,66",0.6798,Tin,11.543,33141.86,42.144,Electrochemical,High
+PCB_01254,Tablet Logic Board,Transformer,"705,443,42,70",0.8371,Nickel,9.427,49389.66,34.711,Bioleaching,Low
+PCB_01255,Printer Controller,Heat Sink,"1165,728,117,59",0.8322,Gold,11.004,56100.69,19.672,Electrochemical,Critical
+PCB_01256,Power Supply,Diode,"411,437,57,65",0.8505,Copper,0.648,25702.14,14.632,Pyrometallurgical,Moderate
+PCB_01257,Phone Main Board,Transistor,"1690,193,64,15",0.7178,Gold,5.919,21268.24,27.597,Electrochemical,None
+PCB_01258,Phone Main Board,Heat Sink,"1548,686,89,57",0.932,Gold,1.777,48728.55,7.668,Electrochemical,None
+PCB_01259,Motherboard,Inductor,"1618,991,75,32",0.7072,Platinum,3.557,3482.23,28.446,Pyrometallurgical,High
+PCB_01260,GPU Board,IC Chip,"442,282,110,27",0.813,Gold,1.904,11721.77,12.001,Hydrometallurgical,High
+PCB_01261,Motherboard,Voltage Regulator,"1614,993,71,67",0.9807,Tin,1.896,37028.5,33.284,Electrochemical,Low
+PCB_01262,RAM Module,IC Chip,"908,1008,54,53",0.8347,Palladium,6.264,25740.2,9.329,Bioleaching,Moderate
+PCB_01263,Router PCB,Transistor,"1169,921,101,16",0.7221,Gold,6.687,19662.53,8.828,Hydrometallurgical,High
+PCB_01264,Router PCB,Resistor,"507,725,79,56",0.9621,Zinc,11.626,11099.94,27.266,Bioleaching,Moderate
+PCB_01265,RAM Module,LED,"1056,114,110,72",0.6922,Nickel,7.582,3646.06,36.16,Mechanical Shredding,Critical
+PCB_01266,Phone Main Board,Voltage Regulator,"772,981,26,63",0.6858,Platinum,9.612,45479.23,8.666,Pyrometallurgical,Low
+PCB_01267,Power Supply,Transformer,"56,141,43,54",0.8873,Platinum,5.942,2229.21,13.788,Hydrometallurgical,Moderate
+PCB_01268,GPU Board,Resistor,"1449,798,38,23",0.9742,Zinc,8.318,39190.71,19.167,Pyrometallurgical,High
+PCB_01269,GPU Board,Connector,"1701,696,25,33",0.9297,Zinc,7.12,2048.88,22.366,Mechanical Shredding,High
+PCB_01270,Tablet Logic Board,Resistor,"759,435,59,19",0.8128,Tin,7.904,24887.51,43.16,Bioleaching,None
+PCB_01271,Power Supply,Capacitor,"976,218,119,23",0.9045,Gold,9.355,46261.53,24.062,Mechanical Shredding,Critical
+PCB_01272,GPU Board,Capacitor,"741,89,54,58",0.8425,Platinum,0.203,28150.07,43.048,Mechanical Shredding,None
+PCB_01273,GPU Board,Battery Holder,"860,980,113,37",0.8479,Nickel,5.491,19873.81,14.149,Electrochemical,Critical
+PCB_01274,SSD Controller,LED,"1493,512,47,55",0.7711,Tin,5.056,33420.36,16.421,Pyrometallurgical,High
+PCB_01275,Printer Controller,Battery Holder,"1128,438,77,76",0.6769,Palladium,9.994,43066.23,23.112,Mechanical Shredding,Low
+PCB_01276,RAM Module,Heat Sink,"1557,446,74,72",0.6918,Gold,6.326,46382.83,9.568,Electrochemical,None
+PCB_01277,Router PCB,Transformer,"889,117,84,23",0.9614,Palladium,6.599,45332.91,18.281,Electrochemical,High
+PCB_01278,Motherboard,Voltage Regulator,"1041,636,86,70",0.8698,Gold,11.841,4910.02,6.896,Hydrometallurgical,High
+PCB_01279,Motherboard,Inductor,"527,457,97,44",0.8798,Zinc,3.54,54124.64,30.552,Electrochemical,Moderate
+PCB_01280,Tablet Logic Board,Capacitor,"1657,948,76,66",0.7153,Zinc,7.613,52791.12,10.377,Hydrometallurgical,Moderate
+PCB_01281,GPU Board,Transistor,"1515,332,58,44",0.6675,Platinum,8.528,44089.36,11.593,Pyrometallurgical,Low
+PCB_01282,RAM Module,Diode,"295,492,67,80",0.9703,Copper,9.504,4982.86,30.435,Bioleaching,High
+PCB_01283,SSD Controller,Capacitor,"349,310,89,29",0.8955,Gold,11.736,35587.02,8.408,Mechanical Shredding,Moderate
+PCB_01284,Power Supply,Fuse,"279,751,96,18",0.7405,Nickel,1.654,19453.4,12.105,Hydrometallurgical,Moderate
+PCB_01285,SSD Controller,Inductor,"1432,541,104,78",0.7119,Copper,10.234,30589.64,24.025,Electrochemical,None
+PCB_01286,Motherboard,Diode,"371,514,67,80",0.924,Copper,11.67,46856.92,38.59,Pyrometallurgical,Low
+PCB_01287,Tablet Logic Board,IC Chip,"1252,968,48,19",0.9156,Zinc,6.356,16280.3,44.243,Mechanical Shredding,Moderate
+PCB_01288,Motherboard,Voltage Regulator,"1180,525,107,70",0.6946,Silver,3.395,48569.7,26.447,Electrochemical,None
+PCB_01289,Motherboard,Heat Sink,"842,358,117,42",0.7173,Nickel,7.422,56272.82,23.754,Mechanical Shredding,High
+PCB_01290,Tablet Logic Board,Transistor,"1127,368,65,20",0.9572,Zinc,12.416,31842.19,27.496,Mechanical Shredding,Low
+PCB_01291,SSD Controller,Crystal Oscillator,"1844,1036,49,47",0.8246,Platinum,9.975,18271.05,12.832,Hydrometallurgical,None
+PCB_01292,Power Supply,Battery Holder,"1170,577,112,40",0.8915,Silver,1.322,57679.03,15.974,Bioleaching,Moderate
+PCB_01293,Phone Main Board,Battery Holder,"518,179,24,36",0.6589,Copper,12.085,52700.4,42.474,Pyrometallurgical,Critical
+PCB_01294,Motherboard,Resistor,"1384,202,16,28",0.6856,Zinc,8.06,37282.22,5.422,Hydrometallurgical,High
+PCB_01295,Tablet Logic Board,Resistor,"1426,872,24,53",0.9726,Silver,5.112,18447.61,23.433,Bioleaching,Moderate
+PCB_01296,Motherboard,Diode,"728,764,35,22",0.6906,Silver,0.766,53932.65,10.062,Mechanical Shredding,None
+PCB_01297,Router PCB,Voltage Regulator,"1354,663,70,55",0.7844,Palladium,7.035,34409.07,20.974,Electrochemical,Moderate
+PCB_01298,GPU Board,Voltage Regulator,"1737,789,18,25",0.8695,Nickel,11.313,35882.34,20.033,Electrochemical,None
+PCB_01299,GPU Board,Voltage Regulator,"1895,163,16,30",0.761,Copper,0.832,61335.45,27.459,Electrochemical,High
+PCB_01300,Phone Main Board,Transistor,"305,984,87,52",0.6605,Gold,6.722,52752.31,5.347,Electrochemical,High
+PCB_01301,Tablet Logic Board,Battery Holder,"1024,758,23,36",0.7712,Copper,8.284,10854.19,5.931,Hydrometallurgical,Moderate
+PCB_01302,Printer Controller,Resistor,"884,222,51,22",0.7267,Nickel,7.191,39786.61,33.077,Mechanical Shredding,None
+PCB_01303,Power Supply,LED,"37,705,83,60",0.9195,Tin,10.22,24825.26,41.236,Hydrometallurgical,None
+PCB_01304,RAM Module,Diode,"957,524,112,77",0.7653,Zinc,10.587,13336.12,44.954,Pyrometallurgical,Low
+PCB_01305,SSD Controller,Crystal Oscillator,"987,876,57,25",0.6821,Silver,2.468,34431.36,2.455,Pyrometallurgical,Low
+PCB_01306,Power Supply,Connector,"1366,1041,38,71",0.6734,Silver,12.102,20441.66,21.936,Hydrometallurgical,Moderate
+PCB_01307,SSD Controller,Fuse,"1584,90,60,28",0.8086,Gold,5.106,22538.73,26.138,Mechanical Shredding,High
+PCB_01308,Tablet Logic Board,Crystal Oscillator,"1794,1006,85,39",0.8322,Zinc,8.599,36386.35,31.467,Electrochemical,Critical
+PCB_01309,Motherboard,Battery Holder,"465,629,94,40",0.7708,Tin,11.955,12380.9,4.661,Pyrometallurgical,Critical
+PCB_01310,Printer Controller,LED,"1879,1055,92,49",0.9237,Gold,9.229,53587.07,0.36,Pyrometallurgical,Moderate
+PCB_01311,RAM Module,Voltage Regulator,"492,192,94,56",0.9345,Copper,11.517,58295.29,25.43,Electrochemical,None
+PCB_01312,Tablet Logic Board,Diode,"707,357,48,16",0.7373,Nickel,5.931,10021.18,13.017,Electrochemical,Low
+PCB_01313,GPU Board,Heat Sink,"58,298,27,64",0.9395,Copper,2.493,52747.28,12.1,Pyrometallurgical,High
+PCB_01314,Printer Controller,Crystal Oscillator,"1403,889,69,75",0.7233,Tin,1.492,32857.23,11.044,Bioleaching,Critical
+PCB_01315,Power Supply,Capacitor,"994,448,76,44",0.9293,Platinum,8.828,44993.94,38.018,Electrochemical,Critical
+PCB_01316,Power Supply,Transistor,"1701,839,97,53",0.8774,Nickel,11.161,13652.86,19.701,Hydrometallurgical,Moderate
+PCB_01317,GPU Board,LED,"469,463,103,57",0.8603,Nickel,1.523,2049.95,43.926,Bioleaching,Critical
+PCB_01318,RAM Module,Fuse,"334,517,120,17",0.749,Copper,11.484,18538.41,19.299,Electrochemical,Low
+PCB_01319,Printer Controller,IC Chip,"951,111,32,40",0.6895,Copper,9.433,11648.52,1.047,Electrochemical,Low
+PCB_01320,SSD Controller,Heat Sink,"501,604,109,50",0.728,Copper,7.283,20156.97,27.616,Mechanical Shredding,Critical
+PCB_01321,Motherboard,Transistor,"394,361,87,62",0.8023,Zinc,7.38,1064.7,22.686,Bioleaching,Moderate
+PCB_01322,Phone Main Board,Transistor,"167,398,82,48",0.7975,Palladium,11.994,25118.51,27.078,Pyrometallurgical,Critical
+PCB_01323,Motherboard,Connector,"1277,1031,99,22",0.934,Silver,8.641,5975.35,21.701,Bioleaching,Moderate
+PCB_01324,Router PCB,Inductor,"1176,1038,83,28",0.7925,Copper,2.105,4594.35,28.207,Hydrometallurgical,Critical
+PCB_01325,Tablet Logic Board,Battery Holder,"989,758,103,49",0.8996,Palladium,7.055,38754.71,18.761,Mechanical Shredding,Moderate
+PCB_01326,Router PCB,Heat Sink,"1452,689,97,37",0.7402,Tin,5.849,56895.02,3.975,Pyrometallurgical,Low
+PCB_01327,Phone Main Board,Crystal Oscillator,"1376,70,36,19",0.7029,Zinc,4.835,42695.38,16.923,Electrochemical,High
+PCB_01328,Power Supply,Transformer,"782,416,81,62",0.9628,Gold,0.26,3586.28,38.917,Bioleaching,Low
+PCB_01329,SSD Controller,Resistor,"597,506,53,56",0.758,Palladium,10.238,34570.64,18.831,Electrochemical,None
+PCB_01330,Phone Main Board,Voltage Regulator,"1584,245,104,78",0.7325,Tin,5.892,1513.65,39.358,Electrochemical,Low
+PCB_01331,Router PCB,Transformer,"821,1004,107,23",0.685,Copper,6.066,4862.94,42.51,Mechanical Shredding,Moderate
+PCB_01332,Tablet Logic Board,Transformer,"1282,298,72,38",0.6839,Gold,11.225,40232.56,13.523,Pyrometallurgical,None
+PCB_01333,Power Supply,Diode,"1781,94,70,70",0.7548,Gold,8.2,52823.74,42.968,Electrochemical,Low
+PCB_01334,RAM Module,Diode,"313,137,42,58",0.6982,Copper,4.535,4833.69,0.454,Pyrometallurgical,Moderate
+PCB_01335,SSD Controller,Battery Holder,"1895,295,100,27",0.9244,Nickel,10.417,983.52,29.986,Hydrometallurgical,High
+PCB_01336,Printer Controller,LED,"797,252,52,45",0.8414,Zinc,0.949,209.03,20.886,Electrochemical,Critical
+PCB_01337,Router PCB,IC Chip,"328,402,27,25",0.9195,Gold,8.637,35827.53,19.97,Mechanical Shredding,Low
+PCB_01338,Tablet Logic Board,Transistor,"1463,734,26,57",0.7573,Gold,9.529,9354.32,28.922,Electrochemical,None
+PCB_01339,Printer Controller,Heat Sink,"1309,431,39,45",0.6979,Gold,3.602,38029.38,29.655,Bioleaching,Moderate
+PCB_01340,RAM Module,Inductor,"98,170,51,41",0.82,Tin,4.571,952.6,11.74,Bioleaching,Moderate
+PCB_01341,GPU Board,Inductor,"438,65,52,29",0.9093,Silver,12.306,42533.72,5.833,Hydrometallurgical,High
+PCB_01342,GPU Board,Crystal Oscillator,"636,105,61,38",0.7858,Tin,9.612,383.16,35.715,Hydrometallurgical,None
+PCB_01343,Power Supply,Crystal Oscillator,"786,201,98,21",0.7855,Nickel,2.518,53952.59,10.557,Bioleaching,Low
+PCB_01344,GPU Board,Voltage Regulator,"1218,686,76,28",0.8122,Platinum,8.933,59574.59,38.143,Pyrometallurgical,Low
+PCB_01345,Power Supply,Inductor,"461,591,59,18",0.866,Palladium,9.358,38287.04,20.72,Mechanical Shredding,Critical
+PCB_01346,Phone Main Board,Relay,"38,1035,91,71",0.9185,Zinc,6.009,23790.1,40.273,Pyrometallurgical,Low
+PCB_01347,Tablet Logic Board,Transformer,"1737,103,59,66",0.9806,Gold,5.077,37747.44,9.353,Pyrometallurgical,None
+PCB_01348,RAM Module,Connector,"1152,560,51,18",0.7095,Platinum,4.128,9264.37,12.395,Bioleaching,None
+PCB_01349,RAM Module,Heat Sink,"1336,731,44,46",0.9312,Gold,0.43,50669.15,12.951,Pyrometallurgical,None
+PCB_01350,Printer Controller,Heat Sink,"1359,416,112,48",0.7488,Platinum,8.769,13841.78,35.669,Electrochemical,Low
+PCB_01351,Router PCB,Diode,"1217,27,59,63",0.9898,Tin,9.061,6450.51,31.812,Hydrometallurgical,Critical
+PCB_01352,Tablet Logic Board,Crystal Oscillator,"139,363,35,61",0.8997,Tin,10.831,30202.85,17.436,Bioleaching,High
+PCB_01353,Tablet Logic Board,Relay,"1103,424,35,78",0.8328,Silver,7.223,6774.86,12.848,Bioleaching,Moderate
+PCB_01354,RAM Module,Battery Holder,"521,586,99,75",0.824,Silver,5.005,10521.07,32.187,Bioleaching,Critical
+PCB_01355,Power Supply,Connector,"701,709,25,68",0.8106,Nickel,3.803,46373.72,27.611,Mechanical Shredding,Moderate
+PCB_01356,GPU Board,Heat Sink,"94,178,32,69",0.838,Gold,9.739,51255.01,7.618,Pyrometallurgical,High
+PCB_01357,Printer Controller,Resistor,"1414,100,83,32",0.8185,Copper,3.002,44952.44,12.807,Hydrometallurgical,High
+PCB_01358,GPU Board,Diode,"1398,871,106,73",0.7908,Gold,6.982,16854.06,32.269,Hydrometallurgical,High
+PCB_01359,GPU Board,Diode,"1291,183,112,46",0.8363,Palladium,7.782,2277.32,13.795,Mechanical Shredding,Low
+PCB_01360,Motherboard,Connector,"1225,337,71,70",0.6602,Nickel,6.992,4346.2,31.332,Mechanical Shredding,Moderate
+PCB_01361,Tablet Logic Board,Crystal Oscillator,"1431,202,112,65",0.7619,Copper,3.72,48929.48,23.41,Hydrometallurgical,Low
+PCB_01362,SSD Controller,IC Chip,"461,814,74,35",0.8597,Tin,2.269,19314.02,26.821,Hydrometallurgical,Moderate
+PCB_01363,Router PCB,Crystal Oscillator,"1604,710,32,39",0.7406,Nickel,11.621,35245.55,38.8,Hydrometallurgical,Critical
+PCB_01364,Router PCB,Relay,"321,672,82,32",0.9151,Nickel,11.529,28334.35,41.347,Pyrometallurgical,Critical
+PCB_01365,Tablet Logic Board,Capacitor,"525,204,98,70",0.9568,Palladium,3.291,15878.34,28.901,Hydrometallurgical,Moderate
+PCB_01366,Tablet Logic Board,Voltage Regulator,"388,681,68,69",0.6944,Copper,9.918,55147.94,29.178,Bioleaching,Moderate
+PCB_01367,Router PCB,Transformer,"353,166,85,74",0.9744,Copper,10.688,52055.25,24.536,Bioleaching,None
+PCB_01368,SSD Controller,Voltage Regulator,"604,844,39,22",0.7145,Platinum,12.361,30590.26,34.617,Mechanical Shredding,High
+PCB_01369,Tablet Logic Board,LED,"966,709,62,60",0.7809,Zinc,12.321,10075.65,44.993,Hydrometallurgical,High
+PCB_01370,RAM Module,Relay,"128,57,79,27",0.6886,Zinc,9.383,7315.16,3.303,Electrochemical,Moderate
+PCB_01371,Power Supply,Transistor,"392,702,26,33",0.9472,Platinum,2.95,23305.02,17.063,Mechanical Shredding,Critical
+PCB_01372,GPU Board,LED,"367,214,86,73",0.6666,Palladium,3.874,50645.29,17.239,Electrochemical,Critical
+PCB_01373,Power Supply,Inductor,"1228,659,54,27",0.6753,Gold,4.993,54067.4,34.517,Pyrometallurgical,Low
+PCB_01374,Motherboard,Transformer,"831,632,97,44",0.9024,Copper,4.109,12936.14,8.451,Hydrometallurgical,Low
+PCB_01375,Router PCB,Transistor,"857,563,115,34",0.695,Platinum,1.876,57715.29,16.295,Electrochemical,Low
+PCB_01376,Motherboard,Voltage Regulator,"1052,23,85,23",0.6572,Copper,2.009,27250.86,9.351,Pyrometallurgical,High
+PCB_01377,Power Supply,Fuse,"1653,666,57,54",0.8226,Silver,6.596,7311.92,3.406,Mechanical Shredding,Critical
+PCB_01378,GPU Board,Resistor,"1560,144,96,62",0.6681,Tin,2.72,56592.21,36.318,Hydrometallurgical,Critical
+PCB_01379,Phone Main Board,Relay,"751,891,97,77",0.8111,Copper,7.009,55943.12,28.558,Pyrometallurgical,None
+PCB_01380,Printer Controller,IC Chip,"870,850,75,21",0.9594,Platinum,10.734,16696.29,32.647,Hydrometallurgical,High
+PCB_01381,Printer Controller,Battery Holder,"39,74,91,26",0.6915,Palladium,4.27,27420.35,9.515,Bioleaching,High
+PCB_01382,RAM Module,Diode,"735,587,107,24",0.8979,Palladium,11.433,14911.67,22.714,Electrochemical,Critical
+PCB_01383,Tablet Logic Board,Heat Sink,"1549,844,65,70",0.8211,Silver,10.801,4136.06,1.608,Mechanical Shredding,None
+PCB_01384,SSD Controller,Transformer,"567,873,62,42",0.7836,Tin,7.092,45377.14,20.292,Bioleaching,None
+PCB_01385,Printer Controller,Battery Holder,"310,943,44,25",0.7095,Gold,2.222,30465.48,12.396,Pyrometallurgical,Moderate
+PCB_01386,RAM Module,Battery Holder,"1640,401,113,47",0.8935,Platinum,1.653,4361.88,6.217,Pyrometallurgical,High
+PCB_01387,Phone Main Board,IC Chip,"273,451,58,23",0.9598,Palladium,11.013,49622.75,39.82,Electrochemical,None
+PCB_01388,Motherboard,Voltage Regulator,"114,370,118,56",0.6872,Platinum,10.256,51186.8,5.715,Hydrometallurgical,Low
+PCB_01389,Power Supply,Heat Sink,"1553,94,75,72",0.9839,Tin,10.531,21125.72,38.13,Electrochemical,Moderate
+PCB_01390,Power Supply,Heat Sink,"805,239,77,56",0.7245,Gold,10.984,34710.32,17.404,Bioleaching,Low
+PCB_01391,Power Supply,Battery Holder,"522,786,27,33",0.812,Nickel,2.295,30682.82,2.249,Pyrometallurgical,Moderate
+PCB_01392,RAM Module,LED,"1209,889,84,67",0.9515,Copper,0.877,47497.31,35.792,Mechanical Shredding,None
+PCB_01393,Printer Controller,Inductor,"859,537,52,24",0.6531,Nickel,0.959,16449.43,4.516,Pyrometallurgical,High
+PCB_01394,Router PCB,Diode,"802,613,88,64",0.6581,Nickel,1.096,29548.72,27.465,Pyrometallurgical,High
+PCB_01395,SSD Controller,Battery Holder,"234,859,29,54",0.9379,Nickel,9.316,57252.01,27.659,Electrochemical,High
+PCB_01396,Printer Controller,Heat Sink,"1566,603,93,35",0.6635,Zinc,6.486,46289.38,31.23,Bioleaching,Moderate
+PCB_01397,RAM Module,Crystal Oscillator,"826,113,86,79",0.8159,Tin,2.507,9066.17,38.782,Hydrometallurgical,Low
+PCB_01398,SSD Controller,Crystal Oscillator,"1614,157,70,15",0.8571,Silver,8.978,22184.92,32.825,Hydrometallurgical,Moderate
+PCB_01399,Phone Main Board,IC Chip,"360,332,20,29",0.7636,Nickel,5.575,1017.7,20.867,Mechanical Shredding,None
+PCB_01400,SSD Controller,IC Chip,"447,154,103,77",0.7956,Gold,7.627,26509.35,7.301,Electrochemical,Critical
+PCB_01401,Power Supply,Fuse,"1612,757,78,64",0.9573,Copper,3.781,120.9,12.003,Hydrometallurgical,Moderate
+PCB_01402,SSD Controller,IC Chip,"1186,408,65,36",0.9806,Palladium,1.727,60962.29,42.125,Bioleaching,Critical
+PCB_01403,Router PCB,Transformer,"304,20,89,36",0.7357,Platinum,3.113,8738.97,2.16,Mechanical Shredding,High
+PCB_01404,RAM Module,IC Chip,"1094,617,94,33",0.7663,Zinc,10.537,9113.99,30.164,Electrochemical,Moderate
+PCB_01405,Printer Controller,Connector,"157,418,40,16",0.6883,Platinum,7.45,10574.96,38.462,Hydrometallurgical,High
+PCB_01406,Power Supply,Voltage Regulator,"402,226,67,56",0.9474,Nickel,2.98,46581.43,32.903,Mechanical Shredding,Low
+PCB_01407,SSD Controller,Transistor,"999,567,60,43",0.9832,Tin,7.257,58383.95,34.716,Bioleaching,Low
+PCB_01408,Printer Controller,IC Chip,"1381,160,111,42",0.8949,Gold,0.942,28120.53,20.696,Electrochemical,Moderate
+PCB_01409,SSD Controller,Inductor,"1772,439,29,78",0.8183,Palladium,8.355,36299.17,16.249,Pyrometallurgical,Moderate
+PCB_01410,Power Supply,Voltage Regulator,"1766,82,78,70",0.7997,Palladium,12.097,54074.19,23.009,Electrochemical,None
+PCB_01411,Printer Controller,LED,"942,554,100,62",0.6657,Gold,4.744,38265.43,26.186,Hydrometallurgical,Moderate
+PCB_01412,Router PCB,Connector,"1733,393,55,17",0.6867,Silver,11.682,19643.45,41.61,Bioleaching,Moderate
+PCB_01413,SSD Controller,Capacitor,"1888,532,116,61",0.6901,Silver,5.022,15780.55,44.313,Pyrometallurgical,Low
+PCB_01414,Printer Controller,Crystal Oscillator,"83,16,101,67",0.8965,Gold,3.341,7250.43,12.974,Bioleaching,None
+PCB_01415,Router PCB,Voltage Regulator,"1647,817,116,62",0.7138,Copper,4.023,33029.04,40.73,Pyrometallurgical,High
+PCB_01416,Power Supply,Fuse,"1158,399,120,56",0.8425,Nickel,0.116,43526.33,40.764,Pyrometallurgical,None
+PCB_01417,GPU Board,Inductor,"307,198,57,46",0.7552,Tin,10.972,39486.14,42.17,Hydrometallurgical,Low
+PCB_01418,Power Supply,IC Chip,"750,836,115,71",0.8909,Platinum,0.888,1404.4,44.638,Hydrometallurgical,None
+PCB_01419,Tablet Logic Board,Capacitor,"1305,184,53,76",0.6728,Copper,8.76,7351.59,7.986,Pyrometallurgical,Moderate
+PCB_01420,Power Supply,Voltage Regulator,"803,121,66,62",0.6711,Palladium,12.479,60263.17,23.069,Mechanical Shredding,Low
+PCB_01421,Power Supply,Heat Sink,"425,1056,101,39",0.8758,Copper,4.528,29327.56,2.269,Electrochemical,Critical
+PCB_01422,Tablet Logic Board,Transistor,"587,571,46,58",0.8329,Tin,2.015,14448.37,12.636,Hydrometallurgical,Low
+PCB_01423,Power Supply,Heat Sink,"710,889,61,67",0.9669,Palladium,8.875,34123.41,17.11,Electrochemical,Moderate
+PCB_01424,GPU Board,IC Chip,"10,633,16,29",0.8386,Silver,2.197,3615.71,7.499,Hydrometallurgical,Low
+PCB_01425,GPU Board,Diode,"921,273,76,15",0.8045,Silver,1.41,21143.18,21.569,Pyrometallurgical,Moderate
+PCB_01426,RAM Module,Transformer,"329,269,73,27",0.9742,Silver,5.127,33721.5,38.351,Mechanical Shredding,None
+PCB_01427,Motherboard,Capacitor,"1620,435,46,71",0.8881,Copper,10.17,11172.54,37.802,Electrochemical,None
+PCB_01428,Motherboard,Battery Holder,"1210,362,93,17",0.9861,Copper,5.187,13711.39,36.216,Hydrometallurgical,Critical
+PCB_01429,Router PCB,Crystal Oscillator,"331,1058,106,76",0.7068,Tin,11.452,54577.94,13.507,Electrochemical,High
+PCB_01430,RAM Module,Voltage Regulator,"541,602,47,69",0.7693,Silver,10.997,42120.18,30.119,Electrochemical,Critical
+PCB_01431,Router PCB,Resistor,"1321,919,22,78",0.87,Tin,11.901,12421.48,30.494,Bioleaching,Moderate
+PCB_01432,Motherboard,Voltage Regulator,"483,303,71,44",0.9092,Tin,3.553,2168.1,1.607,Pyrometallurgical,Critical
+PCB_01433,Phone Main Board,Voltage Regulator,"1505,961,31,63",0.6885,Nickel,11.92,32058.95,29.149,Mechanical Shredding,Critical
+PCB_01434,Router PCB,Connector,"1868,857,88,28",0.8721,Gold,6.628,40910.58,15.315,Bioleaching,None
+PCB_01435,Tablet Logic Board,Voltage Regulator,"261,77,96,53",0.9238,Gold,6.204,46691.74,24.272,Hydrometallurgical,Critical
+PCB_01436,Printer Controller,Connector,"329,707,55,76",0.9635,Palladium,2.511,13025.84,30.438,Electrochemical,Critical
+PCB_01437,Motherboard,Transistor,"1048,577,23,80",0.7209,Tin,11.778,41074.16,23.184,Hydrometallurgical,High
+PCB_01438,Motherboard,IC Chip,"1163,224,16,18",0.7523,Palladium,9.212,47476.48,4.455,Bioleaching,Low
+PCB_01439,Power Supply,Transistor,"614,506,69,57",0.6957,Platinum,4.703,27184.79,3.393,Bioleaching,Low
+PCB_01440,GPU Board,IC Chip,"302,329,96,66",0.6513,Copper,10.936,45850.86,25.149,Mechanical Shredding,Moderate
+PCB_01441,Router PCB,IC Chip,"469,374,93,25",0.7023,Palladium,1.041,40597.12,1.318,Pyrometallurgical,Low
+PCB_01442,Phone Main Board,Inductor,"657,986,97,58",0.9699,Gold,5.13,50357.63,16.172,Pyrometallurgical,None
+PCB_01443,SSD Controller,Crystal Oscillator,"1393,724,54,66",0.9062,Zinc,1.697,33193.78,8.956,Bioleaching,None
+PCB_01444,Power Supply,Resistor,"1684,72,56,16",0.8952,Nickel,5.308,19163.28,28.298,Pyrometallurgical,None
+PCB_01445,Tablet Logic Board,Crystal Oscillator,"105,926,116,52",0.7888,Zinc,7.491,54772.12,18.182,Hydrometallurgical,Low
+PCB_01446,SSD Controller,Transformer,"929,368,52,55",0.8998,Palladium,5.564,43450.73,28.869,Electrochemical,High
+PCB_01447,Power Supply,Connector,"1775,12,51,52",0.8631,Tin,4.644,13622.78,6.971,Bioleaching,Critical
+PCB_01448,RAM Module,Heat Sink,"217,67,42,35",0.8611,Zinc,11.012,42281.74,24.394,Hydrometallurgical,High
+PCB_01449,SSD Controller,Heat Sink,"225,771,65,33",0.6644,Silver,5.922,13695.64,12.348,Hydrometallurgical,Low
+PCB_01450,Phone Main Board,Heat Sink,"743,717,64,60",0.7765,Zinc,0.488,22739.56,21.428,Hydrometallurgical,None
+PCB_01451,Printer Controller,Transformer,"630,489,99,54",0.9816,Zinc,7.876,26191.23,3.262,Electrochemical,None
+PCB_01452,Printer Controller,Inductor,"816,399,119,51",0.728,Copper,1.503,20667.64,35.634,Hydrometallurgical,Moderate
+PCB_01453,SSD Controller,Fuse,"1659,373,81,67",0.8211,Zinc,1.706,41237.45,20.646,Pyrometallurgical,Moderate
+PCB_01454,Power Supply,Connector,"1177,235,34,15",0.9819,Silver,2.151,24438.04,31.144,Pyrometallurgical,High
+PCB_01455,Motherboard,Diode,"1073,94,94,80",0.806,Zinc,2.802,38012.86,24.232,Pyrometallurgical,Moderate
+PCB_01456,SSD Controller,Heat Sink,"62,139,57,54",0.7843,Platinum,4.115,42329.33,7.149,Mechanical Shredding,Low
+PCB_01457,Power Supply,IC Chip,"1265,543,103,15",0.7495,Platinum,11.021,45592.63,11.348,Pyrometallurgical,Low
+PCB_01458,Router PCB,Transformer,"1825,303,82,57",0.842,Tin,10.031,38559.36,26.197,Pyrometallurgical,Low
+PCB_01459,Router PCB,Battery Holder,"798,148,24,77",0.7137,Nickel,7.176,27866.69,5.788,Pyrometallurgical,Moderate
+PCB_01460,Power Supply,Connector,"1426,784,104,38",0.8308,Zinc,9.67,42470.17,29.534,Bioleaching,Low
+PCB_01461,Power Supply,Connector,"1175,722,65,32",0.8478,Tin,3.104,7458.48,15.667,Bioleaching,None
+PCB_01462,RAM Module,Capacitor,"1517,976,30,43",0.8686,Tin,8.118,23118.17,31.601,Mechanical Shredding,High
+PCB_01463,Router PCB,Capacitor,"551,365,79,16",0.9535,Tin,8.273,12415.33,15.988,Bioleaching,High
+PCB_01464,GPU Board,Inductor,"1093,123,104,55",0.8625,Gold,1.539,5303.92,33.701,Hydrometallurgical,High
+PCB_01465,RAM Module,Voltage Regulator,"905,872,40,44",0.9402,Tin,3.267,7694.62,17.993,Mechanical Shredding,Critical
+PCB_01466,GPU Board,Fuse,"423,829,70,73",0.8219,Tin,3.897,4171.99,2.357,Electrochemical,None
+PCB_01467,Power Supply,Heat Sink,"1779,99,71,23",0.7964,Nickel,11.162,40162.67,35.965,Pyrometallurgical,None
+PCB_01468,Router PCB,IC Chip,"1563,634,115,32",0.7095,Silver,11.596,17402.06,22.726,Mechanical Shredding,None
+PCB_01469,Motherboard,Transformer,"1518,763,104,72",0.7908,Tin,2.753,38690.05,12.365,Pyrometallurgical,High
+PCB_01470,Phone Main Board,Capacitor,"476,187,106,19",0.6882,Tin,4.341,59230.7,41.637,Mechanical Shredding,Moderate
+PCB_01471,GPU Board,LED,"368,145,115,25",0.7305,Tin,7.525,43279.74,18.149,Bioleaching,Critical
+PCB_01472,SSD Controller,Connector,"1362,236,57,73",0.9595,Tin,11.719,22802.09,15.632,Hydrometallurgical,Low
+PCB_01473,Motherboard,Diode,"496,656,16,63",0.7042,Tin,4.377,7792.25,19.329,Hydrometallurgical,Critical
+PCB_01474,Printer Controller,Inductor,"1071,340,54,56",0.6598,Gold,5.721,23236.19,0.041,Pyrometallurgical,Critical
+PCB_01475,SSD Controller,Fuse,"1224,880,95,42",0.8826,Platinum,3.724,3808.87,37.138,Mechanical Shredding,Moderate
+PCB_01476,RAM Module,Fuse,"340,314,106,69",0.9607,Platinum,10.581,46196.92,2.711,Hydrometallurgical,None
+PCB_01477,SSD Controller,Inductor,"1478,263,75,66",0.8883,Platinum,4.185,15146.13,27.377,Bioleaching,Moderate
+PCB_01478,Printer Controller,Transistor,"1876,450,75,68",0.9065,Platinum,0.577,58442.81,15.71,Bioleaching,High
+PCB_01479,Router PCB,Heat Sink,"715,748,111,32",0.7995,Platinum,8.084,7035.45,32.835,Hydrometallurgical,High
+PCB_01480,GPU Board,Inductor,"370,473,85,41",0.9003,Platinum,3.89,5407.98,30.118,Electrochemical,Critical
+PCB_01481,Router PCB,Inductor,"1067,641,112,47",0.9131,Copper,1.664,1105.02,22.677,Bioleaching,None
+PCB_01482,Motherboard,Connector,"669,698,37,56",0.8193,Tin,0.06,40785.78,14.867,Hydrometallurgical,Moderate
+PCB_01483,GPU Board,Transformer,"33,803,68,52",0.8027,Tin,0.215,21834.76,35.094,Electrochemical,None
+PCB_01484,RAM Module,Transformer,"457,135,120,68",0.8396,Platinum,4.099,53522.63,1.118,Hydrometallurgical,Moderate
+PCB_01485,Printer Controller,Voltage Regulator,"1679,902,24,69",0.7975,Tin,8.304,11436.6,13.052,Mechanical Shredding,High
+PCB_01486,Power Supply,Connector,"407,126,102,50",0.6521,Platinum,8.181,52431.06,41.303,Hydrometallurgical,Low
+PCB_01487,Router PCB,Voltage Regulator,"812,790,19,77",0.7158,Zinc,10.151,18305.05,28.318,Pyrometallurgical,High
+PCB_01488,Motherboard,Capacitor,"997,42,100,39",0.945,Zinc,7.414,6951.67,7.084,Bioleaching,None
+PCB_01489,RAM Module,LED,"25,1006,103,64",0.9358,Silver,10.652,34003.48,41.278,Bioleaching,Moderate
+PCB_01490,GPU Board,Fuse,"326,842,59,56",0.9091,Silver,0.868,33534.66,39.795,Pyrometallurgical,High
+PCB_01491,Phone Main Board,Crystal Oscillator,"183,275,59,63",0.7642,Copper,1.208,38200.13,38.606,Bioleaching,Moderate
+PCB_01492,Motherboard,Relay,"505,960,101,70",0.7592,Platinum,6.213,38753.44,18.874,Electrochemical,Critical
+PCB_01493,Printer Controller,Crystal Oscillator,"521,1033,96,68",0.7233,Nickel,8.515,35724.67,28.177,Electrochemical,None
+PCB_01494,GPU Board,IC Chip,"716,24,89,25",0.7603,Nickel,1.718,4598.26,22.635,Mechanical Shredding,High
+PCB_01495,Printer Controller,Inductor,"1793,823,69,71",0.9512,Palladium,10.011,45350.23,40.055,Pyrometallurgical,Critical
+PCB_01496,Phone Main Board,IC Chip,"1331,633,16,44",0.7562,Tin,4.485,30888.81,5.433,Hydrometallurgical,Moderate
+PCB_01497,GPU Board,Transistor,"1123,606,27,22",0.9518,Tin,0.454,9725.85,30.834,Pyrometallurgical,Critical
+PCB_01498,Router PCB,Transformer,"59,719,107,28",0.8634,Platinum,6.091,6453.86,0.829,Electrochemical,None
+PCB_01499,Motherboard,Resistor,"1378,766,31,36",0.98,Nickel,3.184,32991.9,4.829,Mechanical Shredding,High
+PCB_01500,Tablet Logic Board,Relay,"595,765,47,55",0.6544,Copper,1.737,16443.12,36.932,Bioleaching,Low

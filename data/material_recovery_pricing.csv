@@ -1,0 +1,801 @@
+record_id,device_type,metal,content_grams,market_price_usd_per_kg,recovery_rate_pct,recovery_method,co2_emission_kg,water_usage_liters,energy_kwh,date
+MAT_0001,Monitor,Tantalum,39.1166,157.82,72.6,Electrochemical,14.71,74.2,49.04,2026-07-12
+MAT_0002,Gaming Console,Gold,42.5048,69416.56,74.9,Bioleaching,11.87,2.4,29.44,2026-05-27
+MAT_0003,Gaming Console,Copper,43.7876,8.55,64.8,Mechanical,3.13,26.6,43.98,2026-10-17
+MAT_0004,Refrigerator,Platinum,44.087,32008.29,98.9,Acid Leaching,11.67,76.5,31.72,2026-06-04
+MAT_0005,Router/Modem,Tantalum,18.2584,141.58,70.1,Acid Leaching,10.5,50.6,35.48,2026-06-09
+MAT_0006,Gaming Console,Nickel,39.1486,15.53,93.4,Mechanical,23.25,59.9,47.15,2026-10-07
+MAT_0007,Microwave,Copper,38.5229,7.95,76.1,Bioleaching,20.47,16.9,33.36,2026-10-29
+MAT_0008,Laptop,Cobalt,44.1916,31.15,79.3,Mechanical,1.48,68.4,2.83,2026-05-26
+MAT_0009,Camera,Indium,22.8859,231.58,83.3,Electrochemical,24.44,75.0,47.51,2026-07-28
+MAT_0010,Refrigerator,Silver,35.9275,837.19,85.3,Mechanical,22.0,54.6,49.53,2026-11-04
+MAT_0011,Television,Palladium,29.1216,50529.35,67.7,Electrochemical,0.75,5.2,28.45,2026-09-03
+MAT_0012,Microwave,Cobalt,49.8272,35.77,71.6,Electrochemical,0.54,74.8,33.17,2026-10-22
+MAT_0013,Television,Lead,1.4411,2.07,88.8,Electrochemical,13.53,48.4,0.96,2026-08-29
+MAT_0014,Tablet,Tantalum,38.1943,156.72,78.5,Acid Leaching,17.31,85.3,35.88,2026-06-11
+MAT_0015,Washing Machine,Lithium,47.4174,70.32,95.3,Pyrometallurgical,21.88,50.8,15.3,2026-09-06
+MAT_0016,Tablet,Platinum,14.1552,25706.5,78.3,Bioleaching,7.44,39.0,16.92,2026-07-24
+MAT_0017,Washing Machine,Copper,49.7035,8.94,63.5,Acid Leaching,10.99,40.8,32.41,2026-08-25
+MAT_0018,Printer,Gallium,5.8563,314.68,88.8,Mechanical,6.13,75.5,35.15,2026-07-23
+MAT_0019,Monitor,Cobalt,9.0481,30.36,68.4,Hydrometallurgical,9.73,14.4,22.77,2026-06-20
+MAT_0020,Router/Modem,Nickel,12.2292,15.7,61.1,Mechanical,18.74,98.7,19.24,2026-08-26
+MAT_0021,Tablet,Palladium,27.7166,53819.73,62.5,Pyrometallurgical,14.03,90.2,31.38,2026-06-27
+MAT_0022,Laptop,Tin,8.0167,21.62,62.1,Bioleaching,7.08,79.0,47.08,2026-07-27
+MAT_0023,Washing Machine,Platinum,48.163,26886.91,66.1,Acid Leaching,16.78,11.8,28.26,2026-08-07
+MAT_0024,Microwave,Tantalum,40.1223,169.2,92.8,Electrochemical,23.41,54.0,49.82,2026-05-29
+MAT_0025,Refrigerator,Lead,26.4449,1.86,77.5,Pyrometallurgical,14.77,6.0,45.48,2026-08-23
+MAT_0026,Camera,Platinum,41.4408,26488.28,81.7,Acid Leaching,22.76,45.6,29.21,2026-10-02
+MAT_0027,Monitor,Lithium,5.0234,72.38,82.4,Pyrometallurgical,10.8,59.0,14.48,2026-09-04
+MAT_0028,Washing Machine,Germanium,38.7865,1220.43,85.7,Acid Leaching,11.96,69.8,41.79,2026-09-23
+MAT_0029,Gaming Console,Gold,46.7457,66992.12,76.7,Electrochemical,3.47,78.0,13.52,2026-06-17
+MAT_0030,Headphones,Palladium,5.1239,51541.33,65.0,Electrochemical,7.18,8.2,37.56,2026-11-05
+MAT_0031,Desktop PC,Cobalt,36.8352,31.9,69.4,Bioleaching,12.86,71.4,6.74,2026-07-27
+MAT_0032,Camera,Palladium,28.3909,54096.32,72.7,Bioleaching,19.28,3.9,14.88,2026-08-28
+MAT_0033,Desktop PC,Gold,3.0914,68530.44,74.8,Pyrometallurgical,11.48,52.0,36.35,2026-08-01
+MAT_0034,Smartphone,Nickel,49.93,17.98,84.7,Pyrometallurgical,5.07,3.9,34.77,2026-08-15
+MAT_0035,Washing Machine,Lithium,11.9106,71.97,75.8,Pyrometallurgical,17.92,9.0,11.23,2026-11-05
+MAT_0036,Washing Machine,Lithium,19.267,66.78,71.5,Acid Leaching,23.05,6.4,14.76,2026-08-28
+MAT_0037,Microwave,Germanium,47.3087,1061.15,88.2,Acid Leaching,21.01,22.4,35.29,2026-10-18
+MAT_0038,Refrigerator,Tantalum,36.7803,154.06,95.1,Electrochemical,22.42,17.2,40.54,2026-10-09
+MAT_0039,Monitor,Indium,36.218,279.92,87.6,Pyrometallurgical,13.36,44.9,24.15,2026-09-22
+MAT_0040,Monitor,Germanium,18.8093,1355.97,64.8,Hydrometallurgical,19.18,19.4,47.31,2026-10-17
+MAT_0041,Television,Platinum,28.5134,27255.32,74.3,Mechanical,16.33,22.9,12.06,2026-08-05
+MAT_0042,Tablet,Gallium,33.654,312.44,89.2,Pyrometallurgical,6.96,84.7,21.9,2026-10-29
+MAT_0043,Smartwatch,Copper,2.9135,7.81,86.5,Mechanical,13.97,50.8,30.46,2026-10-28
+MAT_0044,Laptop,Lithium,1.92,74.26,85.0,Bioleaching,24.78,53.7,41.78,2026-07-07
+MAT_0045,Smartphone,Silver,20.1954,729.34,84.1,Hydrometallurgical,1.78,28.8,14.1,2026-06-15
+MAT_0046,Router/Modem,Silver,28.4687,722.06,60.9,Hydrometallurgical,2.62,94.7,30.61,2026-05-18
+MAT_0047,Router/Modem,Germanium,16.9001,1282.53,89.9,Mechanical,24.87,80.0,9.31,2026-07-22
+MAT_0048,Camera,Silver,7.3768,836.01,85.9,Electrochemical,8.09,45.7,12.44,2026-07-06
+MAT_0049,Headphones,Silver,16.3987,750.86,91.5,Electrochemical,10.21,35.1,4.87,2026-09-30
+MAT_0050,Monitor,Palladium,43.5371,53188.22,64.2,Acid Leaching,11.39,15.8,26.52,2026-05-23
+MAT_0051,Microwave,Nickel,45.4832,18.32,66.7,Electrochemical,18.07,64.3,35.18,2026-08-31
+MAT_0052,Washing Machine,Cobalt,19.0537,37.19,67.0,Mechanical,24.24,11.7,9.86,2026-06-24
+MAT_0053,Microwave,Silver,16.0037,675.77,93.3,Pyrometallurgical,11.4,17.0,33.39,2026-06-26
+MAT_0054,Smartphone,Zinc,30.1002,2.66,73.9,Pyrometallurgical,16.64,7.7,41.36,2026-08-21
+MAT_0055,Smartwatch,Copper,14.6152,7.48,79.4,Hydrometallurgical,18.38,90.8,17.29,2026-06-20
+MAT_0056,Desktop PC,Zinc,45.9871,2.68,97.9,Bioleaching,24.54,83.9,14.55,2026-10-22
+MAT_0057,Laptop,Tin,19.8399,22.8,86.8,Electrochemical,20.71,74.4,2.14,2026-06-10
+MAT_0058,Tablet,Gallium,20.4592,314.87,68.3,Mechanical,12.72,40.4,16.17,2026-07-07
+MAT_0059,Microwave,Tantalum,31.1448,139.52,96.7,Hydrometallurgical,11.68,19.1,48.78,2026-10-13
+MAT_0060,Monitor,Cobalt,8.0203,29.85,93.7,Pyrometallurgical,11.27,12.4,12.96,2026-08-18
+MAT_0061,Monitor,Gallium,47.787,272.49,94.6,Acid Leaching,8.68,48.2,16.69,2026-10-07
+MAT_0062,Camera,Lithium,5.5301,83.25,67.8,Acid Leaching,23.2,23.6,1.83,2026-10-14
+MAT_0063,Camera,Palladium,37.0046,53657.58,91.1,Hydrometallurgical,7.26,18.9,25.18,2026-07-05
+MAT_0064,Router/Modem,Zinc,8.4485,2.58,70.7,Electrochemical,0.2,52.6,44.5,2026-09-11
+MAT_0065,Laptop,Lithium,27.8762,79.15,82.9,Mechanical,4.81,10.3,17.84,2026-06-21
+MAT_0066,Smartphone,Lead,35.1852,2.29,90.3,Mechanical,20.51,26.3,40.99,2026-09-25
+MAT_0067,Smartwatch,Palladium,48.8855,48920.38,76.3,Acid Leaching,22.77,82.2,7.58,2026-07-08
+MAT_0068,Gaming Console,Gallium,33.1072,326.03,98.1,Hydrometallurgical,8.86,44.5,2.79,2026-09-12
+MAT_0069,Smartphone,Zinc,0.3454,2.5,63.2,Mechanical,24.78,46.5,43.37,2026-08-10
+MAT_0070,Microwave,Lithium,9.0872,77.77,71.7,Bioleaching,12.89,23.1,27.47,2026-09-19
+MAT_0071,Printer,Gold,26.3075,64021.95,98.3,Mechanical,18.71,71.9,41.99,2026-09-14
+MAT_0072,Gaming Console,Copper,26.9071,7.39,96.7,Bioleaching,23.29,61.2,13.06,2026-10-17
+MAT_0073,Refrigerator,Cobalt,2.6352,28.21,94.5,Mechanical,7.67,9.8,43.52,2026-10-25
+MAT_0074,Smartwatch,Gold,35.6146,55839.79,60.8,Electrochemical,21.69,32.5,24.91,2026-05-30
+MAT_0075,Washing Machine,Lithium,35.966,84.62,64.1,Bioleaching,16.33,96.6,22.64,2026-06-25
+MAT_0076,Washing Machine,Copper,19.8572,9.77,96.3,Bioleaching,6.63,89.0,5.18,2026-06-26
+MAT_0077,Router/Modem,Nickel,47.5214,20.31,70.9,Bioleaching,10.11,12.7,0.62,2026-05-28
+MAT_0078,Camera,Tantalum,13.2673,141.83,91.3,Pyrometallurgical,7.06,29.7,19.89,2026-09-26
+MAT_0079,Washing Machine,Silver,8.7371,751.38,90.6,Hydrometallurgical,24.84,53.7,33.54,2026-07-28
+MAT_0080,Tablet,Tantalum,35.5332,168.61,87.2,Mechanical,17.21,11.9,3.05,2026-10-16
+MAT_0081,Tablet,Cobalt,45.9183,37.06,97.5,Acid Leaching,3.61,60.4,3.49,2026-10-09
+MAT_0082,Refrigerator,Gold,10.4465,63848.51,70.5,Hydrometallurgical,1.31,27.6,4.93,2026-10-13
+MAT_0083,Printer,Silver,4.4152,770.05,76.6,Bioleaching,9.42,94.2,23.8,2026-08-04
+MAT_0084,Smartphone,Platinum,15.8036,27374.72,72.1,Mechanical,21.35,53.5,33.82,2026-07-27
+MAT_0085,Headphones,Lead,5.2029,1.95,84.9,Pyrometallurgical,19.82,65.0,4.74,2026-10-26
+MAT_0086,Monitor,Cobalt,9.3614,30.68,86.7,Acid Leaching,22.27,81.5,11.1,2026-08-24
+MAT_0087,Monitor,Tin,48.9731,28.03,66.7,Hydrometallurgical,22.04,32.7,16.2,2026-08-12
+MAT_0088,Smartphone,Gold,34.9091,66716.13,94.3,Mechanical,11.69,68.7,6.07,2026-08-21
+MAT_0089,Tablet,Zinc,26.7382,2.84,61.4,Electrochemical,12.15,24.1,27.9,2026-09-15
+MAT_0090,Laptop,Platinum,46.7228,24855.01,72.8,Electrochemical,0.32,73.4,25.99,2026-07-14
+MAT_0091,Desktop PC,Lead,47.5682,1.98,74.6,Hydrometallurgical,19.51,73.8,27.58,2026-06-11
+MAT_0092,Camera,Silver,45.3016,759.54,90.5,Mechanical,14.11,11.9,42.2,2026-07-25
+MAT_0093,Printer,Tantalum,24.5528,136.65,69.1,Bioleaching,1.84,24.4,21.69,2026-08-09
+MAT_0094,Gaming Console,Platinum,47.6191,28522.67,83.8,Hydrometallurgical,24.55,25.0,8.28,2026-07-11
+MAT_0095,Printer,Zinc,44.9495,2.96,96.8,Electrochemical,16.11,12.9,44.87,2026-08-13
+MAT_0096,Television,Indium,23.1736,269.97,90.8,Bioleaching,6.73,40.7,25.55,2026-06-30
+MAT_0097,Microwave,Germanium,40.4738,1125.42,62.7,Electrochemical,5.34,49.9,5.94,2026-08-08
+MAT_0098,Router/Modem,Zinc,0.5682,2.45,81.5,Bioleaching,4.44,68.5,2.16,2026-05-18
+MAT_0099,Refrigerator,Platinum,48.348,24993.22,91.7,Hydrometallurgical,10.9,74.7,17.29,2026-08-30
+MAT_0100,Washing Machine,Tantalum,32.1187,170.79,80.1,Electrochemical,19.11,25.1,45.32,2026-07-14
+MAT_0101,Gaming Console,Lead,46.9461,2.27,65.9,Bioleaching,9.71,41.6,49.37,2026-09-05
+MAT_0102,Tablet,Indium,5.2614,248.18,97.7,Acid Leaching,13.7,96.2,49.88,2026-08-26
+MAT_0103,Camera,Tantalum,45.8689,153.82,67.6,Bioleaching,24.32,78.4,4.2,2026-07-06
+MAT_0104,Smartwatch,Cobalt,23.6158,28.35,95.0,Electrochemical,21.13,71.0,4.11,2026-06-23
+MAT_0105,Headphones,Tin,12.2531,26.92,61.1,Bioleaching,0.15,90.3,31.03,2026-10-03
+MAT_0106,Camera,Indium,33.6484,261.23,93.5,Pyrometallurgical,12.01,29.0,40.94,2026-05-09
+MAT_0107,Smartwatch,Nickel,13.842,18.46,72.4,Mechanical,11.27,43.3,31.34,2026-05-28
+MAT_0108,Headphones,Lead,43.5399,2.37,87.8,Electrochemical,0.62,45.9,37.52,2026-10-15
+MAT_0109,Laptop,Lithium,41.7747,72.16,92.7,Acid Leaching,11.23,72.7,46.84,2026-05-28
+MAT_0110,Television,Lead,20.7347,2.24,97.1,Electrochemical,22.37,63.2,36.96,2026-10-25
+MAT_0111,Headphones,Palladium,1.9921,41492.31,98.9,Hydrometallurgical,11.05,59.4,19.99,2026-10-19
+MAT_0112,Laptop,Lithium,33.0124,70.1,83.3,Hydrometallurgical,21.62,58.0,4.31,2026-06-29
+MAT_0113,Router/Modem,Tantalum,38.0496,136.44,73.8,Hydrometallurgical,15.93,10.8,44.14,2026-07-11
+MAT_0114,Monitor,Copper,35.4338,8.35,69.3,Electrochemical,0.58,0.8,20.14,2026-06-06
+MAT_0115,Washing Machine,Platinum,40.9148,26310.56,64.0,Bioleaching,5.49,90.2,10.35,2026-05-17
+MAT_0116,Microwave,Lithium,38.8333,72.16,67.0,Acid Leaching,17.76,1.8,5.08,2026-08-09
+MAT_0117,Desktop PC,Cobalt,41.2874,28.53,65.7,Bioleaching,11.62,74.4,21.87,2026-09-19
+MAT_0118,Desktop PC,Indium,8.87,245.61,73.6,Mechanical,1.75,77.7,20.79,2026-10-28
+MAT_0119,Monitor,Copper,40.161,8.36,63.5,Mechanical,2.34,6.3,32.71,2026-06-01
+MAT_0120,Washing Machine,Nickel,37.0467,15.73,61.9,Mechanical,17.72,14.7,12.01,2026-08-08
+MAT_0121,Television,Silver,18.5179,739.41,92.4,Acid Leaching,12.62,25.4,16.24,2026-09-11
+MAT_0122,Television,Tantalum,20.7441,136.3,77.1,Electrochemical,12.11,76.9,24.91,2026-08-09
+MAT_0123,Router/Modem,Palladium,43.6658,54043.72,79.5,Pyrometallurgical,22.91,31.6,36.9,2026-09-15
+MAT_0124,Refrigerator,Lithium,1.2332,78.92,91.0,Mechanical,7.28,67.6,9.97,2026-06-08
+MAT_0125,Smartwatch,Indium,19.4107,239.18,61.5,Electrochemical,2.61,87.5,26.11,2026-10-10
+MAT_0126,Gaming Console,Palladium,38.3474,47891.94,80.4,Bioleaching,20.28,51.0,37.13,2026-05-18
+MAT_0127,Desktop PC,Germanium,27.5086,1178.47,84.5,Acid Leaching,11.18,61.1,35.82,2026-10-23
+MAT_0128,Smartwatch,Indium,35.7053,235.56,85.8,Hydrometallurgical,21.56,82.2,14.77,2026-08-03
+MAT_0129,Laptop,Platinum,47.7768,25936.17,86.7,Bioleaching,13.11,35.2,19.77,2026-09-01
+MAT_0130,Desktop PC,Copper,9.3696,9.73,94.0,Hydrometallurgical,5.73,61.0,41.01,2026-09-28
+MAT_0131,Television,Lithium,10.3607,79.63,97.2,Mechanical,12.84,16.0,27.11,2026-10-14
+MAT_0132,Smartphone,Indium,32.0158,250.28,81.5,Electrochemical,13.7,13.2,26.99,2026-10-21
+MAT_0133,Tablet,Tantalum,36.8401,170.97,67.7,Acid Leaching,12.32,61.2,27.91,2026-08-25
+MAT_0134,Microwave,Cobalt,40.5967,32.99,96.5,Pyrometallurgical,20.13,62.1,36.32,2026-08-20
+MAT_0135,Washing Machine,Gold,42.2717,71141.35,90.9,Mechanical,8.47,46.7,17.4,2026-06-04
+MAT_0136,Washing Machine,Indium,46.2686,241.63,65.8,Hydrometallurgical,16.93,67.3,21.91,2026-05-20
+MAT_0137,Microwave,Gold,30.964,54070.85,68.6,Bioleaching,23.49,10.6,35.26,2026-10-01
+MAT_0138,Monitor,Lead,16.5541,1.84,74.3,Mechanical,2.02,62.3,19.17,2026-09-10
+MAT_0139,Headphones,Gold,22.7656,65211.02,66.9,Mechanical,14.57,64.0,9.36,2026-06-21
+MAT_0140,Smartwatch,Nickel,31.0905,18.33,80.3,Acid Leaching,18.69,28.5,0.79,2026-09-19
+MAT_0141,Monitor,Nickel,49.525,18.49,72.0,Acid Leaching,2.64,79.4,18.14,2026-08-23
+MAT_0142,Tablet,Silver,21.1313,805.2,91.2,Pyrometallurgical,19.81,48.4,26.22,2026-07-04
+MAT_0143,Gaming Console,Indium,33.7437,242.31,76.6,Hydrometallurgical,22.71,3.2,8.6,2026-05-13
+MAT_0144,Desktop PC,Lead,27.3183,1.79,70.9,Hydrometallurgical,8.7,67.4,41.86,2026-09-26
+MAT_0145,Desktop PC,Platinum,38.5935,25557.74,68.4,Hydrometallurgical,4.91,85.3,31.85,2026-06-18
+MAT_0146,Desktop PC,Lead,16.0898,1.92,86.3,Mechanical,9.21,91.3,17.96,2026-06-13
+MAT_0147,Television,Lithium,21.5498,76.1,96.4,Acid Leaching,13.19,70.5,34.85,2026-06-17
+MAT_0148,Headphones,Cobalt,0.2763,33.88,94.6,Pyrometallurgical,21.01,44.9,45.13,2026-09-27
+MAT_0149,Camera,Silver,38.4421,861.57,80.6,Bioleaching,20.07,30.5,37.63,2026-07-19
+MAT_0150,Refrigerator,Cobalt,49.1419,36.12,82.8,Acid Leaching,9.9,63.2,17.25,2026-10-29
+MAT_0151,Tablet,Gold,33.291,65473.81,96.4,Bioleaching,15.79,15.2,43.95,2026-06-24
+MAT_0152,Television,Nickel,33.0485,19.29,70.5,Acid Leaching,9.11,58.4,37.01,2026-05-18
+MAT_0153,Smartwatch,Lead,16.2543,1.79,72.4,Acid Leaching,0.81,49.3,35.44,2026-10-28
+MAT_0154,Washing Machine,Germanium,42.8176,1134.22,88.2,Bioleaching,10.49,5.2,34.22,2026-09-26
+MAT_0155,Monitor,Zinc,10.9355,3.06,69.8,Electrochemical,1.9,33.4,49.99,2026-10-28
+MAT_0156,Headphones,Tantalum,34.5405,171.6,65.0,Electrochemical,3.81,57.1,30.71,2026-11-02
+MAT_0157,Refrigerator,Lead,41.9505,2.05,64.6,Mechanical,6.97,31.7,23.08,2026-05-21
+MAT_0158,Desktop PC,Cobalt,47.8753,32.71,91.9,Bioleaching,11.68,30.6,30.48,2026-06-07
+MAT_0159,Headphones,Lithium,22.8586,72.99,81.3,Pyrometallurgical,20.12,58.6,25.73,2026-10-29
+MAT_0160,Laptop,Lithium,6.7525,68.03,89.9,Electrochemical,21.98,15.3,23.52,2026-05-28
+MAT_0161,Microwave,Copper,20.5082,8.81,85.8,Hydrometallurgical,6.18,6.7,40.87,2026-05-21
+MAT_0162,Tablet,Platinum,16.0833,28675.1,78.9,Electrochemical,23.91,61.0,27.95,2026-05-22
+MAT_0163,Camera,Platinum,25.4127,31939.67,66.2,Pyrometallurgical,20.07,10.2,8.92,2026-10-19
+MAT_0164,Refrigerator,Lithium,41.9957,68.56,78.2,Pyrometallurgical,23.75,34.2,26.47,2026-06-07
+MAT_0165,Television,Silver,31.4218,752.75,60.2,Pyrometallurgical,14.59,60.0,9.48,2026-06-09
+MAT_0166,Camera,Nickel,26.6709,17.08,87.2,Mechanical,19.22,54.0,44.16,2026-05-16
+MAT_0167,Camera,Gallium,28.4841,325.82,74.4,Hydrometallurgical,5.59,12.4,10.44,2026-07-28
+MAT_0168,Router/Modem,Gold,3.0859,56323.79,94.3,Electrochemical,8.1,45.1,6.78,2026-07-25
+MAT_0169,Smartwatch,Gold,28.9036,64806.82,97.9,Acid Leaching,24.87,87.8,47.87,2026-10-28
+MAT_0170,Smartphone,Tantalum,23.0773,133.7,84.4,Acid Leaching,15.5,36.5,8.44,2026-09-18
+MAT_0171,Microwave,Tin,8.2245,25.45,76.7,Mechanical,11.2,26.7,49.33,2026-09-27
+MAT_0172,Gaming Console,Cobalt,22.9124,29.6,92.0,Hydrometallurgical,3.7,79.0,18.03,2026-08-28
+MAT_0173,Gaming Console,Tantalum,5.4566,130.7,73.7,Hydrometallurgical,22.49,76.0,6.6,2026-06-29
+MAT_0174,Camera,Gallium,0.0277,293.74,63.9,Acid Leaching,2.95,42.8,20.83,2026-08-05
+MAT_0175,Monitor,Indium,0.7918,282.28,61.7,Pyrometallurgical,21.21,40.9,46.79,2026-10-26
+MAT_0176,Refrigerator,Cobalt,49.7954,36.2,92.5,Acid Leaching,15.58,83.1,5.13,2026-10-12
+MAT_0177,Smartphone,Indium,32.1403,253.79,63.9,Mechanical,10.49,88.1,21.85,2026-08-25
+MAT_0178,Microwave,Platinum,30.7928,27393.33,61.0,Electrochemical,11.75,23.8,4.14,2026-07-10
+MAT_0179,Microwave,Copper,5.6728,8.72,92.4,Mechanical,6.15,81.6,26.83,2026-07-23
+MAT_0180,Smartwatch,Lead,33.6959,1.93,61.6,Mechanical,5.92,89.6,24.32,2026-09-22
+MAT_0181,Television,Nickel,1.7654,15.69,79.3,Mechanical,11.85,75.8,39.37,2026-10-21
+MAT_0182,Camera,Indium,47.0799,248.34,82.5,Hydrometallurgical,8.57,19.5,26.9,2026-06-05
+MAT_0183,Headphones,Tantalum,46.015,132.93,90.4,Electrochemical,1.15,3.7,42.91,2026-10-26
+MAT_0184,Smartphone,Lithium,48.6973,65.15,98.3,Mechanical,19.99,63.1,13.72,2026-10-01
+MAT_0185,Tablet,Tin,14.624,22.8,91.9,Bioleaching,11.62,1.0,8.43,2026-11-04
+MAT_0186,Laptop,Palladium,5.4617,49707.14,62.6,Mechanical,17.54,89.4,5.34,2026-08-04
+MAT_0187,Refrigerator,Nickel,17.1661,19.58,84.2,Electrochemical,15.01,0.8,48.78,2026-10-07
+MAT_0188,Television,Palladium,18.4879,44788.43,77.3,Acid Leaching,10.89,10.4,17.05,2026-08-16
+MAT_0189,Tablet,Nickel,23.6493,17.6,73.6,Mechanical,3.69,12.6,40.27,2026-06-20
+MAT_0190,Headphones,Lead,3.2225,2.25,64.7,Hydrometallurgical,5.98,59.1,24.72,2026-07-12
+MAT_0191,Gaming Console,Lead,2.8915,2.22,80.7,Bioleaching,4.19,80.8,29.41,2026-05-09
+MAT_0192,Monitor,Zinc,10.1127,2.62,93.0,Mechanical,14.59,80.3,17.74,2026-08-04
+MAT_0193,Headphones,Copper,23.026,9.68,68.3,Bioleaching,2.56,60.7,28.12,2026-06-24
+MAT_0194,Tablet,Lead,34.7038,2.21,80.2,Bioleaching,10.66,30.6,8.04,2026-08-14
+MAT_0195,Gaming Console,Gallium,26.8719,336.97,60.3,Pyrometallurgical,16.25,98.2,21.48,2026-09-26
+MAT_0196,Television,Palladium,12.195,53096.86,89.9,Mechanical,1.14,8.6,49.1,2026-08-04
+MAT_0197,Gaming Console,Indium,9.2211,280.99,62.4,Hydrometallurgical,11.89,54.5,2.34,2026-08-27
+MAT_0198,Router/Modem,Zinc,44.4834,2.43,98.8,Acid Leaching,21.3,58.7,39.58,2026-09-17
+MAT_0199,Headphones,Gold,32.3301,67564.8,65.1,Pyrometallurgical,17.31,10.8,41.9,2026-10-11
+MAT_0200,Laptop,Tantalum,13.5164,169.44,92.8,Mechanical,5.2,81.1,4.54,2026-07-16
+MAT_0201,Smartwatch,Gold,42.841,53608.41,76.8,Pyrometallurgical,15.71,68.8,13.36,2026-08-05
+MAT_0202,Laptop,Gallium,26.1195,317.62,65.7,Acid Leaching,22.9,65.0,19.98,2026-07-01
+MAT_0203,Refrigerator,Gold,3.069,53649.96,78.9,Acid Leaching,18.34,35.4,19.85,2026-07-07
+MAT_0204,Monitor,Silver,22.2291,702.9,82.4,Bioleaching,6.96,60.9,17.12,2026-08-10
+MAT_0205,Laptop,Silver,47.026,695.66,88.2,Mechanical,18.92,10.2,30.17,2026-06-21
+MAT_0206,Gaming Console,Germanium,18.4108,1119.7,70.5,Electrochemical,21.77,35.3,11.76,2026-07-20
+MAT_0207,Camera,Gold,25.2422,60067.87,93.7,Electrochemical,21.7,47.6,25.36,2026-10-01
+MAT_0208,Television,Copper,10.3133,9.15,70.1,Acid Leaching,20.46,46.6,45.82,2026-10-30
+MAT_0209,Printer,Copper,48.998,9.36,88.4,Pyrometallurgical,17.51,49.3,31.16,2026-10-06
+MAT_0210,Desktop PC,Nickel,43.8577,17.19,75.0,Pyrometallurgical,4.97,64.7,30.0,2026-08-02
+MAT_0211,Monitor,Gold,21.0002,57240.55,69.8,Mechanical,5.97,37.2,6.36,2026-07-02
+MAT_0212,Refrigerator,Lead,29.6745,2.17,75.1,Mechanical,10.29,46.9,15.7,2026-07-11
+MAT_0213,Smartwatch,Zinc,37.795,3.19,68.0,Acid Leaching,2.78,85.8,29.18,2026-05-26
+MAT_0214,Desktop PC,Lead,15.9319,2.18,79.7,Acid Leaching,1.77,87.0,7.51,2026-06-26
+MAT_0215,Television,Gallium,33.4546,344.52,84.9,Bioleaching,21.11,12.8,33.96,2026-08-26
+MAT_0216,Washing Machine,Zinc,18.836,2.78,94.0,Mechanical,10.91,85.7,18.11,2026-07-26
+MAT_0217,Smartwatch,Germanium,49.4919,1039.73,63.5,Pyrometallurgical,9.56,81.5,4.47,2026-07-27
+MAT_0218,Router/Modem,Tantalum,3.2769,153.41,93.8,Pyrometallurgical,22.13,19.0,34.12,2026-05-25
+MAT_0219,Refrigerator,Copper,47.6103,7.3,65.8,Acid Leaching,3.88,33.8,39.04,2026-06-09
+MAT_0220,Smartwatch,Germanium,46.3549,1021.15,72.4,Electrochemical,22.68,30.2,27.13,2026-08-30
+MAT_0221,Washing Machine,Platinum,10.485,31063.36,70.0,Electrochemical,3.32,66.3,8.24,2026-10-24
+MAT_0222,Smartphone,Tin,3.7119,26.75,94.8,Electrochemical,12.45,67.5,42.3,2026-07-24
+MAT_0223,Tablet,Gold,33.8552,67351.44,61.5,Electrochemical,13.11,89.0,34.6,2026-09-10
+MAT_0224,Smartphone,Silver,38.7023,801.67,96.6,Hydrometallurgical,23.38,2.2,4.57,2026-06-02
+MAT_0225,Television,Indium,9.5387,257.31,73.2,Pyrometallurgical,14.73,85.5,8.13,2026-10-29
+MAT_0226,Tablet,Gold,28.3328,59693.34,87.7,Bioleaching,6.59,99.7,44.52,2026-05-09
+MAT_0227,Smartphone,Cobalt,11.7064,29.53,80.0,Electrochemical,15.61,46.7,31.62,2026-07-30
+MAT_0228,Tablet,Gallium,12.2499,302.35,70.5,Electrochemical,19.09,31.4,11.85,2026-10-07
+MAT_0229,Desktop PC,Lithium,29.6613,71.23,76.1,Pyrometallurgical,3.33,59.6,28.64,2026-09-08
+MAT_0230,Tablet,Gold,5.9805,69082.33,97.7,Pyrometallurgical,20.2,61.9,44.42,2026-08-19
+MAT_0231,Monitor,Tin,20.7954,22.27,78.1,Acid Leaching,0.76,22.0,25.98,2026-08-27
+MAT_0232,Smartphone,Platinum,45.4037,32664.64,84.4,Acid Leaching,24.35,85.9,2.79,2026-10-13
+MAT_0233,Camera,Nickel,10.2185,18.73,62.8,Hydrometallurgical,24.57,12.7,39.34,2026-07-23
+MAT_0234,Router/Modem,Zinc,37.6915,2.96,60.2,Hydrometallurgical,11.96,59.7,3.46,2026-10-28
+MAT_0235,Television,Platinum,33.6801,29369.8,83.8,Bioleaching,14.73,33.3,34.36,2026-06-13
+MAT_0236,Washing Machine,Silver,36.5875,749.03,69.7,Hydrometallurgical,13.54,98.9,30.9,2026-06-14
+MAT_0237,Tablet,Copper,44.8393,7.59,94.2,Acid Leaching,9.32,35.1,37.72,2026-07-04
+MAT_0238,Gaming Console,Platinum,22.2373,30073.38,91.5,Electrochemical,0.61,25.2,17.77,2026-08-12
+MAT_0239,Printer,Platinum,1.2108,32006.13,63.5,Bioleaching,20.27,77.1,14.48,2026-05-28
+MAT_0240,Headphones,Gallium,20.7461,292.45,94.7,Pyrometallurgical,13.69,76.9,4.1,2026-09-16
+MAT_0241,Printer,Gallium,34.7842,281.44,67.6,Electrochemical,19.47,10.2,22.31,2026-10-06
+MAT_0242,Washing Machine,Cobalt,11.3451,28.99,63.5,Electrochemical,7.68,14.8,10.1,2026-07-27
+MAT_0243,Monitor,Copper,25.2387,8.42,88.9,Hydrometallurgical,4.98,25.4,39.41,2026-09-26
+MAT_0244,Laptop,Copper,34.4849,7.78,83.2,Pyrometallurgical,24.16,22.6,11.04,2026-07-28
+MAT_0245,Monitor,Gold,14.6719,67871.52,92.5,Acid Leaching,15.53,0.7,39.44,2026-10-16
+MAT_0246,Gaming Console,Palladium,16.6821,46655.55,79.5,Electrochemical,4.58,52.6,44.29,2026-08-15
+MAT_0247,Monitor,Gallium,19.4064,271.41,74.5,Pyrometallurgical,6.17,98.3,44.21,2026-09-01
+MAT_0248,Monitor,Palladium,20.1308,43167.09,77.7,Pyrometallurgical,24.87,72.7,38.16,2026-06-08
+MAT_0249,Headphones,Platinum,37.3405,26010.75,65.5,Hydrometallurgical,1.15,55.6,40.99,2026-10-27
+MAT_0250,Camera,Tin,9.5981,22.65,95.6,Bioleaching,2.97,72.6,4.34,2026-08-30
+MAT_0251,Smartwatch,Indium,32.1652,249.42,96.3,Pyrometallurgical,14.48,18.8,40.2,2026-06-01
+MAT_0252,Refrigerator,Cobalt,23.5788,30.27,94.7,Electrochemical,23.97,75.5,28.39,2026-06-13
+MAT_0253,Desktop PC,Indium,10.6876,244.69,94.9,Hydrometallurgical,22.56,93.2,0.15,2026-07-08
+MAT_0254,Tablet,Tin,13.1794,24.35,68.6,Pyrometallurgical,4.32,47.6,6.49,2026-10-07
+MAT_0255,Smartphone,Tantalum,10.8507,161.11,85.7,Bioleaching,24.93,27.3,31.82,2026-09-10
+MAT_0256,Tablet,Copper,46.9667,8.72,86.0,Hydrometallurgical,5.78,93.2,1.05,2026-07-20
+MAT_0257,Microwave,Indium,40.8167,225.64,95.5,Bioleaching,12.58,13.9,27.99,2026-10-31
+MAT_0258,Television,Gallium,17.4145,342.55,62.8,Bioleaching,6.08,92.8,24.98,2026-05-20
+MAT_0259,Refrigerator,Germanium,38.7785,1221.74,64.3,Mechanical,6.37,73.6,34.68,2026-11-05
+MAT_0260,Headphones,Zinc,18.0364,2.4,85.8,Mechanical,15.49,70.3,29.65,2026-07-28
+MAT_0261,Washing Machine,Gallium,19.1594,312.51,64.6,Electrochemical,3.39,89.5,27.16,2026-06-20
+MAT_0262,Desktop PC,Germanium,31.3142,1279.73,93.5,Pyrometallurgical,13.05,81.8,29.62,2026-07-13
+MAT_0263,Smartphone,Palladium,37.8873,47690.25,67.8,Bioleaching,23.47,47.1,18.41,2026-07-26
+MAT_0264,Gaming Console,Indium,10.607,270.43,77.6,Electrochemical,13.97,10.0,42.19,2026-07-24
+MAT_0265,Refrigerator,Palladium,31.487,45953.91,76.7,Bioleaching,23.88,24.4,33.19,2026-06-28
+MAT_0266,Microwave,Lead,27.5224,2.14,66.0,Hydrometallurgical,10.21,1.6,44.67,2026-11-02
+MAT_0267,Microwave,Silver,20.4491,810.53,97.6,Electrochemical,24.03,54.2,44.98,2026-08-20
+MAT_0268,Tablet,Gold,23.7796,63490.0,83.2,Mechanical,18.86,36.7,17.49,2026-11-02
+MAT_0269,Refrigerator,Nickel,48.9539,16.06,94.2,Hydrometallurgical,15.13,83.3,3.93,2026-06-25
+MAT_0270,Headphones,Platinum,49.2174,32303.06,96.4,Bioleaching,21.92,59.0,8.37,2026-06-22
+MAT_0271,Gaming Console,Tantalum,17.8316,144.24,84.8,Bioleaching,6.92,20.5,22.75,2026-09-20
+MAT_0272,Laptop,Silver,16.0096,746.93,63.6,Mechanical,10.8,8.8,31.04,2026-08-27
+MAT_0273,Refrigerator,Cobalt,44.5132,31.99,70.8,Mechanical,13.65,0.9,2.22,2026-08-28
+MAT_0274,Router/Modem,Zinc,19.2099,2.65,81.1,Hydrometallurgical,18.16,53.8,1.81,2026-08-06
+MAT_0275,Television,Palladium,0.5434,46321.66,80.9,Electrochemical,3.24,75.0,42.74,2026-09-10
+MAT_0276,Smartwatch,Nickel,11.0799,15.31,85.7,Electrochemical,17.23,80.8,36.2,2026-09-17
+MAT_0277,Desktop PC,Gold,37.7917,65559.3,63.0,Electrochemical,1.04,6.9,38.82,2026-08-27
+MAT_0278,Tablet,Tantalum,0.2718,133.91,87.2,Mechanical,10.39,93.8,28.43,2026-05-28
+MAT_0279,Gaming Console,Lead,15.5914,2.34,84.3,Hydrometallurgical,1.29,47.2,42.48,2026-05-31
+MAT_0280,Printer,Silver,49.9187,709.95,95.2,Acid Leaching,14.31,66.2,10.78,2026-07-07
+MAT_0281,Smartphone,Copper,26.8308,8.92,70.2,Hydrometallurgical,9.45,44.0,19.4,2026-06-14
+MAT_0282,Tablet,Tantalum,13.7274,137.31,91.1,Pyrometallurgical,2.71,31.6,2.87,2026-10-13
+MAT_0283,Washing Machine,Silver,46.6812,682.27,63.9,Bioleaching,19.53,82.3,6.33,2026-08-10
+MAT_0284,Camera,Tin,23.9487,23.0,70.8,Hydrometallurgical,8.3,24.7,35.42,2026-06-22
+MAT_0285,Refrigerator,Indium,43.1874,253.28,67.5,Hydrometallurgical,13.39,47.9,31.6,2026-05-21
+MAT_0286,Camera,Tantalum,33.5486,138.87,68.4,Hydrometallurgical,17.62,36.7,3.32,2026-10-12
+MAT_0287,Camera,Nickel,22.439,18.76,79.9,Hydrometallurgical,14.59,2.1,3.25,2026-09-03
+MAT_0288,Television,Lithium,3.707,76.84,67.1,Pyrometallurgical,14.49,42.1,27.73,2026-09-23
+MAT_0289,Headphones,Tin,39.2778,27.48,79.3,Pyrometallurgical,12.68,13.4,28.71,2026-07-16
+MAT_0290,Smartphone,Germanium,46.6059,1254.67,94.6,Bioleaching,13.15,64.2,30.95,2026-08-12
+MAT_0291,Monitor,Copper,5.5725,8.41,66.1,Acid Leaching,6.33,11.2,38.36,2026-09-21
+MAT_0292,Laptop,Cobalt,20.1648,29.76,73.3,Hydrometallurgical,8.03,42.4,9.53,2026-05-29
+MAT_0293,Desktop PC,Palladium,16.2569,49986.85,75.4,Acid Leaching,11.92,48.1,32.59,2026-07-08
+MAT_0294,Refrigerator,Lead,35.1829,2.1,63.6,Pyrometallurgical,21.08,80.9,9.48,2026-07-31
+MAT_0295,Refrigerator,Palladium,49.274,41520.35,77.2,Acid Leaching,6.84,13.5,18.01,2026-09-17
+MAT_0296,Printer,Palladium,22.5707,41041.84,68.9,Mechanical,20.99,67.6,36.21,2026-06-24
+MAT_0297,Gaming Console,Tantalum,31.2422,129.46,78.5,Mechanical,7.4,80.9,9.69,2026-09-19
+MAT_0298,Microwave,Germanium,42.6134,1057.68,89.2,Acid Leaching,8.57,92.4,36.63,2026-07-17
+MAT_0299,Smartphone,Cobalt,39.5493,37.44,76.6,Mechanical,21.91,77.4,4.69,2026-09-11
+MAT_0300,Router/Modem,Tantalum,36.2527,136.17,74.5,Mechanical,20.51,73.5,16.63,2026-05-11
+MAT_0301,Microwave,Zinc,4.5769,2.39,60.9,Electrochemical,23.75,28.0,41.71,2026-10-20
+MAT_0302,Tablet,Tin,45.8335,21.27,86.5,Mechanical,1.0,85.6,48.01,2026-09-08
+MAT_0303,Laptop,Tin,10.201,22.95,77.1,Pyrometallurgical,8.77,80.9,23.87,2026-06-01
+MAT_0304,Smartwatch,Lithium,14.5235,63.75,60.3,Electrochemical,15.46,15.9,42.45,2026-07-16
+MAT_0305,Refrigerator,Gold,5.2116,62046.25,61.0,Mechanical,21.85,88.6,35.1,2026-08-03
+MAT_0306,Desktop PC,Palladium,28.8596,50615.4,89.9,Electrochemical,24.49,43.6,4.34,2026-10-03
+MAT_0307,Television,Zinc,20.2946,3.1,62.1,Acid Leaching,13.12,48.9,35.56,2026-09-07
+MAT_0308,Printer,Zinc,18.2811,3.04,71.4,Bioleaching,21.61,43.7,29.15,2026-10-30
+MAT_0309,Printer,Lithium,45.6523,72.73,89.5,Acid Leaching,22.49,19.9,46.13,2026-09-29
+MAT_0310,Refrigerator,Gallium,7.7626,315.66,72.3,Hydrometallurgical,10.77,1.7,20.84,2026-05-20
+MAT_0311,Smartphone,Copper,6.0583,8.32,71.4,Bioleaching,2.9,40.7,7.11,2026-07-24
+MAT_0312,Headphones,Tantalum,9.6964,147.11,73.1,Hydrometallurgical,13.83,42.4,25.98,2026-10-09
+MAT_0313,Desktop PC,Lead,17.0467,2.02,89.1,Pyrometallurgical,20.12,17.0,31.47,2026-07-10
+MAT_0314,Washing Machine,Lithium,6.588,72.8,93.3,Hydrometallurgical,8.86,92.7,48.19,2026-07-06
+MAT_0315,Router/Modem,Platinum,2.6682,32462.42,77.7,Bioleaching,20.15,82.6,8.41,2026-08-19
+MAT_0316,Headphones,Nickel,14.974,18.66,92.2,Acid Leaching,21.54,92.0,49.07,2026-09-15
+MAT_0317,Laptop,Palladium,35.8329,54605.86,66.0,Mechanical,17.35,23.0,14.03,2026-06-01
+MAT_0318,Headphones,Lithium,11.8532,74.16,65.3,Electrochemical,22.93,67.2,1.57,2026-08-03
+MAT_0319,Desktop PC,Nickel,48.9116,16.98,81.1,Pyrometallurgical,22.1,55.5,11.03,2026-08-18
+MAT_0320,Television,Gallium,12.6878,278.69,86.8,Electrochemical,11.99,89.1,16.27,2026-10-06
+MAT_0321,Monitor,Zinc,16.326,2.49,61.5,Pyrometallurgical,3.1,75.0,24.72,2026-07-06
+MAT_0322,Microwave,Tin,48.2472,22.98,66.0,Hydrometallurgical,0.37,14.8,37.8,2026-08-16
+MAT_0323,Camera,Germanium,24.8476,1068.69,90.8,Bioleaching,11.83,20.8,37.72,2026-06-15
+MAT_0324,Desktop PC,Platinum,16.4678,25755.01,84.4,Electrochemical,22.84,92.4,36.92,2026-09-08
+MAT_0325,Microwave,Cobalt,3.8763,30.11,72.4,Pyrometallurgical,16.36,10.5,30.99,2026-11-01
+MAT_0326,Smartwatch,Tin,13.3903,27.79,66.4,Bioleaching,13.89,97.9,28.84,2026-10-25
+MAT_0327,Gaming Console,Tin,32.5535,27.89,84.2,Mechanical,9.56,35.2,4.45,2026-07-08
+MAT_0328,Washing Machine,Copper,1.1522,8.47,94.8,Acid Leaching,21.38,92.5,4.92,2026-09-19
+MAT_0329,Monitor,Copper,31.1026,9.57,79.5,Bioleaching,3.13,79.4,9.58,2026-08-22
+MAT_0330,Tablet,Lithium,13.3356,83.95,93.7,Hydrometallurgical,3.9,85.2,3.36,2026-05-10
+MAT_0331,Television,Palladium,36.2789,43449.75,75.8,Hydrometallurgical,16.03,15.0,36.51,2026-07-05
+MAT_0332,Washing Machine,Tin,13.209,26.97,81.7,Pyrometallurgical,24.97,86.3,6.55,2026-08-14
+MAT_0333,Camera,Lithium,20.8033,84.45,88.3,Acid Leaching,17.72,56.1,33.69,2026-06-28
+MAT_0334,Smartwatch,Palladium,11.1039,42534.95,61.6,Mechanical,5.16,62.0,31.23,2026-06-30
+MAT_0335,Laptop,Platinum,6.0689,26549.8,62.6,Pyrometallurgical,1.84,43.8,2.72,2026-06-07
+MAT_0336,Camera,Palladium,30.1052,41365.32,93.1,Mechanical,6.88,68.8,8.31,2026-09-12
+MAT_0337,Tablet,Nickel,43.0548,15.96,91.1,Acid Leaching,5.69,41.7,20.56,2026-10-13
+MAT_0338,Smartwatch,Gallium,35.8286,314.53,73.5,Pyrometallurgical,12.46,35.2,27.16,2026-09-01
+MAT_0339,Headphones,Tantalum,23.7215,139.87,75.2,Mechanical,24.19,0.7,4.07,2026-10-09
+MAT_0340,Monitor,Palladium,16.7692,47748.71,84.9,Acid Leaching,0.73,7.4,26.41,2026-10-07
+MAT_0341,Tablet,Silver,21.4201,787.14,79.1,Acid Leaching,8.35,89.4,0.82,2026-05-30
+MAT_0342,Smartphone,Tantalum,13.7548,157.01,81.2,Acid Leaching,21.91,59.5,42.11,2026-06-09
+MAT_0343,Laptop,Gold,30.5938,63859.46,64.8,Acid Leaching,0.54,23.9,46.94,2026-07-31
+MAT_0344,Gaming Console,Gallium,46.4425,290.67,71.9,Pyrometallurgical,12.5,68.7,18.07,2026-07-12
+MAT_0345,Router/Modem,Lead,14.5854,1.98,66.5,Hydrometallurgical,12.78,49.2,14.1,2026-09-10
+MAT_0346,Headphones,Gallium,21.5973,281.83,60.6,Acid Leaching,9.82,64.1,33.86,2026-10-26
+MAT_0347,Refrigerator,Silver,23.885,889.07,63.8,Electrochemical,0.24,82.8,17.56,2026-08-16
+MAT_0348,Monitor,Cobalt,38.8062,35.39,87.4,Electrochemical,21.83,74.7,42.07,2026-07-09
+MAT_0349,Printer,Tin,2.6015,26.54,81.2,Electrochemical,18.15,34.9,4.01,2026-07-27
+MAT_0350,Smartwatch,Gallium,5.4589,291.56,67.0,Pyrometallurgical,17.68,73.7,43.05,2026-07-18
+MAT_0351,Smartphone,Lithium,2.0995,71.58,69.7,Mechanical,10.21,24.1,34.15,2026-09-20
+MAT_0352,Smartphone,Copper,34.3579,8.14,81.9,Acid Leaching,0.1,38.8,33.2,2026-10-27
+MAT_0353,Gaming Console,Silver,1.626,884.14,94.2,Pyrometallurgical,15.03,8.8,1.47,2026-10-26
+MAT_0354,Printer,Nickel,10.396,15.82,85.2,Bioleaching,7.47,91.3,46.25,2026-09-23
+MAT_0355,Microwave,Tin,14.4807,28.66,87.1,Bioleaching,5.36,52.7,30.69,2026-10-27
+MAT_0356,Router/Modem,Lithium,45.1779,84.1,70.0,Mechanical,2.84,3.3,45.88,2026-06-17
+MAT_0357,Washing Machine,Palladium,8.8876,48895.35,70.0,Bioleaching,12.29,44.6,36.93,2026-09-11
+MAT_0358,Monitor,Nickel,27.8327,16.26,97.1,Bioleaching,12.36,6.0,1.58,2026-08-21
+MAT_0359,Router/Modem,Tin,30.2992,27.29,65.9,Electrochemical,4.69,31.5,46.42,2026-05-14
+MAT_0360,Router/Modem,Lithium,24.7753,70.85,70.2,Pyrometallurgical,13.21,17.7,35.97,2026-05-18
+MAT_0361,Camera,Tantalum,30.5834,170.08,67.0,Mechanical,15.52,51.8,34.52,2026-09-03
+MAT_0362,Smartwatch,Copper,44.3431,8.77,84.8,Hydrometallurgical,10.39,16.3,33.51,2026-10-26
+MAT_0363,Gaming Console,Lead,40.7795,2.26,67.8,Bioleaching,11.97,87.3,34.67,2026-08-29
+MAT_0364,Microwave,Tin,13.4266,22.28,61.2,Pyrometallurgical,8.96,86.8,26.47,2026-07-14
+MAT_0365,Laptop,Tantalum,28.561,163.93,78.7,Pyrometallurgical,13.22,99.8,49.51,2026-11-03
+MAT_0366,Router/Modem,Cobalt,19.8508,36.62,84.7,Hydrometallurgical,21.65,50.9,0.94,2026-08-08
+MAT_0367,Smartwatch,Indium,31.1975,275.41,85.6,Bioleaching,19.21,45.7,21.84,2026-10-24
+MAT_0368,Tablet,Tin,41.1233,26.29,80.4,Electrochemical,20.31,87.5,30.95,2026-06-22
+MAT_0369,Desktop PC,Nickel,43.8192,18.31,65.4,Mechanical,23.09,28.6,45.82,2026-08-17
+MAT_0370,Tablet,Silver,14.2163,758.37,72.2,Acid Leaching,7.54,30.2,21.81,2026-08-22
+MAT_0371,Laptop,Silver,44.1607,782.13,60.9,Pyrometallurgical,7.24,18.9,4.09,2026-08-16
+MAT_0372,Camera,Lithium,18.6859,73.23,94.2,Acid Leaching,24.97,45.9,19.31,2026-05-31
+MAT_0373,Refrigerator,Lithium,21.0337,64.63,60.2,Hydrometallurgical,2.29,28.1,42.72,2026-05-25
+MAT_0374,Smartwatch,Cobalt,33.2185,30.66,93.8,Mechanical,6.57,1.2,40.58,2026-09-02
+MAT_0375,Monitor,Gold,27.3354,66877.0,74.5,Acid Leaching,3.39,3.5,0.69,2026-08-12
+MAT_0376,Desktop PC,Lithium,44.5471,71.29,76.0,Pyrometallurgical,15.51,74.4,13.98,2026-11-03
+MAT_0377,Smartwatch,Zinc,9.2235,3.05,95.8,Electrochemical,12.94,15.1,43.46,2026-06-28
+MAT_0378,Washing Machine,Tin,42.8805,28.52,63.0,Acid Leaching,15.62,81.9,37.24,2026-10-05
+MAT_0379,Television,Palladium,14.9515,43874.65,77.0,Pyrometallurgical,20.56,9.0,10.34,2026-05-16
+MAT_0380,Tablet,Zinc,13.1038,2.65,80.0,Hydrometallurgical,10.04,93.5,35.87,2026-08-15
+MAT_0381,Monitor,Palladium,19.3384,42760.9,98.9,Bioleaching,22.33,38.7,43.95,2026-09-26
+MAT_0382,Smartwatch,Silver,39.0089,890.82,76.2,Bioleaching,17.23,6.3,38.75,2026-10-23
+MAT_0383,Smartphone,Zinc,2.7067,2.72,93.3,Pyrometallurgical,19.74,4.8,33.31,2026-06-07
+MAT_0384,Gaming Console,Tantalum,34.0779,154.45,85.2,Hydrometallurgical,15.01,14.7,13.71,2026-09-25
+MAT_0385,Smartphone,Gold,27.5497,66268.64,92.5,Acid Leaching,20.97,56.0,33.01,2026-09-02
+MAT_0386,Camera,Copper,17.497,9.46,61.6,Acid Leaching,7.36,53.4,49.54,2026-10-03
+MAT_0387,Refrigerator,Tantalum,3.0442,172.1,76.1,Mechanical,19.49,59.8,12.58,2026-09-03
+MAT_0388,Printer,Platinum,23.5748,31469.76,98.1,Hydrometallurgical,21.71,8.2,25.24,2026-07-06
+MAT_0389,Desktop PC,Indium,5.9691,241.79,73.9,Bioleaching,0.84,2.4,7.62,2026-07-11
+MAT_0390,Headphones,Nickel,31.2548,18.72,76.8,Acid Leaching,17.65,90.5,43.89,2026-06-11
+MAT_0391,Router/Modem,Silver,18.0209,850.01,71.1,Hydrometallurgical,0.78,83.8,11.37,2026-05-30
+MAT_0392,Television,Tantalum,21.4268,167.68,94.3,Pyrometallurgical,20.29,52.9,46.65,2026-09-02
+MAT_0393,Smartphone,Palladium,21.6542,43994.78,71.4,Hydrometallurgical,6.51,22.3,27.47,2026-09-30
+MAT_0394,Gaming Console,Tantalum,37.1841,147.57,64.6,Acid Leaching,14.47,95.6,27.92,2026-10-26
+MAT_0395,Printer,Gallium,31.3471,283.0,73.8,Mechanical,23.3,51.8,48.22,2026-06-21
+MAT_0396,Laptop,Gallium,4.3346,255.66,78.3,Pyrometallurgical,1.37,91.8,6.84,2026-08-24
+MAT_0397,Printer,Lead,14.0495,2.31,79.4,Acid Leaching,14.5,83.7,2.82,2026-05-18
+MAT_0398,Tablet,Palladium,5.075,46923.49,89.6,Electrochemical,16.31,83.2,38.59,2026-10-19
+MAT_0399,Microwave,Tin,8.9276,23.74,88.1,Hydrometallurgical,3.23,80.1,18.36,2026-07-04
+MAT_0400,Headphones,Silver,31.1644,738.72,84.9,Electrochemical,23.75,71.5,11.38,2026-08-26
+MAT_0401,Tablet,Germanium,32.0325,1143.43,65.3,Bioleaching,12.14,89.2,33.66,2026-05-10
+MAT_0402,Washing Machine,Zinc,48.1778,3.11,62.1,Electrochemical,3.84,47.8,29.0,2026-11-02
+MAT_0403,Television,Germanium,0.7091,1160.55,76.3,Acid Leaching,22.67,97.4,33.17,2026-09-21
+MAT_0404,Desktop PC,Palladium,13.1188,51355.72,82.2,Hydrometallurgical,21.37,43.2,8.15,2026-09-11
+MAT_0405,Desktop PC,Cobalt,42.8576,32.54,86.8,Electrochemical,23.92,16.0,25.32,2026-06-20
+MAT_0406,Tablet,Lead,44.6363,2.15,92.4,Bioleaching,11.13,16.9,29.0,2026-08-08
+MAT_0407,Tablet,Lead,22.1847,2.09,68.3,Electrochemical,19.54,11.7,13.79,2026-05-11
+MAT_0408,Washing Machine,Cobalt,14.1476,37.83,86.3,Hydrometallurgical,8.37,95.8,1.5,2026-07-22
+MAT_0409,Desktop PC,Nickel,8.7189,18.92,70.1,Mechanical,4.44,27.6,37.36,2026-08-16
+MAT_0410,Desktop PC,Lithium,37.215,83.07,88.3,Electrochemical,17.09,19.1,11.69,2026-07-17
+MAT_0411,Television,Lead,41.7741,1.8,87.5,Electrochemical,4.89,17.9,33.35,2026-08-20
+MAT_0412,Tablet,Indium,16.1311,236.37,93.9,Acid Leaching,20.47,66.8,37.82,2026-07-22
+MAT_0413,Headphones,Palladium,10.5266,45780.15,73.8,Hydrometallurgical,12.58,13.6,46.59,2026-06-28
+MAT_0414,Tablet,Nickel,42.4703,15.78,60.4,Hydrometallurgical,8.84,67.6,7.12,2026-10-05
+MAT_0415,Smartwatch,Platinum,38.5448,31736.54,81.0,Electrochemical,17.82,17.5,21.41,2026-10-23
+MAT_0416,Printer,Gold,29.4437,70307.04,88.2,Bioleaching,16.17,11.5,13.03,2026-06-20
+MAT_0417,Television,Lead,2.4873,2.15,81.0,Acid Leaching,3.19,78.2,9.41,2026-09-17
+MAT_0418,Smartwatch,Palladium,46.009,55085.77,84.6,Bioleaching,22.24,85.5,34.53,2026-07-10
+MAT_0419,Desktop PC,Tantalum,18.975,156.54,96.8,Acid Leaching,16.34,2.0,34.26,2026-09-21
+MAT_0420,Washing Machine,Palladium,46.1617,47957.94,87.5,Bioleaching,15.15,51.3,39.53,2026-09-04
+MAT_0421,Monitor,Germanium,36.7632,1289.7,73.2,Bioleaching,9.6,19.4,37.47,2026-05-25
+MAT_0422,Laptop,Zinc,47.2345,3.07,67.1,Pyrometallurgical,14.29,80.9,40.56,2026-11-04
+MAT_0423,Smartphone,Cobalt,4.4721,28.17,70.1,Electrochemical,22.19,46.7,31.7,2026-10-15
+MAT_0424,Smartphone,Tin,38.6631,27.21,86.4,Electrochemical,12.64,24.4,43.04,2026-08-25
+MAT_0425,Desktop PC,Copper,25.6371,7.95,97.4,Pyrometallurgical,20.44,53.3,11.23,2026-09-26
+MAT_0426,Camera,Zinc,15.4456,3.09,90.6,Pyrometallurgical,19.42,10.5,9.62,2026-09-25
+MAT_0427,Camera,Cobalt,25.2224,35.26,69.6,Hydrometallurgical,5.05,42.0,12.3,2026-08-26
+MAT_0428,Router/Modem,Tin,10.4893,26.01,97.1,Hydrometallurgical,2.24,79.1,34.62,2026-07-22
+MAT_0429,Refrigerator,Tin,33.9658,21.71,86.3,Electrochemical,24.88,37.8,12.65,2026-10-13
+MAT_0430,Printer,Copper,15.6265,7.29,86.6,Hydrometallurgical,5.81,21.5,1.62,2026-08-12
+MAT_0431,Camera,Palladium,7.7124,42957.86,72.2,Mechanical,4.96,12.4,48.35,2026-06-08
+MAT_0432,Washing Machine,Gold,17.4868,53094.85,69.2,Electrochemical,8.29,70.5,16.7,2026-07-30
+MAT_0433,Washing Machine,Gold,4.5669,69802.87,91.0,Hydrometallurgical,10.83,57.1,0.15,2026-10-10
+MAT_0434,Router/Modem,Germanium,1.9921,1187.55,92.0,Acid Leaching,4.97,39.8,24.54,2026-10-14
+MAT_0435,Monitor,Nickel,32.2512,16.39,66.8,Electrochemical,24.45,52.6,40.1,2026-10-25
+MAT_0436,Refrigerator,Cobalt,7.5389,32.23,91.3,Hydrometallurgical,8.82,90.8,46.64,2026-05-17
+MAT_0437,Microwave,Cobalt,36.5793,33.68,79.6,Electrochemical,20.6,44.5,47.07,2026-10-18
+MAT_0438,Gaming Console,Tin,48.794,27.44,70.4,Pyrometallurgical,20.53,95.1,44.56,2026-05-16
+MAT_0439,Gaming Console,Lithium,24.8392,80.63,72.5,Acid Leaching,9.96,81.7,16.55,2026-07-11
+MAT_0440,Microwave,Indium,10.7334,250.03,85.5,Pyrometallurgical,20.24,63.9,28.44,2026-10-10
+MAT_0441,Television,Indium,0.3659,265.89,64.5,Pyrometallurgical,16.4,91.9,0.68,2026-06-24
+MAT_0442,Smartphone,Germanium,19.6979,1154.3,85.8,Bioleaching,1.59,1.3,43.69,2026-11-01
+MAT_0443,Monitor,Nickel,5.8573,19.54,61.8,Mechanical,19.79,25.3,3.96,2026-05-15
+MAT_0444,Gaming Console,Tin,44.8566,25.71,84.6,Acid Leaching,23.66,17.5,43.71,2026-09-07
+MAT_0445,Washing Machine,Tin,44.9148,25.8,98.8,Hydrometallurgical,0.35,11.3,24.9,2026-07-04
+MAT_0446,Refrigerator,Cobalt,1.868,32.56,81.8,Mechanical,8.27,60.8,35.66,2026-09-17
+MAT_0447,Smartphone,Platinum,28.4682,24751.96,65.4,Acid Leaching,15.86,90.4,17.43,2026-06-05
+MAT_0448,Monitor,Gallium,31.8023,305.89,66.0,Mechanical,16.58,83.7,4.01,2026-10-25
+MAT_0449,Smartphone,Lithium,25.1593,67.1,93.4,Electrochemical,2.04,59.9,35.75,2026-09-26
+MAT_0450,Headphones,Gallium,46.302,309.48,81.7,Mechanical,8.26,7.0,20.21,2026-08-11
+MAT_0451,Washing Machine,Copper,14.4926,7.56,84.0,Electrochemical,10.98,68.7,44.91,2026-05-26
+MAT_0452,Television,Palladium,34.5851,45838.8,80.6,Electrochemical,3.94,91.3,14.13,2026-10-07
+MAT_0453,Router/Modem,Indium,13.6266,259.93,88.9,Pyrometallurgical,21.08,3.5,11.22,2026-08-15
+MAT_0454,Desktop PC,Gallium,43.4021,299.13,79.1,Bioleaching,7.25,3.3,37.31,2026-08-16
+MAT_0455,Printer,Zinc,16.8565,3.02,98.7,Mechanical,7.52,35.4,13.67,2026-06-04
+MAT_0456,Camera,Gold,14.5501,70078.95,87.8,Bioleaching,4.62,22.0,47.97,2026-07-03
+MAT_0457,Washing Machine,Indium,2.1276,282.92,63.2,Acid Leaching,15.86,7.3,8.68,2026-06-09
+MAT_0458,Router/Modem,Copper,19.5669,9.7,73.5,Electrochemical,17.18,85.7,27.04,2026-10-15
+MAT_0459,Printer,Platinum,38.6893,32913.83,83.8,Pyrometallurgical,13.91,16.5,39.72,2026-10-19
+MAT_0460,Printer,Zinc,1.3934,2.92,79.3,Acid Leaching,14.01,41.4,30.23,2026-07-30
+MAT_0461,Television,Gold,4.2187,56614.04,81.4,Pyrometallurgical,21.97,11.2,17.1,2026-07-13
+MAT_0462,Laptop,Silver,37.7746,790.62,82.0,Electrochemical,1.92,16.2,29.38,2026-08-21
+MAT_0463,Desktop PC,Zinc,33.6067,2.43,74.7,Electrochemical,4.73,50.4,16.68,2026-10-19
+MAT_0464,Headphones,Gallium,15.7849,275.17,96.6,Pyrometallurgical,17.94,91.7,23.05,2026-10-29
+MAT_0465,Monitor,Silver,18.3496,684.99,85.2,Electrochemical,8.94,44.3,9.9,2026-08-07
+MAT_0466,Printer,Indium,41.505,252.97,65.0,Bioleaching,8.24,85.2,10.86,2026-07-27
+MAT_0467,Router/Modem,Cobalt,15.4262,29.14,97.7,Acid Leaching,21.74,14.1,1.66,2026-06-02
+MAT_0468,Smartphone,Lithium,20.3422,73.03,70.7,Pyrometallurgical,13.83,49.2,18.59,2026-11-05
+MAT_0469,Gaming Console,Gallium,2.6025,264.21,97.4,Mechanical,1.66,8.4,30.66,2026-10-07
+MAT_0470,Router/Modem,Copper,33.4919,9.0,79.5,Hydrometallurgical,9.96,23.4,32.1,2026-09-27
+MAT_0471,Refrigerator,Copper,16.5505,7.88,66.5,Pyrometallurgical,6.07,1.3,37.76,2026-06-05
+MAT_0472,Laptop,Lead,3.2165,2.4,86.0,Mechanical,24.88,70.8,28.95,2026-07-17
+MAT_0473,Headphones,Platinum,39.8307,25994.47,60.8,Hydrometallurgical,16.27,54.7,8.34,2026-08-12
+MAT_0474,Monitor,Gold,45.0196,61587.99,78.1,Pyrometallurgical,12.08,40.6,47.23,2026-10-18
+MAT_0475,Smartwatch,Platinum,0.7165,28810.33,62.0,Electrochemical,10.41,14.4,34.9,2026-08-03
+MAT_0476,Refrigerator,Palladium,49.8596,53582.91,73.0,Pyrometallurgical,6.03,41.1,28.2,2026-08-30
+MAT_0477,Smartwatch,Platinum,10.0727,24888.36,78.4,Pyrometallurgical,11.66,83.5,22.22,2026-06-30
+MAT_0478,Washing Machine,Germanium,38.3052,1343.01,84.8,Pyrometallurgical,13.67,51.4,43.43,2026-06-14
+MAT_0479,Printer,Gallium,33.0339,293.61,85.1,Acid Leaching,13.15,37.7,15.67,2026-07-17
+MAT_0480,Smartwatch,Palladium,27.2829,49884.78,92.5,Bioleaching,22.79,18.9,16.57,2026-10-25
+MAT_0481,Monitor,Zinc,41.6625,3.22,84.6,Mechanical,5.78,73.5,36.7,2026-07-04
+MAT_0482,Smartphone,Germanium,16.3703,1334.92,84.4,Acid Leaching,12.57,4.9,31.75,2026-09-23
+MAT_0483,Laptop,Tantalum,21.9801,149.56,80.8,Mechanical,1.73,75.8,28.33,2026-09-02
+MAT_0484,Tablet,Tin,28.7194,24.75,87.0,Mechanical,12.03,94.8,0.59,2026-08-26
+MAT_0485,Washing Machine,Tin,37.0733,26.87,84.7,Acid Leaching,13.86,73.4,12.39,2026-09-23
+MAT_0486,Gaming Console,Germanium,47.7216,1158.47,97.0,Electrochemical,18.58,51.8,8.83,2026-09-21
+MAT_0487,Refrigerator,Tantalum,26.5189,139.2,80.9,Pyrometallurgical,17.49,93.5,47.69,2026-06-16
+MAT_0488,Desktop PC,Silver,15.8831,840.64,75.9,Electrochemical,9.75,39.1,29.39,2026-08-01
+MAT_0489,Gaming Console,Tantalum,47.7749,151.57,88.6,Hydrometallurgical,10.04,60.6,16.01,2026-09-30
+MAT_0490,Gaming Console,Indium,38.1826,260.16,89.3,Pyrometallurgical,17.32,63.6,29.05,2026-06-21
+MAT_0491,Smartphone,Germanium,48.2871,1103.58,75.1,Hydrometallurgical,18.14,64.2,41.27,2026-07-17
+MAT_0492,Smartphone,Palladium,41.4188,52107.24,73.4,Bioleaching,18.18,87.5,28.18,2026-07-04
+MAT_0493,Television,Indium,43.8492,231.8,84.7,Electrochemical,23.0,66.0,8.59,2026-09-17
+MAT_0494,Microwave,Tin,6.8118,26.21,72.7,Acid Leaching,19.08,66.2,28.65,2026-05-23
+MAT_0495,Router/Modem,Lead,41.7091,1.89,79.4,Pyrometallurgical,16.72,31.8,36.27,2026-09-08
+MAT_0496,Camera,Cobalt,31.4707,33.13,74.7,Hydrometallurgical,16.92,91.8,35.03,2026-07-03
+MAT_0497,Smartphone,Nickel,15.6887,20.61,69.9,Mechanical,5.31,22.9,7.76,2026-10-11
+MAT_0498,Smartphone,Platinum,46.2377,29148.05,85.6,Pyrometallurgical,12.1,49.1,23.66,2026-08-11
+MAT_0499,Smartwatch,Lithium,26.6948,66.36,93.7,Bioleaching,5.1,77.6,5.77,2026-07-13
+MAT_0500,Gaming Console,Gold,41.0137,64552.8,80.8,Hydrometallurgical,21.57,59.0,48.38,2026-07-08
+MAT_0501,Monitor,Palladium,31.0374,46824.38,68.3,Mechanical,13.72,67.6,33.57,2026-05-29
+MAT_0502,Monitor,Nickel,15.5553,18.26,81.1,Mechanical,12.63,18.5,38.13,2026-07-07
+MAT_0503,Television,Palladium,30.9406,42774.35,93.3,Mechanical,24.55,8.7,40.42,2026-07-02
+MAT_0504,Refrigerator,Silver,44.2452,728.37,88.3,Mechanical,24.66,89.1,13.52,2026-05-12
+MAT_0505,Desktop PC,Gold,8.239,68235.01,60.8,Electrochemical,11.23,94.6,4.4,2026-05-15
+MAT_0506,Smartphone,Silver,6.4162,854.23,82.2,Hydrometallurgical,16.74,62.3,21.83,2026-08-16
+MAT_0507,Laptop,Tantalum,37.8867,141.08,77.2,Electrochemical,14.01,69.5,19.36,2026-07-07
+MAT_0508,Television,Tin,42.1763,27.35,95.9,Electrochemical,0.6,26.2,17.64,2026-08-17
+MAT_0509,Camera,Palladium,20.7267,50267.18,90.2,Pyrometallurgical,6.31,20.5,21.57,2026-07-19
+MAT_0510,Smartphone,Tantalum,19.6776,164.01,74.3,Electrochemical,0.14,16.4,6.36,2026-05-25
+MAT_0511,Headphones,Palladium,43.6434,53524.15,90.9,Bioleaching,20.4,52.3,33.09,2026-08-07
+MAT_0512,Gaming Console,Silver,48.453,775.12,70.1,Acid Leaching,7.84,74.7,9.33,2026-07-15
+MAT_0513,Camera,Silver,18.8036,666.92,68.4,Electrochemical,24.78,74.1,5.99,2026-10-19
+MAT_0514,Smartphone,Germanium,48.1069,1311.48,86.6,Acid Leaching,6.19,79.1,40.41,2026-07-31
+MAT_0515,Gaming Console,Silver,41.8146,835.62,65.8,Pyrometallurgical,4.85,19.0,36.85,2026-07-06
+MAT_0516,Router/Modem,Gold,18.5915,63489.74,67.9,Mechanical,1.65,54.7,46.34,2026-06-18
+MAT_0517,Printer,Cobalt,8.4196,35.69,83.3,Acid Leaching,22.2,30.4,47.08,2026-06-11
+MAT_0518,Microwave,Gold,39.6276,64865.11,61.0,Bioleaching,9.36,2.3,15.13,2026-09-06
+MAT_0519,Refrigerator,Lithium,38.7912,83.85,90.4,Acid Leaching,6.55,19.1,4.53,2026-05-29
+MAT_0520,Printer,Tin,26.3088,25.71,70.1,Electrochemical,6.97,24.1,39.18,2026-10-15
+MAT_0521,Camera,Germanium,35.2834,1216.98,90.5,Hydrometallurgical,14.76,37.1,20.83,2026-09-09
+MAT_0522,Monitor,Germanium,28.6352,1316.76,74.3,Bioleaching,14.51,69.2,20.62,2026-05-12
+MAT_0523,Smartwatch,Tin,25.5555,25.58,96.6,Bioleaching,11.86,57.1,23.35,2026-08-09
+MAT_0524,Gaming Console,Gold,5.4037,57455.16,79.4,Hydrometallurgical,11.61,71.1,21.91,2026-07-24
+MAT_0525,Gaming Console,Cobalt,40.9275,33.85,69.8,Acid Leaching,22.05,92.7,5.44,2026-06-19
+MAT_0526,Washing Machine,Gold,44.8269,59684.27,97.6,Electrochemical,21.01,81.5,38.58,2026-08-31
+MAT_0527,Tablet,Copper,43.1699,7.25,75.3,Hydrometallurgical,4.24,78.5,11.36,2026-07-12
+MAT_0528,Router/Modem,Copper,42.3582,8.7,74.7,Mechanical,18.9,81.8,47.84,2026-08-11
+MAT_0529,Microwave,Gold,41.1346,68877.2,82.1,Pyrometallurgical,8.39,85.5,25.16,2026-10-27
+MAT_0530,Refrigerator,Cobalt,31.8286,32.64,65.8,Hydrometallurgical,18.91,94.8,1.33,2026-10-20
+MAT_0531,Camera,Lithium,17.3919,69.57,68.3,Bioleaching,5.76,39.9,33.65,2026-06-18
+MAT_0532,Desktop PC,Copper,16.8335,7.87,90.3,Bioleaching,5.77,35.9,11.96,2026-07-18
+MAT_0533,Headphones,Gold,24.0486,56122.51,71.8,Hydrometallurgical,8.46,80.5,34.92,2026-06-23
+MAT_0534,Desktop PC,Silver,4.6172,729.97,94.7,Pyrometallurgical,16.03,61.8,44.48,2026-09-14
+MAT_0535,Refrigerator,Palladium,15.1997,41193.9,67.4,Hydrometallurgical,3.74,44.6,41.17,2026-08-06
+MAT_0536,Microwave,Palladium,6.567,50192.87,65.0,Hydrometallurgical,8.41,42.1,48.01,2026-05-26
+MAT_0537,Tablet,Palladium,43.315,45308.08,80.7,Acid Leaching,18.58,27.7,33.34,2026-10-09
+MAT_0538,Router/Modem,Silver,30.6526,884.91,76.9,Hydrometallurgical,22.62,89.3,12.68,2026-08-20
+MAT_0539,Television,Platinum,24.286,27445.81,86.5,Bioleaching,13.2,32.9,16.04,2026-08-27
+MAT_0540,Smartwatch,Silver,29.7624,792.25,60.1,Hydrometallurgical,24.65,72.2,5.78,2026-08-25
+MAT_0541,Smartphone,Copper,38.4925,9.58,75.2,Acid Leaching,4.8,92.9,21.22,2026-06-17
+MAT_0542,Refrigerator,Platinum,9.86,28158.04,98.8,Pyrometallurgical,19.96,43.0,3.12,2026-06-15
+MAT_0543,Router/Modem,Nickel,40.0712,17.9,92.7,Pyrometallurgical,7.57,27.2,44.74,2026-05-31
+MAT_0544,Router/Modem,Tin,44.3182,22.87,71.6,Mechanical,20.64,48.5,33.76,2026-05-23
+MAT_0545,Desktop PC,Germanium,38.1676,1154.2,83.5,Acid Leaching,8.13,12.7,35.01,2026-07-30
+MAT_0546,Microwave,Lead,22.8761,1.84,83.0,Electrochemical,9.44,36.4,39.07,2026-07-28
+MAT_0547,Tablet,Palladium,0.1662,42727.96,72.2,Electrochemical,23.11,55.6,16.8,2026-05-30
+MAT_0548,Television,Tantalum,7.8704,139.77,71.7,Pyrometallurgical,2.81,87.2,38.45,2026-10-08
+MAT_0549,Desktop PC,Nickel,44.9182,18.28,70.2,Hydrometallurgical,5.87,22.9,46.55,2026-09-07
+MAT_0550,Printer,Indium,13.6992,239.34,81.3,Hydrometallurgical,2.17,9.0,39.59,2026-10-25
+MAT_0551,Tablet,Silver,20.5603,758.36,67.8,Acid Leaching,6.72,71.1,21.72,2026-08-14
+MAT_0552,Television,Zinc,46.2771,2.9,96.0,Pyrometallurgical,12.9,90.8,36.55,2026-06-23
+MAT_0553,Smartwatch,Platinum,46.1846,29962.31,77.8,Bioleaching,24.42,9.9,21.58,2026-09-27
+MAT_0554,Camera,Tin,37.5908,25.54,73.0,Electrochemical,9.33,67.7,0.39,2026-06-11
+MAT_0555,Headphones,Platinum,22.9726,33053.87,84.8,Bioleaching,19.12,87.6,43.17,2026-05-22
+MAT_0556,Smartphone,Lithium,27.5689,77.61,66.1,Bioleaching,19.55,93.3,41.97,2026-07-24
+MAT_0557,Router/Modem,Zinc,12.3542,3.11,92.2,Mechanical,11.71,85.9,14.22,2026-06-09
+MAT_0558,Smartwatch,Germanium,26.0868,1305.68,72.4,Pyrometallurgical,20.32,93.5,14.35,2026-08-10
+MAT_0559,Camera,Lead,17.7113,2.2,63.2,Acid Leaching,13.28,29.7,37.43,2026-07-06
+MAT_0560,Headphones,Copper,1.6711,7.73,83.9,Hydrometallurgical,7.71,35.2,39.75,2026-05-10
+MAT_0561,Camera,Nickel,17.2182,18.9,84.0,Electrochemical,8.9,85.4,10.88,2026-07-16
+MAT_0562,Smartwatch,Gold,2.667,58645.89,61.0,Hydrometallurgical,12.61,81.0,16.99,2026-05-11
+MAT_0563,Smartwatch,Tin,26.2174,28.01,84.5,Pyrometallurgical,5.06,45.5,14.42,2026-10-12
+MAT_0564,Gaming Console,Indium,3.9841,277.65,71.4,Pyrometallurgical,18.1,30.2,2.67,2026-08-30
+MAT_0565,Printer,Indium,40.6432,236.01,92.9,Hydrometallurgical,12.52,77.7,40.81,2026-09-20
+MAT_0566,Washing Machine,Copper,18.0851,8.29,86.3,Hydrometallurgical,15.45,58.9,37.73,2026-09-05
+MAT_0567,Washing Machine,Tin,4.8735,22.35,82.6,Bioleaching,3.45,36.5,8.36,2026-05-29
+MAT_0568,Smartphone,Tantalum,28.5946,167.03,63.4,Hydrometallurgical,1.53,11.9,7.35,2026-09-30
+MAT_0569,Gaming Console,Lead,9.6787,1.91,60.6,Acid Leaching,1.34,78.8,33.81,2026-05-28
+MAT_0570,Desktop PC,Copper,33.2283,7.43,64.0,Mechanical,16.22,91.3,9.63,2026-08-29
+MAT_0571,Television,Indium,19.3693,283.74,63.5,Bioleaching,19.72,36.7,25.11,2026-07-21
+MAT_0572,Printer,Nickel,1.0296,19.17,72.1,Bioleaching,4.35,7.4,31.58,2026-08-25
+MAT_0573,Camera,Platinum,5.7691,27935.31,78.2,Acid Leaching,22.73,89.5,40.84,2026-08-30
+MAT_0574,Smartphone,Zinc,15.5089,2.79,67.6,Hydrometallurgical,16.01,35.9,14.05,2026-06-13
+MAT_0575,Monitor,Palladium,32.4348,53422.79,96.8,Acid Leaching,8.58,50.6,20.53,2026-06-08
+MAT_0576,Gaming Console,Tantalum,33.0805,162.96,66.8,Acid Leaching,0.45,13.2,18.47,2026-06-03
+MAT_0577,Laptop,Silver,22.9352,794.82,61.6,Hydrometallurgical,24.73,19.2,9.65,2026-10-29
+MAT_0578,Monitor,Indium,3.5721,271.76,78.4,Acid Leaching,23.94,48.8,5.56,2026-11-05
+MAT_0579,Router/Modem,Nickel,9.1844,20.68,73.6,Bioleaching,20.55,60.0,33.72,2026-08-13
+MAT_0580,Router/Modem,Gold,38.4163,71208.1,72.5,Bioleaching,20.03,52.5,3.08,2026-07-06
+MAT_0581,Smartwatch,Cobalt,38.6542,35.83,86.9,Bioleaching,0.16,80.2,23.69,2026-06-26
+MAT_0582,Headphones,Indium,8.171,248.68,95.7,Bioleaching,5.86,53.5,20.37,2026-07-18
+MAT_0583,Tablet,Indium,49.6439,225.53,60.4,Electrochemical,24.89,44.1,39.8,2026-10-02
+MAT_0584,Microwave,Lead,47.0818,1.97,82.8,Acid Leaching,8.33,72.2,4.43,2026-09-19
+MAT_0585,Refrigerator,Lithium,5.0858,68.54,66.2,Pyrometallurgical,13.95,24.2,18.0,2026-08-07
+MAT_0586,Washing Machine,Indium,29.6871,215.77,74.7,Mechanical,19.95,18.3,47.88,2026-05-26
+MAT_0587,Printer,Silver,29.2413,843.36,87.8,Acid Leaching,12.3,54.3,0.34,2026-10-29
+MAT_0588,Laptop,Nickel,21.9633,18.99,74.0,Mechanical,11.81,92.6,41.05,2026-10-26
+MAT_0589,Television,Copper,4.6764,8.46,87.5,Mechanical,2.29,6.2,45.48,2026-09-22
+MAT_0590,Smartwatch,Cobalt,6.8396,29.04,97.2,Pyrometallurgical,6.61,80.0,31.49,2026-10-23
+MAT_0591,Desktop PC,Lead,34.065,2.4,94.1,Mechanical,2.85,73.1,48.34,2026-07-02
+MAT_0592,Router/Modem,Gold,29.8358,55181.89,66.9,Acid Leaching,24.5,62.3,19.49,2026-07-12
+MAT_0593,Headphones,Copper,15.9989,7.35,80.6,Pyrometallurgical,1.01,39.8,8.33,2026-08-17
+MAT_0594,Desktop PC,Palladium,3.8223,54359.29,68.6,Bioleaching,6.91,19.6,40.2,2026-07-10
+MAT_0595,Laptop,Zinc,34.2005,2.65,74.0,Hydrometallurgical,8.34,71.7,28.87,2026-09-10
+MAT_0596,Monitor,Nickel,42.9002,15.61,97.0,Hydrometallurgical,2.87,3.2,6.32,2026-11-01
+MAT_0597,Headphones,Platinum,33.8211,27304.98,89.7,Acid Leaching,16.34,44.1,43.72,2026-10-25
+MAT_0598,Laptop,Platinum,28.5604,28674.87,83.3,Electrochemical,22.84,30.5,41.24,2026-05-22
+MAT_0599,Headphones,Gallium,15.4256,307.89,64.0,Hydrometallurgical,1.31,39.5,30.69,2026-09-09
+MAT_0600,Smartwatch,Indium,30.367,229.68,85.6,Mechanical,24.31,96.0,11.55,2026-08-17
+MAT_0601,Smartphone,Germanium,42.4979,1056.63,74.5,Electrochemical,23.66,51.7,28.48,2026-05-13
+MAT_0602,Headphones,Indium,35.1566,238.46,78.2,Hydrometallurgical,1.57,48.5,13.14,2026-10-11
+MAT_0603,Tablet,Tin,13.4894,21.26,61.2,Mechanical,2.61,84.5,27.92,2026-09-11
+MAT_0604,Smartphone,Tin,41.593,27.34,64.9,Electrochemical,17.63,85.0,46.39,2026-09-30
+MAT_0605,Printer,Germanium,14.9358,1366.87,95.3,Mechanical,19.29,28.4,28.62,2026-09-23
+MAT_0606,Router/Modem,Gallium,35.1284,308.25,60.2,Acid Leaching,16.1,5.0,41.91,2026-05-13
+MAT_0607,Television,Tin,29.6329,26.37,78.6,Bioleaching,14.35,80.5,9.74,2026-05-31
+MAT_0608,Router/Modem,Tantalum,17.5808,155.21,79.5,Pyrometallurgical,21.9,23.8,14.83,2026-08-12
+MAT_0609,Router/Modem,Zinc,1.5494,2.77,75.2,Pyrometallurgical,16.05,4.3,18.02,2026-07-20
+MAT_0610,Microwave,Zinc,23.9992,2.58,80.7,Bioleaching,6.4,49.0,5.58,2026-09-12
+MAT_0611,Printer,Copper,0.6202,7.51,76.5,Bioleaching,8.45,61.8,13.28,2026-08-09
+MAT_0612,Router/Modem,Nickel,10.3579,20.29,74.3,Hydrometallurgical,4.47,90.3,33.48,2026-06-27
+MAT_0613,Laptop,Zinc,38.9262,2.56,84.4,Bioleaching,5.64,16.9,24.92,2026-09-16
+MAT_0614,Headphones,Tantalum,18.1108,153.88,75.1,Pyrometallurgical,3.14,85.1,16.43,2026-09-18
+MAT_0615,Smartphone,Platinum,30.7399,29179.74,88.1,Bioleaching,23.79,93.8,44.13,2026-06-27
+MAT_0616,Headphones,Tantalum,7.2461,160.3,71.0,Mechanical,12.61,37.2,37.6,2026-06-19
+MAT_0617,Smartwatch,Palladium,12.7772,43343.56,97.7,Acid Leaching,16.2,89.9,25.2,2026-05-29
+MAT_0618,Gaming Console,Lead,36.939,1.89,63.7,Mechanical,12.68,64.6,35.28,2026-08-25
+MAT_0619,Refrigerator,Lead,43.5424,2.38,72.7,Electrochemical,11.31,49.6,19.12,2026-08-15
+MAT_0620,Washing Machine,Silver,24.4507,738.7,82.7,Hydrometallurgical,4.35,12.9,13.66,2026-07-10
+MAT_0621,Router/Modem,Nickel,32.4094,16.89,67.8,Pyrometallurgical,16.39,92.6,2.07,2026-07-08
+MAT_0622,Headphones,Nickel,28.2492,17.16,89.7,Pyrometallurgical,4.7,98.6,17.85,2026-10-22
+MAT_0623,Washing Machine,Gold,48.3906,63220.39,82.0,Electrochemical,16.49,25.9,4.88,2026-10-28
+MAT_0624,Television,Indium,0.6856,220.15,73.2,Electrochemical,15.58,3.4,41.99,2026-10-14
+MAT_0625,Tablet,Silver,19.3247,878.2,77.6,Mechanical,21.07,34.3,27.05,2026-07-23
+MAT_0626,Desktop PC,Copper,43.6081,7.55,90.9,Acid Leaching,16.24,37.7,20.77,2026-05-21
+MAT_0627,Monitor,Lead,27.2716,2.29,91.2,Acid Leaching,10.47,63.1,23.26,2026-06-23
+MAT_0628,Gaming Console,Platinum,2.0237,27402.64,82.1,Hydrometallurgical,4.93,92.3,46.88,2026-07-05
+MAT_0629,Desktop PC,Tantalum,14.1375,150.3,90.1,Acid Leaching,19.64,50.9,15.89,2026-05-19
+MAT_0630,Tablet,Silver,36.0595,784.84,66.3,Acid Leaching,22.93,69.5,24.36,2026-07-08
+MAT_0631,Printer,Germanium,48.7779,1198.47,93.9,Acid Leaching,12.68,58.6,3.17,2026-07-30
+MAT_0632,Smartwatch,Zinc,3.9331,2.91,63.7,Mechanical,5.49,80.8,35.72,2026-09-04
+MAT_0633,Printer,Lithium,48.4523,77.73,81.9,Acid Leaching,14.34,97.7,35.81,2026-09-03
+MAT_0634,Camera,Gold,25.8814,63511.93,64.8,Bioleaching,5.78,47.7,34.97,2026-08-17
+MAT_0635,Headphones,Copper,38.8729,8.24,91.0,Electrochemical,0.69,30.4,17.65,2026-05-09
+MAT_0636,Monitor,Gallium,17.5419,334.18,75.9,Acid Leaching,14.86,51.7,13.77,2026-10-09
+MAT_0637,Washing Machine,Tin,4.7139,25.01,78.7,Mechanical,24.22,17.7,13.21,2026-06-19
+MAT_0638,Laptop,Cobalt,0.3729,34.24,80.2,Mechanical,21.43,73.1,49.29,2026-10-25
+MAT_0639,Desktop PC,Cobalt,2.1591,37.22,89.3,Pyrometallurgical,21.04,41.1,4.28,2026-10-01
+MAT_0640,Printer,Zinc,17.4298,2.74,90.0,Bioleaching,19.01,15.6,14.52,2026-10-31
+MAT_0641,Smartphone,Palladium,23.5753,52332.05,92.7,Pyrometallurgical,2.07,78.5,31.53,2026-06-29
+MAT_0642,Laptop,Platinum,20.3287,24762.83,65.3,Electrochemical,13.25,86.0,28.22,2026-07-30
+MAT_0643,Refrigerator,Copper,36.4954,8.05,82.6,Bioleaching,0.16,8.0,48.85,2026-07-01
+MAT_0644,Microwave,Lead,22.2946,1.91,83.5,Acid Leaching,5.19,70.2,1.56,2026-05-11
+MAT_0645,Router/Modem,Indium,34.6147,262.66,63.3,Mechanical,6.8,65.0,13.96,2026-10-29
+MAT_0646,Headphones,Copper,4.2411,7.37,79.1,Pyrometallurgical,13.29,94.0,8.17,2026-10-17
+MAT_0647,Television,Gallium,21.2754,301.37,60.2,Mechanical,12.77,84.8,0.25,2026-09-17
+MAT_0648,Microwave,Tin,17.4713,24.41,64.1,Hydrometallurgical,6.47,48.6,25.47,2026-05-30
+MAT_0649,Microwave,Palladium,21.3512,45977.82,85.4,Mechanical,17.19,37.0,20.86,2026-07-04
+MAT_0650,Tablet,Tin,27.2905,22.98,60.2,Electrochemical,15.57,2.2,25.56,2026-08-16
+MAT_0651,Smartphone,Lithium,47.3387,83.2,84.3,Hydrometallurgical,15.57,21.4,9.57,2026-05-22
+MAT_0652,Desktop PC,Silver,41.944,809.91,95.1,Mechanical,12.62,6.7,46.88,2026-08-22
+MAT_0653,Smartwatch,Silver,25.7677,837.18,89.0,Pyrometallurgical,9.56,11.0,37.98,2026-07-05
+MAT_0654,Washing Machine,Tantalum,18.9444,130.72,60.6,Pyrometallurgical,20.39,45.5,23.91,2026-08-24
+MAT_0655,Smartphone,Germanium,34.9984,1350.12,96.4,Mechanical,0.27,32.4,49.56,2026-05-25
+MAT_0656,Laptop,Palladium,5.0706,48098.33,91.9,Hydrometallurgical,6.94,16.8,13.26,2026-09-04
+MAT_0657,Monitor,Copper,40.9005,8.58,95.3,Mechanical,1.78,31.5,19.53,2026-10-08
+MAT_0658,Microwave,Cobalt,37.1765,34.41,72.9,Bioleaching,16.21,24.9,38.98,2026-08-02
+MAT_0659,Laptop,Cobalt,23.4064,30.95,66.1,Electrochemical,14.68,41.0,29.76,2026-08-29
+MAT_0660,Tablet,Tantalum,7.0397,154.28,88.9,Electrochemical,11.28,59.7,39.99,2026-10-29
+MAT_0661,Monitor,Germanium,6.936,1337.84,87.7,Pyrometallurgical,3.62,34.1,22.91,2026-07-22
+MAT_0662,Gaming Console,Zinc,17.4986,2.45,79.8,Pyrometallurgical,2.44,30.1,48.79,2026-07-31
+MAT_0663,Desktop PC,Lithium,2.9598,80.83,87.2,Pyrometallurgical,11.11,12.3,33.64,2026-06-25
+MAT_0664,Smartphone,Lithium,16.3811,83.25,75.0,Acid Leaching,19.71,44.0,43.01,2026-06-30
+MAT_0665,Headphones,Gold,16.9629,60180.25,82.9,Bioleaching,5.65,67.1,25.58,2026-07-26
+MAT_0666,Camera,Cobalt,49.4461,36.34,86.1,Electrochemical,8.34,83.0,20.61,2026-05-16
+MAT_0667,Camera,Platinum,2.0652,28086.82,98.6,Electrochemical,19.47,36.5,14.72,2026-06-14
+MAT_0668,Washing Machine,Tantalum,5.1358,129.61,98.4,Hydrometallurgical,1.51,65.5,43.49,2026-11-05
+MAT_0669,Headphones,Gallium,49.5891,267.73,75.3,Electrochemical,2.08,91.3,40.63,2026-09-25
+MAT_0670,Router/Modem,Indium,28.4332,251.96,98.5,Acid Leaching,14.16,24.5,1.07,2026-09-16
+MAT_0671,Laptop,Lead,49.343,2.03,85.4,Hydrometallurgical,13.62,21.2,5.55,2026-08-26
+MAT_0672,Printer,Lithium,28.9308,85.81,82.8,Hydrometallurgical,5.53,77.1,28.31,2026-10-20
+MAT_0673,Headphones,Palladium,38.5429,41422.18,91.9,Bioleaching,10.88,12.8,21.54,2026-06-15
+MAT_0674,Tablet,Palladium,0.2023,53527.69,88.6,Acid Leaching,8.61,37.9,18.93,2026-09-30
+MAT_0675,Camera,Silver,17.4418,677.02,62.4,Pyrometallurgical,5.27,82.0,46.36,2026-10-30
+MAT_0676,Microwave,Indium,32.1117,278.51,63.7,Bioleaching,7.15,81.6,36.91,2026-06-14
+MAT_0677,Washing Machine,Copper,22.1449,7.44,96.7,Hydrometallurgical,15.15,71.5,5.77,2026-05-10
+MAT_0678,Headphones,Cobalt,38.3449,37.01,98.0,Mechanical,21.83,72.4,16.0,2026-07-28
+MAT_0679,Television,Lead,5.9973,2.38,72.6,Electrochemical,11.09,39.5,30.46,2026-08-11
+MAT_0680,Gaming Console,Platinum,40.9771,33290.24,91.0,Hydrometallurgical,10.16,63.0,1.4,2026-06-19
+MAT_0681,Smartphone,Gallium,38.1709,344.35,63.2,Pyrometallurgical,18.08,63.2,5.31,2026-10-09
+MAT_0682,Gaming Console,Tantalum,23.1183,145.49,88.1,Electrochemical,3.44,6.4,14.84,2026-07-05
+MAT_0683,Smartwatch,Tin,8.1426,21.61,85.0,Mechanical,5.42,18.2,28.67,2026-08-01
+MAT_0684,Monitor,Indium,47.2851,255.68,95.4,Hydrometallurgical,13.49,89.8,45.77,2026-07-21
+MAT_0685,Router/Modem,Tin,49.9774,22.49,78.2,Acid Leaching,15.55,12.7,45.31,2026-06-20
+MAT_0686,Smartphone,Gold,41.9789,55233.31,88.4,Mechanical,22.47,22.9,24.82,2026-09-22
+MAT_0687,Washing Machine,Gallium,28.3186,260.54,92.5,Hydrometallurgical,21.6,17.7,43.57,2026-08-19
+MAT_0688,Television,Lithium,33.9189,70.34,88.2,Hydrometallurgical,7.91,10.2,25.39,2026-10-19
+MAT_0689,Laptop,Lithium,34.8017,74.31,83.5,Mechanical,21.95,84.8,46.76,2026-06-09
+MAT_0690,Monitor,Palladium,4.1051,49906.34,98.1,Mechanical,0.17,46.7,12.73,2026-05-21
+MAT_0691,Laptop,Germanium,49.0476,1256.66,76.6,Pyrometallurgical,2.13,39.9,7.34,2026-08-16
+MAT_0692,Microwave,Platinum,10.9826,25652.69,85.6,Hydrometallurgical,2.5,31.5,29.12,2026-10-02
+MAT_0693,Microwave,Palladium,8.8368,55072.26,78.7,Acid Leaching,22.49,82.9,32.04,2026-05-09
+MAT_0694,Headphones,Lithium,12.3985,72.61,94.1,Hydrometallurgical,12.63,74.1,8.26,2026-08-16
+MAT_0695,Camera,Lead,43.0867,1.86,72.7,Bioleaching,2.64,84.2,12.5,2026-07-03
+MAT_0696,Tablet,Lithium,40.6322,79.81,85.7,Acid Leaching,8.7,32.9,36.63,2026-05-24
+MAT_0697,Camera,Nickel,5.0922,17.7,77.6,Hydrometallurgical,14.85,12.7,11.48,2026-07-31
+MAT_0698,Laptop,Cobalt,41.8674,37.31,68.1,Bioleaching,12.88,38.6,35.96,2026-06-14
+MAT_0699,Gaming Console,Nickel,28.559,19.6,96.2,Mechanical,6.54,20.9,41.06,2026-06-05
+MAT_0700,Gaming Console,Silver,48.7166,815.09,68.4,Mechanical,3.42,37.4,21.29,2026-08-25
+MAT_0701,Refrigerator,Nickel,23.4215,16.16,92.3,Bioleaching,7.13,74.0,23.56,2026-07-28
+MAT_0702,Headphones,Indium,46.2509,227.99,86.7,Hydrometallurgical,19.62,34.6,41.0,2026-10-01
+MAT_0703,Headphones,Lead,36.6877,2.26,61.5,Electrochemical,17.42,6.1,45.37,2026-09-04
+MAT_0704,Laptop,Indium,43.4637,258.43,70.5,Acid Leaching,15.72,4.1,30.77,2026-05-15
+MAT_0705,Laptop,Platinum,46.9987,27791.49,91.6,Mechanical,11.45,47.3,23.29,2026-05-25
+MAT_0706,Smartphone,Gold,27.4708,53956.58,87.4,Electrochemical,18.56,36.4,8.64,2026-08-28
+MAT_0707,Tablet,Palladium,0.4162,47416.76,68.6,Bioleaching,5.36,5.7,19.95,2026-06-21
+MAT_0708,Smartphone,Zinc,12.5241,2.72,93.5,Hydrometallurgical,9.6,58.3,21.91,2026-06-09
+MAT_0709,Headphones,Tantalum,12.4639,153.73,60.1,Acid Leaching,5.73,65.1,32.62,2026-06-30
+MAT_0710,Television,Indium,15.4125,242.77,95.7,Electrochemical,12.71,64.5,11.44,2026-09-22
+MAT_0711,Gaming Console,Germanium,24.8471,1362.93,90.6,Hydrometallurgical,6.02,92.8,38.11,2026-07-21
+MAT_0712,Desktop PC,Copper,31.4371,9.77,67.0,Bioleaching,10.78,35.6,8.69,2026-08-11
+MAT_0713,Headphones,Platinum,26.5823,32205.1,92.7,Acid Leaching,5.98,23.9,39.79,2026-09-04
+MAT_0714,Router/Modem,Silver,29.6535,665.94,70.6,Acid Leaching,10.88,98.5,47.48,2026-08-02
+MAT_0715,Printer,Silver,4.2806,763.76,75.2,Mechanical,9.59,24.3,31.02,2026-10-30
+MAT_0716,Camera,Zinc,37.4371,2.4,84.0,Acid Leaching,4.2,36.3,40.8,2026-06-15
+MAT_0717,Television,Tantalum,36.805,139.17,83.3,Electrochemical,19.75,0.6,36.51,2026-06-15
+MAT_0718,Refrigerator,Gold,8.0021,67693.71,61.0,Pyrometallurgical,12.73,16.8,14.26,2026-10-25
+MAT_0719,Headphones,Silver,10.0612,828.14,75.4,Electrochemical,9.34,16.1,42.12,2026-08-05
+MAT_0720,Tablet,Platinum,41.4157,29184.84,73.1,Acid Leaching,11.51,27.6,49.2,2026-06-18
+MAT_0721,Smartphone,Tin,10.2969,28.61,90.2,Hydrometallurgical,1.89,41.8,7.97,2026-06-06
+MAT_0722,Headphones,Platinum,4.1668,25764.18,93.0,Bioleaching,9.22,11.1,27.18,2026-09-25
+MAT_0723,Refrigerator,Germanium,11.4705,1201.21,80.0,Bioleaching,14.25,58.4,20.47,2026-09-19
+MAT_0724,Smartphone,Nickel,8.4853,18.39,91.1,Bioleaching,16.48,84.1,23.9,2026-08-25
+MAT_0725,Washing Machine,Platinum,27.6416,33347.29,83.9,Mechanical,22.45,31.4,37.36,2026-08-03
+MAT_0726,Refrigerator,Indium,8.4846,245.47,64.7,Pyrometallurgical,22.32,85.7,33.43,2026-06-23
+MAT_0727,Camera,Germanium,2.33,1170.91,71.3,Electrochemical,13.09,72.8,28.23,2026-07-01
+MAT_0728,Washing Machine,Lithium,17.0345,73.75,93.4,Acid Leaching,18.93,30.4,26.63,2026-07-17
+MAT_0729,Desktop PC,Zinc,42.5796,2.71,94.1,Acid Leaching,15.59,58.9,26.37,2026-09-04
+MAT_0730,Smartwatch,Tin,24.4534,24.21,91.8,Electrochemical,12.16,7.3,45.31,2026-09-14
+MAT_0731,Laptop,Zinc,14.0391,2.7,98.9,Acid Leaching,1.15,42.8,36.41,2026-09-24
+MAT_0732,Tablet,Germanium,30.1629,1227.13,97.7,Hydrometallurgical,12.08,30.3,35.9,2026-10-04
+MAT_0733,Headphones,Tin,36.2943,25.38,87.4,Hydrometallurgical,6.06,44.0,34.98,2026-07-18
+MAT_0734,Microwave,Germanium,49.3927,1372.96,79.9,Acid Leaching,15.89,54.4,33.41,2026-09-20
+MAT_0735,Desktop PC,Palladium,19.0098,55086.44,74.1,Acid Leaching,23.06,69.5,32.97,2026-10-29
+MAT_0736,Television,Platinum,36.9323,25061.84,65.6,Bioleaching,18.73,42.3,38.18,2026-07-05
+MAT_0737,Monitor,Lithium,45.8269,80.03,67.5,Electrochemical,20.6,56.5,47.55,2026-10-08
+MAT_0738,Camera,Indium,37.4473,234.72,85.0,Pyrometallurgical,1.5,20.6,29.79,2026-05-09
+MAT_0739,Refrigerator,Platinum,32.6348,27198.37,84.8,Electrochemical,15.67,10.2,13.09,2026-08-19
+MAT_0740,Microwave,Lead,16.0005,2.26,70.2,Pyrometallurgical,16.62,69.5,27.09,2026-10-29
+MAT_0741,Tablet,Lithium,5.1524,81.76,94.4,Mechanical,9.34,6.7,42.07,2026-06-04
+MAT_0742,Television,Lithium,43.3153,79.49,67.5,Bioleaching,5.94,94.7,28.06,2026-08-23
+MAT_0743,Smartphone,Gallium,42.2155,341.95,85.7,Hydrometallurgical,22.37,66.6,24.65,2026-08-25
+MAT_0744,Laptop,Germanium,38.848,1301.64,98.1,Electrochemical,8.9,9.8,39.61,2026-08-12
+MAT_0745,Monitor,Lead,28.7231,1.8,75.0,Mechanical,11.06,50.1,31.83,2026-10-20
+MAT_0746,Gaming Console,Gallium,22.1949,278.9,81.9,Mechanical,23.77,35.2,25.13,2026-07-01
+MAT_0747,Microwave,Zinc,46.6575,2.42,89.0,Pyrometallurgical,19.76,97.7,6.73,2026-07-26
+MAT_0748,Smartwatch,Germanium,8.246,1293.66,61.7,Bioleaching,21.93,84.5,26.98,2026-06-04
+MAT_0749,Washing Machine,Silver,46.6035,831.96,63.8,Pyrometallurgical,8.86,76.4,49.68,2026-06-15
+MAT_0750,Refrigerator,Germanium,43.0537,1096.03,98.6,Hydrometallurgical,15.8,42.7,21.24,2026-09-16
+MAT_0751,Tablet,Cobalt,1.4723,33.22,81.8,Electrochemical,9.92,82.3,43.03,2026-09-20
+MAT_0752,Laptop,Lead,25.5939,2.25,93.5,Electrochemical,18.13,52.5,42.69,2026-10-22
+MAT_0753,Smartphone,Zinc,21.6998,3.17,74.2,Mechanical,23.51,67.9,12.77,2026-09-26
+MAT_0754,Gaming Console,Zinc,22.3979,2.85,71.2,Hydrometallurgical,21.74,89.6,30.59,2026-06-05
+MAT_0755,Desktop PC,Lithium,6.0359,78.16,61.1,Acid Leaching,6.01,72.6,15.64,2026-05-14
+MAT_0756,Smartwatch,Gold,37.569,61877.79,76.2,Hydrometallurgical,19.76,90.4,33.37,2026-10-31
+MAT_0757,Tablet,Gold,10.0211,61439.0,78.2,Electrochemical,4.28,1.7,10.67,2026-08-15
+MAT_0758,Camera,Silver,46.9438,857.94,72.7,Mechanical,16.29,94.1,34.14,2026-07-28
+MAT_0759,Microwave,Nickel,12.1987,17.67,72.9,Electrochemical,7.19,30.5,6.07,2026-05-25
+MAT_0760,Camera,Germanium,27.8818,1348.98,84.2,Acid Leaching,20.38,11.9,8.89,2026-09-29
+MAT_0761,Laptop,Tin,8.5455,26.96,95.1,Hydrometallurgical,21.36,89.7,4.03,2026-05-14
+MAT_0762,Camera,Copper,30.2291,8.34,74.4,Hydrometallurgical,7.65,83.9,12.0,2026-08-14
+MAT_0763,Television,Gallium,20.6417,330.55,86.1,Hydrometallurgical,12.08,88.8,15.78,2026-10-27
+MAT_0764,Smartwatch,Indium,48.9567,236.66,89.3,Electrochemical,8.67,89.8,30.91,2026-10-14
+MAT_0765,Television,Gallium,40.6833,300.38,68.5,Bioleaching,21.41,73.2,21.25,2026-10-19
+MAT_0766,Router/Modem,Platinum,4.5158,32511.36,89.9,Pyrometallurgical,19.26,73.5,15.25,2026-07-16
+MAT_0767,Laptop,Platinum,29.7756,31892.87,91.8,Acid Leaching,9.34,7.1,29.43,2026-09-03
+MAT_0768,Desktop PC,Lithium,38.837,78.8,90.9,Mechanical,8.68,53.0,7.41,2026-08-03
+MAT_0769,Printer,Lithium,26.002,77.46,70.3,Hydrometallurgical,11.94,40.5,14.75,2026-07-04
+MAT_0770,Camera,Indium,12.4712,261.91,80.8,Electrochemical,2.91,12.2,39.33,2026-10-18
+MAT_0771,Smartphone,Copper,44.8927,9.56,62.7,Bioleaching,12.93,40.6,16.18,2026-10-02
+MAT_0772,Smartwatch,Germanium,45.1584,1321.77,74.5,Pyrometallurgical,17.67,96.9,42.01,2026-06-28
+MAT_0773,Printer,Lithium,9.1794,73.74,83.0,Bioleaching,2.55,13.9,10.7,2026-05-12
+MAT_0774,Headphones,Lead,6.1826,2.3,74.9,Electrochemical,7.29,80.8,16.67,2026-05-09
+MAT_0775,Tablet,Indium,7.2659,248.2,87.9,Hydrometallurgical,7.81,26.0,9.67,2026-05-19
+MAT_0776,Headphones,Gold,26.122,67928.61,64.2,Acid Leaching,20.72,76.7,1.38,2026-07-04
+MAT_0777,Camera,Silver,9.0464,736.84,82.2,Acid Leaching,9.49,79.1,4.37,2026-07-07
+MAT_0778,Headphones,Copper,15.6946,8.19,67.9,Bioleaching,11.56,25.8,18.89,2026-06-07
+MAT_0779,Laptop,Indium,43.5145,236.56,61.1,Pyrometallurgical,24.98,74.4,19.08,2026-08-30
+MAT_0780,Laptop,Tin,31.7452,22.85,70.3,Acid Leaching,4.78,93.6,49.69,2026-08-03
+MAT_0781,Gaming Console,Zinc,27.5639,2.66,85.3,Electrochemical,17.77,31.2,25.34,2026-06-29
+MAT_0782,Microwave,Nickel,28.7876,18.27,62.4,Acid Leaching,13.6,76.0,4.15,2026-09-06
+MAT_0783,Gaming Console,Palladium,24.605,48400.17,73.6,Electrochemical,14.33,1.2,1.74,2026-05-12
+MAT_0784,Washing Machine,Zinc,35.462,2.43,98.3,Acid Leaching,10.44,32.5,0.38,2026-08-06
+MAT_0785,Television,Platinum,8.1793,32680.06,92.7,Electrochemical,10.31,35.9,34.43,2026-10-06
+MAT_0786,Printer,Silver,0.0379,760.12,85.6,Pyrometallurgical,16.99,69.8,45.72,2026-05-13
+MAT_0787,Camera,Germanium,11.0798,1029.88,85.2,Pyrometallurgical,2.71,63.1,20.38,2026-08-03
+MAT_0788,Router/Modem,Platinum,38.8228,32067.02,84.8,Hydrometallurgical,7.82,99.4,2.79,2026-08-08
+MAT_0789,Washing Machine,Zinc,19.0034,2.93,72.1,Pyrometallurgical,21.78,45.7,26.19,2026-07-23
+MAT_0790,Headphones,Indium,37.8636,261.56,97.4,Pyrometallurgical,6.27,18.2,17.72,2026-06-05
+MAT_0791,Headphones,Gallium,33.2908,283.46,63.4,Acid Leaching,0.27,36.6,39.94,2026-07-10
+MAT_0792,Microwave,Palladium,12.4762,49933.18,67.5,Hydrometallurgical,17.48,52.9,4.6,2026-05-13
+MAT_0793,Refrigerator,Indium,38.0031,254.64,70.3,Hydrometallurgical,0.48,28.8,38.83,2026-10-05
+MAT_0794,Smartphone,Germanium,14.683,1184.86,88.2,Pyrometallurgical,17.79,44.0,37.05,2026-05-26
+MAT_0795,Camera,Gold,19.7578,63382.7,68.6,Pyrometallurgical,17.89,41.9,41.56,2026-05-14
+MAT_0796,Desktop PC,Platinum,21.599,26413.22,62.4,Hydrometallurgical,4.74,90.0,8.43,2026-10-28
+MAT_0797,Tablet,Cobalt,11.5588,35.48,66.5,Mechanical,15.39,90.9,43.21,2026-11-05
+MAT_0798,Washing Machine,Indium,20.1793,261.45,80.2,Electrochemical,17.67,28.6,19.46,2026-08-17
+MAT_0799,Gaming Console,Indium,30.5962,224.52,87.0,Pyrometallurgical,16.2,12.5,20.86,2026-06-25
+MAT_0800,Washing Machine,Indium,15.0983,261.06,72.8,Mechanical,19.11,38.8,14.62,2026-06-04

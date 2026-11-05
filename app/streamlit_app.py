@@ -1041,6 +1041,7 @@ with st.sidebar:
                 "💹 ROI Forecaster": "roi_calc",
                 "📂 Enterprise Dataset": "datasets",
                 "📜 Compliance Hub": "compliance_hub",
+                "🧠 ML Training Lab": "ml_train",
                 "📍 Recycling Centers": "centers",
                 "⚠️ Safety & Hazards": "safety",
                 "💬 AI Assistant": "chatbot",
@@ -1059,6 +1060,7 @@ with st.sidebar:
                 "💹 ROI Forecaster": "roi_calc",
                 "📂 Enterprise Dataset": "datasets",
                 "📜 Compliance Hub": "compliance_hub",
+                "🧠 ML Training Lab": "ml_train",
                 "📍 Recycling Centers": "centers",
                 "⚠️ Safety & Hazards": "safety",
                 "💬 AI Assistant": "chatbot",
@@ -3924,6 +3926,843 @@ All records have been stored in an ACID-compliant SQLite relational database wit
             st.success(f"✅ Certificate **{cert_id}** generated successfully!")
             st.info(f"🔗 Certificate ID **{cert_id}** has been logged to the Enterprise Audit System. Digital verification hash: `SHA256-{hash(cert_id + comp_org) & 0xFFFFFFFF:08X}`")
             st.balloons()
+
+
+
+# ═══ ML TRAINING LAB — EXTREME ENTERPRISE EDITION ═══
+elif page_id == "ml_train":
+    st.markdown('<h1 class="glow-title" style="font-size:2.5rem;">🧠 ML TRAINING LAB</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center;color:#888;font-size:1.1rem;">Enterprise AI/ML Pipeline — Upload Any Dataset → Auto-EDA → Clean → Train & Compare → Predict</p>', unsafe_allow_html=True)
+    st.markdown('<div class="animated-line"></div>', unsafe_allow_html=True)
+
+    # ── Pipeline progress indicator ──
+    _ml_steps = ["Upload", "EDA", "Clean", "Train", "Results", "Predict"]
+    _ml_progress = 0
+    if st.session_state.get("ml_df_raw") is not None:
+        _ml_progress = 1
+    if st.session_state.get("ml_df_clean") is not None:
+        _ml_progress = 3
+    if st.session_state.get("ml_results") is not None:
+        _ml_progress = 5
+    _prog_html = '<div style="display:flex;justify-content:center;gap:8px;margin:10px 0 20px 0;">'
+    for _pi, _ps in enumerate(_ml_steps):
+        _clr = "#00FF7F" if _pi <= _ml_progress else "#333"
+        _prog_html += '<div style="padding:6px 14px;border-radius:20px;background:' + _clr + '22;border:1px solid ' + _clr + ';color:' + _clr + ';font-size:.75rem;font-weight:600;">' + _ps + '</div>'
+    _prog_html += '</div>'
+    st.markdown(_prog_html, unsafe_allow_html=True)
+
+    ml_tab1, ml_tab2, ml_tab3, ml_tab4, ml_tab5, ml_tab6 = st.tabs([
+        "📤 Upload & Preview", "📊 Auto-EDA", "🧹 Clean & Preprocess",
+        "🚀 Train & Compare", "📈 Results & Visualize", "🔮 Predict & Export"
+    ])
+
+    # ── Session state init ──
+    for _sk in ["ml_df_raw", "ml_df_clean", "ml_model", "ml_results", "ml_target_col",
+                 "ml_feature_cols", "ml_all_results", "ml_best_model", "ml_label_maps",
+                 "ml_eda_done", "ml_img_features"]:
+        if _sk not in st.session_state:
+            st.session_state[_sk] = None
+    if "ml_feature_cols" not in st.session_state or st.session_state["ml_feature_cols"] is None:
+        st.session_state["ml_feature_cols"] = []
+
+    # ════════════════════════════════════════
+    # TAB 1: UPLOAD & PREVIEW
+    # ════════════════════════════════════════
+    with ml_tab1:
+        st.markdown('<div class="section-header">STEP 1: UPLOAD YOUR DATASET</div>', unsafe_allow_html=True)
+
+        _ds_type = st.radio("Dataset Type", ["CSV / Excel File", "Image Dataset (ZIP)", "Built-in E-Waste Dataset", "Enterprise Database"], horizontal=True, key="ml_ds_type")
+
+        if _ds_type == "CSV / Excel File":
+            st.info("Upload any CSV or Excel file. Supports up to 200MB with unlimited columns.")
+            uploaded = st.file_uploader("Upload Dataset", type=["csv", "xlsx", "xls", "tsv"], key="ml_upload")
+            if uploaded:
+                try:
+                    if uploaded.name.endswith((".xlsx", ".xls")):
+                        _df = pd.read_excel(uploaded)
+                    elif uploaded.name.endswith(".tsv"):
+                        _df = pd.read_csv(uploaded, sep="\t")
+                    else:
+                        _df = pd.read_csv(uploaded)
+                    st.session_state.ml_df_raw = _df
+                    st.session_state.ml_df_clean = None
+                    st.session_state.ml_results = None
+                    st.session_state.ml_all_results = None
+                    st.success("Dataset loaded: **" + str(_df.shape[0]) + " rows x " + str(_df.shape[1]) + " columns** | File: " + uploaded.name)
+                except Exception as ex:
+                    st.error("Error reading file: " + str(ex))
+
+        elif _ds_type == "Image Dataset (ZIP)":
+            st.info("Upload a ZIP file with images organized in folders. Each folder name = class label.")
+            st.markdown("**Example:** `images.zip/laptop/img1.jpg, images.zip/phone/img2.jpg`")
+            uploaded_zip = st.file_uploader("Upload Image ZIP", type=["zip"], key="ml_img_upload")
+            if uploaded_zip:
+                try:
+                    import zipfile
+                    import io
+                    from PIL import Image as PILImage
+                    _img_data = []
+                    _progress_bar = st.progress(0, text="Extracting images...")
+                    with zipfile.ZipFile(io.BytesIO(uploaded_zip.read())) as zf:
+                        _img_files = [f for f in zf.namelist() if f.lower().endswith((".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp")) and not f.startswith("__MACOSX")]
+                        for _idx, _fname in enumerate(_img_files):
+                            try:
+                                _parts = _fname.replace("\\", "/").split("/")
+                                _class = _parts[-2] if len(_parts) >= 2 else "unknown"
+                                with zf.open(_fname) as img_f:
+                                    img = PILImage.open(io.BytesIO(img_f.read()))
+                                    img = img.convert("RGB")
+                                    _w, _h = img.size
+                                    _pixels = list(img.getdata())
+                                    _sample = _pixels[:500]
+                                    _r_avg = sum(p[0] for p in _sample) / max(len(_sample), 1)
+                                    _g_avg = sum(p[1] for p in _sample) / max(len(_sample), 1)
+                                    _b_avg = sum(p[2] for p in _sample) / max(len(_sample), 1)
+                                    _brightness = (_r_avg + _g_avg + _b_avg) / 3
+                                    _aspect = round(_w / max(_h, 1), 3)
+                                    _total_px = _w * _h
+                                    _img_data.append({
+                                        "filename": _parts[-1],
+                                        "class_label": _class,
+                                        "width": _w,
+                                        "height": _h,
+                                        "total_pixels": _total_px,
+                                        "aspect_ratio": _aspect,
+                                        "red_mean": round(_r_avg, 1),
+                                        "green_mean": round(_g_avg, 1),
+                                        "blue_mean": round(_b_avg, 1),
+                                        "brightness": round(_brightness, 1),
+                                        "is_landscape": 1 if _w > _h else 0,
+                                        "megapixels": round(_total_px / 1_000_000, 2),
+                                    })
+                            except Exception:
+                                pass
+                            if _idx % 10 == 0:
+                                _progress_bar.progress(min((_idx + 1) / max(len(_img_files), 1), 1.0), text="Processing " + str(_idx+1) + "/" + str(len(_img_files)) + " images...")
+                        _progress_bar.progress(1.0, text="Done!")
+
+                    if _img_data:
+                        _df = pd.DataFrame(_img_data)
+                        st.session_state.ml_df_raw = _df
+                        st.session_state.ml_img_features = True
+                        st.session_state.ml_df_clean = None
+                        st.session_state.ml_results = None
+                        st.session_state.ml_all_results = None
+                        st.success("Image dataset loaded: **" + str(len(_img_data)) + " images** across **" + str(_df["class_label"].nunique()) + " classes**")
+                        _cls_dist = _df["class_label"].value_counts()
+                        for _cn, _cv in _cls_dist.items():
+                            st.markdown("- **" + str(_cn) + "**: " + str(_cv) + " images")
+                    else:
+                        st.error("No valid images found in ZIP!")
+                except Exception as ex:
+                    st.error("Error processing ZIP: " + str(ex))
+
+        elif _ds_type == "Built-in E-Waste Dataset":
+            _builtin = {
+                "E-Waste Inventory (4,200 rows)": "ewaste_dataset_4000.csv",
+                "Image Classification (2,000 rows)": "ewaste_image_dataset.csv",
+                "PCB Components (1,500 rows)": "pcb_component_dataset.csv",
+                "Global Recycling Centers (500 rows)": "global_recycling_centers.csv",
+                "Material Recovery & Pricing (800 rows)": "material_recovery_pricing.csv",
+                "Environmental Impact (600 rows)": "environmental_impact_data.csv",
+            }
+            _sel_ds = st.selectbox("Select Dataset", list(_builtin.keys()), key="ml_builtin_sel")
+            if st.button("LOAD DATASET", use_container_width=True, key="btn_load_builtin"):
+                _csv_path = os.path.join(PROJECT_ROOT, "data", _builtin[_sel_ds])
+                if os.path.exists(_csv_path):
+                    _df = pd.read_csv(_csv_path)
+                    st.session_state.ml_df_raw = _df
+                    st.session_state.ml_df_clean = None
+                    st.session_state.ml_results = None
+                    st.session_state.ml_all_results = None
+                    st.success("Loaded **" + _sel_ds + "**: " + str(_df.shape[0]) + " rows x " + str(_df.shape[1]) + " columns")
+                else:
+                    st.error("File not found: " + _csv_path)
+
+        else:
+            _db_tables = []
+            try:
+                _mconn = sqlite3.connect(ENTERPRISE_DB_PATH)
+                _db_tables = [r[0] for r in _mconn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+                _mconn.close()
+            except Exception:
+                pass
+            if _db_tables:
+                _sel_tbl = st.selectbox("Select Table", _db_tables, key="ml_db_tbl")
+                if st.button("LOAD FROM DATABASE", use_container_width=True, key="btn_load_db"):
+                    _mconn = sqlite3.connect(ENTERPRISE_DB_PATH)
+                    _df = pd.read_sql_query("SELECT * FROM [" + _sel_tbl + "]", _mconn)
+                    _mconn.close()
+                    st.session_state.ml_df_raw = _df
+                    st.session_state.ml_df_clean = None
+                    st.session_state.ml_results = None
+                    st.session_state.ml_all_results = None
+                    st.success("Loaded table **" + _sel_tbl + "**: " + str(_df.shape[0]) + " rows x " + str(_df.shape[1]) + " columns")
+
+        # ── DATASET PREVIEW ──
+        if st.session_state.get("ml_df_raw") is not None:
+            _df = st.session_state.ml_df_raw
+            st.markdown("---")
+            st.markdown("### Dataset Preview")
+            st.dataframe(_df.head(100), use_container_width=True, height=300)
+
+            _p1, _p2, _p3, _p4, _p5 = st.columns(5)
+            with _p1: st.metric("Rows", str(_df.shape[0]))
+            with _p2: st.metric("Columns", str(_df.shape[1]))
+            with _p3: st.metric("Null Values", str(_df.isnull().sum().sum()))
+            with _p4: st.metric("Duplicates", str(_df.duplicated().sum()))
+            with _p5: st.metric("Memory", str(int(_df.memory_usage(deep=True).sum() / 1024)) + " KB")
+
+            st.markdown("### Column Analysis")
+            _col_info = pd.DataFrame({
+                "Column": _df.columns,
+                "Type": [str(t) for t in _df.dtypes],
+                "Non-Null": [_df[c].notna().sum() for c in _df.columns],
+                "Nulls": [_df[c].isnull().sum() for c in _df.columns],
+                "Unique": [_df[c].nunique() for c in _df.columns],
+                "Sample": [str(_df[c].iloc[0])[:40] if len(_df) > 0 else "" for c in _df.columns],
+            })
+            st.dataframe(_col_info, use_container_width=True, height=250)
+
+    # ════════════════════════════════════════
+    # TAB 2: AUTO-EDA
+    # ════════════════════════════════════════
+    with ml_tab2:
+        st.markdown('<div class="section-header">STEP 2: AUTOMATED EXPLORATORY DATA ANALYSIS</div>', unsafe_allow_html=True)
+
+        if st.session_state.get("ml_df_raw") is None:
+            st.warning("Upload a dataset first (Tab 1)")
+        else:
+            _df = st.session_state.ml_df_raw.copy()
+            _num_cols = _df.select_dtypes(include=[np.number]).columns.tolist()
+            _cat_cols = _df.select_dtypes(include=["object", "category"]).columns.tolist()
+
+            st.markdown("**Dataset:** " + str(_df.shape[0]) + " rows x " + str(_df.shape[1]) + " cols | **Numeric:** " + str(len(_num_cols)) + " | **Categorical:** " + str(len(_cat_cols)))
+
+            _eda1, _eda2, _eda3 = st.columns(3)
+
+            with _eda1:
+                st.markdown("#### Descriptive Statistics")
+                if _num_cols:
+                    st.dataframe(_df[_num_cols].describe().round(2), use_container_width=True, height=300)
+
+            with _eda2:
+                st.markdown("#### Distribution")
+                if _num_cols:
+                    _dist_col = st.selectbox("Column", _num_cols, key="eda_dist_col")
+                    import plotly.express as px
+                    _fig_dist = px.histogram(_df, x=_dist_col, nbins=40, color_discrete_sequence=["#00FF7F"])
+                    _fig_dist.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=280, margin=dict(t=30, b=30))
+                    st.plotly_chart(_fig_dist, use_container_width=True)
+
+            with _eda3:
+                st.markdown("#### Categories")
+                if _cat_cols:
+                    _cat_sel = st.selectbox("Column", _cat_cols, key="eda_cat_col")
+                    _vc = _df[_cat_sel].value_counts().head(15)
+                    import plotly.express as px
+                    _fig_cat = px.bar(x=_vc.index.astype(str), y=_vc.values, color_discrete_sequence=["#FFD700"])
+                    _fig_cat.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=280, margin=dict(t=30, b=30), xaxis_title="", yaxis_title="Count")
+                    st.plotly_chart(_fig_cat, use_container_width=True)
+                else:
+                    st.info("No categorical columns")
+
+            # Correlation Heatmap
+            if len(_num_cols) >= 2:
+                st.markdown("### Correlation Heatmap")
+                _hm_cols = _num_cols[:20]
+                _corr_sub = _df[_hm_cols].corr().round(2)
+                import plotly.graph_objects as go
+                _fig_hm = go.Figure(data=go.Heatmap(
+                    z=_corr_sub.values, x=_hm_cols, y=_hm_cols,
+                    colorscale="RdYlGn", text=_corr_sub.values.round(2),
+                    texttemplate="%{text}", textfont={"size": 9},
+                ))
+                _fig_hm.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=max(350, len(_hm_cols)*25), margin=dict(t=30))
+                st.plotly_chart(_fig_hm, use_container_width=True)
+
+            # Box Plots for Outliers
+            if _num_cols:
+                st.markdown("### Outlier Detection (Box Plots)")
+                _box_cols = st.multiselect("Select columns", _num_cols, default=_num_cols[:min(5, len(_num_cols))], key="eda_box")
+                if _box_cols:
+                    import plotly.graph_objects as go
+                    _fig_box = go.Figure()
+                    for _bc in _box_cols:
+                        _fig_box.add_trace(go.Box(y=_df[_bc], name=_bc))
+                    _fig_box.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=350, margin=dict(t=30))
+                    st.plotly_chart(_fig_box, use_container_width=True)
+
+            # Null Heatmap
+            _null_sum = _df.isnull().sum()
+            _null_cols = _null_sum[_null_sum > 0]
+            if len(_null_cols) > 0:
+                st.markdown("### Missing Values Map")
+                import plotly.graph_objects as go
+                _fig_null = go.Figure(go.Bar(
+                    x=_null_cols.index.tolist(), y=_null_cols.values.tolist(),
+                    marker_color=["#DC143C" if v > len(_df)*0.3 else "#FFD700" if v > len(_df)*0.1 else "#00FF7F" for v in _null_cols.values]
+                ))
+                _fig_null.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=280, title="Missing Values Per Column", margin=dict(t=40))
+                st.plotly_chart(_fig_null, use_container_width=True)
+            else:
+                st.success("No missing values detected!")
+
+    # ════════════════════════════════════════
+    # TAB 3: CLEAN & PREPROCESS
+    # ════════════════════════════════════════
+    with ml_tab3:
+        st.markdown('<div class="section-header">STEP 3: AUTO-CLEAN & PREPROCESS</div>', unsafe_allow_html=True)
+
+        if st.session_state.get("ml_df_raw") is None:
+            st.warning("Upload a dataset first (Tab 1)")
+        else:
+            _df = st.session_state.ml_df_raw.copy()
+            st.markdown("**Raw Dataset:** " + str(_df.shape[0]) + " rows x " + str(_df.shape[1]) + " columns | Nulls: " + str(_df.isnull().sum().sum()))
+
+            st.markdown("### Cleaning Configuration")
+            _c1, _c2, _c3 = st.columns(3)
+            with _c1:
+                st.markdown("**Row Cleaning**")
+                _drop_dupes = st.checkbox("Remove Duplicate Rows", value=True, key="ml_dedup")
+                _drop_nulls = st.checkbox("Drop Rows with >50% Nulls", value=True, key="ml_dropnull")
+                _remove_outliers = st.checkbox("Remove Extreme Outliers (IQR)", value=False, key="ml_outlier")
+            with _c2:
+                st.markdown("**Null Handling**")
+                _fill_numeric = st.selectbox("Fill Numeric Nulls", ["Mean", "Median", "Zero", "Forward Fill", "Don't Fill"], key="ml_fillnum")
+                _fill_cat = st.selectbox("Fill Categorical Nulls", ["Mode (Most Common)", "'Unknown'", "Drop Col if >50% null", "Don't Fill"], key="ml_fillcat")
+            with _c3:
+                st.markdown("**Transform**")
+                _encode_cat = st.checkbox("Label-Encode Categoricals", value=True, key="ml_encode")
+                _normalize = st.selectbox("Normalize", ["Don't Normalize", "Min-Max (0-1)", "Z-Score", "Robust Scaler"], key="ml_norm")
+                _drop_id_cols = st.checkbox("Auto-Drop ID/Index Columns", value=True, key="ml_dropid")
+
+            if st.button("RUN AUTO-CLEAN PIPELINE", use_container_width=True, key="btn_clean", type="primary"):
+                _log = []
+                _progress_bar = st.progress(0, text="Starting cleanup...")
+
+                if _drop_id_cols:
+                    _id_cols = [c for c in _df.columns if c.lower() in ("id", "index", "unnamed: 0", "sr_no", "serial", "row_id")]
+                    if _id_cols:
+                        _df = _df.drop(columns=_id_cols)
+                        _log.append("Dropped ID columns: " + ", ".join(_id_cols))
+                _progress_bar.progress(0.1, text="Removing duplicates...")
+
+                if _drop_dupes:
+                    before = len(_df)
+                    _df = _df.drop_duplicates()
+                    _log.append("Removed " + str(before - len(_df)) + " duplicate rows")
+                _progress_bar.progress(0.2, text="Handling null rows...")
+
+                if _drop_nulls:
+                    before = len(_df)
+                    thresh = int(_df.shape[1] * 0.5)
+                    _df = _df.dropna(thresh=thresh)
+                    _log.append("Dropped " + str(before - len(_df)) + " rows with >50% nulls")
+                _progress_bar.progress(0.3, text="Identifying column types...")
+
+                _num_cols = _df.select_dtypes(include=[np.number]).columns.tolist()
+                _cat_cols = _df.select_dtypes(include=["object", "category"]).columns.tolist()
+
+                if _remove_outliers and _num_cols:
+                    before = len(_df)
+                    for _nc in _num_cols:
+                        Q1 = _df[_nc].quantile(0.25)
+                        Q3 = _df[_nc].quantile(0.75)
+                        IQR = Q3 - Q1
+                        _df = _df[(_df[_nc] >= Q1 - 3*IQR) & (_df[_nc] <= Q3 + 3*IQR)]
+                    _log.append("Removed " + str(before - len(_df)) + " outlier rows (3x IQR)")
+                _progress_bar.progress(0.5, text="Filling nulls...")
+
+                if _fill_numeric == "Mean" and _num_cols:
+                    _df[_num_cols] = _df[_num_cols].fillna(_df[_num_cols].mean())
+                    _log.append("Filled " + str(len(_num_cols)) + " numeric columns with MEAN")
+                elif _fill_numeric == "Median" and _num_cols:
+                    _df[_num_cols] = _df[_num_cols].fillna(_df[_num_cols].median())
+                    _log.append("Filled " + str(len(_num_cols)) + " numeric columns with MEDIAN")
+                elif _fill_numeric == "Zero" and _num_cols:
+                    _df[_num_cols] = _df[_num_cols].fillna(0)
+                    _log.append("Filled " + str(len(_num_cols)) + " numeric columns with ZERO")
+                elif _fill_numeric == "Forward Fill" and _num_cols:
+                    _df[_num_cols] = _df[_num_cols].ffill().bfill()
+                    _log.append("Forward-filled " + str(len(_num_cols)) + " numeric columns")
+                _progress_bar.progress(0.6, text="Filling categorical nulls...")
+
+                if _fill_cat == "Mode (Most Common)" and _cat_cols:
+                    for c in _cat_cols:
+                        if _df[c].isnull().any():
+                            _mode = _df[c].mode()
+                            _df[c] = _df[c].fillna(_mode.iloc[0] if len(_mode) > 0 else "Unknown")
+                    _log.append("Filled " + str(len(_cat_cols)) + " categorical columns with MODE")
+                elif _fill_cat == "'Unknown'" and _cat_cols:
+                    _df[_cat_cols] = _df[_cat_cols].fillna("Unknown")
+                    _log.append("Filled " + str(len(_cat_cols)) + " categorical columns with Unknown")
+                elif _fill_cat == "Drop Col if >50% null":
+                    _drop = [c for c in _cat_cols if _df[c].isnull().mean() > 0.5]
+                    if _drop:
+                        _df = _df.drop(columns=_drop)
+                        _log.append("Dropped columns: " + ", ".join(_drop))
+                _progress_bar.progress(0.75, text="Encoding categoricals...")
+
+                _label_maps = {}
+                _cat_cols = _df.select_dtypes(include=["object", "category"]).columns.tolist()
+                if _encode_cat and _cat_cols:
+                    from sklearn.preprocessing import LabelEncoder
+                    for c in _cat_cols:
+                        le = LabelEncoder()
+                        _df[c] = le.fit_transform(_df[c].astype(str))
+                        _label_maps[c] = dict(zip(le.classes_.tolist(), le.transform(le.classes_).tolist()))
+                    _log.append("Label-encoded " + str(len(_cat_cols)) + " categorical columns")
+                    st.session_state["ml_label_maps"] = _label_maps
+                _progress_bar.progress(0.9, text="Normalizing...")
+
+                _num_cols = _df.select_dtypes(include=[np.number]).columns.tolist()
+                if _normalize == "Min-Max (0-1)" and _num_cols:
+                    from sklearn.preprocessing import MinMaxScaler
+                    scaler = MinMaxScaler()
+                    _df[_num_cols] = scaler.fit_transform(_df[_num_cols])
+                    _log.append("Min-Max normalized " + str(len(_num_cols)) + " numeric columns")
+                elif _normalize == "Z-Score" and _num_cols:
+                    from sklearn.preprocessing import StandardScaler
+                    scaler = StandardScaler()
+                    _df[_num_cols] = scaler.fit_transform(_df[_num_cols])
+                    _log.append("Z-Score normalized " + str(len(_num_cols)) + " numeric columns")
+                elif _normalize == "Robust Scaler" and _num_cols:
+                    from sklearn.preprocessing import RobustScaler
+                    scaler = RobustScaler()
+                    _df[_num_cols] = scaler.fit_transform(_df[_num_cols])
+                    _log.append("Robust-scaled " + str(len(_num_cols)) + " numeric columns")
+
+                _progress_bar.progress(1.0, text="Done!")
+                st.session_state.ml_df_clean = _df
+
+                st.markdown("### Cleaning Report")
+                for _entry in _log:
+                    st.markdown("- " + _entry)
+
+                _q1, _q2 = st.columns(2)
+                with _q1:
+                    st.metric("Cleaned Shape", str(_df.shape[0]) + " x " + str(_df.shape[1]))
+                with _q2:
+                    st.metric("Remaining Nulls", str(_df.isnull().sum().sum()))
+
+                st.dataframe(_df.head(30), use_container_width=True, height=250)
+                _csv_clean = _df.to_csv(index=False)
+                st.download_button("DOWNLOAD CLEANED DATASET", _csv_clean, "cleaned_dataset.csv", "text/csv", use_container_width=True)
+
+    # ════════════════════════════════════════
+    # TAB 4: TRAIN & COMPARE MODELS
+    # ════════════════════════════════════════
+    with ml_tab4:
+        st.markdown('<div class="section-header">STEP 4: TRAIN & COMPARE ML MODELS</div>', unsafe_allow_html=True)
+
+        _use_df = st.session_state.get("ml_df_clean") if st.session_state.get("ml_df_clean") is not None else st.session_state.get("ml_df_raw")
+        if _use_df is None:
+            st.warning("Upload and clean a dataset first (Tabs 1 & 3)")
+        else:
+            _df = _use_df.copy()
+            _all_cols = _df.columns.tolist()
+            _num_only = _df.select_dtypes(include=[np.number]).columns.tolist()
+
+            st.markdown("**Dataset Ready:** " + str(_df.shape[0]) + " rows x " + str(_df.shape[1]) + " columns | Numeric: " + str(len(_num_only)))
+
+            _tc1, _tc2 = st.columns(2)
+            with _tc1:
+                _target = st.selectbox("Target Column (what to predict)", _all_cols, key="ml_target")
+                _task_type = st.selectbox("Task Type", ["Auto-Detect", "Classification", "Regression"], key="ml_task")
+                _test_size = st.slider("Test Split %", 10, 40, 20, key="ml_split")
+            with _tc2:
+                _available_features = [c for c in _num_only if c != _target]
+                _features = st.multiselect("Feature Columns", _available_features, default=_available_features[:min(15, len(_available_features))], key="ml_features")
+                _cross_val = st.checkbox("Enable Cross-Validation (5-Fold)", value=True, key="ml_cv")
+
+            st.markdown("### Select Models to Train")
+            _model_options = {
+                "Random Forest": True,
+                "Decision Tree": True,
+                "K-Nearest Neighbors (KNN)": True,
+                "Logistic / Linear Regression": True,
+                "Gradient Boosting": True,
+                "Support Vector Machine (SVM)": False,
+            }
+            _selected_models = []
+            _mc = st.columns(3)
+            for _mi, (_mname, _mdef) in enumerate(_model_options.items()):
+                with _mc[_mi % 3]:
+                    if st.checkbox(_mname, value=_mdef, key="ml_chk_" + str(_mi)):
+                        _selected_models.append(_mname)
+
+            _train_mode = st.radio("Training Mode", ["Train All Selected Models (Compare)", "Train Single Best Model"], horizontal=True, key="ml_tmode")
+
+            if st.button("START TRAINING", use_container_width=True, key="btn_train", type="primary"):
+                if not _features:
+                    st.error("Select at least 1 feature column!")
+                elif not _selected_models:
+                    st.error("Select at least 1 model!")
+                else:
+                    with st.spinner("Training ML models... please wait"):
+                        try:
+                            from sklearn.model_selection import train_test_split, cross_val_score
+                            from sklearn.metrics import accuracy_score, classification_report, mean_squared_error, r2_score
+                            import warnings
+                            warnings.filterwarnings("ignore")
+
+                            X = _df[_features].apply(pd.to_numeric, errors="coerce").fillna(0)
+                            y = _df[_target]
+
+                            if _task_type == "Auto-Detect":
+                                _is_class = y.dtype == "object" or y.nunique() < 20
+                            else:
+                                _is_class = (_task_type == "Classification")
+
+                            if _is_class:
+                                from sklearn.preprocessing import LabelEncoder as _LE
+                                _le_y = _LE()
+                                y = _le_y.fit_transform(y.astype(str))
+                            else:
+                                y = pd.to_numeric(y, errors="coerce").fillna(0)
+
+                            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=_test_size/100, random_state=42)
+
+                            _all_results = []
+                            _best_score = -999
+                            _best_model_obj = None
+                            _best_name = ""
+                            _progress_bar = st.progress(0, text="Training models...")
+
+                            for _si, _smodel in enumerate(_selected_models):
+                                _progress_bar.progress((_si + 1) / len(_selected_models), text="Training " + _smodel + "...")
+
+                                try:
+                                    if "Random Forest" in _smodel:
+                                        if _is_class:
+                                            from sklearn.ensemble import RandomForestClassifier
+                                            model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
+                                        else:
+                                            from sklearn.ensemble import RandomForestRegressor
+                                            model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+                                    elif "Decision Tree" in _smodel:
+                                        if _is_class:
+                                            from sklearn.tree import DecisionTreeClassifier
+                                            model = DecisionTreeClassifier(random_state=42, max_depth=10)
+                                        else:
+                                            from sklearn.tree import DecisionTreeRegressor
+                                            model = DecisionTreeRegressor(random_state=42, max_depth=10)
+                                    elif "KNN" in _smodel or "Nearest" in _smodel:
+                                        if _is_class:
+                                            from sklearn.neighbors import KNeighborsClassifier
+                                            model = KNeighborsClassifier(n_neighbors=5)
+                                        else:
+                                            from sklearn.neighbors import KNeighborsRegressor
+                                            model = KNeighborsRegressor(n_neighbors=5)
+                                    elif "Logistic" in _smodel or "Linear" in _smodel:
+                                        if _is_class:
+                                            from sklearn.linear_model import LogisticRegression
+                                            model = LogisticRegression(max_iter=1000, random_state=42)
+                                        else:
+                                            from sklearn.linear_model import LinearRegression
+                                            model = LinearRegression()
+                                    elif "Gradient" in _smodel:
+                                        if _is_class:
+                                            from sklearn.ensemble import GradientBoostingClassifier
+                                            model = GradientBoostingClassifier(n_estimators=100, random_state=42)
+                                        else:
+                                            from sklearn.ensemble import GradientBoostingRegressor
+                                            model = GradientBoostingRegressor(n_estimators=100, random_state=42)
+                                    elif "SVM" in _smodel or "Support" in _smodel:
+                                        if _is_class:
+                                            from sklearn.svm import SVC
+                                            model = SVC(kernel="rbf", random_state=42, probability=True)
+                                        else:
+                                            from sklearn.svm import SVR
+                                            model = SVR(kernel="rbf")
+                                    else:
+                                        continue
+
+                                    model.fit(X_train, y_train)
+                                    y_pred = model.predict(X_test)
+
+                                    _res = {"model_name": _smodel, "is_classification": _is_class, "features": _features, "target": _target, "train_size": len(X_train), "test_size": len(X_test)}
+
+                                    if _is_class:
+                                        _acc = accuracy_score(y_test, y_pred)
+                                        _res["accuracy"] = _acc
+                                        _res["score"] = _acc
+                                        try:
+                                            _res["report"] = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
+                                        except Exception:
+                                            _res["report"] = {}
+                                    else:
+                                        _r2 = r2_score(y_test, y_pred)
+                                        _res["r2"] = _r2
+                                        _res["rmse"] = mean_squared_error(y_test, y_pred, squared=False)
+                                        _res["mse"] = mean_squared_error(y_test, y_pred)
+                                        _res["score"] = _r2
+
+                                    if _cross_val:
+                                        try:
+                                            _cv_scores = cross_val_score(model, X, y, cv=5, scoring="accuracy" if _is_class else "r2")
+                                            _res["cv_mean"] = _cv_scores.mean()
+                                            _res["cv_std"] = _cv_scores.std()
+                                            _res["cv_scores"] = _cv_scores.tolist()
+                                        except Exception:
+                                            _res["cv_mean"] = 0
+                                            _res["cv_std"] = 0
+
+                                    if hasattr(model, "feature_importances_"):
+                                        _res["importances"] = dict(zip(_features, model.feature_importances_.tolist()))
+
+                                    _res["y_test"] = y_test.tolist() if hasattr(y_test, "tolist") else list(y_test)
+                                    _res["y_pred"] = y_pred.tolist() if hasattr(y_pred, "tolist") else list(y_pred)
+
+                                    _all_results.append(_res)
+
+                                    if _res["score"] > _best_score:
+                                        _best_score = _res["score"]
+                                        _best_model_obj = model
+                                        _best_name = _smodel
+
+                                except Exception as _mex:
+                                    _all_results.append({"model_name": _smodel, "error": str(_mex), "score": 0})
+
+                            _progress_bar.progress(1.0, text="Training complete!")
+
+                            st.session_state.ml_all_results = _all_results
+                            st.session_state.ml_model = _best_model_obj
+                            st.session_state.ml_target_col = _target
+                            st.session_state.ml_feature_cols = _features
+                            st.session_state.ml_results = next((r for r in _all_results if r.get("model_name") == _best_name), _all_results[0] if _all_results else None)
+
+                            st.markdown("### Model Comparison Results")
+                            _comp_rows = []
+                            for _r in _all_results:
+                                if "error" in _r:
+                                    _comp_rows.append({"Model": _r["model_name"], "Score": "ERROR", "CV Mean": "-", "CV Std": "-", "Status": _r["error"]})
+                                else:
+                                    if _is_class:
+                                        _sc = str(round(_r["score"]*100, 2)) + "%"
+                                        _cvm = str(round(_r.get("cv_mean", 0)*100, 1)) + "%"
+                                    else:
+                                        _sc = str(round(_r["score"], 4))
+                                        _cvm = str(round(_r.get("cv_mean", 0), 4))
+                                    _cvs = str(round(_r.get("cv_std", 0), 4))
+                                    _status = "BEST" if _r["model_name"] == _best_name else "OK"
+                                    _comp_rows.append({"Model": _r["model_name"], "Score": _sc, "CV Mean": _cvm, "CV Std": _cvs, "Status": _status})
+
+                            st.dataframe(pd.DataFrame(_comp_rows), use_container_width=True)
+
+                            if _is_class:
+                                st.success("Best Model: **" + _best_name + "** with accuracy **" + str(round(_best_score*100, 2)) + "%**")
+                            else:
+                                st.success("Best Model: **" + _best_name + "** with R2 **" + str(round(_best_score, 4)) + "**")
+                            st.balloons()
+
+                        except Exception as ex:
+                            st.error("Training failed: " + str(ex))
+
+    # ════════════════════════════════════════
+    # TAB 5: RESULTS & VISUALIZE
+    # ════════════════════════════════════════
+    with ml_tab5:
+        st.markdown('<div class="section-header">STEP 5: DETAILED RESULTS & VISUALIZATION</div>', unsafe_allow_html=True)
+
+        if st.session_state.get("ml_results") is None:
+            st.warning("Train a model first (Tab 4)")
+        else:
+            _res = st.session_state.ml_results
+            _all_res = st.session_state.get("ml_all_results", [_res])
+
+            # Score cards
+            _s1, _s2, _s3, _s4 = st.columns(4)
+            with _s1:
+                if _res.get("is_classification"):
+                    st.metric("Accuracy", str(round(_res["accuracy"]*100, 1)) + "%")
+                else:
+                    st.metric("R2 Score", str(round(_res["r2"], 4)))
+            with _s2:
+                st.metric("Best Model", _res["model_name"])
+            with _s3:
+                if _res.get("is_classification"):
+                    st.metric("CV Score", str(round(_res.get("cv_mean", 0)*100, 1)) + "%")
+                else:
+                    st.metric("CV Score", str(round(_res.get("cv_mean", 0), 4)))
+            with _s4:
+                st.metric("Total Samples", str(_res["train_size"]+_res["test_size"]))
+
+            # Model Comparison Bar Chart
+            if len(_all_res) > 1:
+                st.markdown("### Model Comparison")
+                import plotly.graph_objects as go
+                _valid = [r for r in _all_res if "error" not in r]
+                _names = [r["model_name"] for r in _valid]
+                _scores = [r["score"]*100 if r.get("is_classification") else r["score"] for r in _valid]
+                _colors = ["#00FF7F" if r["model_name"] == _res["model_name"] else "#FFD700" for r in _valid]
+                _fig_comp = go.Figure(go.Bar(x=_names, y=_scores, marker_color=_colors, text=[str(round(s, 1)) for s in _scores], textposition="outside"))
+                _ylabel = "Accuracy %" if _res.get("is_classification") else "R2 Score"
+                _fig_comp.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=350, yaxis_title=_ylabel, title="Model Performance Comparison")
+                st.plotly_chart(_fig_comp, use_container_width=True)
+
+            # Feature Importance
+            if "importances" in _res and _res["importances"]:
+                st.markdown("### Feature Importance")
+                import plotly.graph_objects as go
+                _imp = dict(sorted(_res["importances"].items(), key=lambda x: x[1], reverse=True))
+                _fig_imp = go.Figure(go.Bar(
+                    x=list(_imp.values()), y=list(_imp.keys()), orientation="h",
+                    marker_color=["#DC143C" if v > 0.1 else "#FFD700" if v > 0.05 else "#00BFFF" for v in _imp.values()],
+                    text=[str(round(v, 3)) for v in _imp.values()], textposition="outside"
+                ))
+                _fig_imp.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=max(300, len(_imp)*28), title="Feature Importance", yaxis=dict(autorange="reversed"), margin=dict(l=150))
+                st.plotly_chart(_fig_imp, use_container_width=True)
+
+            # Confusion Matrix
+            if _res.get("is_classification"):
+                st.markdown("### Confusion Matrix")
+                from sklearn.metrics import confusion_matrix
+                _yt = _res["y_test"]
+                _yp = _res["y_pred"]
+                _cm = confusion_matrix(_yt, _yp)
+                import plotly.graph_objects as go
+                _labels = [str(i) for i in sorted(set(_yt))]
+                _fig_cm = go.Figure(data=go.Heatmap(
+                    z=_cm, x=_labels, y=_labels,
+                    colorscale="Greens", text=_cm, texttemplate="%{text}",
+                    textfont={"size": 14}
+                ))
+                _fig_cm.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=400, title="Confusion Matrix", xaxis_title="Predicted", yaxis_title="Actual")
+                st.plotly_chart(_fig_cm, use_container_width=True)
+
+            # Actual vs Predicted
+            st.markdown("### Actual vs Predicted")
+            import plotly.graph_objects as go
+            _yt = _res["y_test"][:300]
+            _yp = _res["y_pred"][:300]
+            if _res.get("is_classification"):
+                _fig_ap = go.Figure()
+                _fig_ap.add_trace(go.Scatter(y=_yt, mode="markers", name="Actual", marker=dict(color="#00FF7F", size=6)))
+                _fig_ap.add_trace(go.Scatter(y=_yp, mode="markers", name="Predicted", marker=dict(color="#DC143C", size=6, symbol="x")))
+                _fig_ap.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=350, title="Actual vs Predicted (first 300)")
+            else:
+                _fig_ap = go.Figure()
+                _fig_ap.add_trace(go.Scatter(x=_yt, y=_yp, mode="markers", name="Predictions", marker=dict(color="#00FF7F", size=5)))
+                _min_v = min(min(_yt), min(_yp))
+                _max_v = max(max(_yt), max(_yp))
+                _fig_ap.add_trace(go.Scatter(x=[_min_v, _max_v], y=[_min_v, _max_v], mode="lines", name="Perfect", line=dict(color="#DC143C", dash="dash")))
+                _fig_ap.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=400, title="Actual vs Predicted", xaxis_title="Actual", yaxis_title="Predicted")
+            st.plotly_chart(_fig_ap, use_container_width=True)
+
+            # Classification Report
+            if _res.get("is_classification") and _res.get("report"):
+                st.markdown("### Classification Report")
+                _rep = _res["report"]
+                _rep_rows = []
+                for k, v in _rep.items():
+                    if isinstance(v, dict) and "precision" in v:
+                        _rep_rows.append({"Class": k, "Precision": round(v["precision"], 3), "Recall": round(v["recall"], 3), "F1-Score": round(v["f1-score"], 3), "Support": int(v["support"])})
+                if _rep_rows:
+                    st.dataframe(pd.DataFrame(_rep_rows), use_container_width=True)
+
+            # Cross-Validation Scores
+            if _res.get("cv_scores"):
+                st.markdown("### Cross-Validation Fold Scores")
+                import plotly.graph_objects as go
+                _cv = _res["cv_scores"]
+                _cv_mean = sum(_cv) / len(_cv)
+                _fig_cv = go.Figure(go.Bar(
+                    x=["Fold " + str(i+1) for i in range(len(_cv))],
+                    y=_cv,
+                    marker_color=["#00FF7F" if v >= _cv_mean else "#FFD700" for v in _cv],
+                    text=[str(round(v, 3)) for v in _cv], textposition="outside"
+                ))
+                _fig_cv.add_hline(y=_cv_mean, line_dash="dash", line_color="#DC143C", annotation_text="Mean: " + str(round(_cv_mean, 3)))
+                _fig_cv.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=300, title="Cross-Validation Scores")
+                st.plotly_chart(_fig_cv, use_container_width=True)
+
+    # ════════════════════════════════════════
+    # TAB 6: PREDICT & EXPORT
+    # ════════════════════════════════════════
+    with ml_tab6:
+        st.markdown('<div class="section-header">STEP 6: LIVE PREDICTION & MODEL EXPORT</div>', unsafe_allow_html=True)
+
+        if st.session_state.get("ml_model") is None:
+            st.warning("Train a model first (Tab 4)")
+        else:
+            _model = st.session_state.ml_model
+            _res = st.session_state.ml_results
+            _features = st.session_state.get("ml_feature_cols", [])
+
+            # Single Prediction
+            st.markdown("### Single Prediction")
+            st.markdown("Enter values for each feature:")
+            _pred_vals = {}
+            _n_cols = min(4, max(1, len(_features)))
+            _pred_cols = st.columns(_n_cols)
+            for _fi, _fn in enumerate(_features):
+                with _pred_cols[_fi % _n_cols]:
+                    _pred_vals[_fn] = st.number_input(_fn, value=0.0, key="pred_" + _fn, format="%.4f")
+
+            if st.button("PREDICT NOW", use_container_width=True, key="btn_predict", type="primary"):
+                try:
+                    _input = pd.DataFrame([_pred_vals])
+                    _prediction = _model.predict(_input)[0]
+                    _pred_html = '<div style="text-align:center;padding:20px;border:2px solid #00FF7F;border-radius:15px;margin:10px 0;">'
+                    _pred_html += '<div style="font-size:1rem;color:#888;">Prediction for ' + str(_res["target"]) + '</div>'
+                    _pred_html += '<div style="font-size:3rem;font-weight:800;color:#00FF7F;">' + str(_prediction) + '</div>'
+                    _pred_html += '</div>'
+                    st.markdown(_pred_html, unsafe_allow_html=True)
+                except Exception as ex:
+                    st.error("Prediction error: " + str(ex))
+
+            st.markdown("---")
+
+            # Batch Prediction
+            st.markdown("### Batch Prediction")
+            st.info("Upload a CSV with the same feature columns to predict multiple rows.")
+            _batch_file = st.file_uploader("Upload CSV for batch prediction", type=["csv"], key="ml_batch_upload")
+            if _batch_file:
+                try:
+                    _batch_df = pd.read_csv(_batch_file)
+                    _missing = [c for c in _features if c not in _batch_df.columns]
+                    if _missing:
+                        st.error("Missing columns: " + ", ".join(_missing))
+                    else:
+                        _batch_X = _batch_df[_features].apply(pd.to_numeric, errors="coerce").fillna(0)
+                        _batch_preds = _model.predict(_batch_X)
+                        _batch_df["PREDICTION"] = _batch_preds
+                        st.success("Predictions complete for **" + str(len(_batch_df)) + " rows**!")
+                        st.dataframe(_batch_df, use_container_width=True, height=300)
+                        _batch_csv = _batch_df.to_csv(index=False)
+                        st.download_button("DOWNLOAD PREDICTIONS", _batch_csv, "predictions.csv", "text/csv", use_container_width=True)
+                except Exception as ex:
+                    st.error("Batch prediction error: " + str(ex))
+
+            st.markdown("---")
+
+            # Model Export
+            st.markdown("### Export Trained Model")
+            _ec1, _ec2 = st.columns(2)
+            with _ec1:
+                try:
+                    import pickle
+                    _model_bytes = pickle.dumps(_model)
+                    st.download_button("DOWNLOAD MODEL (.pkl)", _model_bytes, "trained_model.pkl", "application/octet-stream", use_container_width=True)
+                except Exception:
+                    st.info("Model export requires pickle")
+            with _ec2:
+                _report_lines = []
+                _report_lines.append("# ML Training Report - EcoReclaim AI Enterprise")
+                _report_lines.append("**Generated:** " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                _report_lines.append("**Model:** " + _res["model_name"])
+                _report_lines.append("**Target:** " + _res["target"])
+                _report_lines.append("**Features:** " + ", ".join(_features))
+                _report_lines.append("**Train/Test:** " + str(_res["train_size"]) + "/" + str(_res["test_size"]))
+                if _res.get("is_classification"):
+                    _report_lines.append("**Accuracy:** " + str(round(_res.get("accuracy", 0)*100, 2)) + "%")
+                else:
+                    _report_lines.append("**R2:** " + str(round(_res.get("r2", 0), 4)) + " | RMSE: " + str(round(_res.get("rmse", 0), 4)))
+                _report_text = "\n".join(_report_lines)
+                st.download_button("DOWNLOAD REPORT (.md)", _report_text, "ml_report.md", "text/markdown", use_container_width=True)
+
 
 # ═══════════════════════════════════════════
 # GLOBAL ENTERPRISE FOOTER
