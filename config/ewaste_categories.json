@@ -1,0 +1,167 @@
+[
+  {
+    "category_code": "SMARTPHONE",
+    "name": "Smartphone",
+    "description": "Mobile phones and smartphones including feature phones. Contains lithium battery, PCB, display, camera modules.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [0.1, 0.3],
+    "key_materials": ["lithium", "gold", "silver", "copper", "rare_earth", "cobalt"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "LAPTOP",
+    "name": "Laptop / Notebook",
+    "description": "Portable computers including ultrabooks and gaming laptops. Contains battery, display, keyboard, PCB, storage.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [1.0, 3.5],
+    "key_materials": ["aluminum", "copper", "gold", "lithium", "rare_earth"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "mercury", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "DESKTOP_COMPUTER",
+    "name": "Desktop Computer",
+    "description": "Desktop PCs, towers, all-in-one computers. Contains PSU, motherboard, storage, RAM, GPU.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [4.0, 15.0],
+    "key_materials": ["iron_steel", "copper", "aluminum", "gold", "silver"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "TABLET",
+    "name": "Tablet / iPad",
+    "description": "Tablet computers and e-readers. Similar to smartphones with larger display and battery.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [0.3, 0.8],
+    "key_materials": ["aluminum", "lithium", "copper", "gold", "rare_earth"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "BATTERY_LI_ION",
+    "name": "Battery (Li-Ion / Li-Po)",
+    "description": "Rechargeable lithium-ion and lithium-polymer batteries from phones, laptops, EVs, power banks.",
+    "hazmat_level": "high",
+    "typical_weight_range_kg": [0.05, 5.0],
+    "key_materials": ["lithium", "cobalt", "nickel", "manganese", "copper", "aluminum"],
+    "recovery_complexity": "high",
+    "regulatory_class": "WEEE_Category_Special_Battery",
+    "rohs_restrictions": ["lead"]
+  },
+  {
+    "category_code": "BATTERY_LEAD_ACID",
+    "name": "Battery (Lead-Acid)",
+    "description": "Lead-acid batteries from vehicles, UPS, industrial equipment.",
+    "hazmat_level": "high",
+    "typical_weight_range_kg": [5.0, 30.0],
+    "key_materials": ["lead", "sulfuric_acid", "polypropylene"],
+    "recovery_complexity": "high",
+    "regulatory_class": "WEEE_Category_Special_Battery",
+    "rohs_restrictions": ["lead"]
+  },
+  {
+    "category_code": "CIRCUIT_BOARD",
+    "name": "Circuit Board / PCB",
+    "description": "Printed circuit boards from any electronic device. Highest precious metal concentration.",
+    "hazmat_level": "high",
+    "typical_weight_range_kg": [0.05, 2.0],
+    "key_materials": ["gold", "silver", "copper", "palladium", "platinum", "tin"],
+    "recovery_complexity": "high",
+    "regulatory_class": "WEEE_Category_All",
+    "rohs_restrictions": ["lead", "cadmium", "chromium_vi", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "MONITOR_CRT",
+    "name": "CRT Monitor / TV",
+    "description": "Cathode ray tube monitors and televisions. Contains lead glass and mercury.",
+    "hazmat_level": "high",
+    "typical_weight_range_kg": [10.0, 35.0],
+    "key_materials": ["lead", "copper", "iron_steel", "glass"],
+    "recovery_complexity": "high",
+    "regulatory_class": "WEEE_Category_4",
+    "rohs_restrictions": ["lead", "mercury"]
+  },
+  {
+    "category_code": "MONITOR_LCD",
+    "name": "LCD / LED Monitor",
+    "description": "Flat panel monitors and displays using LCD or LED technology.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [2.0, 8.0],
+    "key_materials": ["copper", "aluminum", "iron_steel", "indium"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_4",
+    "rohs_restrictions": ["mercury", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "PRINTER",
+    "name": "Printer / Scanner / Copier",
+    "description": "Inkjet, laser printers, scanners, multifunction devices. Contains motors, drums, ink.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [2.0, 20.0],
+    "key_materials": ["iron_steel", "copper", "aluminum", "plastic"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "TELEVISION",
+    "name": "Television (LCD/LED/OLED)",
+    "description": "Modern flat-screen televisions. Contains display panel, PSU, control board.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [4.0, 25.0],
+    "key_materials": ["copper", "aluminum", "iron_steel", "indium", "rare_earth"],
+    "recovery_complexity": "medium",
+    "regulatory_class": "WEEE_Category_4",
+    "rohs_restrictions": ["mercury", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "CHARGER_ADAPTER",
+    "name": "Charger / Power Adapter",
+    "description": "Phone chargers, laptop adapters, USB chargers, power supplies.",
+    "hazmat_level": "low",
+    "typical_weight_range_kg": [0.05, 0.5],
+    "key_materials": ["copper", "iron_steel", "plastic"],
+    "recovery_complexity": "low",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "CABLE_WIRE",
+    "name": "Cable / Wire / Connector",
+    "description": "USB cables, power cords, network cables, HDMI, audio cables.",
+    "hazmat_level": "low",
+    "typical_weight_range_kg": [0.05, 2.0],
+    "key_materials": ["copper", "plastic", "aluminum"],
+    "recovery_complexity": "low",
+    "regulatory_class": "WEEE_Category_3",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "HOUSEHOLD_APPLIANCE",
+    "name": "Household Electronics",
+    "description": "Small household electronics: radios, speakers, gaming consoles, cameras, smart home devices.",
+    "hazmat_level": "low",
+    "typical_weight_range_kg": [0.2, 5.0],
+    "key_materials": ["iron_steel", "copper", "aluminum", "plastic"],
+    "recovery_complexity": "low",
+    "regulatory_class": "WEEE_Category_2",
+    "rohs_restrictions": ["lead", "PBB", "PBDE"]
+  },
+  {
+    "category_code": "INDUSTRIAL_ELECTRONICS",
+    "name": "Industrial Electronics",
+    "description": "Industrial control systems, PLCs, servers, networking equipment, medical devices, test instruments.",
+    "hazmat_level": "medium",
+    "typical_weight_range_kg": [1.0, 50.0],
+    "key_materials": ["copper", "gold", "silver", "aluminum", "iron_steel", "rare_earth"],
+    "recovery_complexity": "high",
+    "regulatory_class": "WEEE_Category_9",
+    "rohs_restrictions": ["lead", "cadmium", "chromium_vi", "PBB", "PBDE"]
+  }
+]

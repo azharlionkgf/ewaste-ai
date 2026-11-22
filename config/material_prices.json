@@ -1,0 +1,118 @@
+{
+  "gold": {
+    "price_usd_per_gram": 60.0,
+    "unit": "gram",
+    "symbol": "Au",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true,
+    "note": "Gold price varies daily. Update from live market source before use in reports."
+  },
+  "silver": {
+    "price_usd_per_gram": 0.80,
+    "unit": "gram",
+    "symbol": "Ag",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "copper": {
+    "price_usd_per_gram": 0.009,
+    "unit": "gram",
+    "symbol": "Cu",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "palladium": {
+    "price_usd_per_gram": 45.0,
+    "unit": "gram",
+    "symbol": "Pd",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "platinum": {
+    "price_usd_per_gram": 30.0,
+    "unit": "gram",
+    "symbol": "Pt",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "aluminum": {
+    "price_usd_per_gram": 0.002,
+    "unit": "gram",
+    "symbol": "Al",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "iron_steel": {
+    "price_usd_per_gram": 0.0005,
+    "unit": "gram",
+    "symbol": "Fe",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "lithium": {
+    "price_usd_per_gram": 0.025,
+    "unit": "gram",
+    "symbol": "Li",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true,
+    "note": "Lithium price highly volatile. Verify before reporting."
+  },
+  "cobalt": {
+    "price_usd_per_gram": 0.035,
+    "unit": "gram",
+    "symbol": "Co",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "nickel": {
+    "price_usd_per_gram": 0.014,
+    "unit": "gram",
+    "symbol": "Ni",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "rare_earth_mixed": {
+    "price_usd_per_gram": 0.05,
+    "unit": "gram",
+    "symbol": "REE",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true,
+    "note": "Mixed REE average. Individual rare earth elements vary significantly."
+  },
+  "manganese": {
+    "price_usd_per_gram": 0.002,
+    "unit": "gram",
+    "symbol": "Mn",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "tin": {
+    "price_usd_per_gram": 0.026,
+    "unit": "gram",
+    "symbol": "Sn",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true
+  },
+  "indium": {
+    "price_usd_per_gram": 0.17,
+    "unit": "gram",
+    "symbol": "In",
+    "last_updated": "2024-01-01",
+    "source": "reference_estimate",
+    "is_estimate": true,
+    "note": "Indium is used in ITO coatings in LCD displays."
+  }
+}

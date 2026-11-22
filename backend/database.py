@@ -33,6 +33,6 @@ def get_db():
 
 def init_db():
     """Create all tables. Called at startup."""
-    # Import all models so SQLAlchemy knows about them
-    # from backend.models import dataset, ml_model, analysis, report  # Phase 1
+    # Import all models so SQLAlchemy knows about every table
+    import backend.models  # noqa: F401 — registers all ORM models
     Base.metadata.create_all(bind=engine)
