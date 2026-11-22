@@ -1,0 +1,98 @@
+# ============================================================
+# E-WASTE AI — Application Configuration
+# ============================================================
+
+app:
+  name: "E-Waste AI"
+  version: "2.0.0"
+  description: "Combined Industrial Intelligence & Research Platform"
+  debug: false
+
+server:
+  backend_host: "0.0.0.0"
+  backend_port: 8000
+  frontend_port: 8501
+  reload: true
+
+database:
+  url: "sqlite:///./database/ewaste_ai.db"
+  echo: false
+
+storage:
+  uploads_dir: "data/uploads"
+  processed_dir: "data/processed"
+  images_dir: "data/images"
+  videos_dir: "data/videos"
+  exports_dir: "data/exports"
+  models_dir: "saved_models"
+  reports_dir: "reports"
+  logs_dir: "logs"
+
+ml:
+  default_seed: 42
+  default_device: "cpu"          # 'cpu' or 'cuda' (auto-detected)
+  batch_size: 16
+  num_workers: 0                 # 0 for Windows compatibility
+  image_size: [224, 224]
+  max_epochs: 50
+  early_stopping_patience: 10
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+
+models:
+  default_cnn: "mobilenetv3_small"
+  available_cnn:
+    - "mobilenetv3_small"
+    - "mobilenetv3_large"
+    - "efficientnet_b0"
+    - "resnet18"
+    - "resnet34"
+  available_tabular:
+    - "random_forest"
+    - "xgboost"
+    - "catboost"
+    - "svm"
+    - "logistic_regression"
+
+uploads:
+  max_file_size_mb: 500
+  allowed_tabular_types:
+    - ".csv"
+    - ".xlsx"
+    - ".xls"
+    - ".json"
+  allowed_image_types:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".bmp"
+    - ".webp"
+  allowed_video_types:
+    - ".mp4"
+    - ".avi"
+    - ".mov"
+    - ".mkv"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+  file: "logs/ewaste_ai.log"
+  max_bytes: 10485760          # 10MB
+  backup_count: 5
+
+theme:
+  primary_color: "#C9A84C"     # Gold
+  background_color: "#0A0A0A"  # Near Black
+  secondary_background: "#141414"
+  text_color: "#F2F2F2"
+  font: "sans serif"
+
+economic:
+  currency: "USD"
+  price_data_note: "Prices are estimates based on LME/Kitco historical data"
+  gold_price_usd_per_troy_oz: 2650.0     # Approximate — update manually
+  silver_price_usd_per_troy_oz: 30.0
+  copper_price_usd_per_kg: 9.50
+  palladium_price_usd_per_troy_oz: 1050.0
+  lithium_price_usd_per_kg: 12.0

@@ -1,0 +1,117 @@
+# ============================================================
+# E-WASTE AI — .gitignore
+# ============================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+.installed.cfg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+virtualenv/
+
+# Environment Variables
+.env
+*.env
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data Files (large, user-specific)
+data/uploads/*
+data/processed/*
+data/images/*
+data/videos/*
+data/exports/*
+!data/uploads/.gitkeep
+!data/processed/.gitkeep
+!data/images/.gitkeep
+!data/videos/.gitkeep
+!data/exports/.gitkeep
+
+# Database
+database/ewaste_ai.db
+database/ewaste_ai.db-shm
+database/ewaste_ai.db-wal
+database/*.db
+database/*.db-*
+
+# Trained Models (large binary files)
+saved_models/checkpoints/*
+saved_models/sklearn/*
+saved_models/transformers/*
+!saved_models/checkpoints/.gitkeep
+!saved_models/sklearn/.gitkeep
+!saved_models/transformers/.gitkeep
+saved_models/metadata/*.json
+
+# Reports (generated per user)
+reports/archive/*
+!reports/archive/.gitkeep
+
+# Logs
+logs/
+*.log
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+
+# Windows
+desktop.ini
+$RECYCLE.BIN/
+
+# Node (for any static assets)
+node_modules/
+npm-debug.log*
+
+# Streamlit
+.streamlit/secrets.toml
