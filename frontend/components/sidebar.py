@@ -11,6 +11,7 @@ import streamlit as st
 NAV_ITEMS = [
     # (key, icon, label, group)
     ("dashboard",           "📊", "Dashboard",             "OVERVIEW"),
+    ("dataset_intelligence",  "🧠", "Dataset Intelligence",    "DATASET PIPELINE"),
     ("dataset_management",  "📁", "Dataset Management",    "ACADEMIC WORKFLOW"),
     ("data_cleaning",       "🧹", "Data Cleaning",         "ACADEMIC WORKFLOW"),
     ("preprocessing",       "⚙️",  "Preprocessing",         "ACADEMIC WORKFLOW"),

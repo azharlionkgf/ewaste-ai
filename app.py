@@ -42,6 +42,10 @@ if page == "dashboard":
     from frontend.pages.dashboard import render_dashboard
     render_dashboard()
 
+elif page == "dataset_intelligence":
+    from frontend.pages.dataset_intelligence import render
+    render()
+
 elif page == "dataset_management":
     from frontend.pages.dataset_management import render_dataset_management
     render_dataset_management()

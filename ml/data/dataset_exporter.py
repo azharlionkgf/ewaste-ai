@@ -1,0 +1,280 @@
+"""
+Dataset Exporter — Phase 2: Dataset Intelligence Engine
+Handles export, versioning, provenance, and research documentation.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+import pandas as pd
+
+logger = logging.getLogger(__name__)
+
+VERSIONS_DIR = Path("data/versions")
+EXPORTS_DIR = Path("data/exports")
+
+
+class DatasetExporter:
+    """
+    Exports datasets and reports in multiple formats.
+
+    Usage::
+
+        exporter = DatasetExporter()
+        path = exporter.export_csv(df, "data/exports/cleaned.csv")
+    """
+
+    # ------------------------------------------------------------------ #
+    # Basic exports                                                        #
+    # ------------------------------------------------------------------ #
+
+    def export_csv(
+        self,
+        df: pd.DataFrame,
+        path: str | Path,
+        include_metadata: bool = True,
+    ) -> str:
+        """Export DataFrame to CSV. Returns the saved file path."""
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(path, index=False)
+        if include_metadata:
+            meta = {
+                "exported_at": datetime.now(timezone.utc).isoformat(),
+                "rows": len(df),
+                "columns": list(df.columns),
+            }
+            meta_path = path.with_suffix(".meta.json")
+            with open(meta_path, "w") as f:
+                json.dump(meta, f, indent=2)
+        logger.info("CSV exported to %s", path)
+        return str(path)
+
+    def export_excel(self, df: pd.DataFrame, path: str | Path) -> str:
+        """Export DataFrame to Excel. Returns the saved file path."""
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_excel(path, index=False)
+        logger.info("Excel exported to %s", path)
+        return str(path)
+
+    def export_json(self, df: pd.DataFrame, path: str | Path) -> str:
+        """Export DataFrame to JSON (records orientation). Returns saved path."""
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        df.to_json(path, orient="records", indent=2, default_handler=str)
+        logger.info("JSON exported to %s", path)
+        return str(path)
+
+    # ------------------------------------------------------------------ #
+    # Quality report export                                               #
+    # ------------------------------------------------------------------ #
+
+    def export_quality_report(
+        self,
+        quality_report: dict,
+        path: str | Path,
+    ) -> str:
+        """
+        Export a quality report to both Markdown and JSON.
+
+        Returns the Markdown path.
+        """
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+        # JSON
+        json_path = path.with_suffix(".json")
+        with open(json_path, "w") as f:
+            json.dump(quality_report, f, indent=2, default=str)
+
+        # Markdown
+        md = self._quality_report_to_markdown(quality_report)
+        path.write_text(md, encoding="utf-8")
+
+        logger.info("Quality report exported to %s", path)
+        return str(path)
+
+    # ------------------------------------------------------------------ #
+    # Research documentation                                              #
+    # ------------------------------------------------------------------ #
+
+    def generate_research_documentation(
+        self,
+        dataset_name: str,
+        inspection_report: dict | None = None,
+        cleaning_report: dict | None = None,
+        quality_report: dict | None = None,
+        prep_config: dict | None = None,
+        output_path: str | Path | None = None,
+    ) -> str:
+        """
+        Generate a Markdown document suitable for a research paper appendix.
+
+        Returns the Markdown string (and saves it if output_path provided).
+        """
+        lines = [
+            f"# Dataset Documentation: {dataset_name}",
+            f"\n*Generated: {datetime.now(timezone.utc).isoformat()}*\n",
+            "\n---\n",
+        ]
+
+        if inspection_report:
+            lines += self._inspection_section(inspection_report)
+
+        if cleaning_report:
+            lines += self._cleaning_section(cleaning_report)
+
+        if quality_report:
+            lines += self._quality_section(quality_report)
+
+        if prep_config:
+            lines += self._prep_section(prep_config)
+
+        lines += [
+            "\n---\n",
+            "## Reproducibility Notes\n",
+            "- All preprocessing steps were logged with timestamps.\n",
+            "- Raw datasets were preserved; only processed copies were modified.\n",
+            "- Random seeds are recorded in the preparation configuration.\n",
+            "- This document was auto-generated by E-WASTE AI Dataset Intelligence Engine.\n",
+        ]
+
+        md = "\n".join(lines)
+
+        if output_path:
+            out = Path(output_path)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(md, encoding="utf-8")
+            logger.info("Research documentation saved to %s", out)
+
+        return md
+
+    # ------------------------------------------------------------------ #
+    # Versioning                                                           #
+    # ------------------------------------------------------------------ #
+
+    def create_dataset_version_snapshot(
+        self,
+        df: pd.DataFrame,
+        version_tag: str,
+        output_dir: str | Path,
+        metadata: dict | None = None,
+    ) -> dict:
+        """
+        Save a versioned snapshot of a DataFrame with metadata.
+
+        Returns a dict describing the snapshot.
+        """
+        out = Path(output_dir) / version_tag
+        out.mkdir(parents=True, exist_ok=True)
+
+        csv_path = out / "data.csv"
+        df.to_csv(csv_path, index=False)
+
+        snapshot_meta = {
+            "version_tag": version_tag,
+            "rows": len(df),
+            "columns": list(df.columns),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "extra_metadata": metadata or {},
+        }
+        meta_path = out / "version_meta.json"
+        with open(meta_path, "w") as f:
+            json.dump(snapshot_meta, f, indent=2, default=str)
+
+        logger.info("Dataset version snapshot saved: %s/%s", output_dir, version_tag)
+        return {
+            "version_tag": version_tag,
+            "data_path": str(csv_path),
+            "meta_path": str(meta_path),
+            "rows": len(df),
+            "columns": len(df.columns),
+            "created_at": snapshot_meta["created_at"],
+        }
+
+    # ------------------------------------------------------------------ #
+    # Private markdown builders                                            #
+    # ------------------------------------------------------------------ #
+
+    @staticmethod
+    def _quality_report_to_markdown(report: dict) -> str:
+        lines = [
+            "# Dataset Quality Report\n",
+            f"**Generated:** {report.get('timestamp', 'N/A')}\n",
+            f"**Overall Score:** {report.get('overall_score', 'N/A')} / 100\n",
+            f"**Grade:** {report.get('grade', 'N/A')}\n\n",
+            "## Dimension Scores\n",
+            "| Dimension | Score |",
+            "|-----------|-------|",
+        ]
+        for dim, score in report.get("dimension_scores", {}).items():
+            lines.append(f"| {dim.capitalize()} | {score} |")
+
+        lines += [
+            "\n## Issues\n",
+        ]
+        for issue in report.get("issues", []):
+            lines.append(f"- {issue}")
+
+        lines += ["\n## Recommendations\n"]
+        for rec in report.get("recommendations", []):
+            lines.append(f"- {rec}")
+
+        lines.append(
+            "\n> **Note:** Quality score is a diagnostic indicator, NOT a scientific standard."
+        )
+        return "\n".join(lines)
+
+    @staticmethod
+    def _inspection_section(r: dict) -> list[str]:
+        return [
+            "\n## Dataset Inspection\n",
+            f"- **Rows:** {r.get('row_count', 'N/A')}",
+            f"- **Columns:** {r.get('column_count', 'N/A')}",
+            f"- **Missing values:** {r.get('total_missing', 'N/A')}",
+            f"- **Duplicate rows:** {r.get('duplicate_rows', 'N/A')}",
+            f"- **Dataset type:** {r.get('dataset_type', 'N/A')}\n",
+        ]
+
+    @staticmethod
+    def _cleaning_section(r: dict) -> list[str]:
+        return [
+            "\n## Data Cleaning\n",
+            f"- **Rows before:** {r.get('rows_before', 'N/A')}",
+            f"- **Rows after:** {r.get('rows_after', 'N/A')}",
+            f"- **Rows removed:** {r.get('rows_removed', 'N/A')}",
+            f"- **Missing values filled:** {r.get('missing_filled', 'N/A')}",
+            f"- **Duplicates removed:** {r.get('duplicates_removed', 'N/A')}",
+            f"- **Outliers flagged:** {r.get('outliers_flagged', 'N/A')}\n",
+        ]
+
+    @staticmethod
+    def _quality_section(r: dict) -> list[str]:
+        lines = [
+            "\n## Dataset Quality Assessment\n",
+            f"- **Overall Score:** {r.get('overall_score', 'N/A')} / 100",
+            f"- **Grade:** {r.get('grade', 'N/A')}\n",
+            "| Dimension | Score |",
+            "|-----------|-------|",
+        ]
+        for dim, score in r.get("dimension_scores", {}).items():
+            lines.append(f"| {dim.capitalize()} | {score} |")
+        lines.append("")
+        return lines
+
+    @staticmethod
+    def _prep_section(cfg: dict) -> list[str]:
+        return [
+            "\n## Dataset Preparation Configuration\n",
+            f"- **Train ratio:** {cfg.get('train_ratio', 'N/A')}",
+            f"- **Val ratio:** {cfg.get('val_ratio', 'N/A')}",
+            f"- **Test ratio:** {cfg.get('test_ratio', 'N/A')}",
+            f"- **Random seed:** {cfg.get('random_seed', 'N/A')}",
+            f"- **Stratified:** {cfg.get('stratify', 'N/A')}\n",
+        ]
