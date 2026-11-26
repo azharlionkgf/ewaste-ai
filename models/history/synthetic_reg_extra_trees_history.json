@@ -1,0 +1,31 @@
+{
+  "run_name": "synthetic_reg_extra_trees",
+  "algorithm": "extra_trees",
+  "task": "regression",
+  "config": {},
+  "seed": 42,
+  "train_metrics": {
+    "split": "train",
+    "task": "regression",
+    "n_samples": 96,
+    "mae": 0.0,
+    "mse": 0.0,
+    "rmse": 0.0,
+    "r2": 1.0,
+    "mape": 0.0
+  },
+  "val_metrics": {
+    "split": "val",
+    "task": "regression",
+    "n_samples": 24,
+    "mae": 93.9324,
+    "mse": 13911.2549,
+    "rmse": 117.946,
+    "r2": 0.5291,
+    "mape": 68.89
+  },
+  "training_time_s": 0.2,
+  "duration_sec": 0.2,
+  "model_path": "models\\saved\\synthetic_reg_extra_trees.pkl",
+  "timestamp": "2026-11-26T08:21:40.298134+00:00"
+}

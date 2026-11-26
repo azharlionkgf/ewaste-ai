@@ -1,0 +1,135 @@
+{
+  "run_name": "synthetic_clf_random_forest",
+  "algorithm": "random_forest",
+  "task": "classification",
+  "config": {},
+  "seed": 42,
+  "train_metrics": {
+    "split": "train",
+    "task": "classification",
+    "n_samples": 128,
+    "n_classes": 3,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_macro": 1.0,
+    "f1_weighted": 1.0,
+    "kappa": 1.0,
+    "confusion_matrix": [
+      [
+        42,
+        0,
+        0
+      ],
+      [
+        0,
+        43,
+        0
+      ],
+      [
+        0,
+        0,
+        43
+      ]
+    ],
+    "roc_auc": 1.0,
+    "per_class": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 42.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 43.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 43.0
+      },
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 128.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 128.0
+      }
+    }
+  },
+  "val_metrics": {
+    "split": "val",
+    "task": "classification",
+    "n_samples": 32,
+    "n_classes": 3,
+    "accuracy": 0.9062,
+    "precision": 0.9184,
+    "recall": 0.903,
+    "f1_macro": 0.9049,
+    "f1_weighted": 0.9054,
+    "kappa": 0.8588,
+    "confusion_matrix": [
+      [
+        10,
+        1,
+        0
+      ],
+      [
+        0,
+        11,
+        0
+      ],
+      [
+        1,
+        1,
+        8
+      ]
+    ],
+    "roc_auc": 0.9532,
+    "per_class": {
+      "0": {
+        "precision": 0.9091,
+        "recall": 0.9091,
+        "f1-score": 0.9091,
+        "support": 11.0
+      },
+      "1": {
+        "precision": 0.8462,
+        "recall": 1.0,
+        "f1-score": 0.9167,
+        "support": 11.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1-score": 0.8889,
+        "support": 10.0
+      },
+      "macro avg": {
+        "precision": 0.9184,
+        "recall": 0.903,
+        "f1-score": 0.9049,
+        "support": 32.0
+      },
+      "weighted avg": {
+        "precision": 0.9159,
+        "recall": 0.9062,
+        "f1-score": 0.9054,
+        "support": 32.0
+      }
+    }
+  },
+  "training_time_s": 0.77,
+  "duration_sec": 0.77,
+  "model_path": "models\\saved\\synthetic_clf_random_forest.pkl",
+  "timestamp": "2026-11-26T08:21:31.933142+00:00"
+}

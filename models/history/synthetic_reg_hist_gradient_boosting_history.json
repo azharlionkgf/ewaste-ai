@@ -1,0 +1,31 @@
+{
+  "run_name": "synthetic_reg_hist_gradient_boosting",
+  "algorithm": "hist_gradient_boosting",
+  "task": "regression",
+  "config": {},
+  "seed": 42,
+  "train_metrics": {
+    "split": "train",
+    "task": "regression",
+    "n_samples": 96,
+    "mae": 24.7716,
+    "mse": 1067.9041,
+    "rmse": 32.6788,
+    "r2": 0.9587,
+    "mape": 61.8
+  },
+  "val_metrics": {
+    "split": "val",
+    "task": "regression",
+    "n_samples": 24,
+    "mae": 82.5907,
+    "mse": 12102.6576,
+    "rmse": 110.0121,
+    "r2": 0.5903,
+    "mape": 72.7
+  },
+  "training_time_s": 0.18,
+  "duration_sec": 0.18,
+  "model_path": "models\\saved\\synthetic_reg_hist_gradient_boosting.pkl",
+  "timestamp": "2026-11-26T08:21:39.963284+00:00"
+}

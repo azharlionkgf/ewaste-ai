@@ -224,6 +224,105 @@ class ExperimentTracker:
             return {}
         return max(valid, key=lambda r: r[key])
 
+    # ------------------------------------------------------------------
+    # High-level API (Phase 3 compatibility layer)
+    # ------------------------------------------------------------------
+
+    def start_experiment(
+        self,
+        name: str,
+        objective: str = "",
+        dataset_info: dict | None = None,
+        config: dict | None = None,
+    ) -> str:
+        """
+        High-level API: create + activate an experiment in one call.
+        Returns a string experiment_id.
+        """
+        import uuid
+        import sys
+        exp_id = str(uuid.uuid4())
+        now = datetime.datetime.utcnow().isoformat()
+        entry = {
+            "experiment_id": exp_id,
+            "name": name,
+            "objective": objective,
+            "dataset_info": dataset_info or {},
+            "config": config or {},
+            "metrics": {},
+            "artifacts": [],
+            "status": "running",
+            "start_time": now,
+            "end_time": None,
+            "duration_sec": None,
+            "library_versions": {
+                lib: getattr(__import__(lib, fromlist=[""]), "__version__", "unknown")
+                for lib in ["numpy", "pandas", "sklearn"]
+                if lib in sys.modules or _try_import(lib)
+            },
+        }
+        self._memory_store.setdefault("_hl_experiments", {})[exp_id] = entry
+        return exp_id
+
+    def log_metrics(self, experiment_id: str, metrics: dict) -> None:
+        """High-level API: log a dict of metrics to an experiment."""
+        exp = self._memory_store.get("_hl_experiments", {}).get(experiment_id)
+        if exp is None:
+            return
+        exp["metrics"].update(metrics)
+
+    def log_artifact(self, experiment_id: str, file_path: str, artifact_type: str = "file") -> None:
+        """High-level API: record an artifact path."""
+        exp = self._memory_store.get("_hl_experiments", {}).get(experiment_id)
+        if exp is None:
+            return
+        exp["artifacts"].append({"path": file_path, "type": artifact_type})
+
+    def end_experiment(self, experiment_id: str, status: str = "completed") -> None:
+        """High-level API: mark experiment as finished."""
+        exp = self._memory_store.get("_hl_experiments", {}).get(experiment_id)
+        if exp is None:
+            return
+        exp["status"] = status
+        now = datetime.datetime.utcnow().isoformat()
+        exp["end_time"] = now
+        try:
+            start = datetime.datetime.fromisoformat(exp["start_time"])
+            end = datetime.datetime.fromisoformat(now)
+            exp["duration_sec"] = round((end - start).total_seconds(), 2)
+        except Exception:
+            pass
+
+    def get_experiment(self, experiment_id: str) -> dict | None:
+        """High-level API: retrieve experiment by string ID."""
+        return self._memory_store.get("_hl_experiments", {}).get(experiment_id)
+
+    def list_experiments(self) -> list:
+        """High-level API: list all high-level experiments."""
+        return list(self._memory_store.get("_hl_experiments", {}).values())
+
+    def generate_comparison_table(self, experiment_ids: list) -> object:
+        """High-level API: build a pandas DataFrame comparing experiments."""
+        try:
+            import pandas as pd
+        except ImportError:
+            return None
+        rows = []
+        store = self._memory_store.get("_hl_experiments", {})
+        for eid in experiment_ids:
+            exp = store.get(eid)
+            if exp is None:
+                continue
+            row = {
+                "experiment_id": eid[:8],
+                "name": exp.get("name"),
+                "status": exp.get("status"),
+                "duration_sec": exp.get("duration_sec"),
+            }
+            row.update(exp.get("metrics", {}))
+            rows.append(row)
+        return pd.DataFrame(rows) if rows else pd.DataFrame()
+
     def export_to_csv(self, experiment_id: int, output_path: str) -> str:
         """Export all run metrics to a CSV file."""
         exp = self._memory_store["experiments"].get(experiment_id)
@@ -254,3 +353,12 @@ class ExperimentTracker:
                 writer.writerows(rows)
         logger.info(f"Exported {len(rows)} metric rows to {output_path}")
         return str(output)
+
+
+def _try_import(lib: str) -> bool:
+    """Return True if lib can be imported."""
+    try:
+        __import__(lib)
+        return True
+    except ImportError:
+        return False

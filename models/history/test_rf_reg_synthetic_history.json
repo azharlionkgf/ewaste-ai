@@ -1,0 +1,31 @@
+{
+  "run_name": "test_rf_reg_synthetic",
+  "algorithm": "random_forest",
+  "task": "regression",
+  "config": {},
+  "seed": 42,
+  "train_metrics": {
+    "split": "train",
+    "task": "regression",
+    "n_samples": 140,
+    "mae": 23.2586,
+    "mse": 942.7579,
+    "rmse": 30.7044,
+    "r2": 0.9711,
+    "mape": 64.87
+  },
+  "val_metrics": {
+    "split": "val",
+    "task": "regression",
+    "n_samples": 60,
+    "mae": 62.5397,
+    "mse": 6247.7292,
+    "rmse": 79.0426,
+    "r2": 0.807,
+    "mape": 73.94
+  },
+  "training_time_s": 0.28,
+  "duration_sec": 0.28,
+  "model_path": "models\\saved\\test_rf_reg_synthetic.pkl",
+  "timestamp": "2026-11-26T08:20:57.012857+00:00"
+}

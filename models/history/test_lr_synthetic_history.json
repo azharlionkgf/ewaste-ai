@@ -1,0 +1,135 @@
+{
+  "run_name": "test_lr_synthetic",
+  "algorithm": "logistic_regression",
+  "task": "classification",
+  "config": {},
+  "seed": 42,
+  "train_metrics": {
+    "split": "train",
+    "task": "classification",
+    "n_samples": 140,
+    "n_classes": 3,
+    "accuracy": 0.9714,
+    "precision": 0.973,
+    "recall": 0.97,
+    "f1_macro": 0.9709,
+    "f1_weighted": 0.9713,
+    "kappa": 0.957,
+    "confusion_matrix": [
+      [
+        50,
+        0,
+        0
+      ],
+      [
+        1,
+        41,
+        2
+      ],
+      [
+        1,
+        0,
+        45
+      ]
+    ],
+    "roc_auc": 0.9994,
+    "per_class": {
+      "0": {
+        "precision": 0.9615,
+        "recall": 1.0,
+        "f1-score": 0.9804,
+        "support": 50.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 0.9318,
+        "f1-score": 0.9647,
+        "support": 44.0
+      },
+      "2": {
+        "precision": 0.9574,
+        "recall": 0.9783,
+        "f1-score": 0.9677,
+        "support": 46.0
+      },
+      "macro avg": {
+        "precision": 0.973,
+        "recall": 0.97,
+        "f1-score": 0.9709,
+        "support": 140.0
+      },
+      "weighted avg": {
+        "precision": 0.9723,
+        "recall": 0.9714,
+        "f1-score": 0.9713,
+        "support": 140.0
+      }
+    }
+  },
+  "val_metrics": {
+    "split": "val",
+    "task": "classification",
+    "n_samples": 60,
+    "n_classes": 3,
+    "accuracy": 0.8833,
+    "precision": 0.884,
+    "recall": 0.8838,
+    "f1_macro": 0.8815,
+    "f1_weighted": 0.8815,
+    "kappa": 0.8246,
+    "confusion_matrix": [
+      [
+        15,
+        2,
+        1
+      ],
+      [
+        2,
+        18,
+        2
+      ],
+      [
+        0,
+        0,
+        20
+      ]
+    ],
+    "roc_auc": 0.9664,
+    "per_class": {
+      "0": {
+        "precision": 0.8824,
+        "recall": 0.8333,
+        "f1-score": 0.8571,
+        "support": 18.0
+      },
+      "1": {
+        "precision": 0.9,
+        "recall": 0.8182,
+        "f1-score": 0.8571,
+        "support": 22.0
+      },
+      "2": {
+        "precision": 0.8696,
+        "recall": 1.0,
+        "f1-score": 0.9302,
+        "support": 20.0
+      },
+      "macro avg": {
+        "precision": 0.884,
+        "recall": 0.8838,
+        "f1-score": 0.8815,
+        "support": 60.0
+      },
+      "weighted avg": {
+        "precision": 0.8846,
+        "recall": 0.8833,
+        "f1-score": 0.8815,
+        "support": 60.0
+      }
+    }
+  },
+  "training_time_s": 0.01,
+  "duration_sec": 0.01,
+  "model_path": "models\\saved\\test_lr_synthetic.pkl",
+  "timestamp": "2026-11-26T08:20:50.888038+00:00"
+}

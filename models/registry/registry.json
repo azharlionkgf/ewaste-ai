@@ -1,0 +1,610 @@
+{
+  "synthetic_clf_random_forest_20261126_082131": {
+    "entry_id": "synthetic_clf_random_forest_20261126_082131",
+    "run_name": "synthetic_clf_random_forest",
+    "algorithm": "random_forest",
+    "model_type": "tabular",
+    "task": "classification",
+    "dataset_name": "synthetic_200x10_3class",
+    "dataset_version": "synthetic_v1",
+    "feature_columns": [],
+    "target_column": "",
+    "class_names": [],
+    "hyperparameters": {},
+    "train_metrics": {
+      "split": "train",
+      "task": "classification",
+      "n_samples": 128,
+      "n_classes": 3,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_macro": 1.0,
+      "f1_weighted": 1.0,
+      "kappa": 1.0,
+      "confusion_matrix": [
+        [
+          42,
+          0,
+          0
+        ],
+        [
+          0,
+          43,
+          0
+        ],
+        [
+          0,
+          0,
+          43
+        ]
+      ],
+      "roc_auc": 1.0,
+      "per_class": {
+        "0": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 42.0
+        },
+        "1": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 43.0
+        },
+        "2": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 43.0
+        },
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 128.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 128.0
+        }
+      }
+    },
+    "val_metrics": {
+      "split": "val",
+      "task": "classification",
+      "n_samples": 32,
+      "n_classes": 3,
+      "accuracy": 0.9062,
+      "precision": 0.9184,
+      "recall": 0.903,
+      "f1_macro": 0.9049,
+      "f1_weighted": 0.9054,
+      "kappa": 0.8588,
+      "confusion_matrix": [
+        [
+          10,
+          1,
+          0
+        ],
+        [
+          0,
+          11,
+          0
+        ],
+        [
+          1,
+          1,
+          8
+        ]
+      ],
+      "roc_auc": 0.9532,
+      "per_class": {
+        "0": {
+          "precision": 0.9091,
+          "recall": 0.9091,
+          "f1-score": 0.9091,
+          "support": 11.0
+        },
+        "1": {
+          "precision": 0.8462,
+          "recall": 1.0,
+          "f1-score": 0.9167,
+          "support": 11.0
+        },
+        "2": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1-score": 0.8889,
+          "support": 10.0
+        },
+        "macro avg": {
+          "precision": 0.9184,
+          "recall": 0.903,
+          "f1-score": 0.9049,
+          "support": 32.0
+        },
+        "weighted avg": {
+          "precision": 0.9159,
+          "recall": 0.9062,
+          "f1-score": 0.9054,
+          "support": 32.0
+        }
+      }
+    },
+    "test_metrics": {},
+    "training_time_s": 0,
+    "model_path": "models\\registry\\synthetic_clf_random_forest.pkl",
+    "model_size_kb": 403.1,
+    "random_seed": 42,
+    "status": "registered",
+    "registered_at": "2026-11-26T08:21:31.941743+00:00",
+    "library_versions": {
+      "sklearn": "1.8.0",
+      "xgboost": "3.4.1",
+      "catboost": "1.2.10",
+      "torch": "2.12.0+cpu",
+      "numpy": "2.4.4",
+      "pandas": "3.0.3"
+    }
+  },
+  "synthetic_clf_logistic_regression_20261126_082133": {
+    "entry_id": "synthetic_clf_logistic_regression_20261126_082133",
+    "run_name": "synthetic_clf_logistic_regression",
+    "algorithm": "logistic_regression",
+    "model_type": "tabular",
+    "task": "classification",
+    "dataset_name": "synthetic_200x10_3class",
+    "dataset_version": "synthetic_v1",
+    "feature_columns": [],
+    "target_column": "",
+    "class_names": [],
+    "hyperparameters": {},
+    "train_metrics": {
+      "split": "train",
+      "task": "classification",
+      "n_samples": 128,
+      "n_classes": 3,
+      "accuracy": 0.9453,
+      "precision": 0.9453,
+      "recall": 0.9457,
+      "f1_macro": 0.9452,
+      "f1_weighted": 0.9449,
+      "kappa": 0.918,
+      "confusion_matrix": [
+        [
+          42,
+          0,
+          0
+        ],
+        [
+          1,
+          39,
+          3
+        ],
+        [
+          1,
+          2,
+          40
+        ]
+      ],
+      "roc_auc": 0.9745,
+      "per_class": {
+        "0": {
+          "precision": 0.9545,
+          "recall": 1.0,
+          "f1-score": 0.9767,
+          "support": 42.0
+        },
+        "1": {
+          "precision": 0.9512,
+          "recall": 0.907,
+          "f1-score": 0.9286,
+          "support": 43.0
+        },
+        "2": {
+          "precision": 0.9302,
+          "recall": 0.9302,
+          "f1-score": 0.9302,
+          "support": 43.0
+        },
+        "macro avg": {
+          "precision": 0.9453,
+          "recall": 0.9457,
+          "f1-score": 0.9452,
+          "support": 128.0
+        },
+        "weighted avg": {
+          "precision": 0.9453,
+          "recall": 0.9453,
+          "f1-score": 0.9449,
+          "support": 128.0
+        }
+      }
+    },
+    "val_metrics": {
+      "split": "val",
+      "task": "classification",
+      "n_samples": 32,
+      "n_classes": 3,
+      "accuracy": 0.875,
+      "precision": 0.8758,
+      "recall": 0.8758,
+      "f1_macro": 0.8758,
+      "f1_weighted": 0.875,
+      "kappa": 0.8123,
+      "confusion_matrix": [
+        [
+          10,
+          1,
+          0
+        ],
+        [
+          1,
+          9,
+          1
+        ],
+        [
+          0,
+          1,
+          9
+        ]
+      ],
+      "roc_auc": 0.9826,
+      "per_class": {
+        "0": {
+          "precision": 0.9091,
+          "recall": 0.9091,
+          "f1-score": 0.9091,
+          "support": 11.0
+        },
+        "1": {
+          "precision": 0.8182,
+          "recall": 0.8182,
+          "f1-score": 0.8182,
+          "support": 11.0
+        },
+        "2": {
+          "precision": 0.9,
+          "recall": 0.9,
+          "f1-score": 0.9,
+          "support": 10.0
+        },
+        "macro avg": {
+          "precision": 0.8758,
+          "recall": 0.8758,
+          "f1-score": 0.8758,
+          "support": 32.0
+        },
+        "weighted avg": {
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1-score": 0.875,
+          "support": 32.0
+        }
+      }
+    },
+    "test_metrics": {},
+    "training_time_s": 0,
+    "model_path": "models\\registry\\synthetic_clf_logistic_regression.pkl",
+    "model_size_kb": 0.9,
+    "random_seed": 42,
+    "status": "registered",
+    "registered_at": "2026-11-26T08:21:33.262053+00:00",
+    "library_versions": {
+      "sklearn": "1.8.0",
+      "xgboost": "3.4.1",
+      "catboost": "1.2.10",
+      "torch": "2.12.0+cpu",
+      "numpy": "2.4.4",
+      "pandas": "3.0.3"
+    }
+  },
+  "synthetic_clf_hist_gradient_boosting_20261126_082138": {
+    "entry_id": "synthetic_clf_hist_gradient_boosting_20261126_082138",
+    "run_name": "synthetic_clf_hist_gradient_boosting",
+    "algorithm": "hist_gradient_boosting",
+    "model_type": "tabular",
+    "task": "classification",
+    "dataset_name": "synthetic_200x10_3class",
+    "dataset_version": "synthetic_v1",
+    "feature_columns": [],
+    "target_column": "",
+    "class_names": [],
+    "hyperparameters": {},
+    "train_metrics": {
+      "split": "train",
+      "task": "classification",
+      "n_samples": 128,
+      "n_classes": 3,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_macro": 1.0,
+      "f1_weighted": 1.0,
+      "kappa": 1.0,
+      "confusion_matrix": [
+        [
+          42,
+          0,
+          0
+        ],
+        [
+          0,
+          43,
+          0
+        ],
+        [
+          0,
+          0,
+          43
+        ]
+      ],
+      "roc_auc": 1.0,
+      "per_class": {
+        "0": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 42.0
+        },
+        "1": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 43.0
+        },
+        "2": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 43.0
+        },
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 128.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 128.0
+        }
+      }
+    },
+    "val_metrics": {
+      "split": "val",
+      "task": "classification",
+      "n_samples": 32,
+      "n_classes": 3,
+      "accuracy": 0.75,
+      "precision": 0.7857,
+      "recall": 0.7455,
+      "f1_macro": 0.7518,
+      "f1_weighted": 0.7532,
+      "kappa": 0.623,
+      "confusion_matrix": [
+        [
+          9,
+          2,
+          0
+        ],
+        [
+          1,
+          9,
+          1
+        ],
+        [
+          0,
+          4,
+          6
+        ]
+      ],
+      "roc_auc": 0.8874,
+      "per_class": {
+        "0": {
+          "precision": 0.9,
+          "recall": 0.8182,
+          "f1-score": 0.8571,
+          "support": 11.0
+        },
+        "1": {
+          "precision": 0.6,
+          "recall": 0.8182,
+          "f1-score": 0.6923,
+          "support": 11.0
+        },
+        "2": {
+          "precision": 0.8571,
+          "recall": 0.6,
+          "f1-score": 0.7059,
+          "support": 10.0
+        },
+        "macro avg": {
+          "precision": 0.7857,
+          "recall": 0.7455,
+          "f1-score": 0.7518,
+          "support": 32.0
+        },
+        "weighted avg": {
+          "precision": 0.7835,
+          "recall": 0.75,
+          "f1-score": 0.7532,
+          "support": 32.0
+        }
+      }
+    },
+    "test_metrics": {},
+    "training_time_s": 0,
+    "model_path": "models\\registry\\synthetic_clf_hist_gradient_boosting.pkl",
+    "model_size_kb": 204.6,
+    "random_seed": 42,
+    "status": "registered",
+    "registered_at": "2026-11-26T08:21:38.610290+00:00",
+    "library_versions": {
+      "sklearn": "1.8.0",
+      "xgboost": "3.4.1",
+      "catboost": "1.2.10",
+      "torch": "2.12.0+cpu",
+      "numpy": "2.4.4",
+      "pandas": "3.0.3"
+    }
+  },
+  "synthetic_clf_extra_trees_20261126_082139": {
+    "entry_id": "synthetic_clf_extra_trees_20261126_082139",
+    "run_name": "synthetic_clf_extra_trees",
+    "algorithm": "extra_trees",
+    "model_type": "tabular",
+    "task": "classification",
+    "dataset_name": "synthetic_200x10_3class",
+    "dataset_version": "synthetic_v1",
+    "feature_columns": [],
+    "target_column": "",
+    "class_names": [],
+    "hyperparameters": {},
+    "train_metrics": {
+      "split": "train",
+      "task": "classification",
+      "n_samples": 128,
+      "n_classes": 3,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_macro": 1.0,
+      "f1_weighted": 1.0,
+      "kappa": 1.0,
+      "confusion_matrix": [
+        [
+          42,
+          0,
+          0
+        ],
+        [
+          0,
+          43,
+          0
+        ],
+        [
+          0,
+          0,
+          43
+        ]
+      ],
+      "roc_auc": 1.0,
+      "per_class": {
+        "0": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 42.0
+        },
+        "1": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 43.0
+        },
+        "2": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 43.0
+        },
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 128.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 128.0
+        }
+      }
+    },
+    "val_metrics": {
+      "split": "val",
+      "task": "classification",
+      "n_samples": 32,
+      "n_classes": 3,
+      "accuracy": 0.875,
+      "precision": 0.8897,
+      "recall": 0.8758,
+      "f1_macro": 0.8793,
+      "f1_weighted": 0.8772,
+      "kappa": 0.812,
+      "confusion_matrix": [
+        [
+          9,
+          2,
+          0
+        ],
+        [
+          1,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          9
+        ]
+      ],
+      "roc_auc": 0.9632,
+      "per_class": {
+        "0": {
+          "precision": 0.9,
+          "recall": 0.8182,
+          "f1-score": 0.8571,
+          "support": 11.0
+        },
+        "1": {
+          "precision": 0.7692,
+          "recall": 0.9091,
+          "f1-score": 0.8333,
+          "support": 11.0
+        },
+        "2": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1-score": 0.9474,
+          "support": 10.0
+        },
+        "macro avg": {
+          "precision": 0.8897,
+          "recall": 0.8758,
+          "f1-score": 0.8793,
+          "support": 32.0
+        },
+        "weighted avg": {
+          "precision": 0.8863,
+          "recall": 0.875,
+          "f1-score": 0.8772,
+          "support": 32.0
+        }
+      }
+    },
+    "test_metrics": {},
+    "training_time_s": 0,
+    "model_path": "models\\registry\\synthetic_clf_extra_trees.pkl",
+    "model_size_kb": 1040.5,
+    "random_seed": 42,
+    "status": "registered",
+    "registered_at": "2026-11-26T08:21:39.290879+00:00",
+    "library_versions": {
+      "sklearn": "1.8.0",
+      "xgboost": "3.4.1",
+      "catboost": "1.2.10",
+      "torch": "2.12.0+cpu",
+      "numpy": "2.4.4",
+      "pandas": "3.0.3"
+    }
+  }
+}
