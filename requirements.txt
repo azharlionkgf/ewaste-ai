@@ -1,86 +1,85 @@
 # ============================================================
 # E-WASTE AI — requirements.txt
 # Platform: Industry + Academic + Research
-# Python: 3.13.7 (local) / 3.11+ (cloud compatible)
+# Python: 3.11+ (Streamlit Cloud compatible)
+# Heavy packages (torch, catboost, mlflow) commented out
 # ============================================================
 
 # ── Web Framework ─────────────────────────────────────────
-fastapi==0.136.1
-uvicorn[standard]==0.47.0
-python-multipart
-websockets==16.1.1
-starlette==1.0.0
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+websockets==12.0
+# starlette is auto-installed by fastapi — do NOT pin separately
 
 # ── Database ──────────────────────────────────────────────
-sqlalchemy==2.0.49
-aiosqlite==0.21.0
-alembic
+sqlalchemy==2.0.30
+aiosqlite==0.20.0
+alembic==1.13.1
 
 # ── Frontend ──────────────────────────────────────────────
-streamlit==1.41.0
-altair==5.5.0
+streamlit==1.32.2
+altair>=4.0,<5
+plotly==5.18.0
 
 # ── Authentication ─────────────────────────────────────────
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 
-# ── Deep Learning (optional — heavy, skip on cloud) ───────
-# torch==2.12.0
-# torchvision==0.27.0
-# torchaudio==2.11.0
+# ── Deep Learning (CPU-only, skip on cloud free tier) ──────
+# torch==2.3.1
+# torchvision==0.18.1
+# torchaudio==2.3.1
 
 # ── NLP / Vision Transformers (optional — heavy) ──────────
-# transformers==5.8.1
-# safetensors==0.7.0
-# tokenizers==0.22.2
+# transformers==4.41.0
+# safetensors==0.4.3
+# tokenizers==0.19.1
 
 # ── Traditional Machine Learning ──────────────────────────
-scikit-learn==1.8.0
+scikit-learn==1.4.2
 xgboost==2.1.4
-# catboost==1.2.10   # optional — large binary
-imbalanced-learn
+imbalanced-learn==0.12.3
+# catboost==1.2.5   # optional — large binary
 
 # ── Data Processing ───────────────────────────────────────
-pandas
-numpy
-scipy==1.15.3
-openpyxl
-xlsxwriter==3.2.9
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.0
+openpyxl==3.1.2
+xlsxwriter==3.2.0
 
 # ── Image & Video Processing ──────────────────────────────
-opencv-python-headless
-Pillow
+opencv-python-headless==4.9.0.80
+Pillow==10.3.0
 
 # ── Visualization ─────────────────────────────────────────
-plotly
-matplotlib
+matplotlib==3.9.0
 seaborn==0.13.2
 
 # ── Reporting ─────────────────────────────────────────────
-reportlab==5.0.1
-fpdf2==2.8.8
+reportlab==4.1.0
+fpdf2==2.7.9
 
-# ── Experiment Tracking ───────────────────────────────────
-mlflow
+# ── Experiment Tracking (optional — heavy) ─────────────────
+# mlflow==2.13.0
 
 # ── Utilities ─────────────────────────────────────────────
-python-dotenv
-pyyaml==6.0.3
-rich==14.3.4
-joblib
-pathlib2
-tqdm==4.67.1
-httpx
+python-dotenv==1.0.1
+pyyaml==6.0.1
+rich==13.7.1
+joblib==1.4.2
+tqdm==4.66.4
+httpx==0.27.0
+aiofiles==23.2.1
+requests==2.32.3
 
 # ── Testing ───────────────────────────────────────────────
-pytest
-pytest-asyncio
-coverage
+pytest==8.2.0
+pytest-asyncio==0.23.6
+coverage==7.5.0
 
 # ── Validation ────────────────────────────────────────────
-pydantic
-annotated-types==0.7.0
-email-validator
-
-# ── File Handling ─────────────────────────────────────────
-aiofiles==24.1.0
+pydantic==2.7.1
+annotated-types==0.6.0
+email-validator==2.1.1

@@ -1,33 +1,57 @@
 # ============================================================
 # E-WASTE AI — requirements-cloud.txt
-# Streamlit Community Cloud deployment (1GB RAM limit)
-# Excludes torch/torchvision/torchaudio (too heavy for free tier)
+# Streamlit Community Cloud (Python 3.11, 1 GB RAM)
+# Heavy packages (torch, transformers, catboost) excluded.
 # ============================================================
 
 # ── Frontend ──────────────────────────────────────────────
-streamlit==1.64.0
-altair==6.3.0
-plotly==5.24.1
+streamlit==1.32.2
+altair>=4.0,<5
+plotly==5.18.0
 
 # ── Data ──────────────────────────────────────────────────
-pandas==2.3.0
-numpy==2.3.0
-scipy==1.15.3
-openpyxl==3.1.5
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.0
+openpyxl==3.1.2
 xlrd==2.0.1
 
 # ── Machine Learning ──────────────────────────────────────
-scikit-learn==1.8.1
-xgboost==3.4.1
-joblib==1.5.1
+scikit-learn==1.4.2
+xgboost==2.1.4
+imbalanced-learn==0.12.3
+joblib==1.4.2
 
 # ── Database ──────────────────────────────────────────────
-sqlalchemy==2.0.49
+sqlalchemy==2.0.30
+aiosqlite==0.20.0
 
 # ── Image Processing ──────────────────────────────────────
-pillow==11.2.1
+Pillow==10.3.0
+opencv-python-headless==4.9.0.80
+
+# ── Authentication ─────────────────────────────────────────
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# ── Validation ────────────────────────────────────────────
+pydantic==2.7.1
+email-validator==2.1.1
+annotated-types==0.6.0
+
+# ── Reporting ─────────────────────────────────────────────
+reportlab==4.1.0
+fpdf2==2.7.9
+
+# ── Visualization ─────────────────────────────────────────
+matplotlib==3.9.0
+seaborn==0.13.2
 
 # ── Utilities ─────────────────────────────────────────────
-python-dotenv==1.1.0
-pyyaml==6.0.2
+python-dotenv==1.0.1
+pyyaml==6.0.1
 requests==2.32.3
+httpx==0.27.0
+tqdm==4.66.4
+aiofiles==23.2.1
+python-multipart==0.0.9

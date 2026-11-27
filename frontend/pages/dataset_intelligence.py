@@ -18,7 +18,7 @@ from frontend.theme import COLORS, apply_custom_css
 def render():
     apply_custom_css()
     st.markdown(
-        f"<h1 style='color:{COLORS[\"gold\"]};font-family:Poppins,sans-serif;'>📊 Dataset Intelligence</h1>",
+        "<h1 style='color:#C9A84C;font-family:Poppins,sans-serif;'>📊 Dataset Intelligence</h1>",
         unsafe_allow_html=True,
     )
     st.markdown(

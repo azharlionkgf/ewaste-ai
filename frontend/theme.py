@@ -382,3 +382,94 @@ def card(content_fn, title: str = "", key: str = ""):
 def badge(text: str, style: str = "gold") -> str:
     """Return HTML for a status badge."""
     return f'<span class="badge badge-{style}">{text}</span>'
+
+
+def apply_theme():
+    """Alias for inject_theme — backwards compatibility."""
+    inject_theme()
+
+
+# ── Backwards-compatible exports ───────────────────────────────────────
+
+COLORS = {
+    "gold":      "#C9A84C",
+    "gold_light":"#E8C97A",
+    "gold_dark": "#A07830",
+    "bronze":    "#8B6914",
+    "bg":        "#0A0A0A",
+    "surface":   "#141414",
+    "card":      "#1C1C1C",
+    "text":      "#F2F2F2",
+    "muted":     "#9A9A9A",
+    "success":   "#27AE60",
+    "warning":   "#E67E22",
+    "error":     "#E74C3C",
+    "info":      "#2980B9",
+}
+
+
+def apply_custom_css():
+    """Alias for inject_theme — full CSS injection."""
+    inject_theme()
+
+
+def page_header(title: str, subtitle: str = "", icon: str = ""):
+    """Render a standard premium page header."""
+    inject_theme()
+    icon_str = f"{icon} " if icon else ""
+    st.markdown(
+        f"<h1 style='color:{COLORS['gold']};font-family:Poppins,sans-serif;"
+        f"font-size:1.8rem;font-weight:600;margin-bottom:0.2rem'>"
+        f"{icon_str}{title}</h1>",
+        unsafe_allow_html=True,
+    )
+    if subtitle:
+        st.markdown(
+            f"<p style='color:{COLORS['muted']};font-family:Inter,sans-serif;"
+            f"margin-top:0;margin-bottom:1.5rem'>{subtitle}</p>",
+            unsafe_allow_html=True,
+        )
+
+
+def metric_card(label: str, value: str, delta: str = "", color: str = "#C9A84C"):
+    """Render a styled metric card."""
+    delta_html = f"<div style='font-size:0.75rem;color:#9A9A9A'>{delta}</div>" if delta else ""
+    st.markdown(
+        f"""<div style='background:#1C1C1C;border:1px solid #2D2D2D;border-radius:8px;
+        padding:16px 20px;margin-bottom:8px'>
+        <div style='color:#9A9A9A;font-size:0.75rem;font-family:Inter,sans-serif;
+        text-transform:uppercase;letter-spacing:0.08em'>{label}</div>
+        <div style='color:{color};font-size:1.6rem;font-family:Poppins,sans-serif;
+        font-weight:600;margin-top:4px'>{value}</div>
+        {delta_html}
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+
+def status_badge(text: str, status: str = "info") -> str:
+    """Return HTML badge string."""
+    colors = {
+        "success": "#27AE60", "warning": "#E67E22",
+        "error": "#E74C3C",   "info":    "#2980B9",
+        "gold": "#C9A84C",    "muted":   "#666",
+    }
+    bg = colors.get(status, colors["info"])
+    return (
+        f"<span style='background:{bg}22;color:{bg};border:1px solid {bg}55;"
+        f"border-radius:4px;padding:2px 8px;font-size:0.72rem;"
+        f"font-family:Inter,sans-serif;font-weight:500'>{text}</span>"
+    )
+
+
+def section_header(title: str, subtitle: str = ""):
+    """Render a section divider with title."""
+    st.markdown(
+        f"<div style='border-left:3px solid #C9A84C;padding-left:12px;"
+        f"margin:1.5rem 0 0.8rem'>"
+        f"<div style='color:#F2F2F2;font-family:Poppins,sans-serif;"
+        f"font-weight:600;font-size:1.05rem'>{title}</div>"
+        + (f"<div style='color:#9A9A9A;font-size:0.8rem'>{subtitle}</div>" if subtitle else "")
+        + "</div>",
+        unsafe_allow_html=True,
+    )
