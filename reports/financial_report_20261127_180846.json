@@ -1,0 +1,12 @@
+{
+  "report_type": "financial_report",
+  "title": "Economic Recovery Analysis Report",
+  "generated_at": "2026-11-27T18:08:46.499497",
+  "price_data_date": "2024-01-01",
+  "data": {
+    "net_value_usd": 25.0,
+    "disclaimer": "Test",
+    "price_data_date": "2024-01-01"
+  },
+  "disclaimer": "Test"
+}

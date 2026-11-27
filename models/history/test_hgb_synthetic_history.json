@@ -128,8 +128,8 @@
       }
     }
   },
-  "training_time_s": 6.18,
-  "duration_sec": 6.18,
+  "training_time_s": 3.31,
+  "duration_sec": 3.31,
   "model_path": "models\\saved\\test_hgb_synthetic.pkl",
-  "timestamp": "2026-11-27T17:09:36.135201+00:00"
+  "timestamp": "2026-11-27T18:08:25.543345+00:00"
 }

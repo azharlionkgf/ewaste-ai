@@ -24,8 +24,8 @@
     "r2": 0.807,
     "mape": 73.94
   },
-  "training_time_s": 0.3,
-  "duration_sec": 0.3,
+  "training_time_s": 0.33,
+  "duration_sec": 0.33,
   "model_path": "models\\saved\\test_rf_reg_synthetic.pkl",
-  "timestamp": "2026-11-27T17:09:36.671800+00:00"
+  "timestamp": "2026-11-27T18:08:26.056719+00:00"
 }

@@ -1,0 +1,12 @@
+{
+  "report_type": "material_recovery_report",
+  "title": "Material Recovery Report",
+  "generated_at": "2026-11-27T18:08:46.493287",
+  "assumptions": {},
+  "data": {
+    "device_type": "laptop",
+    "total_recoverable_g": 150.0,
+    "disclaimer": "Test"
+  },
+  "disclaimer": "Test"
+}

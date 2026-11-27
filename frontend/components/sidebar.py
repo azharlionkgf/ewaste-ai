@@ -25,6 +25,7 @@ NAV_ITEMS = [
     ("environmental_impact","🌍", "Environmental Impact",  "INDUSTRIAL"),
     ("research_experiments","🔬", "Research Experiments",  "RESEARCH"),
     ("report_generator",    "📄", "Report Generator",      "REPORTS"),
+    ("ai_intelligence",     "🧠", "AI Intelligence",       "PHASE 6 — AI"),
     ("settings",            "⚙️",  "Settings",              "SYSTEM"),
 ]
 

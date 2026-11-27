@@ -102,5 +102,9 @@ elif page == "settings":
     from frontend.pages.settings import render_settings
     render_settings()
 
+elif page == "ai_intelligence":
+    from frontend.pages.ai_intelligence import render_ai_intelligence
+    render_ai_intelligence()
+
 else:
     st.error(f"Page '{page}' not found.")

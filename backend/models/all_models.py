@@ -420,3 +420,14 @@ class ResearchExperiment(Base):
     created_at = Column(DateTime, default=_now, index=True)
 
     dataset = relationship("Dataset", back_populates="experiments")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# BACKWARDS-COMPATIBLE ALIASES
+# Phase 5 pages use these names; they map to the actual ORM classes above.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Inventory alias
+Inventory = InventoryItem
+
+# TrainedModel alias (Phase 4 backend used MLModel internally)
+TrainedModel = MLModel
