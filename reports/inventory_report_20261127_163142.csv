@@ -1,0 +1,7 @@
+field,value
+report_type,inventory_report
+title,Material Inventory Report
+generated_at,2026-11-27T16:31:42.331379
+total_items,1
+inventory[0].material,copper
+inventory[0].total_quantity_g,500.0

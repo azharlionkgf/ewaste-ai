@@ -1,0 +1,12 @@
+{
+  "report_type": "inventory_report",
+  "title": "Material Inventory Report",
+  "generated_at": "2026-11-27T16:28:51.476098",
+  "total_items": 1,
+  "inventory": [
+    {
+      "material": "gold",
+      "total_quantity_g": 2.5
+    }
+  ]
+}

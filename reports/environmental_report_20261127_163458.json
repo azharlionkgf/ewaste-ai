@@ -1,0 +1,10 @@
+{
+  "report_type": "environmental_report",
+  "title": "Environmental Impact Estimate Report",
+  "generated_at": "2026-11-27T16:34:58.745392",
+  "is_certified": false,
+  "certification_note": "NOT legally certified. For planning purposes only.",
+  "data": {
+    "recycling_rate_percent": 60.0
+  }
+}

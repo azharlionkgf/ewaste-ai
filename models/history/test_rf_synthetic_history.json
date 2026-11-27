@@ -128,8 +128,8 @@
       }
     }
   },
-  "training_time_s": 0.52,
-  "duration_sec": 0.52,
+  "training_time_s": 0.69,
+  "duration_sec": 0.69,
   "model_path": "models\\saved\\test_rf_synthetic.pkl",
-  "timestamp": "2026-11-26T08:20:50.797633+00:00"
+  "timestamp": "2026-11-27T16:37:36.245081+00:00"
 }

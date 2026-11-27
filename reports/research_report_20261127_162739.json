@@ -1,0 +1,15 @@
+{
+  "report_type": "research_experiment_report",
+  "title": "Research Experiments Summary Report",
+  "generated_at": "2026-11-27T16:27:39.344288",
+  "experiment_count": 1,
+  "experiments": [
+    {
+      "name": "exp1",
+      "metrics": {
+        "accuracy": 0.85
+      }
+    }
+  ],
+  "note": "All metrics are from actual experiments. Synthetic data experiments are explicitly labeled."
+}

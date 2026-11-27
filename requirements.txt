@@ -1,7 +1,7 @@
 # ============================================================
 # E-WASTE AI — requirements.txt
 # Platform: Industry + Academic + Research
-# Python: 3.13.7
+# Python: 3.13.7 (local) / 3.11+ (cloud compatible)
 # ============================================================
 
 # ── Web Framework ─────────────────────────────────────────
@@ -17,34 +17,38 @@ aiosqlite==0.21.0
 alembic
 
 # ── Frontend ──────────────────────────────────────────────
-streamlit==1.64.0
-altair==6.3.0
+streamlit==1.41.0
+altair==5.5.0
 
-# ── Deep Learning ─────────────────────────────────────────
-torch==2.12.0
-torchvision==0.27.0
-torchaudio==2.11.0
+# ── Authentication ─────────────────────────────────────────
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
 
-# ── NLP / Vision Transformers ─────────────────────────────
-transformers==5.8.1
-safetensors==0.7.0
-tokenizers==0.22.2
+# ── Deep Learning (optional — heavy, skip on cloud) ───────
+# torch==2.12.0
+# torchvision==0.27.0
+# torchaudio==2.11.0
+
+# ── NLP / Vision Transformers (optional — heavy) ──────────
+# transformers==5.8.1
+# safetensors==0.7.0
+# tokenizers==0.22.2
 
 # ── Traditional Machine Learning ──────────────────────────
 scikit-learn==1.8.0
-xgboost==3.4.1
-catboost==1.2.10
+xgboost==2.1.4
+# catboost==1.2.10   # optional — large binary
 imbalanced-learn
 
 # ── Data Processing ───────────────────────────────────────
 pandas
 numpy
-scipy==1.17.1
+scipy==1.15.3
 openpyxl
 xlsxwriter==3.2.9
 
 # ── Image & Video Processing ──────────────────────────────
-opencv-python
+opencv-python-headless
 Pillow
 
 # ── Visualization ─────────────────────────────────────────
@@ -65,7 +69,7 @@ pyyaml==6.0.3
 rich==14.3.4
 joblib
 pathlib2
-tqdm==4.67.3
+tqdm==4.67.1
 httpx
 
 # ── Testing ───────────────────────────────────────────────
@@ -76,6 +80,7 @@ coverage
 # ── Validation ────────────────────────────────────────────
 pydantic
 annotated-types==0.7.0
+email-validator
 
 # ── File Handling ─────────────────────────────────────────
 aiofiles==24.1.0

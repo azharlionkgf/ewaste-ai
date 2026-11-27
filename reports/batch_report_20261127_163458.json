@@ -1,0 +1,11 @@
+{
+  "report_type": "batch_report",
+  "title": "Batch Report \u2014 TEST-001",
+  "generated_at": "2026-11-27T16:34:58.724565",
+  "data_source": "E-Waste AI Platform Database",
+  "batch": {
+    "batch_number": "TEST-001",
+    "source": "Test"
+  },
+  "disclaimer": "Report generated from operational data. Verify figures before compliance use."
+}
