@@ -14,6 +14,22 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))
 
 import streamlit as st
+from pathlib import Path
+
+# ── Database bootstrap (must run before any page import) ───────────────
+# On Streamlit Cloud the SQLite file is ephemeral; create tables on every
+# cold start. `create_all` is idempotent — safe to call if tables exist.
+def _bootstrap_db():
+    try:
+        db_path = Path(__file__).parent / "database"
+        db_path.mkdir(parents=True, exist_ok=True)
+        from backend.database import init_db
+        init_db()
+    except Exception as _e:
+        import logging
+        logging.getLogger(__name__).warning("DB bootstrap warning: %s", _e)
+
+_bootstrap_db()
 
 # ── Page Configuration ─────────────────────────────────────────────────
 st.set_page_config(
