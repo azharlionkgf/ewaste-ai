@@ -1,0 +1,195 @@
+{
+  "synthetic_note": "All ML metrics below are from sklearn synthetic data (pipeline validation only). No real e-waste dataset files exist in data/.",
+  "scaling_benchmarks": [
+    {
+      "n_rows": 200,
+      "csv_parse_ms": 15.01,
+      "clean_ms": 166.48,
+      "preprocess_ms": 149.93,
+      "rf_train_ms": 1240.94,
+      "rf_infer_ms": 35.3,
+      "peak_mem_mb": 0.32
+    },
+    {
+      "n_rows": 1000,
+      "csv_parse_ms": 12.68,
+      "clean_ms": 224.17,
+      "preprocess_ms": 115.36,
+      "rf_train_ms": 1129.11,
+      "rf_infer_ms": 22.29,
+      "peak_mem_mb": 1.11
+    },
+    {
+      "n_rows": 5000,
+      "csv_parse_ms": 29.86,
+      "clean_ms": 569.67,
+      "preprocess_ms": 239.45,
+      "rf_train_ms": 2101.39,
+      "rf_infer_ms": 43.52,
+      "peak_mem_mb": 4.34
+    }
+  ],
+  "classification": {
+    "DummyClassifier": {
+      "val_accuracy": 0.34,
+      "test_accuracy": 0.34,
+      "test_f1_weighted": 0.1725,
+      "test_precision_weighted": 0.1156,
+      "test_recall_weighted": 0.34,
+      "train_s": 0.0006,
+      "test_infer_ms": 0.102,
+      "confusion_matrix": [
+        [
+          0,
+          17,
+          0
+        ],
+        [
+          0,
+          17,
+          0
+        ],
+        [
+          0,
+          16,
+          0
+        ]
+      ]
+    },
+    "LogisticRegression": {
+      "val_accuracy": 0.6,
+      "test_accuracy": 0.7,
+      "test_f1_weighted": 0.687,
+      "test_precision_weighted": 0.6952,
+      "test_recall_weighted": 0.7,
+      "train_s": 0.0158,
+      "test_infer_ms": 0.328,
+      "confusion_matrix": [
+        [
+          16,
+          0,
+          1
+        ],
+        [
+          1,
+          12,
+          4
+        ],
+        [
+          6,
+          3,
+          7
+        ]
+      ]
+    },
+    "RandomForestClassifier": {
+      "val_accuracy": 0.86,
+      "test_accuracy": 0.9,
+      "test_f1_weighted": 0.9,
+      "test_precision_weighted": 0.9011,
+      "test_recall_weighted": 0.9,
+      "train_s": 0.1842,
+      "test_infer_ms": 7.822,
+      "confusion_matrix": [
+        [
+          15,
+          2,
+          0
+        ],
+        [
+          0,
+          15,
+          2
+        ],
+        [
+          1,
+          0,
+          15
+        ]
+      ]
+    },
+    "GradientBoostingClassifier": {
+      "val_accuracy": 0.84,
+      "test_accuracy": 0.88,
+      "test_f1_weighted": 0.8779,
+      "test_precision_weighted": 0.8839,
+      "test_recall_weighted": 0.88,
+      "train_s": 0.5672,
+      "test_infer_ms": 1.259,
+      "confusion_matrix": [
+        [
+          16,
+          1,
+          0
+        ],
+        [
+          0,
+          16,
+          1
+        ],
+        [
+          3,
+          1,
+          12
+        ]
+      ]
+    }
+  },
+  "rf_feature_importances": {
+    "feature_0": 0.0426,
+    "feature_1": 0.194,
+    "feature_2": 0.1038,
+    "feature_3": 0.1401,
+    "feature_4": 0.1193,
+    "feature_5": 0.0415,
+    "feature_6": 0.1184,
+    "feature_7": 0.0763,
+    "feature_8": 0.0484,
+    "feature_9": 0.1155
+  },
+  "regression": {
+    "DummyRegressor": {
+      "test_mae": 98.6669,
+      "test_r2": -0.0008,
+      "train_s": 0.0007,
+      "test_infer_ms": 0.26
+    },
+    "Ridge": {
+      "test_mae": 8.6533,
+      "test_r2": 0.9925,
+      "train_s": 0.0095,
+      "test_infer_ms": 0.876
+    },
+    "RandomForestRegressor": {
+      "test_mae": 29.2819,
+      "test_r2": 0.9043,
+      "train_s": 0.208,
+      "test_infer_ms": 6.891
+    },
+    "GradientBoostingRegressor": {
+      "test_mae": 25.7628,
+      "test_r2": 0.93,
+      "train_s": 0.1205,
+      "test_infer_ms": 0.677
+    }
+  },
+  "api_timings": {
+    "GET /health": {
+      "status": 200,
+      "ms": 31.67
+    },
+    "GET /api/v1/status": {
+      "status": 200,
+      "ms": 9.73
+    },
+    "GET /openapi.json": {
+      "status": 200,
+      "ms": 155.74
+    },
+    "POST /api/v1/intelligence/recovery/estimate": {
+      "status": 200,
+      "ms": 14.31
+    }
+  },
+  "engine_init_ms": 0.04
+}

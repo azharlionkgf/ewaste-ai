@@ -12,7 +12,7 @@ import streamlit as st
 from frontend.theme import apply_theme, page_header, section_header, COLORS
 
 try:
-    from ewaste.data_pipeline.data_cleaner import DataCleaner
+    from ml.data.cleaner_advanced import AdvancedDataCleaner
     CLEANER_OK = True
 except Exception as e:
     CLEANER_OK = False
@@ -109,14 +109,15 @@ def render_data_cleaning():
                 st.info(f"Removed {before - len(df_clean)} duplicate rows.")
             if fill_numeric:
                 for col in df_clean.select_dtypes(include="number").columns:
-                    df_clean[col].fillna(df_clean[col].median(), inplace=True)
+                    df_clean[col] = df_clean[col].fillna(df_clean[col].median())
             if fill_cat:
-                for col in df_clean.select_dtypes(include="object").columns:
-                    df_clean[col].fillna("Unknown", inplace=True)
+                for col in df_clean.select_dtypes(include=["object", "string"]).columns:
+                    df_clean[col] = df_clean[col].fillna("Unknown")
             if strip_spaces:
-                for col in df_clean.select_dtypes(include="object").columns:
-                    df_clean[col] = df_clean[col].str.strip()
+                for col in df_clean.select_dtypes(include=["object", "string"]).columns:
+                    df_clean[col] = df_clean[col].astype(str).str.strip()
 
+            st.session_state["current_dataset_df"] = df_clean
             st.success(f"✅ Cleaned: {len(df_clean):,} rows × {len(df_clean.columns)} columns")
             st.dataframe(df_clean.head(50), use_container_width=True)
 

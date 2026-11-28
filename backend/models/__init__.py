@@ -19,3 +19,8 @@ from backend.models.all_models import (  # noqa: F401
     User,
     WasteBatch,
 )
+from backend.models.dataset import (  # noqa: F401
+    CleaningRun,
+    DatasetVersion,
+    PreprocessingConfig,
+)

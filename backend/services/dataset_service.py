@@ -20,6 +20,15 @@ from backend.models.dataset import Dataset, DatasetVersion, CleaningRun, Preproc
 logger = logging.getLogger(__name__)
 
 
+def _dataset_status(ds: Dataset) -> str:
+    """Derive human-readable dataset lifecycle status from canonical flags."""
+    if getattr(ds, "is_preprocessed", False):
+        return "preprocessed"
+    if getattr(ds, "is_cleaned", False):
+        return "cleaned"
+    return "uploaded"
+
+
 class DatasetService:
     """
     Service layer for all dataset-related database operations.
@@ -45,38 +54,43 @@ class DatasetService:
         description: str = "",
         source: str = "upload",
         metadata: dict | None = None,
-    ) -> int:
+    ) -> str:
         """Register a dataset. Returns the dataset id."""
+        meta = metadata or {}
         with self._session() as db:
             existing = db.query(Dataset).filter(Dataset.name == name).first()
             if existing:
-                logger.info("Dataset '%s' already registered (id=%d)", name, existing.id)
+                logger.info("Dataset '%s' already registered (id=%s)", name, existing.id)
                 return existing.id
 
             ds = Dataset(
                 name=name,
                 file_path=str(file_path),
-                file_type=file_type.lower(),
+                dataset_type=file_type.lower(),
                 description=description,
                 source=source,
-                status="uploaded",
-                tags=json.dumps(metadata or {}),
+                row_count=meta.get("row_count"),
+                column_count=meta.get("column_count"),
+                column_names=meta.get("column_names"),
+                quality_score=meta.get("quality_score"),
+                is_cleaned=False,
+                is_preprocessed=False,
             )
             db.add(ds)
             db.commit()
             db.refresh(ds)
-            logger.info("Dataset '%s' registered with id=%d", name, ds.id)
+            logger.info("Dataset '%s' registered with id=%s", name, ds.id)
             return ds.id
 
     # ------------------------------------------------------------------ #
     # Cleaning runs                                                        #
     # ------------------------------------------------------------------ #
 
-    def save_cleaning_run(self, dataset_id: int, report_dict: dict) -> int:
+    def save_cleaning_run(self, dataset_id: str, report_dict: dict) -> int:
         """Persist cleaning run results. Returns CleaningRun id."""
         with self._session() as db:
             run = CleaningRun(
-                dataset_id=dataset_id,
+                dataset_id=str(dataset_id),
                 rows_before=report_dict.get("rows_before", 0),
                 rows_after=report_dict.get("rows_after", 0),
                 duplicates_found=report_dict.get("duplicates_removed", 0),
@@ -87,23 +101,23 @@ class DatasetService:
                 status="completed",
             )
             db.add(run)
-            ds = db.query(Dataset).filter(Dataset.id == dataset_id).first()
+            ds = db.query(Dataset).filter(Dataset.id == str(dataset_id)).first()
             if ds:
-                ds.status = "cleaned"
+                ds.is_cleaned = True
             db.commit()
             db.refresh(run)
-            logger.info("Cleaning run saved (id=%d) for dataset_id=%d", run.id, dataset_id)
+            logger.info("Cleaning run saved (id=%d) for dataset_id=%s", run.id, dataset_id)
             return run.id
 
     # ------------------------------------------------------------------ #
     # Preprocessing config                                                 #
     # ------------------------------------------------------------------ #
 
-    def save_preprocessing_config(self, dataset_id: int, config_dict: dict) -> int:
+    def save_preprocessing_config(self, dataset_id: str, config_dict: dict) -> int:
         """Persist a preprocessing configuration. Returns PreprocessingConfig id."""
         with self._session() as db:
             pc = PreprocessingConfig(
-                dataset_id=dataset_id,
+                dataset_id=str(dataset_id),
                 config_name=config_dict.get("config_name", "auto"),
                 scaler_type=config_dict.get("scaler", "standard"),
                 encoder_type=config_dict.get("encoder", "onehot"),
@@ -114,34 +128,34 @@ class DatasetService:
                 test_ratio=config_dict.get("test_ratio", 0.15),
             )
             db.add(pc)
-            ds = db.query(Dataset).filter(Dataset.id == dataset_id).first()
+            ds = db.query(Dataset).filter(Dataset.id == str(dataset_id)).first()
             if ds:
-                ds.status = "preprocessed"
+                ds.is_preprocessed = True
             db.commit()
             db.refresh(pc)
-            logger.info("Preprocessing config saved (id=%d) for dataset_id=%d", pc.id, dataset_id)
+            logger.info("Preprocessing config saved (id=%d) for dataset_id=%s", pc.id, dataset_id)
             return pc.id
 
     # ------------------------------------------------------------------ #
     # Queries                                                              #
     # ------------------------------------------------------------------ #
 
-    def get_dataset_history(self, dataset_id: int) -> dict:
+    def get_dataset_history(self, dataset_id: str) -> dict:
         """Return full history for a dataset."""
         with self._session() as db:
-            ds = db.query(Dataset).filter(Dataset.id == dataset_id).first()
+            ds = db.query(Dataset).filter(Dataset.id == str(dataset_id)).first()
             if not ds:
                 return {"error": f"Dataset id={dataset_id} not found"}
 
             cleaning_runs = (
                 db.query(CleaningRun)
-                .filter(CleaningRun.dataset_id == dataset_id)
+                .filter(CleaningRun.dataset_id == str(dataset_id))
                 .order_by(CleaningRun.created_at)
                 .all()
             )
             prep_configs = (
                 db.query(PreprocessingConfig)
-                .filter(PreprocessingConfig.dataset_id == dataset_id)
+                .filter(PreprocessingConfig.dataset_id == str(dataset_id))
                 .order_by(PreprocessingConfig.created_at)
                 .all()
             )
@@ -151,10 +165,11 @@ class DatasetService:
                     "id": ds.id,
                     "name": ds.name,
                     "file_path": ds.file_path,
-                    "file_type": ds.file_type,
+                    "dataset_type": ds.dataset_type,
+                    "file_type": ds.dataset_type,
                     "description": ds.description,
                     "source": ds.source,
-                    "status": ds.status,
+                    "status": _dataset_status(ds),
                     "created_at": str(ds.created_at),
                 },
                 "cleaning_runs": [
@@ -189,8 +204,9 @@ class DatasetService:
                 {
                     "id": ds.id,
                     "name": ds.name,
-                    "file_type": ds.file_type,
-                    "status": ds.status,
+                    "file_type": ds.dataset_type,
+                    "dataset_type": ds.dataset_type,
+                    "status": _dataset_status(ds),
                     "description": ds.description,
                     "created_at": str(ds.created_at),
                 }

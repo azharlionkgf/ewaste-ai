@@ -63,8 +63,8 @@ elif page == "dataset_intelligence":
     render()
 
 elif page == "dataset_management":
-    from frontend.pages.dataset_management import render_dataset_management
-    render_dataset_management()
+    from frontend.pages.dataset_management import render
+    render()
 
 elif page == "data_cleaning":
     from frontend.pages.data_cleaning import render_data_cleaning
@@ -75,16 +75,16 @@ elif page == "preprocessing":
     render_preprocessing()
 
 elif page == "model_training":
-    from frontend.pages.model_training import render_model_training
-    render_model_training()
+    from frontend.pages.model_training import render
+    render()
 
 elif page == "model_evaluation":
     from frontend.pages.model_evaluation import render_model_evaluation
     render_model_evaluation()
 
 elif page == "image_analysis":
-    from frontend.pages.image_analysis import render_image_analysis
-    render_image_analysis()
+    from frontend.pages.image_analysis import render
+    render()
 
 elif page == "video_analysis":
     from frontend.pages.video_analysis import render_video_analysis
@@ -95,8 +95,8 @@ elif page == "industrial_inventory":
     render_industrial_inventory()
 
 elif page == "recovery_intelligence":
-    from frontend.pages.recovery_intelligence import render_recovery_intelligence
-    render_recovery_intelligence()
+    from frontend.pages.recovery_intelligence import render
+    render()
 
 elif page == "economic_analysis":
     from frontend.pages.economic_analysis import render_economic_analysis

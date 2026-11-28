@@ -1,59 +1,33 @@
 """
 E-Waste AI — Dataset ORM Models
 =================================
-SQLAlchemy models for dataset management and versioning.
+SQLAlchemy models for dataset versioning, cleaning runs, and preprocessing configs.
+Re-exports canonical Dataset from all_models to avoid duplicate Base registry entries.
 """
 
-from sqlalchemy import Column, Integer, String, Float, Boolean, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Boolean, Text, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime
 
 from backend.database import Base
 from backend.models.base import TimestampMixin
-
-
-class Dataset(Base, TimestampMixin):
-    """Master dataset registry."""
-    __tablename__ = "datasets"
-
-    id            = Column(Integer, primary_key=True, autoincrement=True)
-    name          = Column(String(255), nullable=False, index=True)
-    version       = Column(String(50), nullable=False, default="1.0")
-    file_type     = Column(String(50), nullable=False)   # csv|excel|json|images|mixed
-    file_path     = Column(Text, nullable=False)
-    row_count     = Column(Integer, nullable=True)
-    column_count  = Column(Integer, nullable=True)
-    image_count   = Column(Integer, nullable=True)
-    file_size_mb  = Column(Float, nullable=True)
-    description   = Column(Text, nullable=True)
-    tags          = Column(Text, nullable=True)           # JSON array string
-    source        = Column(String(500), nullable=True)    # Where dataset came from
-    license       = Column(String(255), nullable=True)
-    checksum      = Column(String(64), nullable=True)     # SHA-256
-    status        = Column(String(50), default="uploaded", nullable=False)
-    # Status values: uploaded|inspected|cleaned|preprocessed|split|archived
-
-    # Relationships
-    cleaning_runs       = relationship("CleaningRun", back_populates="dataset", cascade="all, delete-orphan")
-    preprocessing_configs = relationship("PreprocessingConfig", back_populates="dataset", cascade="all, delete-orphan")
-    training_runs       = relationship("TrainingRun", back_populates="dataset", cascade="all, delete-orphan")
-
-    def __repr__(self):
-        return f"<Dataset id={self.id} name='{self.name}' v{self.version} type={self.file_type}>"
+from backend.models.all_models import Dataset  # canonical Dataset ORM model (UUID PK)
 
 
 class DatasetVersion(Base, TimestampMixin):
     """Tracks dataset versions for reproducibility."""
     __tablename__ = "dataset_versions"
+    __table_args__ = {"extend_existing": True}
 
     id            = Column(Integer, primary_key=True, autoincrement=True)
-    dataset_id    = Column(Integer, ForeignKey("datasets.id"), nullable=False, index=True)
+    dataset_id    = Column(String, ForeignKey("datasets.id"), nullable=False, index=True)
     version       = Column(String(50), nullable=False)
     file_path     = Column(Text, nullable=False)
     checksum      = Column(String(64), nullable=True)
     change_notes  = Column(Text, nullable=True)
     row_count     = Column(Integer, nullable=True)
     is_current    = Column(Boolean, default=True, nullable=False)
+
+    dataset = relationship(Dataset)
 
     def __repr__(self):
         return f"<DatasetVersion dataset_id={self.dataset_id} v={self.version}>"
@@ -62,9 +36,10 @@ class DatasetVersion(Base, TimestampMixin):
 class CleaningRun(Base, TimestampMixin):
     """Records of automated data cleaning operations."""
     __tablename__ = "cleaning_runs"
+    __table_args__ = {"extend_existing": True}
 
     id                   = Column(Integer, primary_key=True, autoincrement=True)
-    dataset_id           = Column(Integer, ForeignKey("datasets.id"), nullable=False, index=True)
+    dataset_id           = Column(String, ForeignKey("datasets.id"), nullable=False, index=True)
     missing_before       = Column(Integer, default=0)
     missing_after        = Column(Integer, default=0)
     duplicates_found     = Column(Integer, default=0)
@@ -80,7 +55,7 @@ class CleaningRun(Base, TimestampMixin):
     status               = Column(String(50), default="pending")
     error_message        = Column(Text, nullable=True)
 
-    dataset = relationship("Dataset", back_populates="cleaning_runs")
+    dataset = relationship(Dataset)
 
     def __repr__(self):
         return f"<CleaningRun id={self.id} dataset_id={self.dataset_id} status={self.status}>"
@@ -89,9 +64,10 @@ class CleaningRun(Base, TimestampMixin):
 class PreprocessingConfig(Base, TimestampMixin):
     """Saved preprocessing configurations for reproducibility."""
     __tablename__ = "preprocessing_configs"
+    __table_args__ = {"extend_existing": True}
 
     id               = Column(Integer, primary_key=True, autoincrement=True)
-    dataset_id       = Column(Integer, ForeignKey("datasets.id"), nullable=False, index=True)
+    dataset_id       = Column(String, ForeignKey("datasets.id"), nullable=False, index=True)
     config_name      = Column(String(255), nullable=True)
     scaler_type      = Column(String(50), nullable=True)   # standard|minmax|robust|none
     encoder_type     = Column(String(50), nullable=True)   # onehot|label|ordinal|none
@@ -105,7 +81,7 @@ class PreprocessingConfig(Base, TimestampMixin):
     config_hash      = Column(String(64), nullable=True)
     is_active        = Column(Boolean, default=True)
 
-    dataset = relationship("Dataset", back_populates="preprocessing_configs")
+    dataset = relationship(Dataset)
 
     def __repr__(self):
         return f"<PreprocessingConfig id={self.id} dataset_id={self.dataset_id}>"

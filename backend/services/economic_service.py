@@ -72,6 +72,7 @@ class EconomicIntelligenceService:
         weight_kg: float,
         processing_type: str = "default",
         custom_prices: Optional[dict] = None,
+        processing_cost_usd: Optional[float] = None,
     ) -> dict:
         """
         Estimate economic value for a batch.
@@ -81,6 +82,7 @@ class EconomicIntelligenceService:
             weight_kg: Total batch weight in kg
             processing_type: Processing method for cost estimation
             custom_prices: Optional override prices (USD/g)
+            processing_cost_usd: Optional user-supplied processing cost override (USD)
 
         Returns:
             Economic analysis with gross value, costs, net value, and disclaimers
@@ -119,12 +121,20 @@ class EconomicIntelligenceService:
         cost_per_kg = PROCESSING_COSTS_USD_PER_KG.get(
             processing_type, PROCESSING_COSTS_USD_PER_KG["default"]
         )
-        processing_cost = cost_per_kg * weight_kg
+        processing_cost = (
+            float(processing_cost_usd)
+            if processing_cost_usd is not None
+            else cost_per_kg * weight_kg
+        )
         net_value = gross_value_usd - processing_cost
 
         assumptions = [
             f"Prices as of {PRICE_DATA_DATE} — not real-time values",
-            f"Processing cost: ${cost_per_kg}/kg ({processing_type} method)",
+            (
+                f"Processing cost: user-supplied override (${processing_cost:.2f})"
+                if processing_cost_usd is not None
+                else f"Processing cost: ${cost_per_kg}/kg ({processing_type} method)"
+            ),
             "Recovery rates per published composition surveys",
             "Excludes transport, compliance, and overhead costs",
             "Market prices are for refined/pure materials — actual smelter payouts vary",
