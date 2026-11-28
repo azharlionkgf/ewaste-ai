@@ -122,6 +122,7 @@ from backend.routers.intelligence import (
     environmental_router,
     reports_router,
 )
+from backend.routers.erp_routers import erp_router
 
 app.include_router(auth_router)
 app.include_router(batch_router)
@@ -133,6 +134,7 @@ app.include_router(economics_router)
 app.include_router(decision_router)
 app.include_router(environmental_router)
 app.include_router(reports_router)
+app.include_router(erp_router)
 
 # ── Health ─────────────────────────────────────────────────────────────
 @app.get("/", tags=["Health"])
@@ -174,5 +176,6 @@ async def api_status():
             "decisions": f"/api/{API_VERSION}/intelligence/decisions",
             "environmental": f"/api/{API_VERSION}/environmental",
             "reports": f"/api/{API_VERSION}/reports",
+            "industrial_erp": f"/api/{API_VERSION}/erp",
         },
     }

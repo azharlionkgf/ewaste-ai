@@ -94,6 +94,10 @@ elif page == "industrial_inventory":
     from frontend.pages.industrial_inventory import render_industrial_inventory
     render_industrial_inventory()
 
+elif page == "erp_admin":
+    from frontend.pages.erp_admin import render_erp_admin
+    render_erp_admin()
+
 elif page == "recovery_intelligence":
     from frontend.pages.recovery_intelligence import render
     render()

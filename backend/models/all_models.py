@@ -59,10 +59,17 @@ class AuditLog(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(String, ForeignKey("users.id"), nullable=True)
+    company_id = Column(String, nullable=True, index=True)
+    branch_id = Column(String, nullable=True, index=True)
+    employee_id = Column(String, nullable=True, index=True)
+    module = Column(String(64), nullable=True)
     action = Column(String(128), nullable=False)
     resource = Column(String(128))
     resource_id = Column(String)
     details = Column(JSON)
+    before_state = Column(JSON, nullable=True)
+    after_state = Column(JSON, nullable=True)
+    status = Column(String(32), default="success")
     ip_address = Column(String(64))
     created_at = Column(DateTime, default=_now, index=True)
 
@@ -203,6 +210,10 @@ class Component(Base):
 
     id = Column(String, primary_key=True, default=_uuid)
     device_id = Column(String, ForeignKey("devices.id"), nullable=False)
+    company_id = Column(String, nullable=True, index=True)
+    branch_id = Column(String, nullable=True, index=True)
+    component_category_id = Column(String, nullable=True, index=True)
+    device_model_id = Column(String, nullable=True)
     component_type = Column(String(128))       # PCB, battery, screen, etc.
     material_type = Column(String(128))
     weight_kg = Column(Float)
@@ -212,7 +223,9 @@ class Component(Base):
     recovery_method = Column(String(128))
     ai_predicted_component = Column(String(128))
     ai_confidence = Column(Float)
+    is_deleted = Column(Boolean, default=False)
     created_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
 
     device = relationship("Device", back_populates="components")
     materials = relationship("Material", back_populates="component", cascade="all, delete-orphan")
@@ -332,6 +345,10 @@ class AIPrediction(Base):
     __tablename__ = "ai_predictions"
 
     id = Column(String, primary_key=True, default=_uuid)
+    company_id = Column(String, nullable=True, index=True)
+    branch_id = Column(String, nullable=True, index=True)
+    incoming_batch_id = Column(String, nullable=True, index=True)
+    ai_model_version_id = Column(String, nullable=True)
     model_id = Column(String, ForeignKey("ml_models.id"), nullable=True)
     model_name = Column(String(128))
     model_version = Column(String(32))
@@ -342,6 +359,11 @@ class AIPrediction(Base):
     prediction = Column(JSON)                  # actual prediction output
     confidence = Column(Float)
     prediction_type = Column(String(32))       # actual_model / rule_based / unavailable
+    review_status = Column(String(32), default="pending_review")
+    human_verified = Column(Boolean, default=False)
+    verified_by = Column(String, nullable=True)
+    verified_at = Column(DateTime, nullable=True)
+    final_measured_outcome = Column(JSON, nullable=True)
     dataset_version = Column(String(32))
     experiment_id = Column(String)
     created_at = Column(DateTime, default=_now, index=True)
@@ -359,7 +381,12 @@ class EnvironmentalReport(Base):
     __tablename__ = "environmental_reports"
 
     id = Column(String, primary_key=True, default=_uuid)
+    company_id = Column(String, nullable=True, index=True)
+    branch_id = Column(String, nullable=True, index=True)
     batch_id = Column(String, ForeignKey("waste_batches.id"), nullable=True)
+    compliance_category = Column(String(128), nullable=True)
+    jurisdiction_ref = Column(String(256), nullable=True)
+    supporting_document_id = Column(String, nullable=True)
     report_period_start = Column(DateTime)
     report_period_end = Column(DateTime)
     total_waste_kg = Column(Float)
@@ -371,7 +398,9 @@ class EnvironmentalReport(Base):
     assumptions = Column(JSON)
     is_certified = Column(Boolean, default=False)
     certification_note = Column(Text)
+    is_deleted = Column(Boolean, default=False)
     generated_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
     generated_by = Column(String(128))
 
 
@@ -383,6 +412,9 @@ class GeneratedReport(Base):
     __tablename__ = "generated_reports"
 
     id = Column(String, primary_key=True, default=_uuid)
+    company_id = Column(String, nullable=True, index=True)
+    branch_id = Column(String, nullable=True, index=True)
+    template_id = Column(String, nullable=True)
     report_type = Column(String(64), index=True)
     title = Column(String(256))
     description = Column(Text)
@@ -394,6 +426,7 @@ class GeneratedReport(Base):
     generated_at = Column(DateTime, default=_now, index=True)
     generated_by = Column(String(128))
     is_available = Column(Boolean, default=True)
+    is_deleted = Column(Boolean, default=False)
 
 
 # ══════════════════════════════════════════════════════════════════════════════

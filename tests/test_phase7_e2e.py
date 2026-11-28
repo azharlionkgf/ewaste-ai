@@ -308,7 +308,7 @@ class TestFrontendNavigation:
                 page_key = node.module.split('.')[-1]
                 imported_targets[page_key] = node.names[0].name
 
-        assert len(NAV_ITEMS) == 17
+        assert len(NAV_ITEMS) == 18
         for key, _icon, _label, _group in NAV_ITEMS:
             assert key in imported_targets, f"Sidebar key '{key}' missing from app.py router"
             mod = importlib.import_module(f"frontend.pages.{key}")

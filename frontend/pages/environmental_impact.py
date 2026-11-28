@@ -79,42 +79,30 @@ def render_environmental_impact():
                 try:
                     svc = EnvironmentalReportingService()
                     total_weight = sum(b.total_weight_kg or 0 for b in batches)
-                    total_recovered = sum(r.quantity_kg or 0 for r in records)
-
-                    impact = svc.estimate_environmental_impact(
-                        total_ewaste_kg=total_weight,
-                        recovered_materials_kg=total_recovered,
-                        batch_count=len(batches),
-                    )
+                    total_recovered = sum((r.recovered_quantity_g or 0) / 1000.0 for r in records)
 
                     c1, c2, c3, c4 = st.columns(4)
                     c1.metric("Total E-Waste Processed", f"{total_weight:.1f} kg")
-                    c2.metric("Material Recovered", f"{total_recovered:.1f} kg")
+                    c2.metric("Material Recovered", f"{total_recovered:.2f} kg")
                     c3.metric("Recovery Rate", f"{(total_recovered/total_weight*100 if total_weight else 0):.1f}%")
                     c4.metric("Batches Processed", len(batches))
 
                     st.markdown("---")
+                    from backend.services.environmental_service import CO2_AVOIDANCE_FACTORS_KG_PER_KG, CO2_DATA_SOURCE
+                    co2_avoided = sum(
+                        ((r.recovered_quantity_g or 0) / 1000.0)
+                        * CO2_AVOIDANCE_FACTORS_KG_PER_KG.get((r.material_name or "").lower(), CO2_AVOIDANCE_FACTORS_KG_PER_KG["default"])
+                        for r in records
+                    )
+                    energy_saved = total_recovered * 15.0
+                    c1b, c2b, c3b = st.columns(3)
+                    c1b.metric("Est. CO₂ Avoided (kg)", f"{co2_avoided:,.2f}", help=CO2_DATA_SOURCE)
+                    c2b.metric("Est. Energy Saved (kWh)", f"{energy_saved:,.1f}")
+                    c3b.metric("Landfill Diverted (kg)", f"{total_recovered:,.2f}")
 
-                    if impact:
-                        c1b, c2b, c3b = st.columns(3)
-                        c1b.metric(
-                            "Est. CO₂ Avoided (kg)",
-                            f"{impact.get('co2_avoided_kg', 0):,.1f}",
-                            help="Based on avoided primary metal production",
-                        )
-                        c2b.metric(
-                            "Est. Energy Saved (kWh)",
-                            f"{impact.get('energy_saved_kwh', 0):,.1f}",
-                        )
-                        c3b.metric(
-                            "Landfill Diverted (kg)",
-                            f"{impact.get('landfill_diverted_kg', 0):,.1f}",
-                        )
-
-                        if impact.get("assumptions"):
-                            with st.expander("📋 Calculation Assumptions"):
-                                for k, v in impact["assumptions"].items():
-                                    st.write(f"**{k}:** {v}")
+                    with st.expander("📋 Calculation Assumptions"):
+                        st.write(f"**CO₂ Source:** {CO2_DATA_SOURCE}")
+                        st.write("**Disclaimer:** Indicative estimates only — not legally certified.")
 
                 except Exception as ex:
                     st.error(f"Impact estimation failed: {ex}")
@@ -194,7 +182,7 @@ def render_environmental_impact():
             if not batches2:
                 st.info("No batches available.")
             else:
-                batch_map = {b.batch_id: b for b in batches2}
+                batch_map = {b.batch_number: b for b in batches2}
                 sel_batch = st.selectbox("Select Batch", list(batch_map.keys()))
 
                 if st.button("📄 Generate Report", type="primary"):
@@ -209,29 +197,29 @@ def render_environmental_impact():
                     finally:
                         db3.close()
 
-                    total_rec = sum(r.quantity_kg or 0 for r in recs)
+                    total_rec = sum((r.recovered_quantity_g or 0) / 1000.0 for r in recs)
                     rec_rate = (total_rec / b.total_weight_kg * 100) if b.total_weight_kg else 0
 
                     report_text = f"""
-# Environmental Report — Batch {b.batch_id}
+# Environmental Report — Batch {b.batch_number}
 
 **Generated:** {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M')}
 
 ## Batch Overview
-- **Batch ID:** {b.batch_id}
+- **Batch Number:** {b.batch_number}
 - **Category:** {b.waste_category}
 - **Source:** {b.source}
-- **Total Weight:** {b.total_weight_kg:.2f} kg
+- **Total Weight:** {(b.total_weight_kg or 0):.2f} kg
 - **Status:** {b.status}
 - **Received:** {b.received_date}
 
 ## Recovery Summary
-- **Total Recovered:** {total_rec:.2f} kg
+- **Total Recovered:** {total_rec:.3f} kg
 - **Recovery Rate:** {rec_rate:.1f}%
 - **Recovery Records:** {len(recs)}
 
 ## Materials Recovered
-{chr(10).join(f"- {r.material_name}: {r.quantity_kg:.3f} kg ({r.recovery_method})" for r in recs) or "None logged"}
+{chr(10).join(f"- {r.material_name}: {(r.recovered_quantity_g or 0) / 1000.0:.4f} kg ({r.recovery_method})" for r in recs) or "None logged"}
 
 ---
 *This report is for internal tracking purposes only. Figures are based on operational records.*
@@ -289,4 +277,4 @@ def _show_manual_summary():
 
     c1, c2 = st.columns(2)
     c1.metric("Total E-Waste", f"{sum(b.total_weight_kg or 0 for b in batches):.2f} kg")
-    c2.metric("Total Recovered", f"{sum(r.quantity_kg or 0 for r in records):.2f} kg")
+    c2.metric("Total Recovered", f"{sum((r.recovered_quantity_g or 0) / 1000.0 for r in records):.3f} kg")

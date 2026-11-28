@@ -1,10 +1,8 @@
-# ♻️ E-Waste AI — Streamlit Theme Configuration
-# This file configures Streamlit's built-in theme settings.
-# Custom CSS is injected via frontend/theme.py
-
+# E-Waste AI — Streamlit Theme Configuration
 [theme]
+base = "dark"
 primaryColor = "#C9A84C"
-backgroundColor = "#0A0A0A"
-secondaryBackgroundColor = "#141414"
-textColor = "#F2F2F2"
+backgroundColor = "#060709"
+secondaryBackgroundColor = "#101218"
+textColor = "#F4F4F6"
 font = "sans serif"

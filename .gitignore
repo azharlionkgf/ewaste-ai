@@ -68,6 +68,7 @@ database/ewaste_ai.db-shm
 database/ewaste_ai.db-wal
 database/*.db
 database/*.db-*
+database/backups/
 
 # Trained Models (large binary files)
 saved_models/checkpoints/*

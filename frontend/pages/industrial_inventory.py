@@ -93,7 +93,9 @@ def render_industrial_inventory():
         else:
             for b in batches:
                 sb = status_badge(b.status or "unknown", _status_color(b.status or ""))
-                with st.expander(f"📦 {b.batch_number} — {b.waste_category} — {b.total_weight_kg} kg  {sb}"):
+                status_icon = {"completed": "🟢", "rejected": "🔴", "processing": "🟡", "sorting": "🟠", "dismantling": "🟠"}.get((b.status or "").lower(), "🔵")
+                with st.expander(f"📦 {b.batch_number} — {b.waste_category} — {b.total_weight_kg} kg · {status_icon} {b.status or 'unknown'}"):
+                    st.markdown(sb, unsafe_allow_html=True)
                     c1, c2, c3 = st.columns(3)
                     c1.markdown(f"**Source:** {b.source}")
                     c1.markdown(f"**Category:** {b.waste_category}")
